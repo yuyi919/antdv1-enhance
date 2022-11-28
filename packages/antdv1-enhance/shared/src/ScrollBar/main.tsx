@@ -15,8 +15,8 @@ import {
 import { addResizeListener, removeResizeListener, useNamedRef } from "@yuyi919/vue-use";
 import { CSSProperties } from "@yuyi919/shared-types";
 import { castArray } from "@yuyi919/shared-utils";
-import { DomUtils, extractProps } from "@antv-plus2/helper";
-import { autoSizer } from "@antv-plus2/theme";
+import { DomUtils, extractProps } from "@yuyi919/antdv1-plus-helper";
+import { autoSizer } from "@yuyi919/antdv1-plus-theme";
 import { debounce, throttle } from "lodash";
 import { VNode } from "vue";
 import { Bar } from "./bar";

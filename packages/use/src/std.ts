@@ -131,7 +131,7 @@ export function useNamedRef<T>(name: string): Ref<T | null> & { name: string; re
   // 必须传递一个初始值null，否则会有意想不到的问题
   const refObj = shallowRef<any>(null);
   const update = () => {
-    const next = (context.refs[name] as T) || null;
+    const next = (context.proxy.$refs[name] as unknown as T) || null;
     if (next !== refObj.value) refObj.value = next;
   };
   const updateHook = () => (update(), nextTick(update));

@@ -1,20 +1,12 @@
 {
-  "extends": "tsconfig/web.json",
+  "extends": "@yuyi919/workspace-base-rig/profiles/esbuild/tsconfig-base.json",
   "compilerOptions": {
-    "baseUrl": "../..",
+    "rootDir": "./src",
+    "outDir": "dist",
     "jsx": "react-jsx",
     "jsxImportSource": "@yuyi919/vue-jsx-factory",
-    "module": "esnext",
-    "rootDir": "./src",
-    "strict": true,
-    "target": "ES2019"
+    "declarationDir": "types",
+    "strict": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.cjs.json"
-    }
-  ]
+  "include": ["src"]
 }

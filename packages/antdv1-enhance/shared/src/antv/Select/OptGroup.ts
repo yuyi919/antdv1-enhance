@@ -1,5 +1,5 @@
 /* eslint-disable no-redeclare */
-import { TypeTsxProps, VCProps, VueComponent2 } from "@antv-plus2/helper";
+import { TypeTsxProps, VCProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import {
   ISelectOptionGroupEvents,
   ISelectOptionGroupProps,

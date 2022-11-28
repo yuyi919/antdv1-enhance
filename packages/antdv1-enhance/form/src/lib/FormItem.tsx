@@ -1,12 +1,12 @@
 import { Types } from "@yuyi919/shared-types";
-import { getGridSpanStyle, useGridSpan } from "@antv-plus2/shared";
+import { getGridSpanStyle, useGridSpan } from "@yuyi919/antdv1-plus-shared";
 import { useEffect, useElementRect, useInherit, useNamedRef, useState } from "@yuyi919/vue-use";
 import { Icon, Popover, Tooltip } from "ant-design-vue";
 import { ComputedRef, computed, defineComponent } from "vue-demi";
 import { cls, usePrefixCls } from "../__builtins__";
 import { FormLayoutShallowContext, useFormLayout } from "./context";
 import { FormItemPropConfig, FormItemProps, useFormLayoutItemProps } from "./FormItemProps";
-import { VueComponent2 } from "@antv-plus2/helper";
+import { VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 
 export function useFormItemLayout(props: FormItemProps): ComputedRef<FormItemProps> {
   const layoutRef = useFormLayout();

@@ -1,4 +1,4 @@
-import type { VueComponent2 } from "@antv-plus2/helper";
+import type { VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { TThemeProps } from "./provider";
 
 export type PlainTemplateArgs<TProps, Theme> = (

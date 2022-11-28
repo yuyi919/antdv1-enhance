@@ -2,7 +2,7 @@ import { computed, defineComponent, reactive } from "vue-demi";
 import { useInherit } from "@yuyi919/vue-use";
 import { IColProps, Modal as AntModal } from "ant-design-vue";
 import { pick } from "lodash";
-import { extractProps, VueComponent2 } from "@antv-plus2/helper";
+import { extractProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { GridWatcher } from "../GridWatcher";
 import { useContentRender } from "../hooks";
 import { INormalizeModalProps, NormalizeModalProps } from "../NormalizeModalProps";

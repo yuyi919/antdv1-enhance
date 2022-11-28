@@ -4,7 +4,7 @@
 import { computed, ComputedRef, defineComponent, PropType, reactive, Ref } from "vue-demi";
 import { unwrap } from "@yuyi919/vue-use";
 import { KeyOf, Types, WrapValue } from "@yuyi919/shared-types";
-import type { VueClass } from "@antv-plus2/helper";
+import type { VueClass } from "@yuyi919/antdv1-plus-helper";
 import { createBEM } from "../classes";
 import { Theme, ThemeProps, useTheme } from "../styled";
 // import { componentGetter } from "../exports/component";

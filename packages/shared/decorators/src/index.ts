@@ -21,9 +21,13 @@ export type TypedPropsGroup<T> = {
 
 export const UNSAFE_STORE_PROPS_KEY = "@props";
 const UNSAFE_WALKER = () => null;
-export function extractProps<T>(target: Types.Consturctor<T>): TypedPropsGroup<T> {
+export function extractProps<T>(
+  target: Types.Consturctor<T>,
+): TypedPropsGroup<T> {
   if (target instanceof Vue) {
-    return ((target as any).options as ComponentOptions<any, any, any, any, any>).props;
+    return (
+      (target as any).options as ComponentOptions<any, any, any, any, any>
+    ).props;
   }
   // console.log(target.props);
   return target[UNSAFE_STORE_PROPS_KEY as unknown as string] ?? target.props;
@@ -34,8 +38,8 @@ export type WalkHandler<T, R extends T> = (
   walker: (
     propName: keyof T,
     propValue: T[keyof T] | undefined | null,
-    options: ITypedPropOptions<any, boolean>
-  ) => any
+    options: ITypedPropOptions<any, boolean>,
+  ) => any,
 ) => R;
 
 /**
@@ -52,9 +56,12 @@ export type WalkHandler<T, R extends T> = (
  */
 export function extractUnsafeProps<T, R extends T>(
   target: Types.Consturctor<T>,
-  configure?: (props: T) => R
+  configure?: (props: T) => R,
 ): readonly [TypedPropsGroup<T>, WalkHandler<T, R>] {
-  const propDefinitions = extractPropsWith(target, UNSAFE_WALKER) as TypedPropsGroup<T>;
+  const propDefinitions = extractPropsWith(
+    target,
+    UNSAFE_WALKER,
+  ) as TypedPropsGroup<T>;
   // console.log(target.props);
   const extractor = createPropExtractor<T, R>(extractProps(target), configure);
   return [
@@ -65,11 +72,11 @@ export function extractUnsafeProps<T, R extends T>(
       walker: (
         propName: keyof T,
         propValue: T[typeof propName] | undefined | null,
-        options: ITypedPropOptions<any, boolean>
-      ) => any
+        options: ITypedPropOptions<any, boolean>,
+      ) => any,
     ) => {
       return extractor(props, walker) as R;
-    }
+    },
   ];
 }
 
@@ -82,32 +89,37 @@ export function extractUnsafeProps<T, R extends T>(
  * @param type -
  */
 const _isSimpleType = (type: any): boolean => {
-  if (type instanceof Array && type.length > 0) return type.every(_isSimpleType);
-  return [Boolean, Number, String, Function, null, void 0, false].includes(type);
+  if (type instanceof Array && type.length > 0)
+    return type.every(_isSimpleType);
+  return [Boolean, Number, String, Function, null, void 0, false].includes(
+    type,
+  );
 };
 export function createPropExtractor<T, R extends T>(
   source: TypedPropsGroup<T>,
-  configure?: (props: T) => R
+  configure?: (props: T) => R,
 ) {
   return (
     props: Partial<T>,
     walker: (
       propName: keyof T,
       propValue: T[typeof propName] | undefined | null,
-      options: ITypedPropOptions<any, boolean>
-    ) => any
+      options: ITypedPropOptions<any, boolean>,
+    ) => any,
   ): R => {
     const p = {} as T;
     // eslint-disable-next-line guard-for-in
     for (const key in source) {
-      const options = ((source[key] instanceof Function ? { type: source[key] } : source[key]) ||
-        {}) as ITypedPropOptions<any, boolean>;
+      const options = ((source[key] instanceof Function
+        ? { type: source[key] }
+        : source[key]) || {}) as ITypedPropOptions<any, boolean>;
       const resolve = walker(key, props[key]!, options);
       const isSimpleType = _isSimpleType(options.type);
       if (isSimpleType) {
         p[key] = resolve ?? options.default;
       } else {
-        p[key] = resolve || ("default" in options && options.default()) || void 0;
+        p[key] =
+          resolve || ("default" in options && options.default()) || void 0;
       }
     }
     return configure ? configure(p) : (p as unknown as R);
@@ -116,9 +128,10 @@ export function createPropExtractor<T, R extends T>(
 
 export function extractPropsWith<T>(
   target: Types.Consturctor<T>,
-  walker?: (type: any, key: keyof T) => any
+  walker?: (type: any, key: keyof T) => any,
 ): TypedPropsGroup<T> {
-  const source: TypedPropsGroup<T> = target[UNSAFE_STORE_PROPS_KEY as unknown as string];
+  const source: TypedPropsGroup<T> =
+    target[UNSAFE_STORE_PROPS_KEY as unknown as string];
   if (!walker) return source;
   const p = {} as TypedPropsGroup<T>;
   // eslint-disable-next-line guard-for-in
@@ -132,7 +145,7 @@ export function Prop<Required extends boolean>(
     | null
     | ITypedPropOptions<any, Required>
     | Types.Consturctor<any>[]
-    | Types.Consturctor<any>
+    | Types.Consturctor<any>,
 ) {
   return (target: any, key: string) => {
     // console.log("collect prop", target?.constructor?.name, key);
@@ -167,7 +180,7 @@ export function Component(options?: any) {
         console.debug("collect props", target?.name, props, target);
         return { ...other, props };
       },
-      enumerable: false
+      enumerable: false,
     });
   };
 }
@@ -177,28 +190,30 @@ export { PropTypes, initDefaultProps };
 /**
  * @param ctorA -
  */
-export function MergeProps<A>(ctorA: Types.ConstructorType<A>): Types.ConstructorType<A>;
+export function MergeProps<A>(
+  ctorA: Types.ConstructorType<A>,
+): Types.ConstructorType<A>;
 export function MergeProps<A, B>(
   ctorA: Types.ConstructorType<A>,
-  ctorB: Types.ConstructorType<B>
+  ctorB: Types.ConstructorType<B>,
 ): Types.ConstructorType<A & B>;
 export function MergeProps<A, B, C>(
   ctorA: Types.ConstructorType<A>,
   ctorB: Types.ConstructorType<B>,
-  ctorC: Types.ConstructorType<C>
+  ctorC: Types.ConstructorType<C>,
 ): Types.ConstructorType<A & B & C>;
 export function MergeProps<A, B, C, D>(
   ctorA: Types.ConstructorType<A>,
   ctorB: Types.ConstructorType<B>,
   ctorC: Types.ConstructorType<C>,
-  ctorD: Types.ConstructorType<D>
+  ctorD: Types.ConstructorType<D>,
 ): Types.ConstructorType<A & B & C & D>;
 export function MergeProps<A, B, C, D, E>(
   ctorA: Types.ConstructorType<A>,
   ctorB: Types.ConstructorType<B>,
   ctorC: Types.ConstructorType<C>,
   ctorD: Types.ConstructorType<D>,
-  ctorE: Types.ConstructorType<E>
+  ctorE: Types.ConstructorType<E>,
 ): Types.ConstructorType<A & B & C & D & E>;
 
 export function MergeProps(...ctors: Types.ConstructorType<any>[]) {
@@ -206,6 +221,6 @@ export function MergeProps(...ctors: Types.ConstructorType<any>[]) {
   return Vue.extend({
     mixins: ctors.map((props) => {
       return { props: extractProps(props) };
-    })
+    }),
   }) as any;
 }

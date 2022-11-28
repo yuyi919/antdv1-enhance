@@ -1,6 +1,6 @@
-import { DomUtils, extractProps, initDefaultProps } from "@antv-plus2/helper";
-import { NativeScrollbarMixins } from "@antv-plus2/shared";
-import { createUseClasses, styled } from "@antv-plus2/theme";
+import { DomUtils, extractProps, initDefaultProps } from "@yuyi919/antdv1-plus-helper";
+import { NativeScrollbarMixins } from "@yuyi919/antdv1-plus-shared";
+import { createUseClasses, styled } from "@yuyi919/antdv1-plus-theme";
 import { createContext } from "@yuyi919/vue-use";
 import {
   computed,

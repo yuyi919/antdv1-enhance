@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineComponent } from "vue-demi";
-import { extractProps, VueComponent2 } from "@antv-plus2/helper";
+import { extractProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { InheritHooks, useInherit, useNamedRef } from "@yuyi919/vue-use";
 import { Button as AntButton } from "ant-design-vue";
 import { HintFlag } from "../HintFlag";

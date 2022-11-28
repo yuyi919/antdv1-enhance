@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { computed, defineComponent, getCurrentInstance, reactive, watch } from "vue-demi";
 import { useElementRect, useInherit, useNamedRef } from "@yuyi919/vue-use";
-import { autoSizer, styled } from "@antv-plus2/theme";
+import { autoSizer, styled } from "@yuyi919/antdv1-plus-theme";
 
 interface IAutoSizerProps {
   nowrap?: boolean;

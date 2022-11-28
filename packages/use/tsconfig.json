@@ -1,8 +1,10 @@
 {
   "extends": "tsconfig/web.json",
   "compilerOptions": {
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "strict": false
   },
+  "include": [],
   "references": [
     {
       "path": "./tsconfig.lib.json"

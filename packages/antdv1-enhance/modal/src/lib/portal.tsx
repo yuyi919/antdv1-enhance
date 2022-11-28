@@ -2,12 +2,12 @@ import { unwrap, useComponentLoader, useLoader } from "@yuyi919/vue-use";
 import { defineComponent, computed, onMounted, reactive, watch, PropType } from "vue-demi";
 import { defaultsDeep, isEqual } from "lodash";
 import Vue, { VNode, CreateElement } from "vue";
-import { ActionType, IActionConfig, ICallableActionConfig } from "@antv-plus2/action";
+import { ActionType, IActionConfig, ICallableActionConfig } from "@yuyi919/antdv1-plus-action";
 import { IModalAction, ModalContext } from "./context";
 import { IModalProps } from "./props";
 import { castComputed } from "@yuyi919/shared-utils";
 import { IModalOptionsAdapter } from "./utils";
-import { ButtonProps } from "@antv-plus2/shared";
+import { ButtonProps } from "@yuyi919/antdv1-plus-shared";
 
 export interface IPortalModalOptions
   extends Omit<IModalProps, "okButtonProps" | "cancelButtonProps">,

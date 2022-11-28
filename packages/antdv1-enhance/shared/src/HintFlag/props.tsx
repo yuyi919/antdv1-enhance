@@ -1,4 +1,4 @@
-import { Component, Prop } from "@antv-plus2/helper";
+import { Component, Prop } from "@yuyi919/antdv1-plus-helper";
 import { AntPopoverProps } from "../antv";
 import { ThemedIcon } from "../Icon";
 

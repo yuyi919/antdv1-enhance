@@ -1,7 +1,7 @@
 /* eslint-disable no-redeclare */
 import { Tree as AntTree } from "ant-design-vue";
 import { TreeNodeValue } from "ant-design-vue/types/tree-select";
-import { VCProps, VueComponent2 } from "@antv-plus2/helper";
+import { VCProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { TreeNode } from "./TreeNode";
 
 export interface ITreeProps extends Omit<VCProps<AntTree, false>, "blur" | "focus"> {}

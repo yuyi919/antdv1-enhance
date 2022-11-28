@@ -1,4 +1,4 @@
-import { Component, Prop } from "@antv-plus2/helper";
+import { Component, Prop } from "@yuyi919/antdv1-plus-helper";
 
 @Component()
 export class LayoutItemProps {

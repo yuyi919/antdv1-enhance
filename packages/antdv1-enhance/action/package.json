@@ -6,7 +6,7 @@
   "author": "",
   "main": "dist/index.js",
   "module": "lib/index.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "lib",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",
+    "@yuyi919/antdv1-plus-shared": "workspace:0.0.1",
     "@yuyi919/vue-jsx-factory": "workspace:0.0.7",
     "@yuyi919/vue-use": "workspace:0.0.9",
     "lodash": "4.17.21",
@@ -30,8 +31,11 @@
     "@types/node": "~16.7.2",
     "@yuyi919/shared-types": "0.0.11",
     "@yuyi919/shared-utils": "0.0.43",
+    "@yuyi919/vue-jsx-factory": "workspace:*",
+    "ant-design-vue": "^1.7.8",
     "jest": "~27.1.0",
     "tslib": "~2.3.1",
+    "tsup-config": "workspace:*",
     "typescript": "4.5.5",
     "vue": "~2.7.14",
     "vue-demi": "~0.13.11"

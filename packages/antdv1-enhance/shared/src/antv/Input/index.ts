@@ -1,5 +1,5 @@
 import { Input, IInputPublicMembers, IInputProps, IInputEvents } from "ant-design-vue";
-import { TypeTsxProps, VCProps } from "@antv-plus2/helper";
+import { TypeTsxProps, VCProps } from "@yuyi919/antdv1-plus-helper";
 
 declare module "ant-design-vue/types/ant-design-vue.d" {
   export interface IInputProps extends Omit<VCProps<Input, false>, "blur" | "focus"> {

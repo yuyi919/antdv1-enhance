@@ -6,7 +6,7 @@ import {
   useNamedRef,
   WrapValue,
 } from "@yuyi919/vue-use";
-import { extractProps } from "@antv-plus2/helper";
+import { extractProps } from "@yuyi919/antdv1-plus-helper";
 import { computed, defineComponent, reactive, watchEffect } from "vue-demi";
 import { GridCore } from "./grid";
 import { GridProps, ResolvedGridProps } from "./Props";

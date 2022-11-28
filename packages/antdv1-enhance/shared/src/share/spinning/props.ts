@@ -1,4 +1,4 @@
-import { Component, Prop, PropProvider } from "@antv-plus2/helper";
+import { Component, Prop, PropProvider } from "@yuyi919/antdv1-plus-helper";
 
 @Component({})
 export class SpinningProps extends PropProvider<SpinningProps> {

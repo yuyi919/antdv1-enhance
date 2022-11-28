@@ -106,7 +106,8 @@ if (process.env.NODE_ENV === "test") {
           if (!value && value !== oldValue) {
             nextTick(() => {
               if (attrs.onAfterLeave) {
-                (attrs as any).onAfterLeave(instance.vnode.elm);
+                //@ts-ignore
+                (attrs as any).onAfterLeave(instance!.vnode!.elm);
               }
             });
           }
@@ -117,6 +118,7 @@ if (process.env.NODE_ENV === "test") {
       };
     },
   }) as any;
+  //@ts-ignore
   TransitionGroup = defineComponent({
     name: "TransitionGroupForTest",
     inheritAttrs: false,

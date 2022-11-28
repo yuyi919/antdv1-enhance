@@ -5,15 +5,15 @@
   "description": "",
   "author": "",
   "main": "dist/index.js",
-  "module": "lib/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.esm.js",
+  "types": "lib/index.d.ts",
   "files": [
     "dist",
     "lib",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc --build --force",
+    "build": "tsc --build",
     "build:dev": "tsc --build",
     "build:watch": "tsc --build --watch",
     "dev": "tsc --build --watch"
@@ -30,7 +30,9 @@
     "@types/node": "~16.7.2",
     "@yuyi919/shared-types": "0.0.11",
     "@yuyi919/shared-utils": "^0.0.43",
+    "ant-design-vue": "^1.7.8",
     "jest": "~27.1.0",
+    "tsup-config": "workspace:*",
     "typescript": "4.5.5",
     "vue": "~2.7.14",
     "vue-demi": "~0.13.11"

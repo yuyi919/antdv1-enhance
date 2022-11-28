@@ -6,7 +6,7 @@ import { castComputed, castObject, expect$ } from "@yuyi919/shared-utils";
 import { cloneDeep, defaults, defaultsDeep, merge } from "lodash";
 import Vue, { VNode, VNodeChildren, VueConstructor } from "vue";
 import { getCurrentInstance } from "vue-demi";
-import { isVueComponent, VueComponent2 } from "@antv-plus2/helper";
+import { isVueComponent, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import type { ConfirmOptions } from "./confirm";
 import { IModalAction, InnerModalContext } from "./context";
 import { createProtalModal, IPortalModalOptions } from "./portal";

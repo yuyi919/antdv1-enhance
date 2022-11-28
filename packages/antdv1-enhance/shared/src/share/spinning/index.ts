@@ -1,6 +1,6 @@
 import { convertArr2Map } from "@yuyi919/shared-utils";
 import type { IKeyValueMap } from "@yuyi919/shared-types";
-import { HookFactory, useHookFactory } from "@antv-plus2/helper";
+import { HookFactory, useHookFactory } from "@yuyi919/antdv1-plus-helper";
 import { watch, SetupContext } from "vue-demi";
 import { SpinningProps } from "./props";
 

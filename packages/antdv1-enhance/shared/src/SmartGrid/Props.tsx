@@ -1,5 +1,5 @@
 import { RequiredTo, Types } from "@yuyi919/shared-types";
-import { Component, Prop } from "@antv-plus2/helper";
+import { Component, Prop } from "@yuyi919/antdv1-plus-helper";
 
 const SM = 720;
 const MD = 1280;

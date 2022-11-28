@@ -1,9 +1,9 @@
 import { computed, defineComponent, ref } from "vue-demi";
 import { useInherit, useNamedRef } from "@yuyi919/vue-use";
-import { extractProps, useSlot } from "@antv-plus2/helper";
+import { extractProps, useSlot } from "@yuyi919/antdv1-plus-helper";
 import { IColProps } from "ant-design-vue";
 import { pick } from "lodash";
-import { ActionGroup, ActionType, IActionConfig } from "@antv-plus2/action";
+import { ActionGroup, ActionType, IActionConfig } from "@yuyi919/antdv1-plus-action";
 import { NormalizeModalPlacement } from "./NormalizeModalProps";
 import { NormlizeDrawer } from "./NormlizeDrawer";
 import { NormlizeModal } from "./NormlizeModal";

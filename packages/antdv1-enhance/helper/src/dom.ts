@@ -4,6 +4,7 @@ export const on: {
   (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions): void;
   (element: HTMLElement | Document, event: string, handler: (e: any) => void, options?: boolean | AddEventListenerOptions): void;
 } = (() => {
+  //@ts-ignore
   if (!isServer && document.addEventListener) {
     return function (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions) {
       if (element && event && handler) {
@@ -24,6 +25,7 @@ export const off: {
   (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions): void;
   (element: HTMLElement | Document, event: string, handler: (e: any) => void, options?: boolean | AddEventListenerOptions): void;
 } = (() => {
+  //@ts-ignore
   if (!isServer && document.removeEventListener) {
     return function (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions) {
       if (element && event) {
@@ -136,9 +138,8 @@ export function switchScrollingEffect(close?: boolean) {
   }
 }
 export function contains(root: Node | null | undefined, n?: Node) {
-  if (!root) {
+  if (!root || !n) {
     return false;
   }
-
-  return root.contains(n);
+  return root.contains(n!);
 }

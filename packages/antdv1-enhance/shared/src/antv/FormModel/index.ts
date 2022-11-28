@@ -1,7 +1,7 @@
 /* eslint-disable no-redeclare */
 // @ts-nocheck
 import { FormModel as AntFormModel } from "ant-design-vue";
-import { VCProps, VueComponent2 } from "@antv-plus2/helper";
+import { VCProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { IColProps } from "../Grid";
 
 export interface IFormModelItemProps

@@ -1,1 +1,1 @@
-export * from "@antv-plus2/shared";
+export * from "@yuyi919/antdv1-plus-shared";

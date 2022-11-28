@@ -1,5 +1,5 @@
 /* eslint-disable no-redeclare */
-import { getPropsClass, TypeTsxProps, VCProps, VueComponent2 } from "@antv-plus2/helper";
+import { getPropsClass, TypeTsxProps, VCProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { CSSProperties } from "@yuyi919/shared-types";
 import {
   ISelectPublicMembers,

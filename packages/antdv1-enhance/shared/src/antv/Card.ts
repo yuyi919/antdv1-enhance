@@ -1,7 +1,7 @@
 /* eslint-disable no-redeclare */
 // @ts-nocheck
 import { Card as AntCard } from "ant-design-vue";
-import { VCProps, VueComponent2 } from "@antv-plus2/helper";
+import { VCProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 
 export interface ICardProps extends VCProps<AntCard, false> {}
 export interface ICardEvents {}

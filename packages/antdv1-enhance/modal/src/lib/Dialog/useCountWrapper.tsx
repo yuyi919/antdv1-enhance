@@ -1,5 +1,5 @@
 import { CSSProperties } from "@yuyi919/shared-types";
-import { DomUtils } from "@antv-plus2/helper";
+import { DomUtils } from "@yuyi919/antdv1-plus-helper";
 // @ts-ignore
 import Portal from "ant-design-vue/es/_util/Portal";
 // import Portal from './Portal';

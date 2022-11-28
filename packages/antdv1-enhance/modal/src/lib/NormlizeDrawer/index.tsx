@@ -1,4 +1,4 @@
-import { extractProps, TypedPropsGroup, VueComponent2 } from "@antv-plus2/helper";
+import { extractProps, TypedPropsGroup, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { useChildren, useInherit, useNamedRef, useQuerySelector } from "@yuyi919/vue-use";
 import { Drawer, IDrawerProps } from "ant-design-vue";
 import {
@@ -10,7 +10,7 @@ import {
   reactive,
   watch,
 } from "vue-demi";
-import { AutoSizer, AutoSizerAction } from "@antv-plus2/shared";
+import { AutoSizer, AutoSizerAction } from "@yuyi919/antdv1-plus-shared";
 import { InnerModalContext } from "../context";
 import { useContentRender } from "../hooks";
 import { INormalizeModalProps, NormalizeModalProps } from "../NormalizeModalProps";

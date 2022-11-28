@@ -1,4 +1,4 @@
-import { PropTypes } from "@antv-plus2/helper";
+import { PropTypes } from "@yuyi919/antdv1-plus-helper";
 import { defineComponent } from "vue-demi";
 
 export const LazyRenderBox = defineComponent({

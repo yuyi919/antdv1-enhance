@@ -4,7 +4,7 @@
   "compilerOptions": {
     "composite": true,
     "incremental": true,
-    "target": "es5",
+    "target": "es6",
     "allowJs": true,
     "outDir": "dist",
     "skipLibCheck": true,

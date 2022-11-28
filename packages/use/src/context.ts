@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { provide, inject } from "vue-demi";
 // import type { Component } from "@type-helper/vue3";
-import type { Component } from "@type-helper/vue2";
+import type { DefineComponent as Component } from "vue";
 
 export type ContextFactoryManager<T> = {
   provide<PT extends T>(target: PT): PT;

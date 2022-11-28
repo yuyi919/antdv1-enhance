@@ -1,4 +1,4 @@
-import { getPropsClass, ResolveSubModule, TypeTsxProps, VCProps } from "@antv-plus2/helper";
+import { getPropsClass, ResolveSubModule, TypeTsxProps, VCProps } from "@yuyi919/antdv1-plus-helper";
 import {
   Button,
   IButtonEvents,

@@ -7,7 +7,7 @@
     "module": "esnext",
     "tsBuildInfoFile": "../../../../../temp/.tsbuildinfo",
     "emitDeclarationOnly": true,
-    "types": ["heft-jest", "node"]
+    "types": ["node"]
   },
   "include": ["../../../../../src/**/*.ts", "../../../../../src/**/*.tsx"]
 }

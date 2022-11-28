@@ -1,7 +1,7 @@
 // import { Scrollbar } from "@project/components-shared";
 import { useElementRect, useQuerySelector, useWindowSize } from "@yuyi919/vue-use";
 import { computed } from "vue-demi";
-import { Scrollbar } from "@antv-plus2/shared";
+import { Scrollbar } from "@yuyi919/antdv1-plus-shared";
 import { INormalizeModalProps } from "./NormalizeModalProps";
 
 export function useContentRender(

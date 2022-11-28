@@ -15,7 +15,10 @@ export const tsupConfig: Options = defineConfig({
   minifyIdentifiers: false,
   minifySyntax: false,
   platform: "browser",
-  // noExternal: ["lodash"],
+  noExternal: ["lodash"],
+  esbuildOptions: options => {
+    options.jsxImportSource
+  },
   // treeshake: true,
   // onSuccess: "npm run bulid:api",
   // name: "logger",
@@ -23,7 +26,7 @@ export const tsupConfig: Options = defineConfig({
   plugins: [],
   esbuildPlugins: [
     EsbuildPluginAlias({
-      lodash: require.resolve("lodash-es"),
+      lodash: require.resolve("../../../node_modules/lodash-es"),
       // "@yuyi919/shared-types": require.resolve(
       //   "@yuyi919/shared-types/src/index.ts",
       //   {
@@ -33,5 +36,6 @@ export const tsupConfig: Options = defineConfig({
     }),
   ],
 }) as Options;
+
 
 export { defineConfig };

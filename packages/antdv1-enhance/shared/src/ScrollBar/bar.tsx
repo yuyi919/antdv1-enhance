@@ -13,7 +13,7 @@ import {
   watch,
 } from "vue-demi";
 import { unwrap, useComponentEl, useNamedRef, WrapValue } from "@yuyi919/vue-use";
-import { DomUtils, TypedPropsGroup } from "@antv-plus2/helper";
+import { DomUtils, TypedPropsGroup } from "@yuyi919/antdv1-plus-helper";
 import { throttle } from "lodash";
 import { useBarClasses } from "./classes";
 import { getScrollMoveInstance } from "./main";

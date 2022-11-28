@@ -1,4 +1,4 @@
-import { getTransitionProps, Transition } from "@antv-plus2/helper";
+import { getTransitionProps, Transition } from "@yuyi919/antdv1-plus-helper";
 import { defineComponent } from "vue-demi";
 import { LazyRenderBox } from "../LazyRenderBox";
 

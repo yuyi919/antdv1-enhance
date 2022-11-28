@@ -4,7 +4,7 @@
 import { defineComponent, reactive } from "vue-demi";
 import { createUseStyles } from "@yuyi919/vue-jss";
 import { useNamedRef } from "@yuyi919/vue-use";
-import { extractProps } from "@antv-plus2/helper";
+import { extractProps } from "@yuyi919/antdv1-plus-helper";
 import { Popover } from "ant-design-vue";
 import { HintFlagProps } from "./props";
 

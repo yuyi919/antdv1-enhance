@@ -2,15 +2,19 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["_build", "generate", "^build"],
-      "outputs": ["dist/**", ".next/**", "lib/**"]
+      "dependsOn": ["build:notype", "generate", "^build"],
+      "outputs": ["dist/**", ".next/**", "lib/**", ".heft"]
     },
     "generate": {
       "dependsOn": ["^generate"],
       "outputs": ["dist/**", "generated/**", "src/**/*.gen.ts", "lib/**"]
     },
-    "_build": {
-      "dependsOn": ["^_build"],
+    "build:notype": {
+      "dependsOn": ["build:pre", "^build:notype"],
+      "outputs": ["dist/**", "out/**", "lib/**"]
+    },
+    "build:pre": {
+      "dependsOn": ["^build:pre"],
       "outputs": ["dist/**", "out/**", "lib/**"]
     },
     "clean": {
