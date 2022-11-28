@@ -1,0 +1,13 @@
+{
+  "name": "tsup-config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [],
+  "dependencies": {
+    "esbuild-plugin-alias": "^0.2.1",
+    "tsup": "^6.5.0"
+  }
+}

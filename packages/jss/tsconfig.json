@@ -1,0 +1,18 @@
+{
+  "extends": "tsconfig/web.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {},
+    "strict": false
+  },
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.cjs.json"
+    }
+  ]
+}

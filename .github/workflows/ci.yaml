@@ -1,0 +1,64 @@
+name: ci
+on:
+  workflow_dispatch:
+    inputs:
+      UseTurboCache:
+        description: "使用turbo的缓存"
+        required: true
+        default: true
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ["16"]
+        os: [ubuntu-latest]
+    name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Workspace
+        uses: ./.github/action/pnpm
+        with:
+          run-install: true
+      - run: pnpm test
+
+  changeset:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache turbo
+        uses: actions/cache@v3
+        if: |
+          github.event_name == 'push' || 
+          github.event.inputs.UseTurboCache == 'true'
+        with:
+          path: node_modules/.cache/turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+      - name: Setup Workspace
+        uses: ./.github/action/pnpm
+        with:
+          run-install: true
+      - name: Create Release
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Check Publish
+        if: steps.changesets.outputs.published == 'true'
+        run: echo "A new version of ${GITHUB_REPOSITORY} was published!"
+

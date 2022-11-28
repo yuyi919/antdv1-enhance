@@ -1,0 +1,23 @@
+{
+  "extends": "tsconfig/web.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "disableSolutionSearching": false,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "strict": true
+  },
+  "references": [
+    {
+      "path": "../../../use"
+    },
+    {
+      "path": "../helper"
+    },
+    {
+      "path": "../../../jsx-factory"
+    }
+  ],
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+}

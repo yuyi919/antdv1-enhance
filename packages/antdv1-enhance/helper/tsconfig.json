@@ -1,0 +1,18 @@
+{
+  "extends": "tsconfig/web.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "preserveSymlinks": true
+  },
+  "references": [
+    {
+      "path": "../../../shared/decorators"
+    },
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.cjs.json"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+node_modules
+**/__snapshots__
+**/__image_snapshots__
+**/*.d.ts
+**/dist
+pnpm-lock.yaml

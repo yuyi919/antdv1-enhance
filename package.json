@@ -1,0 +1,54 @@
+{
+  "name": "antdv1-enhance",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "build:dts": "turbo run build:dts",
+    "change": "changeset",
+    "clean": "rimraf **/.{turbo,rush} **/temp **/.rush-logs && turbo run clean",
+    "clean:force": "pnpm clean && rimraf ./node_modules/.cache",
+    "dev": "turbo run dev --parallel",
+    "dev:web": "turbo run dev --filter web --parallel",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "lint": "turbo run lint",
+    "prepare": "husky install",
+    "publish": "changeset publish",
+    "release": "turbo run build --filter @advscript/*",
+    "test": "turbo run test",
+    "version": "changeset version"
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "src/**/*.{ts,tsx}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.7",
+    "@changesets/cli": "^2.25.2",
+    "@types/lodash": "^4.14.186",
+    "@types/node": "~16.7.13",
+    "@yuyi919/workspace-base-rig": "workspace:1.2.11",
+    "eslint-config-custom": "workspace:*",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "lodash-es": "^4.17.21",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.0.0",
+    "prettier-plugin-packagejson": "^2.2.18",
+    "rimraf": "^3.0.2",
+    "tsconfig": "workspace:*",
+    "tsup-config": "workspace:*",
+    "turbo": "^1.6.3",
+    "typescript": "^4.5.2",
+    "vite": "^3.1.7",
+    "vitest": "^0.24.1"
+  },
+  "packageManager": "pnpm@7.9.0",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

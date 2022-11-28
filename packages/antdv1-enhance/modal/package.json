@@ -1,0 +1,48 @@
+{
+  "name": "@yuyi919/antdv1-plus-modal",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "author": "",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc --build --force",
+    "build:dev": "tsc --build",
+    "build:watch": "tsc --build --watch",
+    "dev": "tsc --build --watch"
+  },
+  "dependencies": {
+    "@yuyi919/antdv1-plus-action": "workspace:0.0.1",
+    "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",
+    "@yuyi919/antdv1-plus-shared": "workspace:0.0.1",
+    "@yuyi919/antdv1-plus-theme": "workspace:0.0.1",
+    "@yuyi919/vue-use": "workspace:0.0.9",
+    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
+    "tslib": "~2.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "~27.0.1",
+    "@types/node": "~16.7.2",
+    "@yuyi919/shared-types": "0.0.11",
+    "@yuyi919/shared-utils": "0.0.43",
+    "jest": "~27.1.0",
+    "tslib": "~2.3.1",
+    "typescript": "4.5.5",
+    "vue": "~2.7.14",
+    "vue-demi": "~0.13.11"
+  },
+  "peerDependencies": {
+    "vue": "~2.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

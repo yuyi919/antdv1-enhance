@@ -1,0 +1,9 @@
+/lib
+/dist
+/temp
+/node_modules
+/.rush
+*.log
+.tsBuildInfo
+/jsx-runtime-es
+/jsx-runtime

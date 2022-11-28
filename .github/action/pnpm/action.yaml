@@ -1,0 +1,31 @@
+# https://docs.github.com/en/actions/creating-actions/creating-a-composite-run-steps-action
+name: Setup Workspace
+inputs:
+  node-version:
+    required: true
+    default: 16
+  registry-url:
+    required: true
+    default: "https://registry.npmjs.org"
+  pnpm-version:
+    required: true
+    default: 7
+  run-install:
+    required: true
+    default: true
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v2
+      with:
+        version: ${{ inputs.pnpm-version }}
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+        registry-url: ${{ inputs.registry-url }}
+        cache: "pnpm"
+
+    - run: pnpm install --frozen-lockfile
+      shell: bash
+      if: ${{ inputs.run-install == 'true' }}

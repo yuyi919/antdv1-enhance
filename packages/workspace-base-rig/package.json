@@ -1,0 +1,42 @@
+{
+  "name": "@yuyi919/workspace-base-rig",
+  "version": "1.2.11",
+  "description": "A rig package for Node.js projects that build using Heft or ESBuild",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/rushstack/tree/master/rigs/heft-node-rig"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "profiles",
+    "tsdoc.json",
+    "jest.preset.js",
+    "lib",
+    "dist",
+    "README"
+  ],
+  "scripts": {
+    "_phase:build": "heft build",
+    "build": "heft build",
+    "build:dev": "heft build",
+    "build:watch": "heft build --watch",
+    "dev": "heft build --watch",
+    "test": "heft test",
+    "test:watch": "heft test --watch"
+  },
+  "dependencies": {
+    "@microsoft/api-extractor": "~7.28.2",
+    "@microsoft/rush-lib": "~5.62.4",
+    "@rushstack/eslint-config": "~2.6.0",
+    "@rushstack/heft": "^0.44.2",
+    "@rushstack/heft-jest-plugin": "0.1.21",
+    "typescript": "~4.6.2"
+  },
+  "devDependencies": {
+    "@types/heft-jest": "1.0.2",
+    "@types/node": "~16.7.2"
+  }
+}
