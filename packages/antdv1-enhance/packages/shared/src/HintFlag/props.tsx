@@ -45,7 +45,7 @@ export class HintFlagProps extends AntPopoverProps {
    * 提示图标
    */
   @Prop({
-    type: Object,
+    type: Function,
     default() {
       return <ThemedIcon type="question-circle-o" />;
     },

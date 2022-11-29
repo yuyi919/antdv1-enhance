@@ -5,7 +5,7 @@
   "description": "",
   "author": "",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "esm/index.js",
   "types": "types/index.d.ts",
   "files": [
     "dist",
@@ -13,13 +13,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "heft build --clean",
-    "build:dev": "heft build",
-    "build:watch": "heft build --watch",
-    "clean": "heft clean",
-    "dev": "heft build --watch",
-    "test": "heft test",
-    "test:watch": "heft test --watch"
+    "build": "tsc --build",
+    "build:notype": "tsup",
+    "dev": "tsup --watch --onSuccess \"pnpm build\""
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",

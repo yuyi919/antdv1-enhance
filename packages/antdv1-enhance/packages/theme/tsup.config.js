@@ -5,9 +5,15 @@ import {
 } from "tsup-config";
 
 export default defineBundlessConfig(
-  ["src/**/*.ts(x|)", "!src/**/*.(spec|test).*", "src/**/__test__/**"],
+  [
+    "src/**",
+    "!src/**/*.less",
+    "!src/**/*.(spec|test).*",
+    "!src/**/*.d.ts",
+    "!src/**/__test__/**",
+  ],
   {
     ...defineComponentConfig(tsupConfig),
-    treeshake: "smallest"
+    treeshake: "smallest",
   },
 );

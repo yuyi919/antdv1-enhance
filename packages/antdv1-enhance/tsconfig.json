@@ -5,7 +5,9 @@
     "jsx": "react-jsx",
     "jsxImportSource": "@yuyi919/vue-jsx-factory",
     "module": "esnext",
-    "rootDir": ".",
+    "target": "es2020",
+    "useDefineForClassFields": false,
+    "rootDirs": ["./src", "./playground"],
     "baseUrl": ".",
     "paths": {
       "@yuyi919/antdv1-plus-action": ["./packages/action/src/index.ts"],

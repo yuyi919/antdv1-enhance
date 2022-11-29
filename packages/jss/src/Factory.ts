@@ -240,7 +240,7 @@ for (let i = 0; i < 3; i++) {
   const hooks = createStyleHooks({ size });
   hooks.init(theme, {});
   hooks.update({ size: size++ });
-  console.log(hooks.getClasses());
+  // console.log(hooks.getClasses());
   // console.log(sheet.keys, sheet.sheets, hooks.getClasses());
   // console.log(hooks.sheet.toString());
 }

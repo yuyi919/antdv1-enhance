@@ -31,12 +31,19 @@ export default defineConfig(() => {
     build: {
       minify: false,
       sourcemap: true,
+      target: "es2020",
     },
     esbuild: {
-      jsx: "transform",
-      jsxFactory: "jsx_runtime.jsxEsbuild",
-      jsxFragment: "jsx_runtime.Fragment",
-      jsxInject: "import * as jsx_runtime from '@yuyi919/vue-jsx-factory'",
+      tsconfigRaw: {
+        compilerOptions: {
+          declaration: true,
+          jsx: "react-jsx",
+          jsxImportSource: "@yuyi919/vue-jsx-factory",
+          module: "esnext",
+          target: "es2020",
+          useDefineForClassFields: false,
+        },
+      },
     },
     plugins: [
       createVuePlugin({}),

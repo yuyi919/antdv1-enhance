@@ -10,6 +10,6 @@ import { defineConfig, tsupConfig } from "tsup-config";
 
 export default defineConfig({
   ...tsupConfig,
-  noExternal: [/^@yuyi919\/antv1-/],
-  minify: true,
+  noExternal: [/^@yuyi919\/antdv1-plus-/],
+  // minify: true,
 });

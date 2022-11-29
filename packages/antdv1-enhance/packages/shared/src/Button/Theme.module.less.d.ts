@@ -1,6 +1,6 @@
 import { IButtonProps } from "./ButtonProps";
 
-const Classes: {
+declare const Classes: {
   root: string;
 } & {
   [K in IButtonProps["type"]]?: string;

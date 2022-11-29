@@ -28,6 +28,9 @@ export const tsupConfig: Options = defineConfig({
   // name: "logger",
   target: ["es2020"],
   plugins: [],
+  esbuildOptions: (options) => {
+    options.drop = ["console", "debugger"];
+  },
   esbuildPlugins: [
     // lessLoader({
     //   javascriptEnabled: true

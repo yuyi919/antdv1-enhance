@@ -65,7 +65,7 @@ export const HintFlag = defineComponent({
         return (
           <span class={classesRef.value.root}>
             {context.slots.default?.()}&nbsp;
-            {!disabled && methods.renderHint({ icon, hint: state.hintStr })}
+            {!disabled && methods.renderHint({ icon: icon(), hint: state.hintStr })}
           </span>
         );
       },

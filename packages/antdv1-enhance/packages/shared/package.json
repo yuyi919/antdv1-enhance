@@ -14,9 +14,8 @@
   ],
   "scripts": {
     "build": "tsc --build",
-    "build:dev": "tsc --build",
-    "build:watch": "tsc --build --watch",
-    "dev": "tsc --build --watch"
+    "build:notype": "tsup",
+    "dev": "tsup --watch --onSuccess \"pnpm build\""
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",

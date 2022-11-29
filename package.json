@@ -11,6 +11,7 @@
     "clean": "rimraf **/.{turbo,rush} **/temp **/.rush-logs && turbo run clean",
     "clean:force": "pnpm clean && rimraf ./node_modules/.cache",
     "dev": "turbo run dev --parallel",
+    "dev:config": "turbo run dev --filter *config --parallel",
     "dev:web": "turbo run dev --filter web --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "lint": "turbo run lint",
