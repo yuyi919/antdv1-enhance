@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export * from "./lib";
 export * from "./Button";
 export * from "./Icon";
 export * from "./HintFlag";

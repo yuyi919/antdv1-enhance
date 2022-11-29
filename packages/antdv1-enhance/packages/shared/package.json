@@ -5,7 +5,7 @@
   "description": "",
   "author": "",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "esm/index.js",
   "types": "types/index.d.ts",
   "files": [
     "dist",
@@ -23,6 +23,7 @@
     "@yuyi919/vue-jss": "workspace:0.0.3",
     "@yuyi919/vue-shared-decorators": "workspace:0.0.9",
     "@yuyi919/vue-use": "workspace:0.0.9",
+    "@yuyi919/vue2.7-helper": "workspace:^0.0.9",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "tslib": "~2.3.1"
@@ -37,8 +38,9 @@
     "jest": "~27.1.0",
     "tsup-config": "workspace:*",
     "typescript": "4.5.5",
-    "vue": "~2.7.14",
-    "vue-demi": "~0.13.11"
+    "vue": "^2.7.14",
+    "vue-demi": "~0.13.11",
+    "vue-template-compiler": "^2.7.14"
   },
   "peerDependencies": {
     "vue": "~2.7"

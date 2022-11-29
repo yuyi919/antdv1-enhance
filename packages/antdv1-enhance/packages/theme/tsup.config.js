@@ -6,11 +6,9 @@ import {
 
 export default defineBundlessConfig(
   [
-    "src/**",
-    "!src/**/*.less",
-    "!src/**/*.(spec|test).*",
-    "!src/**/*.d.ts",
-    "!src/**/__test__/**",
+    "src/**/*.(t|j)s(x|)",
+    "!src/**/*.(spec|test|d).(t|j)s(x|)",
+    "src/**/__test__/**",
   ],
   {
     ...defineComponentConfig(tsupConfig),

@@ -1,19 +1,29 @@
 /* eslint-disable no-empty */
 /* eslint-disable no-async-promise-executor */
-import Types from "@yuyi919/shared-types";
-import { isEsModuleWithDefaultExport } from "@yuyi919/shared-types";
+import {
+  getFromVueComponent,
+  isVueComponent,
+  VueComponent2,
+} from "@yuyi919/antdv1-plus-helper";
+import Types, { isEsModuleWithDefaultExport } from "@yuyi919/shared-types";
 import { castComputed, castObject, expect$ } from "@yuyi919/shared-utils";
 import { cloneDeep, defaults, defaultsDeep, merge } from "lodash";
-import Vue, { VNode, VNodeChildren, VueConstructor } from "vue";
+import Vue, {
+  defineComponent,
+  VNode,
+  VNodeChildren,
+  VueConstructor,
+} from "vue";
 import { getCurrentInstance } from "vue-demi";
-import { isVueComponent, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import type { ConfirmOptions } from "./confirm";
 import { IModalAction, InnerModalContext } from "./context";
 import { createProtalModal, IPortalModalOptions } from "./portal";
 
 export type RendererOrCallback<T extends VueConstructor = VueConstructor> =
   Types.OrDynamicImportCallback<T | VNodeChildren | JSX.Element>;
-async function loadComponent<T extends VueConstructor>(target?: RendererOrCallback<T>): Promise<T> {
+async function loadComponent<T extends VueConstructor>(
+  target?: RendererOrCallback<T>,
+): Promise<T> {
   // 如果是vue组件，直接返回
   if (isVueComponent(target)) {
     return target as T;
@@ -24,7 +34,9 @@ async function loadComponent<T extends VueConstructor>(target?: RendererOrCallba
   if (typeof target === "function") {
     const loadResult = await target();
     return loadComponent(
-      isEsModuleWithDefaultExport<T>(loadResult) ? loadResult.default : loadResult
+      isEsModuleWithDefaultExport<T>(loadResult)
+        ? loadResult.default
+        : loadResult,
     );
   }
   // 如果不为Function
@@ -35,17 +47,17 @@ async function loadComponent<T extends VueConstructor>(target?: RendererOrCallba
     methods: {
       handleSubmit() {
         console.log("mock handleSubmit");
-      }
+      },
     },
     render() {
       return <div>{target}</div>;
-    }
+    },
   } as unknown as T;
 }
 
 function getContentLoader<P extends ICommonModalProps<any>>(
   props: P,
-  renderer?: RendererOrCallback
+  renderer?: RendererOrCallback,
 ) {
   let instance: Vue;
   const content = () =>
@@ -53,18 +65,21 @@ function getContentLoader<P extends ICommonModalProps<any>>(
       const { handleOnClose, forceUpdate, loadData, ...other } = props;
       let Render = await loadComponent(renderer);
       if (Render) {
-        Render = {
+        const setup = getFromVueComponent(Render, "setup");
+        Render = defineComponent({
           extends: Render,
-          setup() {
+          setup(props, ctx) {
+            const ctxs = setup?.(props, ctx);
             const innerModal = InnerModalContext.inject();
             instance = getCurrentInstance()!.proxy;
             return {
+              ...ctxs,
               getInnerModal() {
                 return innerModal.value;
-              }
+              },
             };
-          }
-        } as any;
+          },
+        }) as any;
         resolve(
           Render &&
             (() => (
@@ -74,11 +89,11 @@ function getContentLoader<P extends ICommonModalProps<any>>(
                   attrs: other,
                   on: {
                     close: handleOnClose!,
-                    update: forceUpdate!
-                  }
+                    update: forceUpdate!,
+                  },
                 }}
               />
-            ))
+            )),
         );
       }
     });
@@ -86,13 +101,13 @@ function getContentLoader<P extends ICommonModalProps<any>>(
     content,
     getRef<SubmitData>(): CommonModalHandler<SubmitData> {
       return instance as any;
-    }
+    },
   };
 }
 export interface ICustomModalProps<
   Key extends keyof ModalOptionsConfig = string,
   SubmitData = any,
-  LoadData = any
+  LoadData = any,
 > extends Omit<IPortalModalOptions, "content"> {
   /**
    * 仅作为打开/关闭钩子，完全由组件内部定义如何展示
@@ -136,20 +151,26 @@ export interface ICustomModalProps<
   onCancel?: () => any;
   onClose?: () => any;
 }
-export type TModalConfig<K extends string = string> = Partial<ICustomModalProps> | K;
+export type TModalConfig<K extends string = string> =
+  | Partial<ICustomModalProps>
+  | K;
 
 function normlizeModalProps(
   props: TModalConfig,
   argRender?: RendererOrCallback,
   paramLoadData?: any,
-  paramSubmitData?: any
+  paramSubmitData?: any,
 ): Partial<ICustomModalProps> {
   const cast = castObject(props, "title");
-  const { content = argRender, submitData = paramSubmitData, loadData = paramLoadData } = cast;
+  const {
+    content = argRender,
+    submitData = paramSubmitData,
+    loadData = paramLoadData,
+  } = cast;
   return defaults(props, {
     submitData,
     loadData,
-    content
+    content,
   });
 }
 
@@ -164,27 +185,31 @@ function convertModalProps(props: Partial<ICustomModalProps>) {
     maskClosable: true,
     confirmSubmit: false,
     confirmCancel: false,
-    confirmClose: false
+    confirmClose: false,
   });
   const { confirmSubmit, confirmCancel, confirmClose } = base;
   return Object.assign(base, {
     isSubmit,
     confirmSubmit: getConfirmOption(confirmSubmit, "确认提交", base.placement),
     confirmClose: getConfirmOption(confirmClose, "确认关闭", base.placement),
-    confirmCancel: getConfirmOption(confirmCancel, "确认" + base.cancelText, base.placement)
+    confirmCancel: getConfirmOption(
+      confirmCancel,
+      "确认" + base.cancelText,
+      base.placement,
+    ),
   });
 }
 function getConfirmOption(
   confirm: any,
   defaultText: string,
-  placement?: any
+  placement?: any,
 ): ConfirmOptions | false {
   return confirm !== false
     ? ((expect$.is.obj.filter(confirm) || {
         title: "提示",
         // placement,
         // getContainer: false,
-        content: expect$.is.str.filter(confirm) || defaultText
+        content: expect$.is.str.filter(confirm) || defaultText,
       }) as ConfirmOptions)
     : false;
 }
@@ -203,14 +228,12 @@ export type SubmitModalComponent<
     handleSubmit(...args: any[]): Promise<unknown> | unknown;
   } = {
     handleSubmit(): Promise<SubmitData> | SubmitData;
-  }
+  },
 > = VueComponent2<ICommonModalProps<LoadData>, {}, {}, RawBindings>;
-export type LoaderModalComponent<LoadData, RawBindings extends {} = {}> = VueComponent2<
-  ICommonModalProps<LoadData>,
-  {},
-  {},
-  RawBindings
->;
+export type LoaderModalComponent<
+  LoadData,
+  RawBindings extends {} = {},
+> = VueComponent2<ICommonModalProps<LoadData>, {}, {}, RawBindings>;
 export interface CommonModalHandler<SubmitData> {
   loadData?<T>(): T | Promise<T>;
   handleSubmit(validate?: boolean): Promise<SubmitData>;
@@ -221,9 +244,9 @@ const staticOptions: Record<string, any> = {
     return {
       render(): any {
         return null;
-      }
+      },
     };
-  }
+  },
 };
 export interface ModalOptionsConfig extends BaseStaticOptions {}
 
@@ -235,7 +258,7 @@ export interface IModalManager {
    */
   callModal<SubmitData = any, LoadData = any>(
     props: TModalConfig,
-    argRender: any
+    argRender: any,
   ): Promise<SubmitData>;
   /**
    * 动态呼出模态框
@@ -248,7 +271,7 @@ export interface IModalManager {
     props: TModalConfig,
     argRender: any,
     argLoadData?: (args?: any) => LoadData | Promise<LoadData>,
-    argSubmitData?: false | ((args?: any) => Promise<SubmitData>)
+    argSubmitData?: false | ((args?: any) => Promise<SubmitData>),
   ): Promise<SubmitData>;
 }
 
@@ -260,14 +283,14 @@ let rootModalCaller: ModalManager;
 export class ModalManager implements IModalManager {
   static normalProps = {
     okButtonProps: {},
-    cancelButtonProps: {}
+    cancelButtonProps: {},
   };
   static spinningProps = {
     okButtonProps: {},
-    cancelButtonProps: {}
+    cancelButtonProps: {},
   };
   static viewProps = merge(cloneDeep(ModalManager.normalProps), {
-    okButtonProps: { style: { display: "none" } }
+    okButtonProps: { style: { display: "none" } },
   });
   static staticOptions = staticOptions;
 
@@ -280,11 +303,18 @@ export class ModalManager implements IModalManager {
   static registerStaticModal<Key extends keyof ModalOptionsConfig, T>(
     key: Key,
     render: T | (() => Promise<{ default: T }>),
-    defaultConfig?: Partial<ICustomModalProps<Key>> | ((param: any) => ICustomModalProps<Key>)
+    defaultConfig?:
+      | Partial<ICustomModalProps<Key>>
+      | ((param: any) => ICustomModalProps<Key>),
   ) {
     // @ts-ignore
     staticOptions[key] = (props: Partial<ICustomModalProps>) => {
-      return [render, defaultConfig instanceof Function ? defaultConfig(props) : defaultConfig];
+      return [
+        render,
+        defaultConfig instanceof Function
+          ? defaultConfig(props)
+          : defaultConfig,
+      ];
     };
   }
 
@@ -299,10 +329,18 @@ export class ModalManager implements IModalManager {
     type: keyof ModalOptionsConfig,
     props: TModalConfig,
     loadData?: (args?: any) => any | Promise<any>,
-    submitData?: false | ((args?: any) => Promise<any>)
+    submitData?: false | ((args?: any) => Promise<any>),
   ) {
-    const [render, defaultProps] = castComputed(ModalManager.staticOptions[type], props);
-    return this.callModal(Object.assign({}, defaultProps, props), render, loadData, submitData);
+    const [render, defaultProps] = castComputed(
+      ModalManager.staticOptions[type],
+      props,
+    );
+    return this.callModal(
+      Object.assign({}, defaultProps, props),
+      render,
+      loadData,
+      submitData,
+    );
   }
 
   root: Vue | null = null;
@@ -327,14 +365,14 @@ export class ModalManager implements IModalManager {
   callViewModal<SubmitData = any, LoadData = any>(
     props: TModalConfig,
     render: any,
-    loadData?: (args?: any) => LoadData | Promise<LoadData>
+    loadData?: (args?: any) => LoadData | Promise<LoadData>,
   ): Promise<SubmitData | undefined> & IModalAction<ICustomModalProps> {
     return this.callModal(props, render, loadData);
   }
 
   callModal<SubmitData = any, LoadData = any>(
     props: TModalConfig,
-    renderer?: RendererOrCallback
+    renderer?: RendererOrCallback,
   ): Promise<SubmitData | undefined> & IModalAction<ICustomModalProps>;
 
   /**
@@ -346,14 +384,15 @@ export class ModalManager implements IModalManager {
     props: TModalConfig,
     renderer?: RendererOrCallback,
     loadData?: (args?: any) => LoadData | Promise<LoadData>,
-    submit?: false | ((args?: any) => Promise<SubmitData>)
+    submit?: false | ((args?: any) => Promise<SubmitData>),
   ): Promise<SubmitData | undefined> & IModalAction<ICustomModalProps>;
   callModal<SubmitData = any, LoadData = any>(
     props: TModalConfig,
     renderer?: RendererOrCallback,
     loadData?: (args?: any) => LoadData | Promise<LoadData>,
-    submit?: false | ((args?: any) => Promise<SubmitData>)
+    submit?: false | ((args?: any) => Promise<SubmitData>),
   ): Promise<SubmitData | undefined> & IModalAction<ICustomModalProps> {
+    console.log(renderer);
     const modalProps = normlizeModalProps(props, renderer, loadData, submit);
     const handle = {} as IModalAction<ICustomModalProps>;
     const todo = this._callModalWith<SubmitData, LoadData>(modalProps, handle);
@@ -361,19 +400,27 @@ export class ModalManager implements IModalManager {
       IModalAction<ICustomModalProps>;
   }
 
-  public async confirm(...args: Types.Function.ExtractArgs<typeof import("./confirm").confirm>) {
+  public async confirm(
+    ...args: Types.Function.ExtractArgs<typeof import("./confirm").confirm>
+  ) {
     const { confirm } = await import("./confirm");
     return confirm(...args);
   }
 
-  public async alert(...args: Types.Function.ExtractArgs<typeof import("./confirm").alert>) {
+  public async alert(
+    ...args: Types.Function.ExtractArgs<typeof import("./confirm").alert>
+  ) {
     const { alert } = await import("./confirm");
     return alert(...args);
   }
 
   private convertOptions<SubmitData>(
     props: Partial<ICustomModalProps>,
-    context: { modal: IModalAction; resolve: (emit: any) => void; reject: (emit: any) => void }
+    context: {
+      modal: IModalAction;
+      resolve: (emit: any) => void;
+      reject: (emit: any) => void;
+    },
   ) {
     const { normalProps, spinningProps, viewProps } = ModalManager;
     const {
@@ -397,11 +444,11 @@ export class ModalManager implements IModalManager {
         isSubmit
           ? {
               okButtonProps: other.okButtonProps,
-              cancelButtonProps: other.cancelButtonProps
+              cancelButtonProps: other.cancelButtonProps,
             }
           : { cancelButtonProps: other.cancelButtonProps },
-        isSubmit ? normalProps : viewProps
-      )
+        isSubmit ? normalProps : viewProps,
+      ),
     );
 
     const contentLoader = getContentLoader<ICommonModalProps<SubmitData>>(
@@ -424,9 +471,9 @@ export class ModalManager implements IModalManager {
           // console.log(modal)
           context.modal?.update(props);
         },
-        ...formProps
+        ...formProps,
       },
-      content
+      content,
     );
     const config: IPortalModalOptions = {
       ...buttonProps,
@@ -438,10 +485,13 @@ export class ModalManager implements IModalManager {
       width,
       onOk: async (doClose) => {
         try {
-          if (confirmSubmit && (await this.confirm(confirmSubmit)) === false) return;
-          const data = (await contentLoader.getRef<SubmitData>().handleSubmit?.()) ?? {};
+          if (confirmSubmit && (await this.confirm(confirmSubmit)) === false)
+            return;
+          const data =
+            (await contentLoader.getRef<SubmitData>().handleSubmit?.()) ?? {};
           console.log("submitData", data);
-          const next = typeof submitData === "function" ? await submitData(data) : data;
+          const next =
+            typeof submitData === "function" ? await submitData(data) : data;
           const handle = other.onOk?.();
           if (handle instanceof Promise) await handle;
           context.resolve(next), doClose && doClose();
@@ -450,7 +500,8 @@ export class ModalManager implements IModalManager {
         }
       },
       onCancel: async (doClose) => {
-        if (isSubmit && confirmCancel && !(await this.confirm(confirmCancel))) return;
+        if (isSubmit && confirmCancel && !(await this.confirm(confirmCancel)))
+          return;
         const handle = other.onCancel?.();
         if (handle instanceof Promise) await handle;
         return context.reject(new ModalEvent("cancel")), doClose && doClose();
@@ -459,14 +510,17 @@ export class ModalManager implements IModalManager {
         if (
           isSubmit &&
           confirmClose &&
-          !(await this.confirm({ ...(confirmClose as any), parentModal: contentLoader.getRef() }))
+          !(await this.confirm({
+            ...(confirmClose as any),
+            parentModal: contentLoader.getRef(),
+          }))
         )
           return;
         const handle = other.onClose?.();
         if (handle instanceof Promise) await handle;
         // contentLoader.getRef<SubmitData>().$destroy();
         return context.reject(new ModalEvent("close")), doClose && doClose();
-      }
+      },
     };
     // console.log("new config", config, formProps);
     return config;
@@ -474,7 +528,7 @@ export class ModalManager implements IModalManager {
 
   async _callModalWith<SubmitData = any, LoadData = any>(
     props: Partial<ICustomModalProps>,
-    handler: IModalAction<ICustomModalProps>
+    handler: IModalAction<ICustomModalProps>,
   ): Promise<SubmitData | undefined> {
     this.setVisible(true);
     let watchEnd: any;
@@ -488,7 +542,7 @@ export class ModalManager implements IModalManager {
           () => parentContext.$route?.path,
           () => {
             context._modal?.close();
-          }
+          },
         );
         const context = {
           _modal: null as unknown as IModalAction,
@@ -496,23 +550,26 @@ export class ModalManager implements IModalManager {
             return context._modal;
           },
           resolve,
-          reject
+          reject,
         };
         context._modal = createProtalModal(
           this.convertOptions<SubmitData>(props, context),
-          parentContext
+          parentContext,
         );
         Object.assign(handler, {
           ...context._modal,
           update: (updateConfig: ICustomModalProps) => {
             context._modal.update(
-              this.convertOptions<SubmitData>(defaultsDeep(updateConfig, props), context)
+              this.convertOptions<SubmitData>(
+                defaultsDeep(updateConfig, props),
+                context,
+              ),
             );
           },
           close() {
             context._modal.close();
             reject(new ModalEvent("close"));
-          }
+          },
         });
       });
       this.setVisible(false);

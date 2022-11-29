@@ -5,9 +5,13 @@ import {
 } from "tsup-config";
 
 export default defineBundlessConfig(
-  ["src/**/*.ts(x|)", "!src/**/*.(spec|test).*", "src/**/__test__/**"],
+  [
+    "src/**/*.(t|j)s(x|)",
+    "!src/**/*.(spec|test|d).(t|j)s(x|)",
+    "src/**/__test__/**",
+  ],
   {
-    ...defineComponentConfig(tsupConfig),
-    treeshake: "smallest"
+    ...defineComponentConfig(tsupConfig, ["dist", "esm"]),
+    treeshake: "smallest",
   },
 );

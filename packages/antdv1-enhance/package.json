@@ -5,20 +5,15 @@
   "description": "",
   "author": "",
   "main": "dist/index.js",
-  "module": "lib/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.esm.js",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
-    "lib",
+    "esm",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc --build --force",
-    "build:dev": "tsc --build",
-    "build:watch": "tsc --build --watch",
-    "dev": "tsc --build --watch",
-    "prettier": "prettier -cw ./**/src/**",
-    "preview": "vite"
+    "build": "tsc --build"
   },
   "dependencies": {
     "@ant-design/icons": "2.0.0",

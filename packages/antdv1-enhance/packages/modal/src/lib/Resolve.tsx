@@ -1,7 +1,16 @@
 // @ts-nocheck TODO 待处理
-import Vue, { CreateElement, PropOptions, VueConstructor } from "vue";
-import { h, SetupContext } from "vue-demi";
-import { ICommonModalProps, SubmitModalComponent, LoaderModalComponent } from "./Manager";
+import Vue, {
+  CreateElement,
+  getCurrentInstance,
+  PropOptions,
+  VueConstructor,
+} from "vue";
+import { defineComponent, h, SetupContext } from "vue-demi";
+import {
+  ICommonModalProps,
+  LoaderModalComponent,
+  SubmitModalComponent,
+} from "./Manager";
 
 // let a: SubmitModalComponent<{}, {}>["Type"];
 type Resolve<T extends any> = T extends Promise<infer R> ? R : T;
@@ -13,9 +22,12 @@ type Resolve<T extends any> = T extends Promise<infer R> ? R : T;
 export function defineSubmitModalComponent<
   LoadData,
   Props extends ICommonModalProps<LoadData>,
-  Setup extends (props: Props, context: SetupContext) => { handleSubmit: (...args: any[]) => any },
+  Setup extends (
+    props: Props,
+    context: SetupContext,
+  ) => { handleSubmit: (...args: any[]) => any },
   SubmitData extends Resolve<ReturnType<ReturnType<Setup>["handleSubmit"]>>,
-  RawBindings extends ReturnType<Setup>
+  RawBindings extends ReturnType<Setup>,
 >(options: {
   mixins?: any[];
   extends?: any;
@@ -24,7 +36,7 @@ export function defineSubmitModalComponent<
   };
   setup: Setup;
 }) {
-  const Component = Vue.extend({
+  const Component = defineComponent({
     components: {
       ...(options.components || {}),
     },
@@ -43,18 +55,21 @@ export function defineSubmitModalComponent<
       };
     },
   });
-  return Object.assign(Component as SubmitModalComponent<LoadData, SubmitData, RawBindings>, {
-    render<Self extends Vue & Props & RawBindings>(
-      renderer: (this: Self, handle: Self, h: CreateElement) => any
-    ) {
-      return Vue.extend({
-        extends: Component,
-        render() {
-          return renderer.call(this, this, h);
-        },
-      }) as SubmitModalComponent<LoadData, SubmitData, RawBindings>;
+  return Object.assign(
+    Component as SubmitModalComponent<LoadData, SubmitData, RawBindings>,
+    {
+      render<Self extends Vue & Props & RawBindings>(
+        renderer: (this: Self, handle: Self, h: CreateElement) => any,
+      ) {
+        return defineComponent({
+          extends: Component,
+          render() {
+            return renderer.call(this, this, h);
+          },
+        }) as SubmitModalComponent<LoadData, SubmitData, RawBindings>;
+      },
     },
-  });
+  );
 }
 /**
  * 定义模态框内容组件
@@ -65,7 +80,7 @@ export function defineLoaderModalComponent<
   Props extends ICommonModalProps<LoadData>,
   AppendProps extends Record<string, any>,
   Setup extends (props: Props & AppendProps, context: SetupContext) => {},
-  RawBindings extends ReturnType<Setup>
+  RawBindings extends ReturnType<Setup>,
 >(options: {
   mixins?: any[];
   extends?: any;
@@ -75,12 +90,12 @@ export function defineLoaderModalComponent<
   };
   setup: Setup;
 }) {
-  const Component = Vue.extend({
+  const Component = defineComponent({
     components: {
       ...(options.components || {}),
     },
-    extends: options.extends,
-    mixins: options.mixins,
+    // extends: options.extends,
+    // mixins: options.mixins,
     emits: ["close", "update"],
     props: {
       loadData: {
@@ -98,21 +113,22 @@ export function defineLoaderModalComponent<
       } as PropOptions<Props["forceUpdate"]>,
       ...(options.props || {}),
     },
-    setup(props: Props & AppendProps, context) {
-      return {
-        ...options.setup(props as Props & AppendProps, context),
-      };
-    },
   });
-  return Object.assign(Component as LoaderModalComponent<LoadData, RawBindings>, {
+  console.log(Component);
+  return Object.assign(Component, {
     render<Self extends Vue & Props & AppendProps & RawBindings>(
-      renderer: (this: Self, handle: Self, h: CreateElement) => any
+      renderer: (this: Self, handle: Self, h: CreateElement) => any,
     ) {
-      return Vue.extend({
+      return defineComponent({
         extends: Component,
+        setup(props: Props & AppendProps, context) {
+          const ctx = options.setup(props as Props & AppendProps, context);
+          console.log("setup", ctx);
+          return ctx
+        },
         render() {
           return renderer.call(this, this, h);
-        },
+        }
       }) as LoaderModalComponent<LoadData, RawBindings>;
     },
   });

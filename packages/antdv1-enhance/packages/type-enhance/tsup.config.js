@@ -1,4 +1,4 @@
-import { defineConfig, EsbuildPluginLess, tsupConfig } from "tsup-config";
+import { defineConfig, tsupConfig } from "tsup-config";
 
 // export default defineBundlessConfig(
 //   ["src/**/*.ts(x|)", "!src/**/*.(spec|test).*", "src/**/__test__/**"],
@@ -10,6 +10,5 @@ import { defineConfig, EsbuildPluginLess, tsupConfig } from "tsup-config";
 
 export default defineConfig({
   ...tsupConfig,
-  esbuildPlugins: [EsbuildPluginLess({ javascriptEnabled: true })],
   // minify: true,
 });

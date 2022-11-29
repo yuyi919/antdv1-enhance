@@ -1,10 +1,14 @@
+import { unwrap, useLoader } from "@yuyi919/vue-use";
 import { Icon } from "ant-design-vue";
-import { configureModalAdapter, ConfirmOptionAdapter, AlertOptionsAdapter } from "./utils";
 import { watch } from "vue-demi";
 import { useModalAction } from "./context";
-import { ModalManager, ICustomModalProps } from "./Manager";
+import { ICustomModalProps, ModalManager } from "./Manager";
 import { defineLoaderModalComponent } from "./Resolve";
-import { unwrap, useLoaderInstance } from "@yuyi919/vue-use";
+import {
+  AlertOptionsAdapter,
+  configureModalAdapter,
+  ConfirmOptionAdapter,
+} from "./utils";
 
 export type ConfirmOptions = ConfirmOptionAdapter<ICustomModalProps>;
 export type AlertOptions = AlertOptionsAdapter<
@@ -17,7 +21,14 @@ export const { confirm, alert } = configureModalAdapter<
   "confirm" | "warning" | "warn" | "success" | "info" | "error"
 >({
   confirm(config) {
-    const { title, content, iconType, icon = iconType, width = 416, ...options } = config;
+    const {
+      title,
+      content,
+      iconType,
+      icon = iconType,
+      width = 416,
+      ...options
+    } = config;
     const modal = ModalManager.getInstance(options.parentContext);
     const ins = modal.callModal(
       {
@@ -35,11 +46,17 @@ export const { confirm, alert } = configureModalAdapter<
           }`,
         },
       },
-      ConfirmModal
+      ConfirmModal,
     );
     const tmp = ins.update;
     return Object.assign(ins, {
-      update({ title, content, iconType, icon = iconType, ...other }: ConfirmOptions) {
+      update({
+        title,
+        content,
+        iconType,
+        icon = iconType,
+        ...other
+      }: ConfirmOptions) {
         return tmp({
           ...other,
           formProps: {
@@ -52,7 +69,14 @@ export const { confirm, alert } = configureModalAdapter<
     });
   },
   alert(config) {
-    let { title, content, iconType, icon = iconType, width = 416, ...options } = config;
+    let {
+      title,
+      content,
+      iconType,
+      icon = iconType,
+      width = 416,
+      ...options
+    } = config;
     if (icon && icon instanceof Object) {
       iconType ??= "info";
     }
@@ -69,14 +93,22 @@ export const { confirm, alert } = configureModalAdapter<
         },
         cancelButtonProps: { style: { display: "none" } },
         classNames: {
-          root: `ant-modal-confirm ant-modal-confirm-${classNames[iconType!] || classNames.info}`,
+          root: `ant-modal-confirm ant-modal-confirm-${
+            classNames[iconType!] || classNames.info
+          }`,
         },
       },
-      ConfirmModal
+      ConfirmModal,
     );
     const tmp = ins.update;
     return Object.assign(ins, {
-      update({ title, content, iconType, icon = iconType, ...other }: ConfirmOptions) {
+      update({
+        title,
+        content,
+        iconType,
+        icon = iconType,
+        ...other
+      }: ConfirmOptions) {
         return tmp({
           ...other,
           formProps: {
@@ -106,18 +138,20 @@ const ConfirmModal = defineLoaderModalComponent({
     title: null,
   },
   setup(props) {
-    const renderer = useLoaderInstance(() => unwrap(props.content as any));
+    const renderer = useLoader(() => unwrap(props.content as any));
     watch(
       () => props.content,
       async () => {
         await renderer.load();
         actions.update({ formProps: { loading: false } });
       },
-      { immediate: true }
+      { immediate: true },
     );
     const actions = useModalAction();
     return {
-      renderer,
+      data: renderer.data,
+      loading: renderer.loading,
+      loadStatus: renderer.loadStatus,
     };
   },
 }).render((self) => {
@@ -139,18 +173,25 @@ const ConfirmModal = defineLoaderModalComponent({
           {self.title}
         </span>
         <div class="ant-modal-confirm-content">
-          <a-skeleton paragraph={{ rows: 1 }} title={false} active loading={self.renderer.loading}>
-            {self.renderer.data}
+          <a-skeleton
+            paragraph={{ rows: 1 }}
+            title={false}
+            active
+            loading={self.loading}
+          >
+            {self.data}
           </a-skeleton>
         </div>
       </div>
     </div>
   );
 });
-function getIcon(iconType: "confirm" | "warning" | "warn" | "success" | "info" | "error"): string;
+function getIcon(
+  iconType: "confirm" | "warning" | "warn" | "success" | "info" | "error",
+): string;
 function getIcon<T>(iconType: T): T;
 function getIcon(
-  icon: "confirm" | "warning" | "warn" | "success" | "info" | "error"
+  icon: "confirm" | "warning" | "warn" | "success" | "info" | "error",
 ): JSX.Element | string {
   if (typeof icon !== "string") return icon;
   if (icon === "confirm") {
