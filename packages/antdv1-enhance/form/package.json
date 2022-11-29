@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:notype": "tsup",
-    "dev": "tsup -w"
+    "dev": "tsup --watch --onSuccess \"tsc --build\""
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",

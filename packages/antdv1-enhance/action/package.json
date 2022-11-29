@@ -5,7 +5,7 @@
   "description": "",
   "author": "",
   "main": "dist/index.js",
-  "module": "lib/index.js",
+  "module": "dist/index.esm.js",
   "types": "types/index.d.ts",
   "files": [
     "dist",
@@ -13,14 +13,14 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc --build --force",
-    "build:dev": "tsc --build",
-    "build:watch": "tsc --build --watch",
-    "dev": "tsc --build --watch"
+    "build": "tsc --build",
+    "build:notype": "tsup",
+    "dev": "tsup --watch --onSuccess \"tsc --build\""
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",
     "@yuyi919/antdv1-plus-shared": "workspace:0.0.1",
+    "@yuyi919/antdv1-plus-theme": "workspace:0.0.1",
     "@yuyi919/vue-jsx-factory": "workspace:0.0.7",
     "@yuyi919/vue-use": "workspace:0.0.9",
     "lodash": "4.17.21",

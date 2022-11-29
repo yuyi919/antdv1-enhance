@@ -2,7 +2,7 @@ import { CSSProperties } from "@yuyi919/shared-types";
 import type { Ref } from "vue-demi";
 import { h, defineComponent, getCurrentInstance, nextTick, onUpdated } from "vue-demi";
 import { noop, VueComponent2 } from "./index";
-import type { TransitionGroupProps, TransitionProps } from "../types/builtin-components";
+import type { TransitionGroupProps, TransitionProps } from "../tool/builtin-components";
 // import animate from "./css-animation";
 // import "./css-animation.less";
 export const getTransitionProps = (

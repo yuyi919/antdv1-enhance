@@ -1,6 +1,5 @@
-import { tsupConfig, defineConfig } from "tsup-config";
+import { defineConfig, tsupConfig } from "tsup-config";
 
 export default defineConfig({
-  ...tsupConfig,
-  dts: true
+  ...tsupConfig
 });

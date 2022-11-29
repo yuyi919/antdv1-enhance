@@ -10,6 +10,7 @@
     "build": "tsc --build --force"
   },
   "dependencies": {
-    "esbuild-plugin-alias": "^0.2.1"
+    "esbuild-plugin-alias": "^0.2.1",
+    "tsup": "^6.5.0"
   }
 }

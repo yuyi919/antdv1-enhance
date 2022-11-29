@@ -5,8 +5,8 @@
   "description": "",
   "author": "",
   "main": "dist/index.js",
-  "module": "lib/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.esm.js",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "lib",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",
+    "@yuyi919/vue-jss": "workspace:0.0.3",
     "@yuyi919/vue-jsx-factory": "workspace:0.0.7",
     "@yuyi919/vue-use": "workspace:0.0.9",
     "chroma.ts": "^1.0.10",

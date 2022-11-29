@@ -5,15 +5,15 @@
   "description": "",
   "author": "",
   "main": "dist/index.js",
-  "module": "lib/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.esm.js",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "lib",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc --build --force",
+    "build": "tsc --build",
     "build:dev": "tsc --build",
     "build:watch": "tsc --build --watch",
     "dev": "tsc --build --watch"

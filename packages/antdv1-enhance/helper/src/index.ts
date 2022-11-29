@@ -63,9 +63,9 @@ export * from "./transition";
 export * from "./KeyCode";
 import * as DomUtils from "./dom";
 
-import type * as base from "../types/base.d";
-import type * as builtin from "../types/builtin-components.d";
-import type * as dom from "../types/dom.d";
+import type * as base from "../tool/base";
+import type * as builtin from "../tool/builtin-components";
+import type * as dom from "../tool/dom";
 export type { base, builtin, dom };
 export function noop() {}
 export { DomUtils };

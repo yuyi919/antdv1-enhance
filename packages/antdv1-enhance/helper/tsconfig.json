@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist",
-    "declarationDir": "lib",
+    "declarationDir": "types",
     "strict": true,
     "incremental": true
   },

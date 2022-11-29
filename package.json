@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:config": "turbo run build --filter *config",
     "build:dts": "turbo run build:dts",
+    "build:notype": "turbo run build:notype",
     "change": "changeset",
     "clean": "rimraf **/.{turbo,rush} **/temp **/.rush-logs && turbo run clean",
     "clean:force": "pnpm clean && rimraf ./node_modules/.cache",

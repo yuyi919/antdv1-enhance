@@ -12,12 +12,16 @@ export const tsupConfig: Options = defineConfig({
     js: ctx.format === "cjs" ? ".js" : `.${ctx.format}.js`,
   }),
   minify: false,
+  publicDir: "",
   minifyIdentifiers: false,
   minifySyntax: false,
   platform: "browser",
   noExternal: ["lodash"],
-  esbuildOptions: options => {
-    options.jsxImportSource
+  loader: {
+    ".less": "copy",
+  },
+  esbuildOptions: (options) => {
+    options.jsxImportSource;
   },
   // treeshake: true,
   // onSuccess: "npm run bulid:api",
@@ -36,6 +40,5 @@ export const tsupConfig: Options = defineConfig({
     }),
   ],
 }) as Options;
-
 
 export { defineConfig };

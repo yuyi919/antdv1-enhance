@@ -6,7 +6,7 @@
   "author": "",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "types": "lib/index.d.ts",
+  "types": "types/index.d.ts",
   "files": [
     "dist",
     "lib",
@@ -14,9 +14,8 @@
   ],
   "scripts": {
     "build": "tsc --build",
-    "build:dev": "tsc --build",
-    "build:watch": "tsc --build --watch",
-    "dev": "tsc --build --watch"
+    "build:notype": "tsup",
+    "dev": "tsup --watch --onSuccess \"tsc --build\""
   },
   "dependencies": {
     "@yuyi919/vue-shared-decorators": "workspace:0.0.9",

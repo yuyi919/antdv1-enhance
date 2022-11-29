@@ -1,5 +1,6 @@
 /lib
 /dist
+/types
 /temp
 /node_modules
 /.rush

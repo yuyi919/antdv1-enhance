@@ -13,10 +13,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc --build --force",
-    "build:dev": "tsc --build",
-    "build:watch": "tsc --build --watch",
-    "dev": "tsc --build --watch"
+    "build": "tsc --build",
+    "build:notype": "tsup",
+    "dev": "tsup --watch --onSuccess \"pnpm build\""
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-action": "workspace:0.0.1",
