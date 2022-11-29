@@ -1,0 +1,27 @@
+{
+  "extends": "@yuyi919/workspace-base-rig/profiles/tsc/tsconfig-base.json",
+  "compilerOptions": {
+    "declaration": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@yuyi919/vue-jsx-factory",
+    "module": "esnext",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@yuyi919/antdv1-plus-action": ["./packages/action/src/index.ts"],
+      "@yuyi919/antdv1-plus-form": ["./packages/form/src/index.ts"],
+      "@yuyi919/antdv1-plus-helper": ["./packages/helper/src/index.ts"],
+      "@yuyi919/antdv1-plus-modal": ["./packages/modal/src/index.ts"],
+      "@yuyi919/antdv1-plus-shared": ["./packages/shared/src/index.ts"],
+      "@yuyi919/antdv1-plus-table": ["./packages/table/src/index.ts"],
+      "~@yuyi919/antdv1-plus-theme/index.less": ["./packages/theme/index.less"],
+      "@yuyi919/antdv1-plus-theme/index.less": ["./packages/theme/index.less"],
+      "@yuyi919/antdv1-plus-theme": ["./packages/theme/src/index.ts"],
+
+      "@yuyi919/vue-antv-plus2": ["./src/index.ts"],
+      "@yuyi919/vue-jss": ["../jss/src/index.ts"],
+      "@yuyi919/vue-use": ["../use/src/index.ts"]
+    }
+  },
+  "include": ["src", "playground"]
+}

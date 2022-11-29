@@ -1,0 +1,9 @@
+/lib
+/esm
+/dist
+/types
+/temp
+/node_modules
+/.rush
+*.log
+.tsBuildInfo

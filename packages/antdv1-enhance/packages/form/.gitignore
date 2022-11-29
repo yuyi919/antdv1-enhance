@@ -1,0 +1,8 @@
+/dist
+/esm
+/types
+/temp
+/node_modules
+/.rush
+*.log
+.tsBuildInfo

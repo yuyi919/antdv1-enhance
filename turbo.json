@@ -3,19 +3,25 @@
   "pipeline": {
     "build": {
       "dependsOn": ["build:notype", "generate", "^build"],
-      "outputs": ["dist/**", ".next/**", "lib/**", ".heft"]
+      "outputs": ["dist/**", ".next/**", "lib/**", "esm/**", ".heft"]
     },
     "generate": {
       "dependsOn": ["^generate"],
-      "outputs": ["dist/**", "generated/**", "src/**/*.gen.ts", "lib/**"]
+      "outputs": [
+        "dist/**",
+        "generated/**",
+        "src/**/*.gen.ts",
+        "lib/**",
+        "esm/**"
+      ]
     },
     "build:notype": {
       "dependsOn": ["build:pre", "^build:notype"],
-      "outputs": ["dist/**", "out/**", "lib/**"]
+      "outputs": ["dist/**", "out/**", "lib/**", "esm/**"]
     },
     "build:pre": {
       "dependsOn": ["^build:pre"],
-      "outputs": ["dist/**", "out/**", "lib/**"]
+      "outputs": ["dist/**", "out/**", "lib/**", "esm/**"]
     },
     "clean": {
       "outputs": [],

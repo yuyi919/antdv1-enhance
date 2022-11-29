@@ -1,0 +1,57 @@
+{
+  "name": "@yuyi919/vue-antv-plus2",
+  "version": "0.0.10",
+  "private": true,
+  "description": "",
+  "author": "",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc --build --force",
+    "build:dev": "tsc --build",
+    "build:watch": "tsc --build --watch",
+    "dev": "tsc --build --watch",
+    "prettier": "prettier -cw ./**/src/**",
+    "preview": "vite"
+  },
+  "dependencies": {
+    "@ant-design/icons": "2.0.0",
+    "@ant-design/icons-vue": "2.0.0",
+    "@yuyi919/antdv1-plus-action": "workspace:@yuyi919/antdv1-plus-action@0.0.1",
+    "@yuyi919/antdv1-plus-form": "workspace:@yuyi919/antdv1-plus-form@0.0.1",
+    "@yuyi919/antdv1-plus-helper": "workspace:@yuyi919/antdv1-plus-helper@0.0.1",
+    "@yuyi919/antdv1-plus-modal": "workspace:@yuyi919/antdv1-plus-modal@0.0.1",
+    "@yuyi919/antdv1-plus-shared": "workspace:@yuyi919/antdv1-plus-shared@0.0.1",
+    "@yuyi919/antdv1-plus-table": "workspace:@yuyi919/antdv1-plus-table@0.0.1",
+    "@yuyi919/antdv1-plus-theme": "workspace:@yuyi919/antdv1-plus-theme@0.0.1",
+    "@yuyi919/vue-jsx-factory": "workspace:0.0.7",
+    "@yuyi919/vue-use": "workspace:0.0.9",
+    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
+    "tslib": "~2.3.1"
+  },
+  "devDependencies": {
+    "@types/jest": "~27.0.1",
+    "@types/node": "~16.7.2",
+    "@vitejs/plugin-vue2": "^2.0.1",
+    "@yuyi919/vue-jss": "workspace:0.0.3",
+    "@yuyi919/workspace-base-rig": "workspace:1.2.11",
+    "ant-design-vue": "1.7.5",
+    "jest": "~27.1.0",
+    "less": "3.12.2",
+    "typescript": "4.5.5",
+    "vite-plugin-imp": "^2.0.7",
+    "vite-tsconfig-paths": "^3.6.0",
+    "vue": "~2.7.14",
+    "vue-demi": "~0.13.11"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
