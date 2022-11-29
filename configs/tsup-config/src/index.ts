@@ -47,7 +47,7 @@ export const tsupConfig: Options = defineConfig({
   ],
 }) as Options;
 
-export function defineComponentConfig(option: Partial<Options>) {
+export function defineComponentConfig(option: Partial<Options>, to = ["dist"]) {
   return {
     ...option,
     external: [/\.less$/],
@@ -58,7 +58,7 @@ export function defineComponentConfig(option: Partial<Options>) {
         resolveFrom: "cwd",
         assets: {
           from: ["./src/**/*.less"],
-          to: ["dist"],
+          to,
         },
       }),
       ...(option.esbuildPlugins || []),
