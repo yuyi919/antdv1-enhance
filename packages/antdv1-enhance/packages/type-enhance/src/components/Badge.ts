@@ -10,6 +10,7 @@ export interface IBadgeEvents {
 export interface IBadgeScopedSlots {}
 export interface IBadgePublicMembers {}
 
+//@ts-ignore
 export const Badge = AntBadge as VueComponent2<
   IBadgeProps,
   IBadgeEvents,

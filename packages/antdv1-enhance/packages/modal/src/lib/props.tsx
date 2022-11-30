@@ -5,6 +5,7 @@ import { ActionType, ICallableActionConfig, ActionGroupProps } from "@yuyi919/an
 import { ButtonProps } from "@yuyi919/antdv1-plus-shared";
 import { NormalizeModalProps } from "./NormalizeModalProps";
 import { ClassesProps } from "./styles";
+import {} from "@yuyi919/antdv1-type-enhance"
 
 @Component({})
 export class ModalProps extends PropsMixins(NormalizeModalProps, ClassesProps) {

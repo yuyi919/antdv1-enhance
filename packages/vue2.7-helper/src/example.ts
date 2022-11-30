@@ -1,5 +1,7 @@
+import { defineComponent, ExtractPropTypes } from "vue";
 import { ExcludeVueTypes } from "./ExcludeVueTypes";
-import { VueComponent2 } from "./helper";
+import { TypedPropGroup, VueComponent2 } from "./helper";
+import { TypedPropsMap } from "./TypedPropGroup";
 
 type P = VueComponent2<
   { a?: number },
@@ -21,3 +23,22 @@ export type pins = {
 // export const App = {} as P;
 
 export const App = {} as P;
+
+type props = TypedPropGroup<
+  {
+    value: boolean;
+  },
+  { value: true }
+>;
+type extracted = ExtractPropTypes<props>;
+export const App2: VueComponent2<{ value?: boolean }> = defineComponent({
+  props: {
+    // value: {
+    //   type: String,
+    //   default: "",
+    // },
+  } as props,
+});
+
+type P2 = TypedPropsMap<{ value?: boolean }>;
+type props2 = InstanceType<typeof App>['$props']

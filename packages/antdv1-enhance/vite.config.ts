@@ -66,14 +66,13 @@ export default defineConfig(() => {
       include: ["tslib", "lodash-es", "vue", "ant-design-vue/es/style.js"],
     },
     css: {
-      // modules: {
-      //   scopeBehaviour: "global",
-      //   exportGlobals: true,
-      //   localsConvention: "camelCaseOnly",
-      // },
+      modules: {
+        scopeBehaviour: "global",
+        exportGlobals: true,
+        localsConvention: "camelCaseOnly",
+      },
       preprocessorOptions: {
         less: {
-          strict: false,
           modifyVars: {
             /* less 变量覆盖，用于自定义 ant design 主题 */
             /*

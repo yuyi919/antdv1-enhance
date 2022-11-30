@@ -18,7 +18,7 @@ export const tsupConfig: Options = defineConfig({
   minifyIdentifiers: false,
   minifySyntax: false,
   platform: "browser",
-  noExternal: ["lodash"],
+  // noExternal: ["lodash"],
   external: [/\.less$/],
   // loader: {
   //   ".less": "copy"

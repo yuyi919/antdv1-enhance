@@ -35,6 +35,7 @@ export interface ITableScopedSlots {
 }
 export interface ITablePublicMembers {}
 
+//@ts-ignore
 export const Table = AntTable as VueComponent2<
   ITableProps,
   ITableEvents,

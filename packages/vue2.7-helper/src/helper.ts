@@ -3,6 +3,7 @@ import {
   ComponentComputedOptions,
   ComponentCustomProperties,
   ComponentMethodOptions,
+  ExtractPropTypes,
   VueConstructor,
 } from "vue";
 import {
@@ -14,18 +15,14 @@ import {
   Vue3Instance,
 } from "vue/types/v3-component-public-instance";
 import { EmitsOptions } from "vue/types/v3-setup-context";
+import { ScopedSlotReturnValue } from "vue/types/vnode";
 import { TsxOnEvents } from "./TsxOnEvents";
-import { TypedPropGroup } from "./TypedPropGroup";
+import { TypedPropGroup, TypedPropsMap } from "./TypedPropGroup";
 
-type InnerScopedSlotReturnType = Vue["$scopedSlots"] extends {
-  [name: string]: ((...args: any[]) => infer T) | undefined;
-}
-  ? T
-  : never;
 type InnerScopedSlots<T> = {
-  [K in keyof T]: (
-    props: Exclude<T[K], undefined>,
-  ) => InnerScopedSlotReturnType;
+  [K in keyof T | (string & {})]?: (
+    props: K extends keyof T ? T[K] : any,
+  ) => ScopedSlotReturnValue;
 };
 
 type InternalVueComponent2<
@@ -33,8 +30,8 @@ type InternalVueComponent2<
   Emits,
   ScopedSlotArgs,
   Public,
-  DProps = TypedPropGroup<IProps>,
-  EProps = Readonly<IProps>,
+  DProps = TypedPropsMap<IProps>,
+  EProps = Readonly<ExtractPropTypes<DProps>>,
   E extends EmitsOptions = Emits extends string[]
     ? Emits
     : Emits extends Record<string, any>
@@ -44,23 +41,15 @@ type InternalVueComponent2<
     : any,
 > = ComponentPublicInstanceConstructor<
   Vue3Instance<
-    Types.Recordable,
+    {},
     EProps,
     EProps & TsxOnEvents<E>,
     E,
-    Types.Recordable,
+    {},
     true,
     ComponentOptionsMixin
   > &
-    Readonly<
-      EProps &
-        Public &
-        ComponentCustomProperties & {
-          $scopedSlots: {
-            [K in keyof ScopedSlotArgs]: InnerScopedSlots<ScopedSlotArgs>[K];
-          };
-        }
-    >,
+    Readonly<EProps & Public & ComponentCustomProperties>,
   any,
   any,
   any,
@@ -70,14 +59,14 @@ type InternalVueComponent2<
   ComponentOptionsBase<
     EProps,
     Public,
-    Types.Recordable,
-    Types.Recordable,
-    Types.Recordable,
+    {},
+    {},
+    {},
     ComponentOptionsMixin,
     ComponentOptionsMixin,
     E,
     string,
-    Types.Recordable
+    {}
   > & {
     props: DProps;
   };
@@ -87,8 +76,9 @@ export type VueComponent2<
   Emits = Types.Recordable,
   ScopedSlots = Types.Recordable,
   Public = Types.Recordable,
-  VueType extends VueConstructor = VueConstructor,
-> = InternalVueComponent2<IProps, Emits, ScopedSlots, Public> & VueType;
+  VueType = {},
+> = InternalVueComponent2<IProps, Emits, ScopedSlots, Public> &
+  Omit<VueType, keyof VueConstructor>;
 
 export type { TypedPropGroup };
 

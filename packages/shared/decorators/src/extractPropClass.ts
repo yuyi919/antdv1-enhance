@@ -1,8 +1,8 @@
 import type { Types } from "@yuyi919/shared-types";
+import { VCProps, TypedPropGroup, VueInstanceKeys } from "@yuyi919/vue2.7-helper";
 import { cloneDeep, omit } from "lodash";
-import { VCProps, VueInstanceKeys } from "./ExcludeVueTypes";
+import { UNSAFE_STORE_PROPS_KEY } from ".";
 import { getFromVueComponent } from "./optionResolver";
-import { TypedPropGroup } from "./TypedPropGroup";
 
 export type TPropProvider<T> = new () => T;
 
@@ -62,7 +62,7 @@ export function getPropsClass<T extends Types.Recordable = any>(
   return Object.assign(Props, {
     props: nextProps,
     model: getFromVueComponent(component, "model"),
-    // [UNSAFE_STORE_PROPS_KEY]: nextProps,
+    [UNSAFE_STORE_PROPS_KEY]: nextProps,
   }) as any;
 }
 

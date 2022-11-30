@@ -1,25 +1,41 @@
 import Types from "@yuyi919/shared-types";
-import { PropType } from "vue";
+import { defineComponent, PropType } from "vue";
+import {
+  ExtractDefaultPropTypes,
+  ExtractPropTypes,
+} from "vue/types/v3-component-props";
 
-export type TypedPropGroup<T extends Types.Recordable, D extends Partial<T> = Types.Recordable> = {
-  [K in keyof T]-?: Types.Recordable extends Pick<T, K>
-    ? {
-        type: PropType<ExcludeUndefined<T, K>>;
-        default: ExtractDefault<K, T, D>;
-        required: false;
-      }
+export type TypedPropGroup<
+  T extends Types.Recordable,
+  D extends Partial<T> = {},
+> = {
+  [K in keyof T]-?: {} extends Pick<T, K>
+    ? Record<K, unknown> extends Pick<D, K>
+      ? {
+          type: PropType<ExcludeUndefined<T, K>>;
+          required: false;
+        }
+      : {
+          type: PropType<ExcludeUndefined<T, K>>;
+          // default: ExtractDefault<K, T, D>;
+          required: false;
+        }
     : IsDefaultKey<
         K,
         D,
-        {
-          type: PropType<ExcludeUndefined<T, K>>;
-          default: ExtractDefault<K, T, D>;
-          required: false;
-        },
+        Record<K, unknown> extends Pick<D, K>
+          ? {
+              type: PropType<ExcludeUndefined<T, K>>;
+              required: false;
+            }
+          : {
+              type: PropType<ExcludeUndefined<T, K>>;
+              // default: ExtractDefault<K, T, D>;
+              required: false;
+            },
         {
           type: PropType<T[K]>;
           required: true;
-          default?: undefined;
         }
       >;
 };
@@ -38,7 +54,22 @@ type ExtractDefault<K, T, D extends Partial<T>> = K extends keyof T
       : ExtractDefaultKey<K, D>
     : ExtractDefaultKey<K, D>
   : undefined;
-type ExcludeUndefined<T, K extends keyof T> = Exclude<T[K], undefined>;
+
+// TODO
+type ExcludeUndefined<T, K extends keyof T> = T[K]; //Exclude<T[K], undefined>;
+
+// const comp = defineComponent({
+//   props: {
+//     test: {
+//       type: Boolean,
+//       default: true
+//     }
+//   },
+//   setup(props) {
+//     props.test
+//   }
+// })
+// type Comp = InstanceType<typeof comp>['$props']
 // {
 //   [K in keyof T]-?: {
 //     type: PropType<T[K]>;
@@ -47,13 +78,32 @@ type ExcludeUndefined<T, K extends keyof T> = Exclude<T[K], undefined>;
 //     validator?: any;
 //   };
 // };
-// type A = TypedPropGroup<{ a?: boolean; }>;
-// type A1 = TypedPropGroup<{ a: boolean; }>;
-// type A2 = TypedPropGroup<{ a: boolean; }, { a: true; }>;
-// type A3 = TypedPropGroup<{ a: boolean; }, { a?: true; }>;
-// type p = ExtractDefault<"a", { a?: boolean; }, Types.Recordable>;
-// type b = import("vue").ExtractPropTypes<{
-//   a: {
-//     type: PropType<boolean>;
+// type A = TypedPropGroup<{ a?: boolean }>;
+// type A1 = TypedPropGroup<{ a: boolean }>;
+// type A2 = TypedPropGroup<{ a: boolean }, { a: true }>;
+// type A3 = TypedPropGroup<{ a: boolean }, { a?: true }>;
+// type p2 = ExtractDefaultPropTypes<A2>;
+// type a2 = ExtractPropTypes<{
+//   p: {
+//     type: PropType<number>;
+//     default: 1;
 //   };
 // }>;
+type p = ExtractDefault<"a", { a?: boolean }, Types.Recordable>;
+type b = import("vue").ExtractPropTypes<{
+  a: {
+    type: PropType<boolean>;
+  };
+}>;
+
+export type TypedPropsMap<T extends Types.Recordable> = {
+  [K in keyof T]-?: {} extends Pick<T, K>
+    ? {
+        type: PropType<T[K]>;
+        required: false;
+      }
+    : {
+        type: PropType<T[K]>;
+        required: true;
+      };
+};

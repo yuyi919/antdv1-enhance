@@ -10,6 +10,7 @@ import { castComputed, castObject, expect$ } from "@yuyi919/shared-utils";
 import { cloneDeep, defaults, defaultsDeep, merge } from "lodash";
 import Vue, {
   defineComponent,
+  h,
   VNode,
   VNodeChildren,
   VueConstructor,
@@ -41,7 +42,13 @@ async function loadComponent<T extends VueConstructor>(
   }
   // 如果不为Function
   if (typeof target === "string") {
-    target = <div domPropsInnerHTML={target.split("\n").join("<br/>")}></div>;
+    const data = target.split("\n").join("<br/>");
+    target = () =>
+      h("div", {
+        domProps: {
+          innerHTML: data,
+        },
+      }, []);
   }
   return {
     methods: {
@@ -50,7 +57,7 @@ async function loadComponent<T extends VueConstructor>(
       },
     },
     render() {
-      return <div>{target}</div>;
+      return <div>{target instanceof Function ? target() : target}</div>;
     },
   } as unknown as T;
 }

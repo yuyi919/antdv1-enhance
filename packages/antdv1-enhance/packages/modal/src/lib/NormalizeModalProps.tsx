@@ -1,8 +1,13 @@
-import { CSSProperties } from "@yuyi919/shared-types";
 import { Component, Prop, PropsMixins } from "@yuyi919/antdv1-plus-helper";
+import { CSSProperties } from "@yuyi919/shared-types";
 import { ClassesProps } from "./styles";
 
-export type NormalizeModalPlacement = "top" | "bottom" | "left" | "right" | "center";
+export type NormalizeModalPlacement =
+  | "top"
+  | "bottom"
+  | "left"
+  | "right"
+  | "center";
 
 @Component({})
 export class NormalizeModalProps extends PropsMixins(ClassesProps) {

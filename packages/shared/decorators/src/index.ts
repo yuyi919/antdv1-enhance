@@ -2,6 +2,7 @@ import { Types } from "@yuyi919/shared-types";
 import Vue, { ComponentOptions } from "vue";
 import { PropType } from "vue-demi";
 import { default as PropTypes, initDefaultProps } from "./prop-types";
+import { TypedPropGroup } from "@yuyi919/vue2.7-helper";
 
 export interface ITypedPropOptions<T, Required extends boolean> {
   type?: PropType<T> | null;
@@ -10,20 +11,12 @@ export interface ITypedPropOptions<T, Required extends boolean> {
   validator?: any;
 }
 
-export type TypedPropsGroup<T> = {
-  [K in keyof T]-?: {
-    type: PropType<T[K]>;
-    required: T extends { [key in K]-?: T[K] } ? true : false;
-    default?: any;
-    validator?: any;
-  };
-};
-
 export const UNSAFE_STORE_PROPS_KEY = "@props";
 const UNSAFE_WALKER = () => null;
-export function extractProps<T>(
+export function extractProps<T, D = {}>(
   target: Types.Consturctor<T>,
-): TypedPropsGroup<T> {
+  defaultProps?: D
+): TypedPropGroup<T, D> {
   if (target instanceof Vue) {
     return (
       (target as any).options as ComponentOptions<any, any, any, any, any>
@@ -57,11 +50,11 @@ export type WalkHandler<T, R extends T> = (
 export function extractUnsafeProps<T, R extends T>(
   target: Types.Consturctor<T>,
   configure?: (props: T) => R,
-): readonly [TypedPropsGroup<T>, WalkHandler<T, R>] {
+): readonly [TypedPropGroup<T>, WalkHandler<T, R>] {
   const propDefinitions = extractPropsWith(
     target,
     UNSAFE_WALKER,
-  ) as TypedPropsGroup<T>;
+  ) as TypedPropGroup<T>;
   // console.log(target.props);
   const extractor = createPropExtractor<T, R>(extractProps(target), configure);
   return [
@@ -96,7 +89,7 @@ const _isSimpleType = (type: any): boolean => {
   );
 };
 export function createPropExtractor<T, R extends T>(
-  source: TypedPropsGroup<T>,
+  source: TypedPropGroup<T>,
   configure?: (props: T) => R,
 ) {
   return (
@@ -129,11 +122,11 @@ export function createPropExtractor<T, R extends T>(
 export function extractPropsWith<T>(
   target: Types.Consturctor<T>,
   walker?: (type: any, key: keyof T) => any,
-): TypedPropsGroup<T> {
-  const source: TypedPropsGroup<T> =
+): TypedPropGroup<T> {
+  const source: TypedPropGroup<T> =
     target[UNSAFE_STORE_PROPS_KEY as unknown as string];
   if (!walker) return source;
-  const p = {} as TypedPropsGroup<T>;
+  const p = {} as TypedPropGroup<T>;
   // eslint-disable-next-line guard-for-in
   for (const key in source) {
     p[key] = walker(source[key], key);
@@ -224,3 +217,5 @@ export function MergeProps(...ctors: Types.ConstructorType<any>[]) {
     }),
   }) as any;
 }
+
+export * from "./extractPropClass"

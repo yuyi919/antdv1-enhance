@@ -1,5 +1,4 @@
 export * from "./ExcludeVueTypes";
-export * from "./extractPropClass";
 export * from "./helper";
 
 export type ResolveSubModule<

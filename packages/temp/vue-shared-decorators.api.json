@@ -1,0 +1,3074 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.28.7",
+    "schemaVersion": 1009,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@yuyi919/vue-shared-decorators!",
+  "docComment": "",
+  "name": "@yuyi919/vue-shared-decorators",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@yuyi919/vue-shared-decorators!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!Component:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function Component(options?: "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(target: any) => void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 4
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "Component"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!createPropExtractor:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function createPropExtractor<T, R extends "
+            },
+            {
+              "kind": "Content",
+              "text": "T"
+            },
+            {
+              "kind": "Content",
+              "text": ">(source: "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypedPropGroup",
+              "canonicalReference": "@yuyi919/vue2.7-helper!TypedPropGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ", configure?: "
+            },
+            {
+              "kind": "Content",
+              "text": "(props: T) => R"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(props: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, walker: (propName: keyof T, propValue: T[keyof T] | null | undefined, options: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ITypedPropOptions",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any, boolean>) => any) => R"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 8,
+            "endIndex": 13
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "source",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "configure",
+              "parameterTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 7
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "R",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "createPropExtractor"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!extractProps:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function extractProps<T, D = "
+            },
+            {
+              "kind": "Content",
+              "text": "{}"
+            },
+            {
+              "kind": "Content",
+              "text": ">(target: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "Consturctor",
+              "canonicalReference": "@yuyi919/shared-types!Consturctor:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ", defaultProps?: "
+            },
+            {
+              "kind": "Content",
+              "text": "D"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypedPropGroup",
+              "canonicalReference": "@yuyi919/vue2.7-helper!TypedPropGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T, D>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 11
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "target",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 6
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "defaultProps",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "D",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "name": "extractProps"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!extractPropsWith:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function extractPropsWith<T>(target: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "Consturctor",
+              "canonicalReference": "@yuyi919/shared-types!Consturctor:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ", walker?: "
+            },
+            {
+              "kind": "Content",
+              "text": "(type: any, key: keyof T) => any"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypedPropGroup",
+              "canonicalReference": "@yuyi919/vue2.7-helper!TypedPropGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 9
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "target",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "walker",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "extractPropsWith"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!extractUnsafeProps:function(1)",
+          "docComment": "/**\n * 从PropsClass中提取Vue props配置集合\n *\n * 提取出来的props配置中不会包含类型校验配置，因此vue不会检查props\n *\n * 相对的，提供返回数组中第二个函数作为手动进行props处理的方法\n *\n * @param target - 配置的PropsClass\n *\n * @param configure - 在处理完之后的hooks，传入props作为参数然后返回修改后的props\n *\n * @returns \n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function extractUnsafeProps<T, R extends "
+            },
+            {
+              "kind": "Content",
+              "text": "T"
+            },
+            {
+              "kind": "Content",
+              "text": ">(target: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "Consturctor",
+              "canonicalReference": "@yuyi919/shared-types!Consturctor:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ", configure?: "
+            },
+            {
+              "kind": "Content",
+              "text": "(props: T) => R"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "readonly ["
+            },
+            {
+              "kind": "Reference",
+              "text": "TypedPropGroup",
+              "canonicalReference": "@yuyi919/vue2.7-helper!TypedPropGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, "
+            },
+            {
+              "kind": "Reference",
+              "text": "WalkHandler",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!WalkHandler:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T, R>]"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 14
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "target",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 6
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "configure",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "R",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "extractUnsafeProps"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!getPropsClass:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function getPropsClass<T extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "TPropProvider",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!TPropProvider:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!~Vue:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ", Props extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "VCProps",
+              "canonicalReference": "@yuyi919/vue2.7-helper!VCProps:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "InstanceType",
+              "canonicalReference": "!InstanceType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, false>"
+            },
+            {
+              "kind": "Content",
+              "text": ">(component: "
+            },
+            {
+              "kind": "Content",
+              "text": "T"
+            },
+            {
+              "kind": "Content",
+              "text": ", replaceInitProps?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "VCProps",
+              "canonicalReference": "@yuyi919/vue2.7-helper!VCProps:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "InstanceType",
+              "canonicalReference": "!InstanceType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, false>>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(new () => Props) & {\n    model: "
+            },
+            {
+              "kind": "Reference",
+              "text": "IVModelDefine",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!IVModelDefine:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "KeyOf",
+              "canonicalReference": "@yuyi919/shared-types!KeyOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Props>>;\n    props: "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypedPropGroup",
+              "canonicalReference": "@yuyi919/vue2.7-helper!TypedPropGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Props>;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 20,
+            "endIndex": 27
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "component",
+              "parameterTypeTokenRange": {
+                "startIndex": 11,
+                "endIndex": 12
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "replaceInitProps",
+              "parameterTypeTokenRange": {
+                "startIndex": 13,
+                "endIndex": 19
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "Props",
+              "constraintTokenRange": {
+                "startIndex": 6,
+                "endIndex": 10
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "getPropsClass"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!getPropsClass:function(2)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function getPropsClass<T extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "TPropProvider",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!TPropProvider:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Vue",
+              "canonicalReference": "vue!~Vue:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ", Props extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "VCProps",
+              "canonicalReference": "@yuyi919/vue2.7-helper!VCProps:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "InstanceType",
+              "canonicalReference": "!InstanceType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, false>"
+            },
+            {
+              "kind": "Content",
+              "text": ", PropKey extends "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "KeyOf",
+              "canonicalReference": "@yuyi919/shared-types!KeyOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Props>"
+            },
+            {
+              "kind": "Content",
+              "text": ", Resolver = "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Omit",
+              "canonicalReference": "!Omit:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "InstanceType",
+              "canonicalReference": "!InstanceType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, PropKey | "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueInstanceKeys",
+              "canonicalReference": "@yuyi919/vue2.7-helper!VueInstanceKeys:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ">(component: "
+            },
+            {
+              "kind": "Content",
+              "text": "T"
+            },
+            {
+              "kind": "Content",
+              "text": ", replaceInitProps?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VCProps",
+              "canonicalReference": "@yuyi919/vue2.7-helper!VCProps:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "InstanceType",
+              "canonicalReference": "!InstanceType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, false>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ...igronProps: "
+            },
+            {
+              "kind": "Content",
+              "text": "PropKey[]"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(new () => Resolver) & {\n    model: "
+            },
+            {
+              "kind": "Reference",
+              "text": "IVModelDefine",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!IVModelDefine:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Exclude",
+              "canonicalReference": "!Exclude:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "KeyOf",
+              "canonicalReference": "@yuyi919/shared-types!KeyOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Props>, PropKey>>;\n    props: "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypedPropGroup",
+              "canonicalReference": "@yuyi919/vue2.7-helper!TypedPropGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Resolver>;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 33,
+            "endIndex": 42
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 2,
+          "parameters": [
+            {
+              "parameterName": "component",
+              "parameterTypeTokenRange": {
+                "startIndex": 24,
+                "endIndex": 25
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "replaceInitProps",
+              "parameterTypeTokenRange": {
+                "startIndex": 26,
+                "endIndex": 30
+              },
+              "isOptional": true
+            },
+            {
+              "parameterName": "igronProps",
+              "parameterTypeTokenRange": {
+                "startIndex": 31,
+                "endIndex": 32
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "Props",
+              "constraintTokenRange": {
+                "startIndex": 6,
+                "endIndex": 10
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "PropKey",
+              "constraintTokenRange": {
+                "startIndex": 11,
+                "endIndex": 14
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "Resolver",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 15,
+                "endIndex": 23
+              }
+            }
+          ],
+          "name": "getPropsClass"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!getPropsClass:function(3)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function getPropsClass<Props extends "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "Recordable",
+              "canonicalReference": "@yuyi919/shared-types!Recordable:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", PropKey extends "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "KeyOf",
+              "canonicalReference": "@yuyi919/shared-types!KeyOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Props>"
+            },
+            {
+              "kind": "Content",
+              "text": ">(component: "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ", replaceInitProps?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Props>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ...igronProps: "
+            },
+            {
+              "kind": "Content",
+              "text": "PropKey[]"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(new () => Props) & {\n    model: "
+            },
+            {
+              "kind": "Reference",
+              "text": "IVModelDefine",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!IVModelDefine:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<PropKey>;\n    props: "
+            },
+            {
+              "kind": "Reference",
+              "text": "TypedPropGroup",
+              "canonicalReference": "@yuyi919/vue2.7-helper!TypedPropGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<Props>;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 15,
+            "endIndex": 20
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 3,
+          "parameters": [
+            {
+              "parameterName": "component",
+              "parameterTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 9
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "replaceInitProps",
+              "parameterTypeTokenRange": {
+                "startIndex": 10,
+                "endIndex": 12
+              },
+              "isOptional": true
+            },
+            {
+              "parameterName": "igronProps",
+              "parameterTypeTokenRange": {
+                "startIndex": 13,
+                "endIndex": 14
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "Props",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "PropKey",
+              "constraintTokenRange": {
+                "startIndex": 4,
+                "endIndex": 7
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "getPropsClass"
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!initDefaultProps:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "initDefaultProps: "
+            },
+            {
+              "kind": "Content",
+              "text": "<T>(types: T, defaultProps: { [K in keyof T]?: (T[K] extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<infer U> ? U : T[K] extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeDef",
+              "canonicalReference": "vue-types!VueTypeDef:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<infer U_1> ? U_1 : T[K] extends {\n    type: "
+            },
+            {
+              "kind": "Reference",
+              "text": "PropType",
+              "canonicalReference": "vue!PropType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<infer U_2>;\n} ? U_2 : any) | undefined; }) => T"
+            }
+          ],
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "initDefaultProps",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 8
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ITypedPropOptions<T, Required extends "
+            },
+            {
+              "kind": "Content",
+              "text": "boolean"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            }
+          ],
+          "releaseTag": "Public",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "Required",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "ITypedPropOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions#default:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "default?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "T | (() => T) | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "default",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions#required:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "required?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "Required | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "required",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions#type:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "type?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "PropType",
+                  "canonicalReference": "vue!PropType:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<T> | null"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "type",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions#validator:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "validator?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "validator",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!IVModelDefine:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface IVModelDefine<K extends "
+            },
+            {
+              "kind": "Content",
+              "text": "string "
+            },
+            {
+              "kind": "Content",
+              "text": "= "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            }
+          ],
+          "releaseTag": "Public",
+          "typeParameters": [
+            {
+              "typeParameterName": "K",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "IVModelDefine",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!IVModelDefine#event:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "event?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "event",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!IVModelDefine#prop:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "prop?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "K"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "prop",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!MergeProps:function(1)",
+          "docComment": "/**\n * @param ctorA - \n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function MergeProps<A>(ctorA: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 8
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "ctorA",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "A",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "MergeProps"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!MergeProps:function(2)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function MergeProps<A, B>(ctorA: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorB: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<B>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A & B>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 12
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 2,
+          "parameters": [
+            {
+              "parameterName": "ctorA",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorB",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 8
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "A",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "B",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "MergeProps"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!MergeProps:function(3)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function MergeProps<A, B, C>(ctorA: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorB: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<B>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorC: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<C>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A & B & C>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 13,
+            "endIndex": 16
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 3,
+          "parameters": [
+            {
+              "parameterName": "ctorA",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorB",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 8
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorC",
+              "parameterTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 12
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "A",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "B",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "C",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "MergeProps"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!MergeProps:function(4)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function MergeProps<A, B, C, D>(ctorA: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorB: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<B>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorC: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<C>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorD: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<D>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A & B & C & D>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 17,
+            "endIndex": 20
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 4,
+          "parameters": [
+            {
+              "parameterName": "ctorA",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorB",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 8
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorC",
+              "parameterTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 12
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorD",
+              "parameterTypeTokenRange": {
+                "startIndex": 13,
+                "endIndex": 16
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "A",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "B",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "C",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "D",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "MergeProps"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!MergeProps:function(5)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function MergeProps<A, B, C, D, E>(ctorA: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorB: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<B>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorC: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<C>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorD: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<D>"
+            },
+            {
+              "kind": "Content",
+              "text": ", ctorE: "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<E>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "ConstructorType",
+              "canonicalReference": "@yuyi919/shared-types!ConstructorType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<A & B & C & D & E>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 21,
+            "endIndex": 24
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 5,
+          "parameters": [
+            {
+              "parameterName": "ctorA",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorB",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 8
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorC",
+              "parameterTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 12
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorD",
+              "parameterTypeTokenRange": {
+                "startIndex": 13,
+                "endIndex": 16
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "ctorE",
+              "parameterTypeTokenRange": {
+                "startIndex": 17,
+                "endIndex": 20
+              },
+              "isOptional": false
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "A",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "B",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "C",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "D",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "E",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "MergeProps"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!Prop:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function Prop<Required extends "
+            },
+            {
+              "kind": "Content",
+              "text": "boolean"
+            },
+            {
+              "kind": "Content",
+              "text": ">(options?: "
+            },
+            {
+              "kind": "Content",
+              "text": "null | "
+            },
+            {
+              "kind": "Reference",
+              "text": "ITypedPropOptions",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any, Required> | Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "Consturctor",
+              "canonicalReference": "@yuyi919/shared-types!Consturctor:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>[] | Types."
+            },
+            {
+              "kind": "Reference",
+              "text": "Consturctor",
+              "canonicalReference": "@yuyi919/shared-types!Consturctor:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Content",
+              "text": "(target: any, key: string) => void"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 11,
+            "endIndex": 12
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 10
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "Required",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "Prop"
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!PropTypes:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "_default: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    new (): {};\n    defaults: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypesDefaults",
+              "canonicalReference": "vue-types!VueTypesDefaults:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n    sensibleDefaults: boolean | "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypesDefaults",
+              "canonicalReference": "vue-types!VueTypesDefaults:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n    config: import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypesConfig",
+              "canonicalReference": "vue-types!VueTypesConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    readonly any: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>;\n    readonly func: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<(...args: any[]) => any> & {\n        default: (...args: any[]) => any;\n    };\n    readonly bool: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<boolean> & {\n        default: boolean;\n    };\n    readonly string: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<string> & {\n        default: string;\n    };\n    readonly number: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<number> & {\n        default: number;\n    };\n    readonly array: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<unknown[]> & {\n        default: () => unknown[];\n    };\n    readonly object: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n        [key: string]: any;\n    }> & {\n        default: () => {\n            [key: string]: any;\n        };\n    };\n    readonly integer: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeDef",
+              "canonicalReference": "vue-types!VueTypeDef:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<number> & {\n        default: number;\n    };\n    readonly symbol: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeDef",
+              "canonicalReference": "vue-types!VueTypeDef:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<symbol>;\n    readonly custom: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "custom",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    readonly oneOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "oneOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    readonly instanceOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "instanceOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    readonly oneOfType: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "oneOfType",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    readonly arrayOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "arrayOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    readonly objectOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "objectOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    readonly shape: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "shape",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    extend<T_3 extends {\n        new (): {};\n        defaults: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypesDefaults",
+              "canonicalReference": "vue-types!VueTypesDefaults:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n        sensibleDefaults: boolean | "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypesDefaults",
+              "canonicalReference": "vue-types!VueTypesDefaults:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n        config: import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypesConfig",
+              "canonicalReference": "vue-types!VueTypesConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        readonly any: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>;\n        readonly func: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<(...args: any[]) => any> & {\n            default: (...args: any[]) => any;\n        };\n        readonly bool: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<boolean> & {\n            default: boolean;\n        };\n        readonly string: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<string> & {\n            default: string;\n        };\n        readonly number: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<number> & {\n            default: number;\n        };\n        readonly array: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<unknown[]> & {\n            default: () => unknown[];\n        };\n        readonly object: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n            [key: string]: any;\n        }> & {\n            default: () => {\n                [key: string]: any;\n            };\n        };\n        readonly integer: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeDef",
+              "canonicalReference": "vue-types!VueTypeDef:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<number> & {\n            default: number;\n        };\n        readonly symbol: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeDef",
+              "canonicalReference": "vue-types!VueTypeDef:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<symbol>;\n        readonly custom: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "custom",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        readonly oneOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "oneOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        readonly instanceOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "instanceOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        readonly oneOfType: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "oneOfType",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        readonly arrayOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "arrayOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        readonly objectOf: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "objectOf",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        readonly shape: typeof import(\"vue-types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "shape",
+              "canonicalReference": "vue-types!default"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        extend<T extends unknown>(props: import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ExtendProps",
+              "canonicalReference": "vue-types!ExtendProps:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any> | import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ExtendProps",
+              "canonicalReference": "vue-types!ExtendProps:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>[]): T;\n        utils: {\n            validate<T_1, U>(value: T_1, type: U): boolean;\n            toType<T_2 = unknown>(name: string, obj: import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "PropOptions",
+              "canonicalReference": "vue-types!PropOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<T_2, T_2>, validable?: boolean | undefined): "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeDef",
+              "canonicalReference": "vue-types!VueTypeDef:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T_2> | "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<T_2>;\n        };\n    }>(props: import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ExtendProps",
+              "canonicalReference": "vue-types!ExtendProps:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any> | import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "ExtendProps",
+              "canonicalReference": "vue-types!ExtendProps:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>[]): T_3;\n    utils: {\n        validate<T_1_1, U_1>(value: T_1_1, type: U_1): boolean;\n        toType<T_2_1 = unknown>(name: string, obj: import(\"vue-types/dist/types\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "PropOptions",
+              "canonicalReference": "vue-types!PropOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<T_2_1, T_2_1>, validable?: boolean | undefined): "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeDef",
+              "canonicalReference": "vue-types!VueTypeDef:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T_2_1> | "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<T_2_1>;\n    };\n} & {\n    readonly shapeSize: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<`${number}${string}` | number>;\n    readonly looseBool: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<boolean>;\n    readonly style: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "CSSProperties",
+              "canonicalReference": "csstype!Properties:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n    readonly VNodeChild: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VueTypeValidableDef",
+              "canonicalReference": "vue-types!VueTypeValidableDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "VNode",
+              "canonicalReference": "vue!VNode:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n}"
+            }
+          ],
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "PropTypes",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 118
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!TPropProvider:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type TPropProvider<T> = "
+            },
+            {
+              "kind": "Content",
+              "text": "new () => T"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "TPropProvider",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!UNSAFE_STORE_PROPS_KEY:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "UNSAFE_STORE_PROPS_KEY = "
+            },
+            {
+              "kind": "Content",
+              "text": "\"@props\""
+            }
+          ],
+          "initializerTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          },
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "UNSAFE_STORE_PROPS_KEY",
+          "variableTypeTokenRange": {
+            "startIndex": 0,
+            "endIndex": 0
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@yuyi919/vue-shared-decorators!WalkHandler:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type WalkHandler<T, R extends "
+            },
+            {
+              "kind": "Content",
+              "text": "T"
+            },
+            {
+              "kind": "Content",
+              "text": "> = "
+            },
+            {
+              "kind": "Content",
+              "text": "(props: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, walker: (propName: keyof T, propValue: T[keyof T] | undefined | null, options: "
+            },
+            {
+              "kind": "Reference",
+              "text": "ITypedPropOptions",
+              "canonicalReference": "@yuyi919/vue-shared-decorators!ITypedPropOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<any, boolean>) => any) => R"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "WalkHandler",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            },
+            {
+              "typeParameterName": "R",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 8
+          }
+        }
+      ]
+    }
+  ]
+}

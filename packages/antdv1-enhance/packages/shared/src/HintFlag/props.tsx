@@ -1,5 +1,5 @@
 import { Component, Prop } from "@yuyi919/antdv1-plus-helper";
-import { AntPopoverProps } from "../antv";
+import { AntPopoverProps } from "@yuyi919/antdv1-type-enhance";
 import { ThemedIcon } from "../Icon";
 
 @Component({})

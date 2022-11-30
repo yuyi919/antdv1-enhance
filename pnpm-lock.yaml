@@ -142,6 +142,7 @@ importers:
       '@yuyi919/antdv1-plus-helper': workspace:0.0.1
       '@yuyi919/antdv1-plus-shared': workspace:0.0.1
       '@yuyi919/antdv1-plus-theme': workspace:0.0.1
+      '@yuyi919/antdv1-type-enhance': workspace:^0.0.1
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       '@yuyi919/vue-jsx-factory': workspace:0.0.7
@@ -169,6 +170,7 @@ importers:
     devDependencies:
       '@types/jest': 27.0.3
       '@types/node': 16.7.13
+      '@yuyi919/antdv1-type-enhance': link:../type-enhance
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       ant-design-vue: 1.7.8_rhqkolmkwunxzlyyxxsuwaiuri
@@ -187,6 +189,7 @@ importers:
       '@yuyi919/antdv1-plus-helper': workspace:0.0.1
       '@yuyi919/antdv1-plus-shared': workspace:0.0.1
       '@yuyi919/antdv1-plus-theme': workspace:0.0.1
+      '@yuyi919/antdv1-type-enhance': workspace:^0.0.1
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': ^0.0.43
       '@yuyi919/vue-jsx-factory': workspace:*
@@ -215,6 +218,7 @@ importers:
     devDependencies:
       '@types/jest': 27.0.3
       '@types/node': 16.7.13
+      '@yuyi919/antdv1-type-enhance': link:../type-enhance
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       '@yuyi919/vue-jsx-factory': link:../../../jsx-factory
@@ -231,6 +235,7 @@ importers:
     specifiers:
       '@types/jest': ~27.0.1
       '@types/node': ~16.7.2
+      '@yuyi919/antdv1-type-enhance': workspace:^0.0.1
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': ^0.0.43
       '@yuyi919/vue-shared-decorators': workspace:0.0.9
@@ -256,6 +261,7 @@ importers:
     devDependencies:
       '@types/jest': 27.0.3
       '@types/node': 16.7.13
+      '@yuyi919/antdv1-type-enhance': link:../type-enhance
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       ant-design-vue: 1.7.8_rhqkolmkwunxzlyyxxsuwaiuri
@@ -274,6 +280,7 @@ importers:
       '@yuyi919/antdv1-plus-helper': workspace:0.0.1
       '@yuyi919/antdv1-plus-shared': workspace:0.0.1
       '@yuyi919/antdv1-plus-theme': workspace:0.0.1
+      '@yuyi919/antdv1-type-enhance': workspace:^0.0.1
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       '@yuyi919/vue-jsx-factory': workspace:*
@@ -302,6 +309,7 @@ importers:
     devDependencies:
       '@types/jest': 27.0.3
       '@types/node': 16.7.13
+      '@yuyi919/antdv1-type-enhance': link:../type-enhance
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       '@yuyi919/vue-jsx-factory': link:../../../jsx-factory
@@ -319,6 +327,7 @@ importers:
       '@types/node': ~16.7.2
       '@yuyi919/antdv1-plus-helper': workspace:0.0.1
       '@yuyi919/antdv1-plus-theme': workspace:0.0.1
+      '@yuyi919/antdv1-type-enhance': workspace:^0.0.1
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       '@yuyi919/vue-jss': workspace:0.0.3
@@ -349,6 +358,7 @@ importers:
     devDependencies:
       '@types/jest': 27.0.3
       '@types/node': 16.7.13
+      '@yuyi919/antdv1-type-enhance': link:../type-enhance
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       '@yuyi919/vue-jsx-factory': link:../../../jsx-factory
@@ -364,6 +374,7 @@ importers:
     specifiers:
       '@types/jest': ~27.0.1
       '@types/node': ~16.7.2
+      '@yuyi919/antdv1-type-enhance': workspace:^0.0.1
       '@yuyi919/shared-types': ^0.0.11
       '@yuyi919/shared-utils': ^0.0.43
       '@yuyi919/vue-use': workspace:0.0.9
@@ -381,6 +392,7 @@ importers:
     devDependencies:
       '@types/jest': 27.0.3
       '@types/node': 16.7.13
+      '@yuyi919/antdv1-type-enhance': link:../type-enhance
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       ant-design-vue: 1.7.8_rhqkolmkwunxzlyyxxsuwaiuri
@@ -396,6 +408,7 @@ importers:
       '@types/jest': ~27.0.1
       '@types/node': ~16.7.2
       '@yuyi919/antdv1-plus-helper': workspace:0.0.1
+      '@yuyi919/antdv1-type-enhance': workspace:^0.0.1
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': ^0.0.43
       '@yuyi919/vue-jss': workspace:0.0.3
@@ -434,6 +447,7 @@ importers:
     devDependencies:
       '@types/jest': 27.0.3
       '@types/node': 16.7.13
+      '@yuyi919/antdv1-type-enhance': link:../type-enhance
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       ant-design-vue: 1.7.8_rhqkolmkwunxzlyyxxsuwaiuri
@@ -449,6 +463,7 @@ importers:
       '@types/lodash': ^4.14.190
       '@types/node': ^16.4.9
       '@yuyi919/shared-types': ^0.0.11
+      '@yuyi919/vue-shared-decorators': workspace:^0.0.9
       '@yuyi919/vue2.7-helper': workspace:^0.0.9
       ant-design-vue: 1.7.8
       dts-bundle-generator: ^7.1.0
@@ -459,6 +474,7 @@ importers:
       vue-template-compiler: ^2.7.14
     dependencies:
       '@yuyi919/shared-types': 0.0.11
+      '@yuyi919/vue-shared-decorators': link:../../../shared/decorators
       '@yuyi919/vue2.7-helper': link:../../../vue2.7-helper
     devDependencies:
       '@types/lodash': 4.14.190
@@ -543,6 +559,7 @@ importers:
       '@types/node': ~16.7.2
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': ^0.0.43
+      '@yuyi919/vue2.7-helper': workspace:^0.0.9
       jest: ~27.1.0
       lodash: 4.17.21
       lodash-es: 4.17.21
@@ -553,6 +570,7 @@ importers:
       vue-demi: ~0.13.11
       vue-types: ~4.1.0
     dependencies:
+      '@yuyi919/vue2.7-helper': link:../../vue2.7-helper
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: 2.3.1

@@ -71,6 +71,7 @@ export const HintFlag = defineComponent({
       },
       toggle(show: boolean) {
         const p = popoverRef.value;
+        console.log(p)
         p?.$refs.tooltip && ((p.$refs.tooltip as any).sVisible = show);
       },
       renderHint: ({ icon, hint, slot }: { icon: any; hint: any; slot?: string }) => {
@@ -79,7 +80,6 @@ export const HintFlag = defineComponent({
             {icon}&nbsp;{props.title}
           </span>
         );
-        // console.log("title", title);
         return (
           <Popover
             ref={popoverRef}
@@ -87,9 +87,10 @@ export const HintFlag = defineComponent({
             slot={slot}
             getPopupContainer={() => document.body}
             title={title}
+            autoAdjustOverflow
             content={<div style="max-width: 400px;min-width: 50px;">{hint}</div>}
           >
-            <span>{props.icon}</span>
+            <span>{icon}</span>
           </Popover>
         );
       }

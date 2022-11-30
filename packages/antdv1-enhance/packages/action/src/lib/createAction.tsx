@@ -1,10 +1,10 @@
-import { defineComponent } from "vue-demi";
-import { expect$, sleep, stubFunction } from "@yuyi919/shared-utils";
 import { extractProps, TypedPropsGroup } from "@yuyi919/antdv1-plus-helper";
+import { AntPopconfirmProps } from "@yuyi919/antdv1-type-enhance";
+import { expect$, sleep, stubFunction } from "@yuyi919/shared-utils";
 import { Popconfirm } from "ant-design-vue";
+import { defineComponent } from "vue-demi";
 import AutoOperationBar from "./component";
 import { IConfirmButtonProps } from "./interface";
-import { Antv } from "../shared";
 
 export const StaticProps = {
   okButtonProps: { style: "display: none" },
@@ -12,7 +12,7 @@ export const StaticProps = {
 };
 
 export function createConfirmButton(initialConfirm: any) {
-  return defineComponent<any, any, any, any, any>({
+  return ({
     functional: true,
     render(
       _,
@@ -28,9 +28,12 @@ export function createConfirmButton(initialConfirm: any) {
         data,
         children,
         listeners = {},
-      }: any
+      }: any,
     ) {
-      const isDisabled = expect$.is.bool.filter(disabled, confirm === undefined);
+      const isDisabled = expect$.is.bool.filter(
+        disabled,
+        confirm === undefined,
+      );
       // console.log(data, listeners, isDisabled);
       listeners.click = listeners.click || stubFunction;
       return (
@@ -58,8 +61,8 @@ export function createConfirmButton(initialConfirm: any) {
 export function createConfirmButtonComponent(initialConfirm: any) {
   return defineComponent({
     functional: true,
-    props: extractProps(Antv.AntPopconfirmProps) as TypedPropsGroup<
-      InstanceType<typeof Antv.AntPopconfirmProps>
+    props: extractProps(AntPopconfirmProps) as TypedPropsGroup<
+      InstanceType<typeof AntPopconfirmProps>
     >,
     render(
       h,
@@ -74,7 +77,7 @@ export function createConfirmButtonComponent(initialConfirm: any) {
         data,
         children,
         listeners = {} as any,
-      }
+      },
     ) {
       // console.log(data, listeners);
       return (
@@ -123,12 +126,15 @@ export const CommonConfirmButton = {
   cancel: ConfirmCancelButton,
 };
 
-export function getConfirmContainerComponent<K extends keyof typeof CommonConfirmButton>(
-  config: K
-): typeof CommonConfirmButton[K];
-export function getConfirmContainerComponent(config: any): ReturnType<typeof createConfirmButton>;
+export function getConfirmContainerComponent<
+  K extends keyof typeof CommonConfirmButton,
+>(config: K): typeof CommonConfirmButton[K];
+export function getConfirmContainerComponent(
+  config: any,
+): ReturnType<typeof createConfirmButton>;
 export function getConfirmContainerComponent(config: any) {
   return (
-    CommonConfirmButton[config as keyof typeof CommonConfirmButton] || createConfirmButton(config)
+    CommonConfirmButton[config as keyof typeof CommonConfirmButton] ||
+    createConfirmButton(config)
   );
 }

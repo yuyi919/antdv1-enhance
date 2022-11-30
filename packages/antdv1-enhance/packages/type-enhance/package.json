@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@yuyi919/shared-types": "^0.0.11",
+    "@yuyi919/vue-shared-decorators": "workspace:^0.0.9",
     "@yuyi919/vue2.7-helper": "workspace:^0.0.9"
   },
   "devDependencies": {
