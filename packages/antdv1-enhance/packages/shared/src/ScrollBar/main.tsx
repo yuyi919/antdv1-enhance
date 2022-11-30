@@ -3,6 +3,17 @@
 /* eslint-disable prefer-const */
 // reference https://github.com/noeldelgado/gemini-scrollbar/blob/master/index.js
 
+import { DomUtils, extractProps } from "@yuyi919/antdv1-plus-helper";
+import { autoSizer } from "@yuyi919/antdv1-plus-theme";
+import { CSSProperties } from "@yuyi919/shared-types";
+import { castArray } from "@yuyi919/shared-utils";
+import {
+  addResizeListener,
+  removeResizeListener,
+  useNamedRef,
+} from "@yuyi919/vue-use";
+import { debounce, throttle } from "lodash";
+import { VNode } from "vue";
 import {
   computed,
   defineComponent,
@@ -12,13 +23,7 @@ import {
   reactive,
   watch,
 } from "vue-demi";
-import { addResizeListener, removeResizeListener, useNamedRef } from "@yuyi919/vue-use";
-import { CSSProperties } from "@yuyi919/shared-types";
-import { castArray } from "@yuyi919/shared-utils";
-import { DomUtils, extractProps } from "@yuyi919/antdv1-plus-helper";
-import { autoSizer } from "@yuyi919/antdv1-plus-theme";
-import { debounce, throttle } from "lodash";
-import { VNode } from "vue";
+import { StyleValue } from "vue/types/jsx";
 import { Bar } from "./bar";
 import { useClass, useClasses } from "./classes";
 import { ScrollBarProps } from "./ScrollBarProps";
@@ -38,7 +43,10 @@ export const Scrollbar = defineComponent({
     const logger = (...args: any[]) => {
       props.debug && console.debug(`[Debug] ${props.debug}`, ...args);
     };
-    const containerState = reactive<{ width?: string | number; height?: string | number }>({
+    const containerState = reactive<{
+      width?: string | number;
+      height?: string | number;
+    }>({
       width: void 0,
       height: void 0,
     });
@@ -55,7 +63,7 @@ export const Scrollbar = defineComponent({
         updataSizeWith(
           wrap: any,
           type: keyof typeof BAR_MAP,
-          offsetSize: number = wrap[BAR_MAP[type].offset]
+          offsetSize: number = wrap[BAR_MAP[type].offset],
         ) {
           const map = BAR_MAP[type];
           // if (type === "vertical") {
@@ -99,7 +107,11 @@ export const Scrollbar = defineComponent({
         setContainer(type: "height" | "width", size: string | number) {
           if (containerState[type] !== size) {
             if (props.debug) {
-              logger("update:State:" + type, autoSizer(size), autoSizer(containerState[type]));
+              logger(
+                "update:State:" + type,
+                autoSizer(size),
+                autoSizer(containerState[type]),
+              );
             }
             containerState[type] = size;
             return true;
@@ -171,17 +183,21 @@ export const Scrollbar = defineComponent({
               (addResizeListener(
                 [self.$el as HTMLDivElement, viewRef.value!],
                 methods.updateBarSize,
-                40
+                40,
               ),
               addResizeListener(
                 [self.$el.parentElement!, viewRef.value!],
                 methods.updateContainer,
-                40
+                40,
               ));
-            viewRef.value!.addEventListener("transitionend", methods.forceUpdate);
+            viewRef.value!.addEventListener(
+              "transitionend",
+              methods.forceUpdate,
+            );
             // addResizeListener(self.$el as HTMLDivElement, methods.updateContainer, 20)
           } else {
-            !noResize && addResizeListener(viewRef.value, methods.updateContainer, 40);
+            !noResize &&
+              addResizeListener(viewRef.value, methods.updateContainer, 40);
           }
         },
         unbinding(native: boolean, noResize: boolean) {
@@ -189,15 +205,16 @@ export const Scrollbar = defineComponent({
             !noResize &&
               (removeResizeListener(
                 [self.$el as HTMLDivElement, viewRef.value!],
-                methods.updateBarSize
+                methods.updateBarSize,
               ),
               removeResizeListener(
                 [self.$el.parentElement!, viewRef.value!],
-                methods.updateContainer
+                methods.updateContainer,
               ));
             wrapRef.value = null;
           } else {
-            !noResize && removeResizeListener(viewRef.value, methods.updateContainer);
+            !noResize &&
+              removeResizeListener(viewRef.value, methods.updateContainer);
           }
         },
         flush: () => {
@@ -231,13 +248,13 @@ export const Scrollbar = defineComponent({
       ([native, noResize], prev) => {
         if (prev) methods.unbinding(prev[0], prev[1]);
         methods.binding(native!, noResize!);
-      }
+      },
     );
     watch(
       () => [props.height, props.maxHeight],
       () => {
         methods.updateContainer();
-      }
+      },
     );
 
     onMounted(mounted);
@@ -267,15 +284,20 @@ export const Scrollbar = defineComponent({
         gutterStyle["overflowY"] = state.height === 0 ? "hidden" : "scroll";
         gutterStyle["overflowX"] = state.width === 0 ? "hidden" : "scroll";
         // console.log(gutterStyle);
-        style = (style ? [...castArray(style), gutterStyle] : gutterStyle) as
-          | CSSProperties
-          | CSSProperties[];
+        style = (
+          style ? [...castArray(style), gutterStyle] : gutterStyle
+        ) as StyleValue;
       }
       return style;
     });
 
     const bars = computed(() => [
-      <Bar ref={barRefH} delay={props.delay! * 2} wrapRef={wrapRef} size={state.width}></Bar>,
+      <Bar
+        ref={barRefH}
+        delay={props.delay! * 2}
+        wrapRef={wrapRef}
+        size={state.width}
+      ></Bar>,
       <Bar
         vertical
         ref={barRefV}
@@ -311,7 +333,7 @@ export const Scrollbar = defineComponent({
         containerState.height = void 0;
         containerState.width = void 0;
         methods.updateBarSize();
-      }
+      },
     );
     return () => {
       const style = wrapStyleRef.value;
@@ -326,7 +348,12 @@ export const Scrollbar = defineComponent({
       let nodes: VNode | (VNode | VNode[])[];
       if (!props.native) {
         nodes = [
-          <div ref={wrapRef} class={wrapCls} style={style} onScroll={methods.handleScroll}>
+          <div
+            ref={wrapRef}
+            class={wrapCls}
+            style={style}
+            onScroll={methods.handleScroll}
+          >
             {view}
           </div>,
           bars.value,
@@ -336,7 +363,7 @@ export const Scrollbar = defineComponent({
           <div
             ref={wrapRef}
             class={wrapCls}
-            style={[style, { overflow: "auto", height: "100%" }]}
+            style={[style!, { overflow: "auto", height: "100%" }]}
             onScroll={methods.handleScroll}
           >
             {view}
@@ -350,9 +377,7 @@ export const Scrollbar = defineComponent({
             width: autoSizer(containerState.width),
             height: autoSizer(containerState.height),
           }}
-          on={{
-            mousemove: methods.flush,
-          }}
+          onMousemove={methods.flush}
           data-delay={props.delay}
         >
           {nodes}
@@ -366,7 +391,7 @@ export function getScrollMoveInstance(
   wrap: HTMLDivElement,
   barMap: BarMapValue,
   size: number,
-  scroll: number
+  scroll: number,
 ): number {
   const clientSize = wrap[barMap.clientSize] - 2;
   const scrollSize = wrap[barMap.scrollSize];

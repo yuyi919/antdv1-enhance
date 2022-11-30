@@ -1,26 +1,28 @@
+import { Types } from "@yuyi919/shared-types";
 import { sleep } from "@yuyi919/shared-utils";
-import { HookFactory, useHookFactory } from "../helper";
 import { castArray, defaults, delay, isObject, merge } from "lodash";
 import { h, SetupContext } from "vue-demi";
-import { getConfirmContainerComponent } from "./createAction";
+import { HookFactory, useHookFactory } from "../helper";
 import { IButtonProps, utils } from "../shared";
 import { convertArrayProps } from "./castProps";
+import { getConfirmContainerComponent } from "./createAction";
 import {
-  BaseActionConfig,
   ActionType,
-  ICallableActionConfig,
+  BaseActionConfig,
   IActionConfig,
+  ICallableActionConfig,
   IListenableActionConfig,
 } from "./interface";
 import ActionGroupProps, { DefaultActionMap } from "./Props";
-import { Types } from "@yuyi919/shared-types";
 const { useActionSpinning, useCodeFilter } = utils;
 const hooks = {};
 type InnerActionConfig<
   T extends ActionType = ActionType,
-  Type extends "event" | "handler" = any
+  Type extends "event" | "handler" = any,
 > = Types.RequiredTo<
-  Type extends "handler" ? ICallableActionConfig<T> : IListenableActionConfig<T>,
+  Type extends "handler"
+    ? ICallableActionConfig<T>
+    : IListenableActionConfig<T>,
   "type" | "name" | "component" | "actionType" | "render"
 >;
 // console.log('DefaultActionMap', DefaultActionMap)
@@ -35,7 +37,7 @@ export function isDefaultActionType(type: string): type is ActionType {
 
 export function getActionTitle(
   action: BaseActionConfig,
-  useTypeOverwrite = false
+  useTypeOverwrite = false,
 ): string | undefined {
   if (useTypeOverwrite && action.type !== "custom") {
     return DefaultActionMap[action.type!] || action.title || action.name;
@@ -61,14 +63,17 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
   constructor(
     context: SetupContext,
     props: ActionGroupProps,
-    private $actionSpinning: utils.ActionSpinningHook = useActionSpinning(props, context),
-    private $filter?: utils.CodeFilter<string>
+    private $actionSpinning: utils.ActionSpinningHook = useActionSpinning(
+      props,
+      context,
+    ),
+    private $filter?: utils.CodeFilter<string>,
   ) {
     super(context, props);
     const filter = useCodeFilter(
       () => this.actionNameList,
       () => props.display,
-      () => props.hidden
+      () => props.hidden,
     );
     this.$filter = filter[1];
   }
@@ -83,10 +88,10 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
                 title: value,
                 name: key,
               }
-            : value
+            : value,
         );
       },
-      1
+      1,
     ) as InnerActionConfig[];
     // console.error('actionList', r)
     return this.props.reverse ? r.reverse() : r;
@@ -113,8 +118,11 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
             const style = injectProps.style
               ? defaults(injectProps.style, action.style)
               : action.style;
-            const Confirm =
-              confirm && getConfirmContainerComponent(confirm === true ? type : confirm.title);
+            const Confirm: any =
+              confirm &&
+              getConfirmContainerComponent(
+                confirm === true ? type : confirm.title,
+              );
             const onClick = async (e: MouseEvent) => {
               const ref = this.$refs[`confirm_${action.name}`] as any;
               try {
@@ -132,7 +140,7 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
               this.props.defaultProps,
               props,
               injectProps,
-              this.props.disabled ? { disabled: true } : {}
+              this.props.disabled ? { disabled: true } : {},
             );
             const btn = (
               <Button
@@ -146,7 +154,10 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
                 }}
                 class={injectProps.className}
                 role={injectProps.role}
-                {...{ props: buttonProps, on: Confirm ? {} : { click: onClick } }}
+                {...{
+                  props: buttonProps,
+                  on: Confirm ? {} : { click: onClick },
+                }}
               >
                 {(injectProps && injectProps.text) || getActionTitle(action)}
               </Button>
@@ -171,7 +182,7 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
   }
 
   public isHandlerAction(
-    action: InnerActionConfig
+    action: InnerActionConfig,
   ): action is InnerActionConfig<ActionType, "handler"> {
     return action.actionType === "handler";
   }
@@ -186,11 +197,16 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
         const isDelay = result instanceof Promise;
         if (
           isDelay &&
-          (await Promise.race([sleep(100, ActionGroupHooks.useSpinning), result])) ===
-            ActionGroupHooks.useSpinning
+          (await Promise.race([
+            sleep(100, ActionGroupHooks.useSpinning),
+            result,
+          ])) === ActionGroupHooks.useSpinning
         ) {
           this.$actionSpinning.spinningStart(name);
-          return Promise.race([Promise.all([result, sleep(300)]), this.waitingCancel()])
+          return Promise.race([
+            Promise.all([result, sleep(300)]),
+            this.waitingCancel(),
+          ])
             .catch((e) => {
               console.error(e);
               throw e;
@@ -202,14 +218,18 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
       };
     } else if (name) {
       // 事件传递，传递name对应的事件，并将action作为参数\
-      return async () => this.handleEmitAction(action as InnerActionConfig<ActionType, "event">);
+      return async () =>
+        this.handleEmitAction(action as InnerActionConfig<ActionType, "event">);
     }
   }
 
   /**
    * 传递action事件
    */
-  public handleEmitAction({ name, action }: InnerActionConfig<ActionType, "event">) {
+  public handleEmitAction({
+    name,
+    action,
+  }: InnerActionConfig<ActionType, "event">) {
     console.error("call", name);
     // const handler = this.$listeners[name] as any
     const args = castArray(action);
@@ -237,7 +257,7 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
   }
 
   public getActionHandler(
-    config: IActionConfig<ActionType>
+    config: IActionConfig<ActionType>,
   ): undefined | (() => void | Promise<any>) {
     const { action, type = config.name } = config;
     const { defaultActionHandler } = this.props;
@@ -245,7 +265,10 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
       (action instanceof Function && action) ||
       (defaultActionHandler &&
         defaultActionHandler[type as ActionType] &&
-        defaultActionHandler[type as ActionType]!.bind(this, ...castArray(action))) ||
+        defaultActionHandler[type as ActionType]!.bind(
+          this,
+          ...castArray(action),
+        )) ||
       undefined
     );
   }
@@ -259,9 +282,11 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
   public getActionName(
     name: IActionConfig["name"],
     type: IActionConfig["type"],
-    action?: IActionConfig["action"]
+    action?: IActionConfig["action"],
   ): string {
-    return name || (action && (action as any).name) || type || ActionType.自定义;
+    return (
+      name || (action && (action as any).name) || type || ActionType.自定义
+    );
   }
 
   /**
@@ -269,15 +294,22 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
    * @param type
    * @param name
    */
-  private getActionType(type: IActionConfig["type"], name: IActionConfig["name"]): ActionType {
+  private getActionType(
+    type: IActionConfig["type"],
+    name: IActionConfig["name"],
+  ): ActionType {
     return type || (isDefaultActionType(name!) && name) || ActionType.自定义;
   }
 
-  private getActionBase(config: string): InnerActionConfig<ActionType, "event"> | undefined;
   private getActionBase(
-    config: IActionConfig<ActionType>
+    config: string,
+  ): InnerActionConfig<ActionType, "event"> | undefined;
+  private getActionBase(
+    config: IActionConfig<ActionType>,
   ): InnerActionConfig<ActionType, "event" | "handler"> | undefined;
-  private getActionBase(config: string | IActionConfig<ActionType>): InnerActionConfig | undefined {
+  private getActionBase(
+    config: string | IActionConfig<ActionType>,
+  ): InnerActionConfig | undefined {
     let action: InnerActionConfig | undefined;
     if (typeof config === "string") {
       action = {
@@ -372,12 +404,12 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
         this.showActionCancel = allow;
       },
       spinning ? 2000 : 0,
-      spinning
+      spinning,
     );
   }
 
   getAppendProps<T extends ActionType>(
-    config: InnerActionConfig<T>
+    config: InnerActionConfig<T>,
   ): Partial<IButtonProps> & { text?: string } {
     if (this.isOtherAction<T>(config)) {
       return { type: this.getButtonType(config) };
@@ -404,10 +436,11 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
     config: Types.RequiredTo<
       ICallableActionConfig<T> | IListenableActionConfig<T>,
       "type" | "name" | "component" | "actionType" | "render"
-    >
+    >,
   ) {
     return (
-      (!this.$actionSpinning.actionSpinning && config.type !== ActionType.CANCEL$) ||
+      (!this.$actionSpinning.actionSpinning &&
+        config.type !== ActionType.CANCEL$) ||
       (this.showActionCancel &&
         this.$actionSpinning.actionSpinning &&
         config.type === ActionType.CANCEL$)
@@ -419,7 +452,9 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
     const r: any[] = [];
     if (this.actionCancelBtn) {
       actionList = [...actionList];
-      actionList[this.props.align !== "left" ? "unshift" : "push"](this.actionCancelBtn);
+      actionList[this.props.align !== "left" ? "unshift" : "push"](
+        this.actionCancelBtn,
+      );
     }
     // console.error(this.isSpinning, cloneDeep(this.spinningActionMap), this.actionCancelBtn)
     for (const action of actionList) {

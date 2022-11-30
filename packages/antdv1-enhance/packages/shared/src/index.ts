@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export * from "./Button";
-export * from "./Icon";
-export * from "./HintFlag";
 export * from "./AutoSizer";
+export * from "./Button";
+export * from "./HintFlag";
+export * from "./Icon";
 export * from "./ScrollBar";
 export * from "./SmartGrid";
+export { utils };
 
 import * as utils from "./share";
-export { utils };

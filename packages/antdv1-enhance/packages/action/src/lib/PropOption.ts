@@ -2,7 +2,7 @@
 import { PropsOption as PropValidator } from "./PropsOptionsGroup";
 import Vue from "vue";
 import { PropType } from "vue-demi";
-import { TypedPropsGroup } from "../helper";
+import { TypedPropGroup } from "../helper";
 const dummyProps = {
   objectProp: Object,
   objectProp2: {
@@ -121,7 +121,7 @@ export type RequiredValidate<T, RequiredKeys extends keyof T> = Required<Pick<T,
  * Experimental support for new typings introduced from Vue 2.5
  * Depending on some private types of vue, which may be changed by upgrade :(
  */
-export type RequiredPropNames<PropsDef extends TypedPropsGroup<{}>> = {
+export type RequiredPropNames<PropsDef extends TypedPropGroup<{}>> = {
   [K in keyof PropsDef]: PropsDef[K] extends {
     required?: true;
   }
@@ -137,13 +137,13 @@ export type PropsForOutside<Props, RequiredPropNames extends keyof Props> = {
   [K in Exclude<keyof Props, RequiredPropNames>]?: Props[K];
 };
 
-export type ExtractDefineProps<T extends TypedPropsGroup<any>> = {
+export type ExtractDefineProps<T extends TypedPropGroup<any>> = {
   [K in keyof RequiredValidate<T, RequiredPropNames<T>>]: ExtractPropType<
     RequiredValidate<T, RequiredPropNames<T>>[K]
   >;
 };
 
-export function defineTypedProps<T extends TypedPropsGroup<any>>(props: T) {
+export function defineTypedProps<T extends TypedPropGroup<any>>(props: T) {
   return Vue.extend({
     props: props as any,
   }) as unknown as {

@@ -1,5 +1,10 @@
-import { CSSProperties } from "@yuyi919/shared-types";
-import { Prop, Component, VCProps, PropProvider } from "@yuyi919/antdv1-plus-helper";
+import {
+  Component,
+  Prop,
+  PropProvider,
+  VCProps,
+} from "@yuyi919/antdv1-plus-helper";
+import { StyleValue } from "vue/types/jsx";
 
 @Component({})
 export class ScrollBarProps extends PropProvider<ScrollBarProps> {
@@ -10,7 +15,7 @@ export class ScrollBarProps extends PropProvider<ScrollBarProps> {
   native?: boolean;
 
   @Prop(null)
-  wrapStyle?: string | CSSProperties | CSSProperties[];
+  wrapStyle?: StyleValue;
 
   @Prop(null)
   wrapClass?: string | object | (string | object)[];
@@ -19,7 +24,7 @@ export class ScrollBarProps extends PropProvider<ScrollBarProps> {
   viewClass?: string | object | (string | object)[];
 
   @Prop(null)
-  viewStyle?: string | CSSProperties | CSSProperties[];
+  viewStyle?: StyleValue;
 
   /**
    * 如果 container 尺寸[永远]不会发生变化，设置它可以优化性能

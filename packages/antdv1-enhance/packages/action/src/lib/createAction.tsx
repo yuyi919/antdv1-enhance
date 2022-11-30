@@ -1,4 +1,4 @@
-import { extractProps, TypedPropsGroup } from "@yuyi919/antdv1-plus-helper";
+import { extractProps, TypedPropGroup } from "@yuyi919/antdv1-plus-helper";
 import { AntPopconfirmProps } from "@yuyi919/antdv1-type-enhance";
 import { expect$, sleep, stubFunction } from "@yuyi919/shared-utils";
 import { Popconfirm } from "ant-design-vue";
@@ -61,7 +61,7 @@ export function createConfirmButton(initialConfirm: any) {
 export function createConfirmButtonComponent(initialConfirm: any) {
   return defineComponent({
     functional: true,
-    props: extractProps(AntPopconfirmProps) as TypedPropsGroup<
+    props: extractProps(AntPopconfirmProps) as TypedPropGroup<
       InstanceType<typeof AntPopconfirmProps>
     >,
     render(

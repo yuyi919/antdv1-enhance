@@ -13,7 +13,7 @@ import {
   watch,
 } from "vue-demi";
 import { unwrap, useComponentEl, useNamedRef, WrapValue } from "@yuyi919/vue-use";
-import { DomUtils, TypedPropsGroup } from "@yuyi919/antdv1-plus-helper";
+import { DomUtils, TypedPropGroup } from "@yuyi919/antdv1-plus-helper";
 import { throttle } from "lodash";
 import { useBarClasses } from "./classes";
 import { getScrollMoveInstance } from "./main";
@@ -153,7 +153,7 @@ export const Bar = defineComponent({
       type: Number,
       default: 0,
     },
-  } as unknown as TypedPropsGroup<{
+  } as unknown as TypedPropGroup<{
     vertical?: boolean;
     move?: number;
     size: number;

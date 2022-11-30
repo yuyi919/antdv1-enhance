@@ -1,5 +1,5 @@
-import { RequiredTo, Types } from "@yuyi919/shared-types";
 import { Component, Prop } from "@yuyi919/antdv1-plus-helper";
+import { RequiredTo, Types } from "@yuyi919/shared-types";
 
 const SM = 720;
 const MD = 1280;
@@ -56,7 +56,12 @@ export class GridProps {
 export type ResolvedGridProps = Types.Type<
   RequiredTo<
     GridProps,
-    "minWidth" | "minColumns" | "colWrap" | "breakpoints" | "columnGap" | "rowGap"
+    | "minWidth"
+    | "minColumns"
+    | "colWrap"
+    | "breakpoints"
+    | "columnGap"
+    | "rowGap"
   >
 >;
 export default GridProps;

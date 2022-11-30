@@ -32,3 +32,8 @@ declare global {
     }
   }
 }
+declare module "vue/types/vnode" {
+  export interface AllowedComponentProps extends ExtendIntrinsicAttributes {
+
+  }
+}

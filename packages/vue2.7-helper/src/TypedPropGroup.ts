@@ -17,7 +17,7 @@ export type TypedPropGroup<
         }
       : {
           type: PropType<ExcludeUndefined<T, K>>;
-          // default: ExtractDefault<K, T, D>;
+          default: ExtractDefault<K, T, D>;
           required: false;
         }
     : IsDefaultKey<
@@ -30,7 +30,7 @@ export type TypedPropGroup<
             }
           : {
               type: PropType<ExcludeUndefined<T, K>>;
-              // default: ExtractDefault<K, T, D>;
+              default: ExtractDefault<K, T, D>;
               required: false;
             },
         {
@@ -56,7 +56,7 @@ type ExtractDefault<K, T, D extends Partial<T>> = K extends keyof T
   : undefined;
 
 // TODO
-type ExcludeUndefined<T, K extends keyof T> = T[K]; //Exclude<T[K], undefined>;
+type ExcludeUndefined<T, K extends keyof T> = Exclude<T[K], undefined>;
 
 // const comp = defineComponent({
 //   props: {

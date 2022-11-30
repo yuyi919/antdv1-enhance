@@ -1,14 +1,22 @@
 /* eslint-disable no-useless-constructor */
 import { addResizeListener, removeResizeListener } from "@yuyi919/vue-use";
-import { ResolvedGridProps } from "./Props";
-import { ILayout, ILayoutParams, IStyleProps, IStyle, INormalizedLayout } from "./types";
 import { isEqual } from "lodash";
+import { ResolvedGridProps } from "./Props";
+import {
+  ILayout,
+  ILayoutParams,
+  INormalizedLayout,
+  IStyle,
+  IStyleProps,
+} from "./types";
 
 const isType =
   <T>(type: string | string[]) =>
   (obj: unknown): obj is T =>
     obj != null &&
-    (Array.isArray(type) ? type : [type]).some((t) => getType(obj) === `[object ${t}]`);
+    (Array.isArray(type) ? type : [type]).some(
+      (t) => getType(obj) === `[object ${t}]`,
+    );
 export const getType = (obj: any) => Object.prototype.toString.call(obj);
 export const isFn = isType<(...args: any[]) => any>([
   "Function",
@@ -31,7 +39,10 @@ export class GridCore implements ILayout {
 
   mutationObserver!: MutationObserver;
 
-  constructor(props: ResolvedGridProps, private options: { prefixCls?: string } = {}) {
+  constructor(
+    props: ResolvedGridProps,
+    private options: { prefixCls?: string } = {},
+  ) {
     // console.log(this);
     this.props = { ...props };
   }
@@ -121,7 +132,8 @@ export class GridCore implements ILayout {
       } else {
         if (isValid(rMaxColumns)) {
           return Math.floor(
-            (clientWidth - (rMaxColumns - 1) * this.layoutProps.columnGap!) / rMaxColumns
+            (clientWidth - (rMaxColumns - 1) * this.layoutProps.columnGap!) /
+              rMaxColumns,
           );
         } else {
           return 0;
@@ -138,7 +150,7 @@ export class GridCore implements ILayout {
             (clientWidth -
               ((this.layoutProps.minColumns as number[])[index] - 1) *
                 this.layoutProps.columnGap!) /
-              (this.layoutProps.minColumns as number[])[index]
+              (this.layoutProps.minColumns as number[])[index],
           );
           if (Infinity === calculated) {
             return clientWidth;
@@ -165,8 +177,11 @@ export class GridCore implements ILayout {
     if (!isValid(params)) {
       return gridSpan;
     }
-    const { colWrap, columns, clientWidth, minWidth, columnGap, maxColumns } = params;
-    const calc = Math.floor((clientWidth + columnGap!) / (minWidth + columnGap)); // 算出实际一行最多能塞进的格子数
+    const { colWrap, columns, clientWidth, minWidth, columnGap, maxColumns } =
+      params;
+    const calc = Math.floor(
+      (clientWidth + columnGap!) / (minWidth + columnGap),
+    ); // 算出实际一行最多能塞进的格子数
     if (colWrap === true) {
       if (Math.min(calc, columns) >= gridSpan) {
         if (isValid(maxColumns)) {
@@ -195,7 +210,10 @@ export class GridCore implements ILayout {
   }
 }
 
-const getStyle = (layoutProps: INormalizedLayout, styleProps: IStyleProps): IStyle => {
+const getStyle = (
+  layoutProps: INormalizedLayout,
+  styleProps: IStyleProps,
+): IStyle => {
   const { columnGap, rowGap } = layoutProps;
   const { layoutParams, elm } = styleProps;
   // const max = layoutParams.maxWidth ? `${layoutParams.maxWidth}px` : '1fr';
@@ -209,14 +227,20 @@ const getStyle = (layoutProps: INormalizedLayout, styleProps: IStyleProps): ISty
         minmax = `minmax(0px,${maxWidth}px)`;
       }
     } else {
-      minmax = `minmax(${minWidth}px,${isValid(maxWidth) ? `${maxWidth}px` : "1fr"})`;
+      minmax = `minmax(${minWidth}px,${
+        isValid(maxWidth) ? `${maxWidth}px` : "1fr"
+      })`;
     }
     return minmax;
   };
 
   const spans = Array.from(elm.childNodes || []).reduce((buf, cur) => {
-    const dataSpan = Number((cur as HTMLElement)?.getAttribute?.("data-span") || 1);
-    const span = isValid(maxColumns) ? Math.min(dataSpan, maxColumns) : dataSpan;
+    const dataSpan = Number(
+      (cur as HTMLElement)?.getAttribute?.("data-span") || 1,
+    );
+    const span = isValid(maxColumns)
+      ? Math.min(dataSpan, maxColumns)
+      : dataSpan;
     return buf + span;
   }, 0);
   // console.log("spans", elm, spans);
@@ -237,7 +261,7 @@ const getStyle = (layoutProps: INormalizedLayout, styleProps: IStyleProps): ISty
   const style = {
     gridTemplateColumns: `repeat(${finalColumns}, ${getMinMax(
       layoutParams!.minWidth!,
-      layoutParams!.maxWidth!
+      layoutParams!.maxWidth!,
     )})`,
     gridGap: `${rowGap}px ${columnGap}px`,
   };
@@ -246,7 +270,7 @@ const getStyle = (layoutProps: INormalizedLayout, styleProps: IStyleProps): ISty
 
 const normalize = <T>(
   prop: T | T[] | undefined,
-  intervals: [number, number][]
+  intervals: [number, number][],
 ): T[] | undefined => {
   if (isNum(prop) || isBool(prop)) {
     return intervals.map(() => prop) as T[];
@@ -262,15 +286,18 @@ const normalize = <T>(
 const normalizeProps = (props: ResolvedGridProps): INormalizedLayout => {
   const { breakpoints } = props;
 
-  const intervals: [number, number][] = breakpoints!.reduce((buf, cur, index, array) => {
-    if (index === array.length - 1) {
-      return [...buf, [array[index], Infinity]];
-    }
-    if (index === 0) {
-      return [...buf, [0, cur], [cur, array[index + 1]]];
-    }
-    return [...buf, [cur, array[index + 1]]];
-  }, [] as [number, number][]);
+  const intervals: [number, number][] = breakpoints!.reduce(
+    (buf, cur, index, array) => {
+      if (index === array.length - 1) {
+        return [...buf, [array[index], Infinity]];
+      }
+      if (index === 0) {
+        return [...buf, [0, cur], [cur, array[index + 1]]];
+      }
+      return [...buf, [cur, array[index + 1]]];
+    },
+    [] as [number, number][],
+  );
 
   return {
     ...props,

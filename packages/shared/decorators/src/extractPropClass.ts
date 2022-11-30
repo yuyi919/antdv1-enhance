@@ -32,7 +32,7 @@ export function getPropsClass<
 ): (new () => Resolver) & {
   model: IVModelDefine<Exclude<Types.KeyOf<Props>, PropKey>>;
   props: TypedPropGroup<Resolver>;
-  // [UNSAFE_STORE_PROPS_KEY]: TypedPropsGroup<Resolver>;
+  // [UNSAFE_STORE_PROPS_KEY]: TypedPropGroup<Resolver>;
 };
 export function getPropsClass<
   Props extends Types.Recordable,
@@ -44,7 +44,7 @@ export function getPropsClass<
 ): (new () => Props) & {
   model: IVModelDefine<PropKey>;
   props: TypedPropGroup<Props>;
-  // [UNSAFE_STORE_PROPS_KEY]: TypedPropsGroup<Props>;
+  // [UNSAFE_STORE_PROPS_KEY]: TypedPropGroup<Props>;
 };
 export function getPropsClass<T extends Types.Recordable = any>(
   component: any,

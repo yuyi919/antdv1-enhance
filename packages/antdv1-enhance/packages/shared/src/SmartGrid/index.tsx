@@ -1,3 +1,4 @@
+import { extractProps } from "@yuyi919/antdv1-plus-helper";
 import {
   createContext,
   unwrap,
@@ -6,15 +7,23 @@ import {
   useNamedRef,
   WrapValue,
 } from "@yuyi919/vue-use";
-import { extractProps } from "@yuyi919/antdv1-plus-helper";
 import { computed, defineComponent, reactive, watchEffect } from "vue-demi";
 import { GridCore } from "./grid";
-import { GridProps, ResolvedGridProps } from "./Props";
+import { GridProps } from "./Props";
 
 const FormGridContext = createContext<GridCore>("@FormGrid");
+const props = extractProps(GridProps, {
+  minWidth: 100,
+  minColumns: 0,
+  colWrap: true,
+  breakpoints: [720, 1280, 1920] as [number, number, number],
+  columnGap: 10,
+  rowGap: 5,
+});
+
 export const SmartGrid = defineComponent({
-  props: extractProps(GridProps),
-  setup(props: ResolvedGridProps, context) {
+  props,
+  setup(props, context) {
     const elRef = useNamedRef<HTMLDivElement>("elRef");
     const store = reactive(new GridCore(props));
     FormGridContext.provide(store as GridCore);

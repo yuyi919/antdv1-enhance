@@ -1,4 +1,4 @@
-import { extractProps, TypedPropsGroup, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
+import { extractProps, TypedPropGroup, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { useChildren, useInherit, useNamedRef, useQuerySelector } from "@yuyi919/vue-use";
 import { Drawer, IDrawerProps } from "ant-design-vue";
 import {
