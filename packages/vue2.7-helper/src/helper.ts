@@ -73,21 +73,28 @@ type InternalVueComponent2<
 
 export type VueComponent2<
   IProps,
-  Emits = Types.Recordable,
-  ScopedSlots = Types.Recordable,
-  Public = Types.Recordable,
+  Emits = {},
+  ScopedSlots = {},
+  Public = {},
   VueType = {},
 > = InternalVueComponent2<IProps, Emits, ScopedSlots, Public> &
   Omit<VueType, keyof VueConstructor>;
+// type o = unknown extends keyof {} ? true : false;
+// type p = InstanceType<
+//   VueComponent2<{ noEnter?: (a: any, b: () => any) => any }>
+// >["$props"];
+// type p2 = VueComponent2<{ noEnter?: (a: any, b: () => any) => any }>['props']
 
 export type { TypedPropGroup };
 
 export type EventHandler<E> = [E] extends [(...args: any[]) => any]
   ? E
   : (payload: E) => any;
+
 export type EventHandlers<E> = {
   [K in keyof E]?: EventHandler<E[K]> | EventHandler<E[K]>[];
 };
+
 export type TypeTsxProps<
   Props extends Types.Recordable,
   Events extends Types.Recordable = Types.Recordable,
