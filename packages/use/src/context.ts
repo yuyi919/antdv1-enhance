@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { provide, inject } from "vue-demi";
+import { inject, provide } from "vue-demi";
 // import type { Component } from "@type-helper/vue3";
-import type { DefineComponent as Component } from "vue";
+import type { DefineComponent as Component } from "vue-demi";
 
 export type ContextFactoryManager<T> = {
   provide<PT extends T>(target: PT): PT;
@@ -19,17 +19,17 @@ export type ContextFactoryManager<T> = {
 export function createContext<Target>(
   name: string,
   defaultProvide?: Target,
-  treatDefaultProvideAsFactory?: false
+  treatDefaultProvideAsFactory?: false,
 ): ContextFactoryManager<Target>;
 export function createContext<Target extends () => any>(
   name: string,
   defaultProvide: Target,
-  treatDefaultProvideAsFactory: true
+  treatDefaultProvideAsFactory: true,
 ): ContextFactoryManager<ReturnType<Target>>;
 export function createContext<Target extends any>(
   name: string,
   defaultProvide?: any,
-  treatDefaultProvideAsFactory?: boolean
+  treatDefaultProvideAsFactory?: boolean,
 ) {
   const key = Symbol(name);
   let Provider: Component<{ value: Target }>;
@@ -40,9 +40,13 @@ export function createContext<Target extends any>(
     },
     inject(
       defaultValue: Target | (() => Target) = defaultProvide,
-      treatDefaultAsFactory?: boolean
+      treatDefaultAsFactory?: boolean,
     ): Target {
-      return inject(key, (defaultValue as any) || null, treatDefaultAsFactory as true);
+      return inject(
+        key,
+        (defaultValue as any) || null,
+        treatDefaultAsFactory as true,
+      );
     },
     get Provider() {
       if (!Provider) {

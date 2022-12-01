@@ -1,6 +1,7 @@
 /* eslint-disable no-return-assign */
 import { get, set } from "lodash";
-import Vue, { CreateElement, RenderContext, VNode } from "vue";
+import Vue from "vue";
+import { CreateElement, RenderContext, VNode } from "vue-demi";
 
 const explainGet = (o: { [x: string]: any }, k: string | number, d: any) =>
   o[k] || d;

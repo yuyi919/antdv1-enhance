@@ -1,11 +1,13 @@
 // @ts-nocheck TODO 待处理
-import Vue, {
+import Vue from "vue";
+import {
   CreateElement,
-  getCurrentInstance,
+  defineComponent,
+  h,
   PropOptions,
+  SetupContext,
   VueConstructor,
-} from "vue";
-import { defineComponent, h, SetupContext } from "vue-demi";
+} from "vue-demi";
 import {
   ICommonModalProps,
   LoaderModalComponent,
@@ -124,11 +126,11 @@ export function defineLoaderModalComponent<
         setup(props: Props & AppendProps, context) {
           const ctx = options.setup(props as Props & AppendProps, context);
           console.log("setup", ctx);
-          return ctx
+          return ctx;
         },
         render() {
           return renderer.call(this, this, h);
-        }
+        },
       }) as LoaderModalComponent<LoadData, RawBindings>;
     },
   });

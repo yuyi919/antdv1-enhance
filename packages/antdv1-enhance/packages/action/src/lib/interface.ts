@@ -1,5 +1,5 @@
 import { IPopconfirmProps } from "ant-design-vue";
-import { CreateElement } from "vue";
+import { CreateElement } from "vue-demi";
 import { ButtonProps } from "../shared";
 
 export interface IConfirmButtonProps extends IPopconfirmProps {
@@ -36,7 +36,7 @@ export interface BaseActionConfig<Action extends ActionType = ActionType> {
   render?: (
     h: CreateElement,
     $emit: (name: string, ...args: any[]) => any,
-    injectProps: ButtonProps & { text?: string; [key: string]: any }
+    injectProps: ButtonProps & { text?: string; [key: string]: any },
   ) => JSX.Element;
   component?: any;
   props?: ButtonProps;

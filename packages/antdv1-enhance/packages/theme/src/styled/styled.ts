@@ -1,7 +1,6 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-redeclare */
-import { computed, ComputedRef, inject } from "vue-demi";
 import {
   getFromVueComponent,
   hackFromVueComponent,
@@ -11,10 +10,15 @@ import {
   VueComponent2,
 } from "@yuyi919/antdv1-plus-helper";
 import { mergeJsxPropToVNode } from "@yuyi919/vue-jsx-factory";
+import { computed, ComputedRef, inject } from "vue-demi";
 // import { defaultTo } from "lodash";
 import Vue from "vue";
-import Styled, { css, injectGlobal, ThemeProvider } from "vue-styled-components";
-import type { RenderContext, VueConstructor } from "vue";
+import type { RenderContext, VueConstructor } from "vue-demi";
+import Styled, {
+  css,
+  injectGlobal,
+  ThemeProvider,
+} from "vue-styled-components";
 import { stubObjectStatic } from "../utils";
 import { Theme, ThemeGetter, useTheme } from "./provider";
 import { TemplateArgs } from "./types";
@@ -25,7 +29,7 @@ import "./vue-styled-components";
 // `
 function getInject<C>(
   t: C,
-  baseC?: any
+  baseC?: any,
 ): {
   computed: {
     generatedClassName: () => string;
@@ -38,9 +42,11 @@ function getInject<C>(
   inject: any;
 } {
   const computed = getFromVueComponent(t, "computed");
-  const { generateAndInjectStyles = undefined } = getFromVueComponent(t, "methods") || {};
+  const { generateAndInjectStyles = undefined } =
+    getFromVueComponent(t, "methods") || {};
   const inject = getFromVueComponent(t, "inject");
-  const pre = baseC && getFromVueComponent(baseC, "methods.generateAndInjectStyles");
+  const pre =
+    baseC && getFromVueComponent(baseC, "methods.generateAndInjectStyles");
   // debugger
   // console.log('pppppppppppppppppppp', pre, getFromVueComponent, { ...baseC })
   return {
@@ -48,7 +54,10 @@ function getInject<C>(
       ...computed,
       generatedClassName() {
         // @ts-ignore
-        return this.generateAndInjectStyles({ ...getPropsFromContext(this), theme: this.theme });
+        return this.generateAndInjectStyles({
+          ...getPropsFromContext(this),
+          theme: this.theme,
+        });
       },
     },
     methods: {
@@ -81,7 +90,10 @@ function getInject<C>(
 //   _tsxattrs: TsxComponentAttrs<TMixedProps, TEvents, TScopedSlots> & T & { withComponent: <T>(component: T) => T };
 // } & Vue> & T;
 
-function getPropsFromContext(this: RenderContext | Vue, context?: RenderContext | Vue) {
+function getPropsFromContext(
+  this: RenderContext | Vue,
+  context?: RenderContext | Vue,
+) {
   // @ts-ignore
   const {
     $props = {} as any,
@@ -92,10 +104,15 @@ function getPropsFromContext(this: RenderContext | Vue, context?: RenderContext 
   return { ...attrs, ...props };
 }
 
-function withComponent<T extends VueConstructor<Vue>, TProps, TEvents = {}, TScopedSlots = {}>(
+function withComponent<
+  T extends VueConstructor<Vue>,
+  TProps,
+  TEvents = {},
+  TScopedSlots = {},
+>(
   component: any,
   styledComp: any,
-  debug = false
+  debug = false,
 ): VueConstructor<TProps & TEvents & TScopedSlots & Vue> &
   T & {
     withComponent: <T>(component: T) => T;
@@ -103,31 +120,41 @@ function withComponent<T extends VueConstructor<Vue>, TProps, TEvents = {}, TSco
   let baseComponent = component;
   const isFunctional = getFromVueComponent(baseComponent, "functional");
   const setup = getFromVueComponent(baseComponent, "setup");
-  const { generateAndInjectStyles = undefined } = getFromVueComponent(styledComp, "methods") || {};
+  const { generateAndInjectStyles = undefined } =
+    getFromVueComponent(styledComp, "methods") || {};
   if (isFunctional) {
     const inject = getFromVueComponent(styledComp, "inject");
-    baseComponent = Mixins(baseComponent, { inject } as any) as typeof baseComponent;
+    baseComponent = Mixins(baseComponent, {
+      inject,
+    } as any) as typeof baseComponent;
     hackRender(
       baseComponent,
       (vnodes, context) => {
-        const { props = {}, injections: { $theme = stubObjectStatic } = {} } = context || {};
+        const { props = {}, injections: { $theme = stubObjectStatic } = {} } =
+          context || {};
         // TODO 此处会强制覆盖props中的theme，以后优化
-        const className = generateAndInjectStyles({ ...props, theme: $theme() });
+        const className = generateAndInjectStyles({
+          ...props,
+          theme: $theme(),
+        });
         const r = mergeJsxPropToVNode(vnodes, "class", className);
         if (debug) {
           console.log("[Debug]", vnodes, r);
         }
         return r;
       },
-      true
+      true,
     );
   } else {
     if (setup) {
       hackFromVueComponent(baseComponent, "setup", function (setup) {
         return function hackStyledSetup(props: any, context: any) {
           const next = setup(props, context);
-          const $theme = inject<Function>("$theme", stubObjectStatic) || stubObjectStatic;
-          const theme = computed(() => ($theme instanceof Function && $theme()) || {});
+          const $theme =
+            inject<Function>("$theme", stubObjectStatic) || stubObjectStatic;
+          const theme = computed(
+            () => ($theme instanceof Function && $theme()) || {},
+          );
           const generatedClassName = computed(() => {
             return generateAndInjectStyles({ theme: theme.value, ...props });
           });
@@ -151,7 +178,11 @@ function withComponent<T extends VueConstructor<Vue>, TProps, TEvents = {}, TSco
       } as any) as any;
     }
     hackRender(baseComponent, (vnodes, ctx) => {
-      return mergeJsxPropToVNode(vnodes, "class", (ctx as any).generatedClassName);
+      return mergeJsxPropToVNode(
+        vnodes,
+        "class",
+        (ctx as any).generatedClassName,
+      );
     });
   }
 
@@ -193,7 +224,7 @@ export type IStyledComponent<
   TProps,
   TEvents,
   TScopedSlots,
-  T = VueConstructor<Vue & TProps>
+  T = VueConstructor<Vue & TProps>,
 > = VueComponent2<
   TProps,
   TEvents,
@@ -215,10 +246,10 @@ export type IStyledComponent<
 // ) => TType & IStyledComponent<TProps, TEvents, TScopedSlots, TType> & string;
 export function styled<
   Component extends (props: any) => any,
-  TProps extends Component extends (props?: infer P) => any ? P : any
+  TProps extends Component extends (props?: infer P) => any ? P : any,
 >(
   component: Component,
-  debug?: boolean
+  debug?: boolean,
 ): (
   ...text: TemplateArgs<TProps, Theme>
 ) => Component &
@@ -228,41 +259,51 @@ export function styled<
   T extends VueConstructor<Vue>,
   TProps extends InstanceType<T> extends { $props: infer P } ? P : {},
   TEvents = {},
-  TScopedSlots = {}
+  TScopedSlots = {},
 >(
   component: T,
-  debug?: boolean
+  debug?: boolean,
 ): (
   ...text: TemplateArgs<TProps, Theme>
-) => (T extends VueComponent2<any> ? T : IStyledComponent<TProps, TEvents, TScopedSlots, T>) &
+) => (T extends VueComponent2<any>
+  ? T
+  : IStyledComponent<TProps, TEvents, TScopedSlots, T>) &
   string;
 export function styled<
   T extends VueConstructor<Vue>,
   TProps extends T extends VueComponent2<infer TP> ? TP : unknown,
   TEvents = {},
   TScopedSlots = {},
-  TMixedProps = TProps extends unknown ? VCProps<InstanceType<T>> : TProps
+  TMixedProps = TProps extends unknown ? VCProps<InstanceType<T>> : TProps,
 >(
   component: T,
-  debug?: boolean
+  debug?: boolean,
 ): (
   ...text: TemplateArgs<TMixedProps, Theme>
-) => (T extends VueComponent2<any> ? T : IStyledComponent<TMixedProps, TEvents, TScopedSlots, T>) &
+) => (T extends VueComponent2<any>
+  ? T
+  : IStyledComponent<TMixedProps, TEvents, TScopedSlots, T>) &
   string;
 export function styled<
   T extends VueConstructor<Vue>,
   TProps extends T extends VueConstructor<infer TP & Vue> ? TP : unknown,
   TEvents = {},
   TScopedSlots = {},
-  TMixedProps = TProps extends unknown ? VCProps<InstanceType<T>> : TProps
+  TMixedProps = TProps extends unknown ? VCProps<InstanceType<T>> : TProps,
 >(component: T, debug = false) {
   return function StyledComponent(
     ...text: TemplateArgs<TMixedProps, Theme>
-  ): (T extends VueComponent2<any> ? T : IStyledComponent<TMixedProps, TEvents, TScopedSlots, T>) &
+  ): (T extends VueComponent2<any>
+    ? T
+    : IStyledComponent<TMixedProps, TEvents, TScopedSlots, T>) &
     string {
     const styledComp = Styled.div(...text);
     return useToPrimitive(
-      withComponent<T, TMixedProps, TEvents, TScopedSlots>(component, styledComp, debug)
+      withComponent<T, TMixedProps, TEvents, TScopedSlots>(
+        component,
+        styledComp,
+        debug,
+      ),
     ) as any;
   };
 }
@@ -291,9 +332,10 @@ function makeUseStyle<TProps extends any>(
         };
       }
       return item;
-    })
+    }),
   );
-  const { generateAndInjectStyles = undefined } = getFromVueComponent(styledComp, "methods") || {};
+  const { generateAndInjectStyles = undefined } =
+    getFromVueComponent(styledComp, "methods") || {};
   function useStyles(props: any = {}, themeGetter?: ThemeGetter) {
     const theme = useTheme(themeGetter);
     const mixedProps = computed(() => {
@@ -323,9 +365,10 @@ styled.static = function <TProps extends any>(
         };
       }
       return item;
-    })
+    }),
   );
-  const { generateAndInjectStyles = undefined } = getFromVueComponent(styledComp, "methods") || {};
+  const { generateAndInjectStyles = undefined } =
+    getFromVueComponent(styledComp, "methods") || {};
   return (props?: TProps) => generateAndInjectStyles(props || {});
 };
 
@@ -368,7 +411,7 @@ styled.makeUseGlobal = function createGlobal<TProps extends any = any>(
 };
 
 function constansts(
-  key: string
+  key: string,
 ): (...text: TemplateArgs<{}, Theme>) => VueComponent2<{}, any, any> {
   const comps = Styled[key];
   return function (...args: any[]) {

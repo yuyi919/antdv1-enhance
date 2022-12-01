@@ -25,7 +25,7 @@
     "*.{md,json}": [
       "prettier --write --no-error-on-unmatched-pattern"
     ],
-    "src/**/*.{ts,tsx}": [
+    "**/src/**/*.{ts,tsx}": [
       "prettier --write"
     ]
   },

@@ -63,7 +63,7 @@ export class ActionGroupHooks extends HookFactory<ActionGroupProps> {
   constructor(
     context: SetupContext,
     props: ActionGroupProps,
-    private $actionSpinning: utils.ActionSpinningHook = useActionSpinning(
+    public $actionSpinning: utils.ActionSpinningHook = useActionSpinning(
       props,
       context,
     ),

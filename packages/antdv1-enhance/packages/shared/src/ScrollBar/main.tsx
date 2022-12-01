@@ -13,7 +13,6 @@ import {
   useNamedRef,
 } from "@yuyi919/vue-use";
 import { debounce, throttle } from "lodash";
-import { VNode } from "vue";
 import {
   computed,
   defineComponent,
@@ -21,6 +20,7 @@ import {
   onBeforeUnmount,
   onMounted,
   reactive,
+  VNode,
   watch,
 } from "vue-demi";
 import { StyleValue } from "vue/types/jsx";

@@ -1,8 +1,7 @@
 /* eslint-disable no-use-before-define */
-import { PropsOption as PropValidator } from "./PropsOptionsGroup";
-import Vue from "vue";
 import { PropType } from "vue-demi";
 import { TypedPropGroup } from "../helper";
+import { PropsOption as PropValidator } from "./PropsOptionsGroup";
 const dummyProps = {
   objectProp: Object,
   objectProp2: {
@@ -25,7 +24,9 @@ const dummyProps = {
     type: Date,
   },
 };
-export type DummyPropsType = import("vue-demi").ExtractPropTypes<typeof dummyProps>;
+export type DummyPropsType = import("vue-demi").ExtractPropTypes<
+  typeof dummyProps
+>;
 export type DummyPropsType2 = ExtractPropTypes<typeof dummyProps>;
 
 export type DummyType = {
@@ -58,7 +59,9 @@ const dummyProps2 = {
   },
   unionType: [Function, Number] as PropType<DummyCls | number>,
 } as const;
-export type DummyProps2Type = import("vue-demi").ExtractPropTypes<typeof dummyProps2>;
+export type DummyProps2Type = import("vue-demi").ExtractPropTypes<
+  typeof dummyProps2
+>;
 export type DummyProps2Type2 = ExtractPropTypes<typeof dummyProps2>;
 
 export type DefaultProps = import("vue-demi").ExtractDefaultPropTypes<{
@@ -100,7 +103,7 @@ export type ExtractPropTypes<
   RequiredValidator extends RequiredValidate<
     PropsDef,
     RequiredPropNames<PropsDef>
-  > = RequiredValidate<PropsDef, RequiredPropNames<PropsDef>>
+  > = RequiredValidate<PropsDef, RequiredPropNames<PropsDef>>,
 > = {
   [K in keyof RequiredValidator]: ExtractPropType<RequiredValidator[K]>;
 };
@@ -109,7 +112,9 @@ export type ExtractPropTypeGroup<T> = {
   [K in keyof T]: ExtractPropType<T[K]>;
 };
 
-export type RequiredValidate<T, RequiredKeys extends keyof T> = Required<Pick<T, RequiredKeys>> &
+export type RequiredValidate<T, RequiredKeys extends keyof T> = Required<
+  Pick<T, RequiredKeys>
+> &
   Partial<Omit<T, RequiredKeys>>;
 // {
 //   [K in keyof Pick<T, RequiredKeys>]: T[K];
@@ -142,13 +147,3 @@ export type ExtractDefineProps<T extends TypedPropGroup<any>> = {
     RequiredValidate<T, RequiredPropNames<T>>[K]
   >;
 };
-
-export function defineTypedProps<T extends TypedPropGroup<any>>(props: T) {
-  return Vue.extend({
-    props: props as any,
-  }) as unknown as {
-    [K in keyof RequiredValidate<T, RequiredPropNames<T>>]: ExtractPropType<
-      RequiredValidate<T, RequiredPropNames<T>>[K]
-    >;
-  };
-}

@@ -1,7 +1,11 @@
 import type { CSSProperties } from "@yuyi919/shared-types";
-import type { VNode } from "vue";
+import type { VNode } from "vue-demi";
 import { PropType } from "vue-demi";
-import type { VueTypeDef, VueTypesInterface, VueTypeValidableDef } from "vue-types";
+import type {
+  VueTypeDef,
+  VueTypesInterface,
+  VueTypeValidableDef,
+} from "vue-types";
 import { createTypes } from "vue-types";
 const PropTypes = createTypes({
   func: void 0,
@@ -10,7 +14,7 @@ const PropTypes = createTypes({
   number: void 0,
   array: void 0,
   object: void 0,
-  integer: void 0
+  integer: void 0,
 });
 
 PropTypes.extend([
@@ -18,25 +22,25 @@ PropTypes.extend([
     name: "shapeSize",
     getter: true,
     type: [String, Number],
-    default: void 0
+    default: void 0,
   },
   {
     name: "looseBool",
     getter: true,
     type: Boolean,
-    default: void 0
+    default: void 0,
   },
   {
     name: "style",
     getter: true,
     type: [String, Object],
-    default: void 0
+    default: void 0,
   },
   {
     name: "VNodeChild",
     getter: true,
-    type: void 0
-  }
+    type: void 0,
+  },
 ]);
 
 export function withUndefined<T extends { default?: any }>(type: T): T {
@@ -61,7 +65,7 @@ export const initDefaultProps = <T>(
       : T[K] extends { type: PropType<infer U> }
       ? U
       : any;
-  }
+  },
 ): T => {
   const propTypes: T = {} as T;
   // eslint-disable-next-line guard-for-in

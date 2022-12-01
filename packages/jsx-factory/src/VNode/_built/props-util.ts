@@ -2,7 +2,7 @@
 // @ts-nocheck
 import classNames from "classnames";
 import { isPlainObject } from "lodash";
-import { VNode } from "vue";
+import { VNode } from "vue-demi";
 function getType(fn) {
   const match = fn && fn.toString().match(/^\s*function (\w+)/);
   return match ? match[1] : "";
@@ -71,7 +71,9 @@ const getSlots = (ele) => {
 
 const getSlot = (self, name = "default", options = {}) => {
   return (
-    (self.$scopedSlots && self.$scopedSlots[name] && self.$scopedSlots[name](options)) ||
+    (self.$scopedSlots &&
+      self.$scopedSlots[name] &&
+      self.$scopedSlots[name](options)) ||
     self.$slots[name] ||
     []
   );
@@ -106,7 +108,9 @@ const getOptionProps = <P>(instance: VNode): P => {
       const def = v.default;
       if (def !== undefined) {
         res[k] =
-          typeof def === "function" && getType(v.type) !== "Function" ? def.call(instance) : def;
+          typeof def === "function" && getType(v.type) !== "Function"
+            ? def.call(instance)
+            : def;
       }
     }
     return { ...res, ...propsData };
@@ -115,7 +119,12 @@ const getOptionProps = <P>(instance: VNode): P => {
   return filterProps($props, $options.propsData);
 };
 
-const getComponentFromProp = (instance, prop, options = instance, execute = true) => {
+const getComponentFromProp = (
+  instance,
+  prop,
+  options = instance,
+  execute = true,
+) => {
   if (instance.$createElement) {
     const h = instance.$createElement;
     const temp = instance[prop];
@@ -123,7 +132,9 @@ const getComponentFromProp = (instance, prop, options = instance, execute = true
       return typeof temp === "function" && execute ? temp(h, options) : temp;
     }
     return (
-      (instance.$scopedSlots[prop] && execute && instance.$scopedSlots[prop](options)) ||
+      (instance.$scopedSlots[prop] &&
+        execute &&
+        instance.$scopedSlots[prop](options)) ||
       instance.$scopedSlots[prop] ||
       instance.$slots[prop] ||
       undefined
@@ -136,7 +147,9 @@ const getComponentFromProp = (instance, prop, options = instance, execute = true
     }
     const slotScope = getScopedSlots(instance)[prop];
     if (slotScope !== undefined) {
-      return typeof slotScope === "function" && execute ? slotScope(h, options) : slotScope;
+      return typeof slotScope === "function" && execute
+        ? slotScope(h, options)
+        : slotScope;
     }
     const slotsProp = [];
     const componentOptions = instance.componentOptions || {};
@@ -215,7 +228,11 @@ export function getDataEvents(child) {
 // use getListeners instead this.$listeners
 // https://github.com/vueComponent/ant-design-vue/issues/1705
 export function getListeners(context) {
-  return (context.$vnode ? context.$vnode.componentOptions.listeners : context.$listeners) || {};
+  return (
+    (context.$vnode
+      ? context.$vnode.componentOptions.listeners
+      : context.$listeners) || {}
+  );
 }
 export function getClass(ele) {
   let data = {};

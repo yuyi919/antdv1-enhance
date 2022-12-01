@@ -109,7 +109,7 @@ export class NormalizeModalProps extends PropsMixins(ClassesProps) {
    * 展示过渡效果
    * @default "zoom"
    */
-  @Prop({ type: String, default: "zoom" })
+  @Prop({ type: String, default: "slide-zoom" })
   transitionType?: "fade" | "zoom" | "slide-fade" | "slide-zoom";
 
   /**

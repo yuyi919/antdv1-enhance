@@ -1,7 +1,13 @@
 /* eslint-disable no-use-before-define */
-import { computed, defineComponent, getCurrentInstance, reactive, watch } from "vue-demi";
-import { useElementRect, useInherit, useNamedRef } from "@yuyi919/vue-use";
 import { autoSizer, styled } from "@yuyi919/antdv1-plus-theme";
+import { useElementRect, useInherit, useNamedRef } from "@yuyi919/vue-use";
+import {
+  computed,
+  defineComponent,
+  getCurrentInstance,
+  reactive,
+  watch,
+} from "vue-demi";
 
 interface IAutoSizerProps {
   nowrap?: boolean;
@@ -46,7 +52,11 @@ function minSize(target: number | string, minSize?: number | string) {
       : target
     : target;
 }
-function fixSize(target: number | string, max?: number | string, min?: number | string) {
+function fixSize(
+  target: number | string,
+  max?: number | string,
+  min?: number | string,
+) {
   const result = maxSize(minSize(target, min), max);
   // console.log("fixSize", target, max, min, result);
   return result;
@@ -69,9 +79,11 @@ export const AutoSizer = defineComponent({
     const elRef = useNamedRef<HTMLElement>("elRef");
     const [rect] = useElementRect(elRef.ref());
     const localSize = reactive({
-      width: computed(() => fixSize(props.width || rect.width, props.maxWidth, props.minWidth)),
+      width: computed(() =>
+        fixSize(props.width || rect.width, props.maxWidth, props.minWidth),
+      ),
       height: computed(() =>
-        fixSize(props.height || rect.height, props.maxHeight, props.minHeight)
+        fixSize(props.height || rect.height, props.maxHeight, props.minHeight),
       ),
       nowrap: computed(() => props.nowrap),
     });
@@ -93,23 +105,30 @@ export const AutoSizer = defineComponent({
     } as AutoSizerAction);
     watch(
       () => ({ ...localSize }),
-      (size) => context.emit("change", size)
+      (size) => context.emit("change", size),
     );
     watch(
       () => rect.width,
       (width) => {
-        context.emit("update:width", fixSize(width, props.maxWidth, props.minWidth));
+        context.emit(
+          "update:width",
+          fixSize(width, props.maxWidth, props.minWidth),
+        );
         // console.log("update width", width);
         if (elRef.value && elRef.value.style.position === "absolute") {
           timeFlag && clearTimeout(timeFlag);
           elRef.value.style.position = null!;
           timeFlag = null;
         }
-      }
+      },
     );
     watch(
       () => rect.height,
-      (height) => context.emit("update:height", fixSize(height, props.maxHeight, props.minHeight))
+      (height) =>
+        context.emit(
+          "update:height",
+          fixSize(height, props.maxHeight, props.minHeight),
+        ),
     );
 
     return () => {

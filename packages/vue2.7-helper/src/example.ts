@@ -1,4 +1,4 @@
-import { defineComponent, ExtractPropTypes } from "vue";
+import { defineComponent, ExtractPropTypes } from "vue-demi";
 import { ExcludeVueTypes } from "./ExcludeVueTypes";
 import { TypedPropGroup, VueComponent2 } from "./helper";
 import { TypedPropsMap } from "./TypedPropGroup";
@@ -41,4 +41,4 @@ export const App2: VueComponent2<{ value?: boolean }> = defineComponent({
 });
 
 type P2 = TypedPropsMap<{ value?: boolean }>;
-type props2 = InstanceType<typeof App>['$props']
+type props2 = InstanceType<typeof App>["$props"];

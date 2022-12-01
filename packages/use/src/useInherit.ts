@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
+import { getCurrentInstance, SetupContext, VNode } from "vue-demi";
 import { getProps } from "./shared";
-import { getCurrentInstance, SetupContext } from "vue-demi";
-import { VNode } from "vue";
 
 export type InheritEventHooks<K extends string> = readonly [
   getInheritEvent: () => {
@@ -10,7 +9,7 @@ export type InheritEventHooks<K extends string> = readonly [
   /**
    * 必要的事件句柄
    */
-  requiredEventHandle: Record<K, (...args: any[]) => void>
+  requiredEventHandle: Record<K, (...args: any[]) => void>,
 ];
 
 export type InheritHooks<K extends string = string> = readonly [
@@ -31,7 +30,7 @@ export type InheritHooks<K extends string = string> = readonly [
   /**
    * 必要的事件句柄
    */
-  requiredEventHandle: Record<K, (...args: any[]) => any>
+  requiredEventHandle: Record<K, (...args: any[]) => any>,
 ];
 
 /**
@@ -61,7 +60,7 @@ export type InheritHooks<K extends string = string> = readonly [
  */
 export function useInherit<K extends string = string>(
   context: SetupContext<any>,
-  usedEvent?: K[]
+  usedEvent?: K[],
 ): InheritHooks<K> {
   const self = getCurrentInstance().proxy;
   const [getEvent, required] = useInheritEvents(context, usedEvent);
@@ -113,7 +112,7 @@ export function useInherit<K extends string = string>(
  */
 export function useInheritEvents<K extends string = string>(
   context: SetupContext,
-  usedEvent?: K[]
+  usedEvent?: K[],
 ): InheritEventHooks<K> {
   const self = getCurrentInstance().proxy;
   const requiredHandle = {} as Record<K, (...args: any[]) => void>;
@@ -143,12 +142,15 @@ export function useInheritEvents<K extends string = string>(
   ];
 }
 
-export function useHandle<E extends Event, CallBack extends (e: E, ...args: any[]) => any>(
+export function useHandle<
+  E extends Event,
+  CallBack extends (e: E, ...args: any[]) => any,
+>(
   callback: CallBack,
   option?: {
     stop?: boolean;
     prevent?: boolean;
-  }
+  },
 ) {
   const self = getCurrentInstance().proxy;
   return function (e) {

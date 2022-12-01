@@ -1,9 +1,13 @@
-import { extractProps, VueComponent2 } from "../helper";
 import { defineComponent } from "vue-demi";
-import { ActionGroupProps } from "./Props";
+import { extractProps } from "../helper";
 import { useActionGroup } from "./hooks";
+import { ActionGroupProps } from "./Props";
 
-import { createUseClasses, styled, keyframes } from "@yuyi919/antdv1-plus-theme";
+import {
+  createUseClasses,
+  keyframes,
+  styled,
+} from "@yuyi919/antdv1-plus-theme";
 const anim = keyframes`
   to { 
     padding: 0;
@@ -57,10 +61,16 @@ export const ActionGroup = defineComponent({
     const hooks = useActionGroup(context, props);
     const classes = useClasses(useStyles(props));
     // console.log(hooks)
-    return () => {
-      return <div class={classes.root}>{hooks.render()}</div>;
+    return {
+      render: () => hooks.render(),
+      spinningEnd: (name) => hooks.$actionSpinning.spinningEnd(name),
+      spinningStart: (name) => hooks.$actionSpinning.spinningStart(name),
+      classes: classes,
     };
   },
-}) as VueComponent2<ActionGroupProps>;
-
+  render() {
+    return <div class={classes.root}>{this.render()}</div>;
+  },
+});
+export interface ActionGroup extends InstanceType<typeof ActionGroup> {}
 export default ActionGroup;

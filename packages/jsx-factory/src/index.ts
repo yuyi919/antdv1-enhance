@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Vue, { VNodeChildren, VNodeDirective, VueConstructor } from "vue";
-import { h, isRef, isVue2 } from "vue-demi";
+import Vue from "vue";
+import {
+  h,
+  isRef,
+  isVue2,
+  VNodeChildren,
+  VNodeDirective,
+  VueConstructor,
+} from "vue-demi";
 import frag from "vue-frag";
 
 import { VueRef } from "./lib/vue-ref";

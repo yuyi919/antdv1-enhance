@@ -1,4 +1,4 @@
-import { CSSProperties } from "@yuyi919/shared-types";
+import { ActionGroup } from "@yuyi919/antdv1-plus-action";
 import {
   DomUtils,
   getSlot,
@@ -6,9 +6,10 @@ import {
   KeyCode,
   noop,
   Transition,
-  TsxTypeInfoHook,
 } from "@yuyi919/antdv1-plus-helper";
+import { CSSProperties } from "@yuyi919/shared-types";
 import { createContext } from "@yuyi919/vue-use";
+import { TypeTsxProps } from "@yuyi919/vue2.7-helper";
 // @ts-ignore
 import { getOptionProps } from "ant-design-vue/es/_util/props-util";
 import {
@@ -21,7 +22,6 @@ import {
   ref,
   toRefs,
   ToRefs,
-  watch,
 } from "vue-demi";
 import { Mask } from "./components/Mask";
 import { DialogProps } from "./DialogProps";
@@ -43,16 +43,17 @@ export function useBaseMixins<Props extends {}, State extends {}>(
   opt?: {
     scopedSlots?: any;
     on?: any;
-  }
+  },
 ) {
   const self = getCurrentInstance();
   function emit(eventName: string, ...args: any[]): void;
   function emit(e: string) {
-    const { attrs: $attrs, props: $props = props } = self!;
+    const { $attrs, $props = props } = self!.proxy;
     // 直接调用事件，底层组件不需要vueTool记录events
     const args = [].slice.call(arguments, 0);
     const eventName = `on${e[0].toUpperCase()}${e.substring(1)}`;
-    const event: any = opt?.on?.[e] || (props || $props)![eventName] || $attrs[eventName];
+    const event: any =
+      opt?.on?.[e] || (props || $props)![eventName] || $attrs[eventName];
     if (args.length && event) {
       if (Array.isArray(event)) {
         for (let i = 0, l = event.length; i < l; i++) {
@@ -78,10 +79,13 @@ export function useBaseMixins<Props extends {}, State extends {}>(
       const { $data, $props } = self!.proxy;
       let newState = typeof state === "function" ? state($data, $props) : state;
       if (options.getDerivedStateFromProps) {
-        const s = options.getDerivedStateFromProps(getOptionProps(self!.proxy), {
-          ...$data,
-          ...newState,
-        });
+        const s = options.getDerivedStateFromProps(
+          getOptionProps(self!.proxy),
+          {
+            ...$data,
+            ...newState,
+          },
+        );
         if (s === null) {
           return;
         } else {
@@ -89,7 +93,8 @@ export function useBaseMixins<Props extends {}, State extends {}>(
         }
       }
       Object.assign($data, newState);
-      if (self!.isMounted) {
+      //@ts-ignore
+      if (self!.proxy._isMounted) {
         self!.proxy.$forceUpdate();
       }
       nextTick(() => {
@@ -136,27 +141,35 @@ function offset(el: Element) {
 }
 const { contains } = DomUtils;
 
-function extendProps<T extends {}>(props: ToRefs<T>, inheritProps: T, overwrite?: any) {
+function extendProps<T extends {}>(
+  props: ToRefs<T>,
+  inheritProps: T,
+  overwrite?: any,
+) {
   const result = { ...props };
   for (const key of Object.keys({ ...inheritProps, ...overwrite })) {
     // @ts-ignore
-    result[key] = computed(() => overwrite?.[key] ?? props[key]?.value ?? inheritProps[key]);
+    result[key] = computed(
+      () => overwrite?.[key] ?? props[key]?.value ?? inheritProps[key],
+    );
   }
   return reactive(result) as T;
 }
 
 let uuid = 0;
 
-type DialogOptions = Partial<TsxTypeInfoHook<DialogProps, { close?: MouseEvent }>>;
+type DialogOptions = Partial<TypeTsxProps<DialogProps, { close?: MouseEvent }>>;
 export function useDialogHooks(_props: DialogProps, options?: DialogOptions) {
   const propRefs = toRefs(_props);
   const [portalProps, portal] = usePortalWrapper(
     reactive({
       wrapClassName: propRefs.wrapClassName,
-      getContainer: computed(() => _props.getContainer || (() => document.body)),
+      getContainer: computed(
+        () => _props.getContainer || (() => document.body),
+      ),
       forceRender: propRefs.forceRender!,
       visible: propRefs.visible!,
-    })
+    }),
   );
   const props = extendProps(
     propRefs,
@@ -171,7 +184,7 @@ export function useDialogHooks(_props: DialogProps, options?: DialogOptions) {
       focusTriggerAfterClose: true,
       getOpenCount: () => null,
     },
-    portalProps
+    portalProps,
   );
   const dialog = useDialog(props, options);
   return {
@@ -314,7 +327,9 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
             // console.log(mousePosition, elOffset);
             setTransformOrigin(
               dialogNode as HTMLElement,
-              `${mousePosition.x! - elOffset.left}px ${mousePosition.y! - elOffset.top}px`
+              `${mousePosition.x! - elOffset.left}px ${
+                mousePosition.y! - elOffset.top
+              }px`,
             );
           } else {
             setTransformOrigin(dialogNode as HTMLElement, "");
@@ -402,7 +417,11 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
       if (tempFooter) {
         footer = (
           <div key="footer" class={`${prefixCls}-footer`} ref={refs.footer}>
-            {tempFooter}
+            <ActionGroup
+              defaultSpinningProps={{ ghost: true }}
+              align="center"
+              actions={[{ type: "ok" }, { type: "cancel" }]}
+            />
           </div>
         );
       }
@@ -447,7 +466,12 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
           forceRender={forceRender}
           onMousedown={maskEventHandle.onDialogMouseDown}
         >
-          <div tabindex={0} ref={refs.sentinelStart} style={sentinelStyle} aria-hidden="true" />
+          <div
+            tabindex={0}
+            ref={refs.sentinelStart}
+            style={sentinelStyle}
+            aria-hidden="true"
+          />
           <div class={`${prefixCls}-content`} style={style}>
             {closer}
             {header}
@@ -462,7 +486,12 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
             </div>
             {footer}
           </div>
-          <div tabindex={0} ref={refs.sentinelEnd} style={sentinelStyle} aria-hidden="true" />
+          <div
+            tabindex={0}
+            ref={refs.sentinelEnd}
+            style={sentinelStyle}
+            aria-hidden="true"
+          />
         </LazyRenderBox>
       );
       const dialogTransitionProps = getTransitionProps(transitionName!, {
@@ -554,14 +583,21 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
     mounted() {
       methods.updatedCallback(false);
       // if forceRender is true, set element style display to be none;
-      if ((props.forceRender || (props.getContainer === false && !props.visible)) && $refs.wrap) {
+      if (
+        (props.forceRender ||
+          (props.getContainer === false && !props.visible)) &&
+        $refs.wrap
+      ) {
         $refs.wrap.style.display = "none";
       }
     },
     dispose() {
       // portal.beforeUnmount();
       const { visible, getOpenCount } = props;
-      if ((visible || state.inTransition) && (!getOpenCount || !getOpenCount!())) {
+      if (
+        (visible || state.inTransition) &&
+        (!getOpenCount || !getOpenCount!())
+      ) {
         methods.switchScrollingEffect();
         maskEventHandle.dispose();
       }
@@ -578,7 +614,14 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
       // );
     },
     render() {
-      const { prefixCls, maskClosable, visible, wrapClassName, title, wrapProps } = props;
+      const {
+        prefixCls,
+        maskClosable,
+        visible,
+        wrapClassName,
+        title,
+        wrapProps,
+      } = props;
       const style = { ...wrapStyle.value };
       // clear hide display
       // and only set display after async anim, not here for hide

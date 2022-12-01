@@ -1,15 +1,19 @@
-import { computed, defineComponent, ref } from "vue-demi";
-import { useInherit, useNamedRef } from "@yuyi919/vue-use";
+import {
+  ActionGroup,
+  ActionType,
+  IActionConfig,
+} from "@yuyi919/antdv1-plus-action";
 import { extractProps, useSlot } from "@yuyi919/antdv1-plus-helper";
+import { useInherit, useNamedRef } from "@yuyi919/vue-use";
 import { IColProps } from "ant-design-vue";
 import { pick } from "lodash";
-import { ActionGroup, ActionType, IActionConfig } from "@yuyi919/antdv1-plus-action";
+import { computed, defineComponent, ref } from "vue-demi";
+import { InnerModalContext } from "./context";
 import { NormalizeModalPlacement } from "./NormalizeModalProps";
 import { NormlizeDrawer } from "./NormlizeDrawer";
 import { NormlizeModal } from "./NormlizeModal";
 import { IModalProps, ModalProps } from "./props";
 import { useClasses, useStyles } from "./styles";
-import { InnerModalContext } from "./context";
 
 export function getGridProps(props: IColProps) {
   return pick(props, "md", "lg", "sm", "span", "xs", "xl", "xxl");
@@ -27,7 +31,11 @@ export const Modal = defineComponent({
     InnerModalContext.provide(innerModal);
     const classes = useClasses(useStyles(props));
     const actionsRef = useNamedRef("actionsRef");
-    const [getInherit, inheritEvent] = useInherit(context, ["cancel", "close", "ok"]);
+    const [getInherit, inheritEvent] = useInherit(context, [
+      "cancel",
+      "close",
+      "ok",
+    ]);
     const okAction = computed(() => {
       const {
         props: { type = props.okType, ...btnProps } = {},
@@ -47,7 +55,8 @@ export const Modal = defineComponent({
       } as IActionConfig<"submit">;
     });
     const cancelAction = computed(() => {
-      const { title = props.cancelText, ...other } = props.cancelButtonProps || {};
+      const { title = props.cancelText, ...other } =
+        props.cancelButtonProps || {};
       return {
         action: inheritEvent.cancel,
         type: ActionType.取消,
@@ -55,15 +64,25 @@ export const Modal = defineComponent({
         ...other,
       };
     });
-    const renderFooter = useSlot("footer", (actionAlign?: "left" | "right" | "center") => (
-      <ActionGroup
-        defaultSpinningProps={{ ghost: true }}
-        align={actionAlign}
-        reverse={props.actionProps?.flex === true ? false : props.placement === "right"}
-        actions={props.actions || ([cancelAction.value, okAction.value] as IActionConfig[])}
-        props={props.actionProps}
-      />
-    ));
+    const renderFooter = useSlot(
+      "footer",
+      (actionAlign?: "left" | "right" | "center") => (
+        <ActionGroup
+          defaultSpinningProps={{ ghost: true }}
+          align={actionAlign}
+          reverse={
+            props.actionProps?.flex === true
+              ? false
+              : props.placement === "right"
+          }
+          actions={
+            props.actions ||
+            ([cancelAction.value, okAction.value] as IActionConfig[])
+          }
+          props={props.actionProps}
+        />
+      ),
+    );
     const renderTitle = useSlot("title");
     // watch(
     //   () => props.loading,
@@ -82,7 +101,7 @@ export const Modal = defineComponent({
       top: { actionAlign: "center", component: NormlizeDrawer },
       bottom: { actionAlign: "center", component: NormlizeDrawer },
       center: { actionAlign: "center", component: NormlizeModal },
-    };
+    } as any;
     return () => {
       const {
         scopedSlots,

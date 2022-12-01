@@ -1,13 +1,28 @@
-import { unwrap, useComponentLoader, useLoader } from "@yuyi919/vue-use";
-import { defineComponent, computed, onMounted, reactive, watch, PropType } from "vue-demi";
-import { defaultsDeep, isEqual } from "lodash";
-import Vue, { VNode, CreateElement } from "vue";
-import { ActionType, IActionConfig, ICallableActionConfig } from "@yuyi919/antdv1-plus-action";
-import { IModalAction, ModalContext } from "./context";
-import { IModalProps } from "./props";
-import { castComputed } from "@yuyi919/shared-utils";
-import { IModalOptionsAdapter } from "./utils";
+import {
+  ActionType,
+  IActionConfig,
+  ICallableActionConfig,
+} from "@yuyi919/antdv1-plus-action";
 import { ButtonProps } from "@yuyi919/antdv1-plus-shared";
+import { castComputed } from "@yuyi919/shared-utils";
+import { unwrap, useLoader } from "@yuyi919/vue-use";
+import { Skeleton } from "ant-design-vue";
+import { defaultsDeep, isEqual } from "lodash";
+import Vue from "vue";
+import {
+  computed,
+  CreateElement,
+  defineComponent,
+  onMounted,
+  PropType,
+  reactive,
+  VNode,
+  watch,
+} from "vue-demi";
+import { IModalAction, ModalContext } from "./context";
+import { Modal } from "./modal";
+import { IModalProps } from "./props";
+import { IModalOptionsAdapter } from "./utils";
 
 export interface IPortalModalOptions
   extends Omit<IModalProps, "okButtonProps" | "cancelButtonProps">,
@@ -47,7 +62,10 @@ export interface IPortalModalOptions
  * @param config
  * @param parent
  */
-export function createProtalModal(config: IPortalModalOptions, parent: Vue): IModalAction {
+export function createProtalModal(
+  config: IPortalModalOptions,
+  parent: Vue,
+): IModalAction {
   let CONTAINER = document.createElement("div");
   const ModalAction: IModalAction & {
     closed?: boolean;
@@ -101,17 +119,21 @@ export function createProtalModal(config: IPortalModalOptions, parent: Vue): IMo
         };
         ModalContext.provide(ModalAction);
         return () => (
-          <ModalProtal options={self.props} content={self.content} actions={ModalAction} />
+          <ModalProtal
+            options={self.props}
+            content={self.content}
+            actions={ModalAction}
+          />
         );
       },
     });
   }
-  document.body.appendChild(CONTAINER);
   let confirmDialogInstance = render();
   if (currentProps.cycleOnly) {
     const el = document.createElement("div");
     CONTAINER.appendChild(el);
     confirmDialogInstance.$mount(el);
+    document.body.appendChild(CONTAINER);
   } else {
     confirmDialogInstance.$mount(CONTAINER);
   }
@@ -134,8 +156,8 @@ const ModalProtal = defineComponent({
     },
   },
   setup(props, context) {
-    const Modal = useComponentLoader(() => import("./modal"), "Modal");
-    const render = useLoader(() => unwrap(props.content), void 0, true);
+    // const Modal = useComponentLoader(() => import("./modal"), "Modal");
+    const render = useLoader<any>(() => unwrap(props.content), void 0, true);
     const events = {
       ok() {
         const { onOk } = props.options;
@@ -151,7 +173,8 @@ const ModalProtal = defineComponent({
       },
     };
     const modalProps = computed(() => {
-      const { title, cancelButtonProps, okButtonProps, cycleOnly, ...other } = props.options;
+      const { title, cancelButtonProps, okButtonProps, cycleOnly, ...other } =
+        props.options;
       return {
         ...other,
         cancelButtonProps: {
@@ -163,6 +186,7 @@ const ModalProtal = defineComponent({
           action: events.ok,
         } as IActionConfig<ActionType.提交>,
         title: title !== false && (title || ""),
+        loading: render.loading.value,
       };
     });
     onMounted(() => {
@@ -178,15 +202,17 @@ const ModalProtal = defineComponent({
         <Modal
           {...{
             props: modalProps.value,
+            on: events,
           }}
-          onCancel={events.cancel}
-          onClose={events.close}
-          onOk={events.ok}
-          loading={render.loading.value}
         >
-          <a-skeleton paragraph={{ rows: 4 }} title={false} active loading={render.loading.value}>
+          <Skeleton
+            paragraph={{ rows: 4 }}
+            title={false}
+            active
+            loading={render.loading.value}
+          >
             {vdom}
-          </a-skeleton>
+          </Skeleton>
         </Modal>
       );
     };

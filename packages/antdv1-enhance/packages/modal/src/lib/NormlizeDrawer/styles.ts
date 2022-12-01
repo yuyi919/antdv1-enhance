@@ -1,4 +1,8 @@
-import { autoSizer, createUseClasses, styled } from "@yuyi919/antdv1-plus-theme";
+import {
+  autoSizer,
+  createUseClasses,
+  styled,
+} from "@yuyi919/antdv1-plus-theme";
 import { IModalProps } from "../props";
 
 const [classes, useClasses] = createUseClasses("normalize-drawer", {
@@ -82,7 +86,9 @@ export const useStyles = styled.makeUse`
       & > .ant-drawer-content-wrapper {
         /* 取消100%宽度 */
         width: ${(props) =>
-          props.width === "auto" || !props.width ? void 0 : autoSizer(props.width)};
+          props.width === "auto" || !props.width
+            ? void 0
+            : autoSizer(props.width)};
         /* width: ${(props: IModalProps) =>
           props.width === "auto" ? "100%" : autoSizer(props.width)}; */
       }

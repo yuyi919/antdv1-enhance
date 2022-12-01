@@ -1,9 +1,5 @@
 import Types from "@yuyi919/shared-types";
-import { defineComponent, PropType } from "vue";
-import {
-  ExtractDefaultPropTypes,
-  ExtractPropTypes,
-} from "vue/types/v3-component-props";
+import { PropType } from "vue-demi";
 
 export type TypedPropGroup<
   T extends Types.Recordable,

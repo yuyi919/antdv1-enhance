@@ -1,8 +1,8 @@
 /*eslint-disable*/
 // @ts-nocheck
-import { filterEmpty, parseStyleText } from "./props-util";
 import classNames from "classnames";
-import { VNode } from "vue";
+import { VNode } from "vue-demi";
+import { filterEmpty, parseStyleText } from "./props-util";
 
 export function cloneVNode(vnode: VNode, deep?: boolean) {
   const componentOptions = vnode.componentOptions;
@@ -26,7 +26,7 @@ export function cloneVNode(vnode: VNode, deep?: boolean) {
     vnode.elm,
     vnode.context,
     componentOptions ? { ...componentOptions, listeners } : componentOptions,
-    vnode.asyncFactory
+    vnode.asyncFactory,
   );
   cloned.ns = vnode.ns;
   cloned.isStatic = vnode.isStatic;
@@ -70,7 +70,14 @@ export function cloneElement(n: VNode, nodeProps: any = {}, deep?: boolean) {
   //   !(node.fnOptions && node.fnOptions.functional),
   //   `can not use cloneElement for functional component (${node.fnOptions && node.fnOptions.name})`,
   // );
-  const { props = {}, key, on = {}, nativeOn = {}, children, directives = [] } = nodeProps;
+  const {
+    props = {},
+    key,
+    on = {},
+    nativeOn = {},
+    children,
+    directives = [],
+  } = nodeProps;
   const data = node.data || {};
   let cls = {};
   let style = {};
@@ -80,7 +87,7 @@ export function cloneElement(n: VNode, nodeProps: any = {}, deep?: boolean) {
     domProps = {},
     style: tempStyle = {},
     class: tempCls = {},
-    scopedSlots = {}
+    scopedSlots = {},
   } = nodeProps;
 
   if (typeof data.style === "string") {
@@ -120,14 +127,20 @@ export function cloneElement(n: VNode, nodeProps: any = {}, deep?: boolean) {
     class: cls,
     domProps: { ...data.domProps, ...domProps },
     scopedSlots: { ...data.scopedSlots, ...scopedSlots },
-    directives: [...(data.directives || []), ...directives]
+    directives: [...(data.directives || []), ...directives],
   });
 
   if (node.componentOptions) {
     node.componentOptions.propsData = node.componentOptions.propsData || {};
     node.componentOptions.listeners = node.componentOptions.listeners || {};
-    node.componentOptions.propsData = { ...node.componentOptions.propsData, ...props };
-    node.componentOptions.listeners = { ...node.componentOptions.listeners, ...on };
+    node.componentOptions.propsData = {
+      ...node.componentOptions.propsData,
+      ...props,
+    };
+    node.componentOptions.listeners = {
+      ...node.componentOptions.listeners,
+      ...on,
+    };
     if (children) {
       node.componentOptions.children = children;
     }

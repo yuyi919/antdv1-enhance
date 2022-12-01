@@ -1,21 +1,24 @@
+import { NativeScrollbarMixins } from "@yuyi919/antdv1-plus-shared";
 import {
   createUseClasses,
   defineKeyframes,
   KeyframePoint,
-  styled,
   style2Str,
+  styled,
 } from "@yuyi919/antdv1-plus-theme";
-import { NativeScrollbarMixins } from "@yuyi919/antdv1-plus-shared";
 import { IModalProps } from "../props";
 
-const [classes, useClasses, ClassesProps] = createUseClasses("normalize-modal", {
-  content: "content",
-});
+const [classes, useClasses, ClassesProps] = createUseClasses(
+  "normalize-modal",
+  {
+    content: "content",
+  },
+);
 
 export function createAnimTransitionMixins(
   name: string,
   enterAnimation: [KeyframePoint, KeyframePoint, ...KeyframePoint[]],
-  leaveAnimation: [KeyframePoint, KeyframePoint, ...KeyframePoint[]]
+  leaveAnimation: [KeyframePoint, KeyframePoint, ...KeyframePoint[]],
 ) {
   const warpIn = defineKeyframes(enterAnimation);
   const warpOut = defineKeyframes(leaveAnimation);
@@ -27,13 +30,15 @@ export function createAnimTransitionMixins(
       }
 
       &.${name}-enter, &.${name}-appear, &.${name}-leave {
-        animation-duration: ${(props: IModalProps) => props.transitionDuration}ms;
+        animation-duration: ${(props: IModalProps) =>
+          props.transitionDuration}ms;
         animation-fill-mode: both;
         animation-timing-function: ease-out;
         animation-play-state: paused;
       }
 
-      &.${name}-enter.${name}-enter-active, &.${name}-appear.${name}-appear-active {
+      &.${name}-enter.${name}-enter-active,
+        &.${name}-appear.${name}-appear-active {
         animation-name: ${warpIn};
         animation-play-state: running;
       }
@@ -56,6 +61,7 @@ export const useStyles = styled.makeUse`
       ${NativeScrollbarMixins("9px", "white")};
       .ant-modal {
         padding-bottom: 0;
+        min-width: 200px;
         & > .ant-modal-content {
           & > .ant-modal-body {
             padding: 0;
@@ -71,13 +77,29 @@ export const useStyles = styled.makeUse`
       ${createAnimTransitionMixins(
         "slide-zoom",
         [
-          { opacity: "0", transformOrigin: "0% 0%", transform: "translateY(-25%) scale(0)" },
-          { opacity: "1", transformOrigin: "0% 0%", transform: "translateY(0) scale(1)" },
+          {
+            opacity: "0",
+            transformOrigin: "0% 0%",
+            transform: "translateY(-25%) scale(0)",
+          },
+          {
+            opacity: "1",
+            transformOrigin: "0% 0%",
+            transform: "translateY(0) scale(1)",
+          },
         ],
         [
-          { opacity: "1", transformOrigin: "0% 0%", transform: "translateY(0) scale(1)" },
-          { opacity: "0", transformOrigin: "0% 0%", transform: "translateY(-25%) scale(0)" },
-        ]
+          {
+            opacity: "1",
+            transformOrigin: "0% 0%",
+            transform: "translateY(0) scale(1)",
+          },
+          {
+            opacity: "0",
+            transformOrigin: "0% 0%",
+            transform: "translateY(-25%) scale(0)",
+          },
+        ],
       )}
       ${createAnimTransitionMixins(
         "slide-fade",
@@ -88,7 +110,7 @@ export const useStyles = styled.makeUse`
         [
           { opacity: "1", transform: "translateY(0)" },
           { opacity: "0", transform: "translateY(-25%)" },
-        ]
+        ],
       )}
     }
   }

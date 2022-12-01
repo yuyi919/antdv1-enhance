@@ -5,7 +5,7 @@ import {
   ComponentMethodOptions,
   ExtractPropTypes,
   VueConstructor,
-} from "vue";
+} from "vue-demi";
 import {
   ComponentOptionsBase,
   ComponentOptionsMixin,
@@ -97,9 +97,9 @@ export type EventHandlers<E> = {
 
 export type TypeTsxProps<
   Props extends Types.Recordable,
-  Events extends Types.Recordable = Types.Recordable,
-  ScopedSlots extends Types.Recordable = Types.Recordable,
-  Attributes extends Types.Recordable = Types.Recordable,
+  Events extends Types.Recordable = {},
+  ScopedSlots extends Types.Recordable = {},
+  Attributes extends Types.Recordable = {},
 > = InnerTypeTsxProps<Props, EventHandlers<Events>, ScopedSlots, Attributes>;
 
 // type a = TypeTsxProps<Types.Recordable, { a: 1 }>["onA"];
@@ -107,9 +107,9 @@ export type TypeTsxProps<
 
 type InnerTypeTsxProps<
   Props extends Types.Recordable,
-  Events extends Types.Recordable = Types.Recordable,
-  ScopedSlots extends Types.Recordable = Types.Recordable,
-  Attributes extends Types.Recordable = Types.Recordable,
+  Events extends Types.Recordable = {},
+  ScopedSlots extends Types.Recordable = {},
+  Attributes extends Types.Recordable = {},
 > = Attributes &
   Props &
   TsxOnEvents<Events> & {

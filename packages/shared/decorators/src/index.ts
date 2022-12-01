@@ -1,8 +1,8 @@
 import { Types } from "@yuyi919/shared-types";
-import Vue, { ComponentOptions } from "vue";
-import { PropType } from "vue-demi";
-import { default as PropTypes, initDefaultProps } from "./prop-types";
 import { TypedPropGroup } from "@yuyi919/vue2.7-helper";
+import Vue from "vue";
+import { ComponentOptions, PropType } from "vue-demi";
+import { default as PropTypes, initDefaultProps } from "./prop-types";
 
 export interface ITypedPropOptions<T, Required extends boolean> {
   type?: PropType<T> | null;
@@ -15,7 +15,7 @@ export const UNSAFE_STORE_PROPS_KEY = "@props";
 const UNSAFE_WALKER = () => null;
 export function extractProps<T, D = {}>(
   target: Types.Consturctor<T>,
-  defaultProps?: D
+  defaultProps?: D,
 ): TypedPropGroup<T, D> {
   if (target instanceof Vue) {
     return (
@@ -178,6 +178,7 @@ export function Component(options?: any) {
   };
 }
 
+export * from "./extractPropClass";
 export { PropTypes, initDefaultProps };
 
 /**
@@ -217,5 +218,3 @@ export function MergeProps(...ctors: Types.ConstructorType<any>[]) {
     }),
   }) as any;
 }
-
-export * from "./extractPropClass"

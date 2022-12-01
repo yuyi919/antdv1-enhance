@@ -6,8 +6,10 @@
     "module": "esnext",
     "target": "es2020",
     "useDefineForClassFields": false,
+    "forceConsistentCasingInFileNames": true,
     "rootDirs": ["./src", "./playground"],
     "baseUrl": ".",
+    "moduleResolution": "node",
     "paths": {
       "@yuyi919/antdv1-plus-action": [
         "./node_modules/@yuyi919/antdv1-plus-action/src/index.ts"

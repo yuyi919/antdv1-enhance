@@ -1,10 +1,10 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable camelcase */
 // @ts-ignore
-import { VNode } from "vue";
-import { cloneElement } from "./VNode";
+import Types from "@yuyi919/shared-types";
+import { VNode } from "vue-demi";
 import { mergeJsxProps } from "./mergeJsxProps";
-import Types from "@yuyi919/shared-types"
+import { cloneElement } from "./VNode";
 
 export function mergeJsxPropsToVNode(
   vnode: VNode[],
@@ -46,7 +46,7 @@ export function mergeJsxPropsToVNode(
         },
       },
       otherData,
-      ...datas
+      ...datas,
     );
     vnode = cloneElement(vnode, merged) as VNode;
     if (vnode.componentOptions) {
@@ -74,26 +74,36 @@ export function mergeJsxPropsToVNode(
 }
 
 function getListeners(vnode: VNode): any {
-  const { listeners } = vnode.componentOptions || {} as Types.Recordable;
+  const { listeners } = vnode.componentOptions || ({} as Types.Recordable);
   if (!listeners) return vnode.data?.on;
   const return_listeners = {} as Types.Recordable;
   for (const key in listeners) {
-    return_listeners[key] = listeners[key]?.fns ? listeners[key].fns : listeners[key];
+    return_listeners[key] = listeners[key]?.fns
+      ? listeners[key].fns
+      : listeners[key];
   }
   return return_listeners;
 }
 
-export function mergeJsxPropToVNode(vnodes: VNode, key: string, value: any): VNode;
-export function mergeJsxPropToVNode(vnodes: VNode[], key: string, value: any): VNode[];
+export function mergeJsxPropToVNode(
+  vnodes: VNode,
+  key: string,
+  value: any,
+): VNode;
+export function mergeJsxPropToVNode(
+  vnodes: VNode[],
+  key: string,
+  value: any,
+): VNode[];
 export function mergeJsxPropToVNode(
   vnodes: VNode | VNode[],
   key: string,
-  value: any
+  value: any,
 ): VNode | VNode[];
 export function mergeJsxPropToVNode(
   vnodes: VNode | VNode[],
   key: string,
-  value: any
+  value: any,
 ): VNode | VNode[] {
   return mergeJsxPropsToVNode(vnodes as VNode[], { [key]: value });
 }

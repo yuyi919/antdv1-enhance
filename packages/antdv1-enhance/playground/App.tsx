@@ -10,6 +10,8 @@ import Demo from "./demo.vue";
 import { GridDemo } from "./demos/SmartGrid";
 import { ModalDialogDemo } from "./demos/ModalDialog";
 import { FormDemo } from "./demos/Form";
+import { Drawer } from "ant-design-vue";
+import { Modal as CommonModal } from "@yuyi919/antdv1-plus-modal"
 // import "../shared/src/env.d";
 import { useTransitions, MATERIAL_DEFAULT_THEME } from "@yuyi919/antdv1-plus-theme";
 console.log(MATERIAL_DEFAULT_THEME);
@@ -84,6 +86,7 @@ export default defineComponent({
         <>
           <div style={{ width: "80vw", margin: "0 auto" }}>
             {/* {dialog.render()} */}
+            {/* <CommonModal placement="left" visible={store.visible} onClose={dialogData.on.close}></CommonModal> */}
             <Modal.Dialog props={store} {...dialogData}>
               <a-radio-group
                 vModel={{ value: radio.value, callback: (v: any) => (radio.value = v) }}
@@ -129,7 +132,7 @@ export default defineComponent({
                           confirmCancel: true,
                           confirmClose: true
                         },
-                        () => import("./readme.txt")
+                        () => import("./readme.txt?raw")
                       )
                     }
                   >
@@ -146,4 +149,4 @@ export default defineComponent({
       );
     };
   }
-});
+}) as any;

@@ -1,11 +1,14 @@
-import { computed, defineComponent, reactive } from "vue-demi";
+import { extractProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { useInherit } from "@yuyi919/vue-use";
 import { IColProps, Modal as AntModal } from "ant-design-vue";
 import { pick } from "lodash";
-import { extractProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
-import { GridWatcher } from "../GridWatcher";
+import { computed, defineComponent } from "vue-demi";
+import { useGridWatcher } from "../GridWatcher";
 import { useContentRender } from "../hooks";
-import { INormalizeModalProps, NormalizeModalProps } from "../NormalizeModalProps";
+import {
+  INormalizeModalProps,
+  NormalizeModalProps,
+} from "../NormalizeModalProps";
 import { useClasses, useStyles } from "./styles";
 
 export function getGridProps(props: IColProps) {
@@ -17,17 +20,27 @@ export const NormlizeModal: VueComponent2<
   { close: any; cancel: any; ok: any }
 > = defineComponent({
   props: extractProps(NormalizeModalProps),
-  emits: ["cancel", "close", "ok"],
+  emits: {
+    cancel() {},
+    ok() {},
+    close() {},
+  },
   setup(props, context) {
-    const state = reactive({
-      modalWidth: 0,
-      useAutoWidth: computed(() => props.width === "auto" || !props.width),
+    const useAutoWidth = computed(() => props.width === "auto" || !props.width);
+    const autoWidth = useGridWatcher({
+      xl: 16,
+      lg: 19,
+      md: 20,
     });
     const modalWidth = computed(() => {
-      return state.useAutoWidth ? state.modalWidth : props.width;
+      return useAutoWidth.value ? autoWidth.value : props.width;
     });
 
-    const [getInherit, inheritEvent] = useInherit(context, ["cancel", "close", "ok"]);
+    const [getInherit, inheritEvent] = useInherit(context, [
+      "cancel",
+      "close",
+      "ok",
+    ]);
     const classes = useClasses<"c-">(useStyles(props));
     // const footerRef = useQuerySelector(".ant-modal-footer");
     // const headerRef = useQuerySelector(".ant-modal-header");
@@ -41,12 +54,18 @@ export const NormlizeModal: VueComponent2<
     //     titleHeight
     //   );
     // });
-    const [renderScrollbar] = useContentRender(props);
+    const [renderScrollbar] = useContentRender(props, () => classes.content);
     return () => {
       const {
         children,
         on,
-        props: { classNames, placement, transitionType, transitionDuration, ...other },
+        props: {
+          classNames,
+          placement,
+          transitionType,
+          transitionDuration,
+          ...other
+        },
       } = getInherit<INormalizeModalProps>();
       return (
         <AntModal
@@ -60,32 +79,16 @@ export const NormlizeModal: VueComponent2<
                 wrapClassName: classNames?.wrap,
                 centered: placement === "center",
                 transitionName: transitionType,
+                visible: other.visible,
               },
               on,
             },
           ]}
         >
-          {state.useAutoWidth && (
-            <GridWatcher
-              {...{
-                props: {
-                  xl: 16,
-                  lg: 19,
-                  md: 20,
-                },
-                model: {
-                  callback(e) {
-                    state.modalWidth = e;
-                  },
-                },
-              }}
-            />
-          )}
-
           {!placement || placement === "default" || !renderScrollbar ? (
             <div class={classes.content}>{children}</div>
           ) : (
-            renderScrollbar(children, classes.content)
+            renderScrollbar(children)
           )}
         </AntModal>
       );

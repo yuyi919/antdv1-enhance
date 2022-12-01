@@ -2,7 +2,7 @@
 /* eslint-disable no-var */
 /* eslint-disable prefer-rest-params */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { VNodeData as VNodeData2 } from "vue";
+import { VNodeData as VNodeData2 } from "vue-demi";
 export interface VNodeData extends VNodeData2 {
   [key: string]: any;
 }

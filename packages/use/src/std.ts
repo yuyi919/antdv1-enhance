@@ -1,24 +1,24 @@
 /* eslint-disable no-redeclare */
+import { Types } from "@yuyi919/shared-types";
+import { isEqual } from "lodash";
 import {
-  onMounted,
-  ref,
-  onUnmounted,
-  Ref,
-  reactive,
-  onUpdated,
-  getCurrentInstance,
   computed,
-  nextTick,
-  shallowRef,
-  onBeforeUnmount,
   ComputedRef,
+  getCurrentInstance,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  onUnmounted,
+  onUpdated,
+  reactive,
+  ref,
+  Ref,
+  shallowRef,
+  VNode,
   watch,
   WatchStopHandle,
 } from "vue-demi";
-import { VNode } from "vue";
-import { isEqual } from "lodash";
 import * as $expect from "./is";
-import { Types } from "@yuyi919/shared-types";
 
 declare interface Fn<T = any, R = T> {
   (...arg: T[]): R;
@@ -35,34 +35,36 @@ type ResultState<T> = Readonly<Ref<T>>;
  * 仿react的useState
  * */
 export function useState<T extends undefined>(
-  initialState: (() => T) | T
+  initialState: (() => T) | T,
 ): [ResultState<T>, DispatchState<T>];
 
 export function useState<T extends null>(
-  initialState: (() => T) | T
+  initialState: (() => T) | T,
 ): [ResultState<T>, DispatchState<T>];
 
 export function useState<T extends boolean>(
-  initialState: (() => T) | T
+  initialState: (() => T) | T,
 ): [ResultState<boolean>, DispatchState<boolean>];
 
 export function useState<T extends string>(
-  initialState: (() => T) | T
+  initialState: (() => T) | T,
 ): [ResultState<string>, DispatchState<string>];
 
 export function useState<T extends number>(
-  initialState: (() => T) | T
+  initialState: (() => T) | T,
 ): [ResultState<number>, DispatchState<number>];
 
 export function useState<T extends Types.Recordable>(
-  initialState: (() => T) | T
+  initialState: (() => T) | T,
 ): [Readonly<T>, DispatchState<T>];
 
 export function useState<T extends any>(
-  initialState: (() => T) | T
+  initialState: (() => T) | T,
 ): [Readonly<T>, DispatchState<T>];
 
-export function useState<T>(initialState: (() => T) | T): [ResultState<T> | T, DispatchState<T>] {
+export function useState<T>(
+  initialState: (() => T) | T,
+): [ResultState<T> | T, DispatchState<T>] {
   if ($expect.isFunction(initialState)) {
     initialState = (initialState as Fn)();
   }
@@ -109,24 +111,28 @@ export function useLayoutEffect(mounted: () => () => void) {
   });
 }
 
-
 export function useEffect2<T extends any = any>(
   effectHandler: (deps: T[], prevDeps?: T[]) => () => void,
-  dependencies: T[]
+  dependencies: T[],
 ): WatchStopHandle {
   return watch(
     dependencies,
     (changedDependencies, prevDependencies, onCleanUp) => {
-      const effectCleaner = effectHandler(changedDependencies, prevDependencies);
+      const effectCleaner = effectHandler(
+        changedDependencies,
+        prevDependencies,
+      );
       if (effectCleaner instanceof Function) {
         onCleanUp(effectCleaner);
       }
     },
-    { immediate: true, deep: true }
+    { immediate: true, deep: true },
   );
 }
 
-export function useNamedRef<T>(name: string): Ref<T | null> & { name: string; ref(): Ref<T> } {
+export function useNamedRef<T>(
+  name: string,
+): Ref<T | null> & { name: string; ref(): Ref<T> } {
   const context = getCurrentInstance();
   // 必须传递一个初始值null，否则会有意想不到的问题
   const refObj = shallowRef<any>(null);
@@ -137,7 +143,7 @@ export function useNamedRef<T>(name: string): Ref<T | null> & { name: string; re
   const updateHook = () => (update(), nextTick(update));
   onMounted(updateHook);
   onUpdated(updateHook);
-  onUnmounted(() => refObj.value = null)
+  onUnmounted(() => (refObj.value = null));
   const namedRef = reactive({
     value: refObj,
     name,
@@ -154,7 +160,7 @@ export function useComponentEl<T extends HTMLElement>(strict?: boolean) {
     const elRef: Ref<T> = shallowRef();
     // eslint-disable-next-line no-inner-declarations
     function sync() {
-      const elm = self.proxy.$vnode.elm as T;
+      const elm = (self.proxy.$vnode.elm ?? self.proxy.$el) as T;
       if (elm !== elRef.value) {
         elRef.value = elm;
       }
@@ -168,7 +174,7 @@ export function useComponentEl<T extends HTMLElement>(strict?: boolean) {
     return elRef as ComputedRef<T>;
   }
   return computed<T>(() => {
-    return self.proxy.$vnode.elm as T;
+    return (self.proxy.$vnode.elm ?? self.proxy.$el) as T;
   }) as ComputedRef<T>;
 }
 
@@ -227,4 +233,3 @@ export function useDisposer(autoHooks?: boolean) {
   }
   return store;
 }
-

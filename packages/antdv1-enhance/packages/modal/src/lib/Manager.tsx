@@ -8,14 +8,15 @@ import {
 import Types, { isEsModuleWithDefaultExport } from "@yuyi919/shared-types";
 import { castComputed, castObject, expect$ } from "@yuyi919/shared-utils";
 import { cloneDeep, defaults, defaultsDeep, merge } from "lodash";
-import Vue, {
+import Vue from "vue";
+import {
   defineComponent,
+  getCurrentInstance,
   h,
   VNode,
   VNodeChildren,
   VueConstructor,
-} from "vue";
-import { getCurrentInstance } from "vue-demi";
+} from "vue-demi";
 import type { ConfirmOptions } from "./confirm";
 import { IModalAction, InnerModalContext } from "./context";
 import { createProtalModal, IPortalModalOptions } from "./portal";
@@ -44,11 +45,15 @@ async function loadComponent<T extends VueConstructor>(
   if (typeof target === "string") {
     const data = target.split("\n").join("<br/>");
     target = () =>
-      h("div", {
-        domProps: {
-          innerHTML: data,
+      h(
+        "div",
+        {
+          domProps: {
+            innerHTML: data,
+          },
         },
-      }, []);
+        [],
+      );
   }
   return {
     methods: {
