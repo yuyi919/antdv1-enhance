@@ -1,4 +1,4 @@
 import { Scrollbar } from "./main";
-export { Scrollbar };
 export { NativeScrollbarMixins } from "./classes";
+export { Scrollbar };
 export default Scrollbar;

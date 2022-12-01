@@ -1,6 +1,6 @@
-import { onUnmounted, reactive } from "vue-demi";
-import { Observable, asyncScheduler, fromEvent } from "rxjs";
+import { asyncScheduler, fromEvent, Observable } from "rxjs";
 import { distinctUntilChanged, map, share, throttleTime } from "rxjs/operators";
+import { onUnmounted, reactive } from "vue-demi";
 
 let observer: Observable<{
   height: number;
@@ -19,8 +19,10 @@ export function useWindowSize(delayTime: number = 100) {
         height: window.innerHeight,
         width: window.innerWidth,
       })),
-      distinctUntilChanged((a, b) => a.height === b.height && a.width === b.width),
-      share()
+      distinctUntilChanged(
+        (a, b) => a.height === b.height && a.width === b.width,
+      ),
+      share(),
     );
   }
   const windowSize = reactive({

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 
-import { Types } from "@yuyi919/shared-types";
 import { Component, getPropsClass, Prop } from "@yuyi919/antdv1-plus-helper";
+import { Types } from "@yuyi919/shared-types";
 import { Button, IButtonProps } from "ant-design-vue";
 
 @Component({})

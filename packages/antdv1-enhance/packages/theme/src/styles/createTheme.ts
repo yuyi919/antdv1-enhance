@@ -1,20 +1,20 @@
-import { deepmerge } from "./system/utils";
-import { createBaseTheme, generateUtilityClass } from "./system";
-import { createMixins } from "./createMixins";
-import { createPalette } from "./createPalette";
-import { createTypography } from "./createTypography";
-import { shadows } from "./shadows";
-import { createTransitions } from "./createTransitions";
-import { zIndex } from "./zIndex";
-import type { BaseThemeOptions, BaseTheme } from "./system";
-import type { Mixins, MixinsOptions } from "./createMixins";
-import type { Palette, PaletteOptions } from "./createPalette";
-import type { Typography, TypographyOptions } from "./createTypography";
-import type { ShadowsOption } from "./shadows";
-import type { Transitions, TransitionsOptions } from "./createTransitions";
-import type { ZIndex, ZIndexOptions } from "./zIndex";
-import type { Components } from "./components";
 import type { Types } from "@yuyi919/shared-types";
+import type { Components } from "./components";
+import type { Mixins, MixinsOptions } from "./createMixins";
+import { createMixins } from "./createMixins";
+import type { Palette, PaletteOptions } from "./createPalette";
+import { createPalette } from "./createPalette";
+import type { Transitions, TransitionsOptions } from "./createTransitions";
+import { createTransitions } from "./createTransitions";
+import type { Typography, TypographyOptions } from "./createTypography";
+import { createTypography } from "./createTypography";
+import type { ShadowsOption } from "./shadows";
+import { shadows } from "./shadows";
+import type { BaseTheme, BaseThemeOptions } from "./system";
+import { createBaseTheme, generateUtilityClass } from "./system";
+import { deepmerge } from "./system/utils";
+import type { ZIndex, ZIndexOptions } from "./zIndex";
+import { zIndex } from "./zIndex";
 
 export interface ThemeOptions extends BaseThemeOptions {
   mixins?: MixinsOptions;
@@ -48,7 +48,7 @@ export function createTheme(options?: ThemeOptions): Theme;
  * @returns A complete, ready to use theme object.
  */
 export function createTheme<MergeOptions extends Types.Recordable>(
-  options?: MergeOptions & ThemeOptions
+  options?: MergeOptions & ThemeOptions,
 ): Theme & MergeOptions;
 /**
  * Generate a theme base on the options received.
@@ -58,14 +58,14 @@ export function createTheme<MergeOptions extends Types.Recordable>(
  */
 export function createTheme<
   MergeOptions extends Types.Recordable,
-  AppendOptions extends Types.Recordable
+  AppendOptions extends Types.Recordable,
 >(
   options?: MergeOptions & ThemeOptions,
   ...args: AppendOptions[]
 ): Theme & MergeOptions & AppendOptions;
 export function createTheme<
   MergeOptions extends Types.Recordable,
-  AppendOptions extends Types.Recordable
+  AppendOptions extends Types.Recordable,
 >(
   options?: MergeOptions & ThemeOptions,
   ...args: AppendOptions[]
@@ -87,22 +87,28 @@ export function createTheme<
   const systemTheme = createBaseTheme(options);
 
   let muiTheme: BaseTheme = deepmerge(systemTheme, {
-    mixins: createMixins(systemTheme.breakpoints, systemTheme.spacing, mixinsInput),
+    mixins: createMixins(
+      systemTheme.breakpoints,
+      systemTheme.spacing,
+      mixinsInput,
+    ),
     palette,
     // Don't use [...shadows] until you've verified its transpiled code is not invoking the iterator protocol.
     shadows: shadowsInput! || shadows.slice(),
     typography: createTypography(palette, typographyInput),
     components: componentsInput || {},
     transitions: createTransitions(transitionsInput),
-    zIndex: { ...zIndex }
+    zIndex: { ...zIndex },
   });
 
   muiTheme = deepmerge(muiTheme, other);
-  const theme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme) as Theme &
-    MergeOptions &
-    AppendOptions;
+  const theme = args.reduce(
+    (acc, argument) => deepmerge(acc, argument),
+    muiTheme,
+  ) as Theme & MergeOptions & AppendOptions;
 
-  process.env.NODE_ENV !== "production" && productCheck<MergeOptions, AppendOptions>(theme);
+  process.env.NODE_ENV !== "production" &&
+    productCheck<MergeOptions, AppendOptions>(theme);
 
   return theme;
 }
@@ -111,7 +117,7 @@ let warnedOnce = false;
 
 function productCheck<
   MergeOptions extends Types.Recordable,
-  AppendOptions extends Types.Recordable
+  AppendOptions extends Types.Recordable,
 >(theme: Theme & MergeOptions & AppendOptions) {
   const stateClasses = [
     "active",
@@ -123,7 +129,7 @@ function productCheck<
     "focused",
     "focusVisible",
     "required",
-    "selected"
+    "selected",
   ];
 
   const traverse = (styleOverrides: any, component: string) => {
@@ -146,15 +152,15 @@ function productCheck<
               JSON.stringify(
                 {
                   root: {
-                    [`&.${stateClass}`]: child
-                  }
+                    [`&.${stateClass}`]: child,
+                  },
                 },
                 null,
-                2
+                2,
               ),
               "",
-              "https://material-ui.com/r/state-classes-guide"
-            ].join("\n")
+              "https://material-ui.com/r/state-classes-guide",
+            ].join("\n"),
           );
         }
         // Remove the style to prevent global conflicts.
@@ -163,21 +169,26 @@ function productCheck<
     }
   };
 
-  (Object.keys(theme.components!) as (keyof Components)[]).forEach((component) => {
-    //@ts-ignore
-    const styleOverrides = theme.components![component]!.styleOverrides!;
+  (Object.keys(theme.components!) as (keyof Components)[]).forEach(
+    (component) => {
+      //@ts-ignore
+      const styleOverrides = theme.components![component]!.styleOverrides!;
 
-    if (styleOverrides && component.indexOf("Mui") === 0) {
-      traverse(styleOverrides, component);
-    }
-  });
+      if (styleOverrides && component.indexOf("Mui") === 0) {
+        traverse(styleOverrides, component);
+      }
+    },
+  );
 }
 
 /**
  * @deprecated
  * Use `import { createTheme } from '@material-ui/core/styles'` instead.
  */
-export function createMuiTheme(options?: ThemeOptions, ...args: object[]): Theme;
+export function createMuiTheme(
+  options?: ThemeOptions,
+  ...args: object[]
+): Theme;
 export function createMuiTheme(...args: [object?, ...object[]]): Theme {
   if (process.env.NODE_ENV !== "production") {
     if (!warnedOnce) {
@@ -186,8 +197,8 @@ export function createMuiTheme(...args: [object?, ...object[]]): Theme {
         [
           "Material-UI: the createMuiTheme function was renamed to createTheme.",
           "",
-          "You should use `import { createTheme } from '@material-ui/core/styles'`"
-        ].join("\n")
+          "You should use `import { createTheme } from '@material-ui/core/styles'`",
+        ].join("\n"),
       );
     }
   }
@@ -205,7 +216,7 @@ export function createMuiTheme(...args: [object?, ...object[]]): Theme {
 
 export function createMuiStrictModeTheme<
   MergeOptions extends Types.Recordable,
-  AppendOptions extends Types.Recordable
+  AppendOptions extends Types.Recordable,
 >(
   options?: ThemeOptions & MergeOptions,
   ...args: AppendOptions[]
@@ -214,11 +225,11 @@ export function createMuiStrictModeTheme<
     (options
       ? {
           ...options,
-          unstable_strictMode: true
+          unstable_strictMode: true,
         }
       : {
-          unstable_strictMode: true
+          unstable_strictMode: true,
         }) as MergeOptions & ThemeOptions,
-    ...args
+    ...args,
   );
 }

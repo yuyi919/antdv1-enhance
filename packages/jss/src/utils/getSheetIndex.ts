@@ -16,17 +16,16 @@ let indexCounter = Number.MIN_SAFE_INTEGER || -1e9;
 export function increment() {
   indexCounter += 1;
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     if (indexCounter >= 0) {
       console.warn(
         [
-          'MUI: You might have a memory leak.',
-          'The indexCounter is not supposed to grow that much.',
-        ].join('\n'),
+          "MUI: You might have a memory leak.",
+          "The indexCounter is not supposed to grow that much.",
+        ].join("\n"),
       );
     }
   }
 
   return indexCounter;
 }
-

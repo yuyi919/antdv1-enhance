@@ -1,14 +1,14 @@
 /* eslint-disable */
-import { unwrap } from "@yuyi919/vue-use";
 import { WrapValue } from "@yuyi919/shared-types";
 import { convertArr2Map } from "@yuyi919/shared-utils";
+import { unwrap } from "@yuyi919/vue-use";
 import { reactive, toRef } from "vue-demi";
 
 export class CodeFilter<K extends string> {
   constructor(
     private source: WrapValue<K[]>,
     private include?: WrapValue<K[]>,
-    private exclude?: WrapValue<K[]>
+    private exclude?: WrapValue<K[]>,
   ) {}
 
   protected includePipe: ((str: K[]) => K[])[] = [];
@@ -26,7 +26,11 @@ export class CodeFilter<K extends string> {
   }
 
   public get filtered() {
-    return this.filter(unwrap(this.source), unwrap(this.include), unwrap(this.exclude));
+    return this.filter(
+      unwrap(this.source),
+      unwrap(this.include),
+      unwrap(this.exclude),
+    );
   }
   /**
    * 同computedDisplayList，区别为返回一个对象，如果根据对应的key取值判断是否展示
@@ -65,9 +69,11 @@ export class CodeFilter<K extends string> {
 export function useCodeFilter<K extends string>(
   source: WrapValue<K[]>,
   include: WrapValue<K[]>,
-  exclude: WrapValue<K[]>
+  exclude: WrapValue<K[]>,
 ) {
-  const actions = reactive(new CodeFilter<K>(source, include, exclude)) as unknown as CodeFilter<K>;
+  const actions = reactive(
+    new CodeFilter<K>(source, include, exclude),
+  ) as unknown as CodeFilter<K>;
   return [
     reactive({
       filtered: toRef(actions, "filtered"),

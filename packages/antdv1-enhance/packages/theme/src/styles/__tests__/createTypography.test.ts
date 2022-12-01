@@ -39,12 +39,16 @@ describe("createTypography", () => {
 
   it("should create a typography with custom h1", () => {
     const customFontSize = "18px";
-    const typography = createTypography(palette, { h1: { fontSize: customFontSize } });
+    const typography = createTypography(palette, {
+      h1: { fontSize: customFontSize },
+    });
     expect(typography.h1.fontSize).toBe(customFontSize);
   });
 
   it("should apply a CSS property to all the variants", () => {
-    const typography = createTypography(palette, { allVariants: { marginLeft: 0 } });
+    const typography = createTypography(palette, {
+      allVariants: { marginLeft: 0 },
+    });
     const allVariants = [
       "h1",
       "h2",
@@ -68,7 +72,9 @@ describe("createTypography", () => {
 
   it("only defines letter-spacing if the font-family is not overwritten", () => {
     expect(createTypography(palette, {}).h1.letterSpacing).not.toBe(undefined);
-    expect(createTypography(palette, { fontFamily: "Gotham" }).h1.letterSpacing).toBe(undefined);
+    expect(
+      createTypography(palette, { fontFamily: "Gotham" }).h1.letterSpacing,
+    ).toBe(undefined);
   });
 
   describe("warnings", () => {

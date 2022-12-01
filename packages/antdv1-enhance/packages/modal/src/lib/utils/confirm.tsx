@@ -4,10 +4,10 @@
 /* eslint-disable one-var */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-inner-declarations */
-import { withAsyncOr } from "./withAsyncOr";
-import { LocalStorage, CacheCheck } from "./CacheCheck";
-import { defaults } from "lodash";
 import { Types } from "@yuyi919/shared-types";
+import { defaults } from "lodash";
+import { CacheCheck, LocalStorage } from "./CacheCheck";
+import { withAsyncOr } from "./withAsyncOr";
 
 // export interface ConfirmOptions
 //   extends Omit<ModalOptions, keyof IModalOptionsAdapter | keyof IModalMethodsOptions>,
@@ -18,7 +18,7 @@ export interface IModalButtonPropsAdapter {
   type?: string;
 }
 export interface IModalOptionsAdapter<
-  ButtonProps extends IModalButtonPropsAdapter = IModalButtonPropsAdapter
+  ButtonProps extends IModalButtonPropsAdapter = IModalButtonPropsAdapter,
 > {
   onCancel?: () => any;
   onClose?: () => any;
@@ -69,10 +69,12 @@ export interface IModalMethodsOptions {
    */
   timeoutResult?: boolean;
 }
-export type AdapterCaller<Options> = (options: Options) => IModalConfirmAdapter<Options>;
+export type AdapterCaller<Options> = (
+  options: Options,
+) => IModalConfirmAdapter<Options>;
 export type ConfirmOptionAdapter<
   Options extends IModalOptionsAdapter = IModalOptionsAdapter,
-  ModalType extends string = string
+  ModalType extends string = string,
 > = Omit<Omit<Options, keyof IModalMethodsOptions>, "iconType"> &
   IModalMethodsOptions & {
     iconType?: ModalType | Types.DynamicString;
@@ -80,10 +82,15 @@ export type ConfirmOptionAdapter<
 
 export type AlertOptionsAdapter<
   Options extends IModalOptionsAdapter = IModalOptionsAdapter,
-  ModalType extends string = string
+  ModalType extends string = string,
 > = Omit<
   Omit<Options, keyof IModalMethodsOptions> & IModalMethodsOptions,
-  "cancelText" | "cancelButtonProps" | "iconType" | "cancelError" | "timeout" | "timeoutResult"
+  | "cancelText"
+  | "cancelButtonProps"
+  | "iconType"
+  | "cancelError"
+  | "timeout"
+  | "timeoutResult"
 > & {
   iconType?: ModalType | Types.DynamicString;
 };
@@ -95,14 +102,15 @@ export interface AsyncModalAction<Option, Result>
 
 export function configureModalAdapter<
   ModalOptions extends IModalOptionsAdapter = IModalOptionsAdapter,
-  ModalType extends string = string
+  ModalType extends string = string,
 >(
   modal: {
-    [K in "alert" | "confirm"]: AdapterCaller<ModalOptions & IModalMethodsOptions>;
-  } &
-    {
-      [K in ModalType]?: AdapterCaller<ModalOptions & IModalMethodsOptions>;
-    }
+    [K in "alert" | "confirm"]: AdapterCaller<
+      ModalOptions & IModalMethodsOptions
+    >;
+  } & {
+    [K in ModalType]?: AdapterCaller<ModalOptions & IModalMethodsOptions>;
+  },
 ) {
   type ConfirmOptions = ConfirmOptionAdapter<ModalOptions>;
 
@@ -110,7 +118,7 @@ export function configureModalAdapter<
 
   function _confirm(
     config: ConfirmOptions,
-    confirmHandler: AdapterCaller<ModalOptions & IModalMethodsOptions>
+    confirmHandler: AdapterCaller<ModalOptions & IModalMethodsOptions>,
   ) {
     const {
       dangerous,
@@ -183,7 +191,9 @@ export function configureModalAdapter<
 
   function confirm(
     config: ConfirmOptions,
-    confirmHandler: AdapterCaller<ModalOptions & IModalMethodsOptions> = modal.confirm!
+    confirmHandler: AdapterCaller<
+      ModalOptions & IModalMethodsOptions
+    > = modal.confirm!,
   ) {
     let {
       dangerous,
@@ -252,8 +262,9 @@ export function configureModalAdapter<
   function alert(
     config: AlertOptions,
     timeout?: number,
-    confirmHandler = (config.iconType !== "confirm" && modal[config.iconType as ModalType]) ||
-      modal.alert
+    confirmHandler = (config.iconType !== "confirm" &&
+      modal[config.iconType as ModalType]) ||
+      modal.alert,
   ) {
     const options = {
       ...config,
@@ -261,7 +272,10 @@ export function configureModalAdapter<
       autoFocusButton: "ok",
       timeoutResult: true,
     } as ConfirmOptions;
-    return confirm(options, confirmHandler) as unknown as AsyncModalAction<AlertOptions, boolean>;
+    return confirm(options, confirmHandler) as unknown as AsyncModalAction<
+      AlertOptions,
+      boolean
+    >;
   }
   return {
     modal,

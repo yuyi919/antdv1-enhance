@@ -27,7 +27,7 @@ export type Shadows = [
   string,
   string,
   string,
-  string
+  string,
 ];
 export type ReadonlyOr<T extends any[]> = T | readonly [...T];
 export type ShadowsOption = ReadonlyOr<
@@ -56,7 +56,7 @@ export type ShadowsOption = ReadonlyOr<
     string | number,
     string | number,
     string | number,
-    string | number
+    string | number,
   ]
 >;
 

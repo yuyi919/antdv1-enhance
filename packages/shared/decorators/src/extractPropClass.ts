@@ -1,5 +1,9 @@
 import type { Types } from "@yuyi919/shared-types";
-import { VCProps, TypedPropGroup, VueInstanceKeys } from "@yuyi919/vue2.7-helper";
+import {
+  TypedPropGroup,
+  VCProps,
+  VueInstanceKeys,
+} from "@yuyi919/vue2.7-helper";
 import { cloneDeep, omit } from "lodash";
 import { UNSAFE_STORE_PROPS_KEY } from ".";
 import { getFromVueComponent } from "./optionResolver";

@@ -1,13 +1,12 @@
-import { Button, ButtonProps, utils } from "../shared";
-import { VueComponent2, Component, Prop, PropsMixins } from "../helper";
-import { IActionConfig } from "./interface";
 import { Types } from "@yuyi919/shared-types";
 import { convertKeys2ValuesMap } from "@yuyi919/shared-utils";
-import { ActionType } from "./interface";
 import { forEach } from "lodash";
+import { Component, Prop, PropsMixins, VueComponent2 } from "../helper";
+import { Button, ButtonProps, utils } from "../shared";
+import { ActionType, IActionConfig } from "./interface";
 
 export const DefaultActionMap: Record<ActionType, any> = convertKeys2ValuesMap(
-  ActionType as typeof ActionType
+  ActionType as typeof ActionType,
 );
 forEach(DefaultActionMap, (v, k) => {
   if (/\$$/.test(v)) {
@@ -19,7 +18,9 @@ type PickedButtonProps<T extends keyof ButtonProps> = Pick<
   ButtonProps,
   Exclude<keyof ButtonProps, T>
 >;
-type ActionConfig = (string | IActionConfig)[] | Types.Recordable<string | IActionConfig>;
+type ActionConfig =
+  | (string | IActionConfig)[]
+  | Types.Recordable<string | IActionConfig>;
 
 @Component({})
 export class ActionGroupProps extends PropsMixins(utils.SpinningProps) {

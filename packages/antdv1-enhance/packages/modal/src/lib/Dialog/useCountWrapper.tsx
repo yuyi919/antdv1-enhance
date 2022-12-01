@@ -1,5 +1,5 @@
-import { CSSProperties } from "@yuyi919/shared-types";
 import { DomUtils } from "@yuyi919/antdv1-plus-helper";
+import { CSSProperties } from "@yuyi919/shared-types";
 // @ts-ignore
 import Portal from "ant-design-vue/es/_util/Portal";
 // import Portal from './Portal';
@@ -15,7 +15,10 @@ const { switchScrollingEffect } = DomUtils;
 export interface SetStyleOptions {
   element?: HTMLElement;
 }
-function setStyle(style: CSSProperties, options: SetStyleOptions = {}): CSSProperties {
+function setStyle(
+  style: CSSProperties,
+  options: SetStyleOptions = {},
+): CSSProperties {
   const { element = document.body } = options;
   const oldStyle: any = {};
 
@@ -69,13 +72,14 @@ export function usePortalWrapper(props: PortalWrapperProps) {
         () => props.visible,
         (visible) => {
           openCount = visible ? openCount + 1 : openCount - 1;
-        }
+        },
       );
       watch(
         () => props.getContainer,
         (getContainer, prevGetContainer) => {
           const getContainerIsFunc =
-            typeof getContainer === "function" && typeof prevGetContainer === "function";
+            typeof getContainer === "function" &&
+            typeof prevGetContainer === "function";
           if (
             getContainerIsFunc
               ? getContainer.toString() !== prevGetContainer.toString()
@@ -83,7 +87,7 @@ export function usePortalWrapper(props: PortalWrapperProps) {
           ) {
             methods.removeCurrentContainer(false);
           }
-        }
+        },
       );
     },
     updated() {
@@ -105,7 +109,10 @@ export function usePortalWrapper(props: PortalWrapperProps) {
           if (typeof getContainer === "function") {
             return getContainer();
           }
-          if (typeof getContainer === "object" && getContainer instanceof window.HTMLElement) {
+          if (
+            typeof getContainer === "object" &&
+            getContainer instanceof window.HTMLElement
+          ) {
             return getContainer;
           }
         }
@@ -129,7 +136,11 @@ export function usePortalWrapper(props: PortalWrapperProps) {
 
       setWrapperClassName() {
         const { wrapClassName: wrapperClassName } = props;
-        if (cache.container && wrapperClassName && wrapperClassName !== cache.container.className) {
+        if (
+          cache.container &&
+          wrapperClassName &&
+          wrapperClassName !== cache.container.className
+        ) {
           cache.container.className = wrapperClassName;
         }
       },

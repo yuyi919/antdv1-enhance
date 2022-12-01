@@ -1,5 +1,13 @@
 /* eslint-disable one-var */
 /* eslint-disable no-unused-expressions */
+import { DomUtils, TypedPropGroup } from "@yuyi919/antdv1-plus-helper";
+import {
+  unwrap,
+  useComponentEl,
+  useNamedRef,
+  WrapValue,
+} from "@yuyi919/vue-use";
+import { throttle } from "lodash";
 import {
   computed,
   defineComponent,
@@ -12,9 +20,6 @@ import {
   ref,
   watch,
 } from "vue-demi";
-import { unwrap, useComponentEl, useNamedRef, WrapValue } from "@yuyi919/vue-use";
-import { DomUtils, TypedPropGroup } from "@yuyi919/antdv1-plus-helper";
-import { throttle } from "lodash";
 import { useBarClasses } from "./classes";
 import { getScrollMoveInstance } from "./main";
 import { BAR_MAP, renderThumbStyle } from "./util";
@@ -36,7 +41,7 @@ class BarStore {
 export function useNativeElementAddListener<T extends HTMLElement>(
   domRef: WrapValue<T>,
   eventName: string,
-  handle: (e: any) => any
+  handle: (e: any) => any,
 ) {
   const disposer = watch(
     () => unwrap(domRef),
@@ -47,7 +52,7 @@ export function useNativeElementAddListener<T extends HTMLElement>(
         wrap && DomUtils.on(wrap, eventName, handle);
       }
     },
-    { immediate: true }
+    { immediate: true },
   );
   onBeforeUnmount(() => {
     const dom = unwrap(domRef);
@@ -67,7 +72,7 @@ export function useNativeElementAddListener<T extends HTMLElement>(
  */
 export function useThrottleHandle<T extends (...args: any[]) => any>(
   handle: T,
-  wait: number | Ref<number> | (() => number)
+  wait: number | Ref<number> | (() => number),
 ): T & Cancelable<ReturnType<T>> {
   if (wait instanceof Function || isRef(wait)) {
     let innerMethod: T | (T & Cancelable);
@@ -83,7 +88,7 @@ export function useThrottleHandle<T extends (...args: any[]) => any>(
           innerMethod = throttle(handle, throttleTime) as T & Cancelable;
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
     onUnmounted(() => (innerMethod as Cancelable)?.cancel?.());
     return Object.assign(
@@ -97,7 +102,7 @@ export function useThrottleHandle<T extends (...args: any[]) => any>(
         flush() {
           return (innerMethod as Cancelable<ReturnType<T>>)?.flush?.();
         },
-      }
+      },
     ) as T & Cancelable<ReturnType<T>>;
   }
   if (wait > 0) {
@@ -111,7 +116,9 @@ export function useThrottleHandle<T extends (...args: any[]) => any>(
  * 使用requestAnimationFrame延迟调用函数
  * @param handle
  */
-export function useRaf<T extends (...args: any) => any>(handle: T): T & Cancelable<ReturnType<T>> {
+export function useRaf<T extends (...args: any) => any>(
+  handle: T,
+): T & Cancelable<ReturnType<T>> {
   let isCancel = false,
     reqArgs: any[];
   function flush(this: any) {
@@ -171,11 +178,16 @@ export const Bar = defineComponent({
     const dragging = ref<boolean>(false);
     const bar = BAR_MAP[props.vertical ? "vertical" : "horizontal"];
     const computeds = reactive({
-      wrap: computed<HTMLDivElement>(() => unwrap(props.wrapRef) as HTMLDivElement),
+      wrap: computed<HTMLDivElement>(
+        () => unwrap(props.wrapRef) as HTMLDivElement,
+      ),
     });
     const thumb = useNamedRef<HTMLDivElement>("thumbRef");
 
-    function getThumbPositionPercentage(offset: number, thumbClickPosition: number) {
+    function getThumbPositionPercentage(
+      offset: number,
+      thumbClickPosition: number,
+    ) {
       return ((offset - thumbClickPosition) * 100) / elRef.value[bar.offset];
     }
 
@@ -189,15 +201,20 @@ export const Bar = defineComponent({
               Object.assign(
                 style,
                 renderThumbStyle(
-                  getScrollMoveInstance(computeds.wrap, bar, props.size, scroll),
+                  getScrollMoveInstance(
+                    computeds.wrap,
+                    bar,
+                    props.size,
+                    scroll,
+                  ),
                   props.size,
-                  bar
-                )
+                  bar,
+                ),
               );
           });
           prevScroll = scroll;
         },
-        () => props.delay!
+        () => props.delay!,
       ),
       updateWrapScroll: useThrottleHandle(
         (scroll: number) => {
@@ -205,7 +222,7 @@ export const Bar = defineComponent({
             computeds.wrap[bar.scroll] = scroll;
           });
         },
-        () => props.delay!
+        () => props.delay!,
       ),
       onScrollHandle(e: DivMouseEvent) {
         if (!dragging.value) {
@@ -220,9 +237,11 @@ export const Bar = defineComponent({
         const scroll =
           props.move ||
           Math.min(
-            (Math.max(thumbPositionPercentage, 0) * computeds.wrap[bar.scrollSize]) / 100,
+            (Math.max(thumbPositionPercentage, 0) *
+              computeds.wrap[bar.scrollSize]) /
+              100,
             // 因为wrap元素有margin样式，采用clientSize而非offsetSize
-            computeds.wrap[bar.scrollSize] - computeds.wrap[bar.clientSize]
+            computeds.wrap[bar.scrollSize] - computeds.wrap[bar.clientSize],
           );
         methods.updateThumbStyle(scroll);
         methods.updateWrapScroll(scroll);
@@ -238,14 +257,17 @@ export const Bar = defineComponent({
         store[bar.axis] =
           (e as DivMouseEvent).currentTarget[bar.offset] -
           (e[bar.client] -
-            (e as DivMouseEvent).currentTarget.getBoundingClientRect()[bar.direction]);
+            (e as DivMouseEvent).currentTarget.getBoundingClientRect()[
+              bar.direction
+            ]);
       },
 
       clickTrackHandler(e: MouseEvent) {
         e.stopImmediatePropagation();
         e.preventDefault();
         const offset = Math.abs(
-          (e as DivMouseEvent).target.getBoundingClientRect()[bar.direction] - e[bar.client]
+          (e as DivMouseEvent).target.getBoundingClientRect()[bar.direction] -
+            e[bar.client],
         );
         const thumbHalf = thumb.value![bar.offset] / 2;
         methods.updateWrap(getThumbPositionPercentage(offset, thumbHalf));
@@ -262,9 +284,13 @@ export const Bar = defineComponent({
         if (dragging.value === false) return;
         const prevPage = store[bar.axis];
         if (!prevPage) return;
-        const offset = (elRef.value.getBoundingClientRect()[bar.direction] - e[bar.client]) * -1;
+        const offset =
+          (elRef.value.getBoundingClientRect()[bar.direction] - e[bar.client]) *
+          -1;
         const thumbClickPosition = thumb.value![bar.offset] - prevPage;
-        methods.updateWrap(getThumbPositionPercentage(offset, thumbClickPosition));
+        methods.updateWrap(
+          getThumbPositionPercentage(offset, thumbClickPosition),
+        );
         document.body.style.cursor = "pointer";
       },
       mouseUpDocumentHandler(e: Event) {
@@ -288,9 +314,14 @@ export const Bar = defineComponent({
       (size) => {
         size && nextTick(() => methods.updateThumbStyle());
       },
-      { immediate: true }
+      { immediate: true },
     );
-    props.wrapRef && useNativeElementAddListener(props.wrapRef, "scroll", methods.onScrollHandle);
+    props.wrapRef &&
+      useNativeElementAddListener(
+        props.wrapRef,
+        "scroll",
+        methods.onScrollHandle,
+      );
     onBeforeUnmount(() => {
       DomUtils.off(document, "mouseup", methods.mouseUpDocumentHandler);
     });
@@ -300,10 +331,18 @@ export const Bar = defineComponent({
       return (
         props.size > 0 && (
           <div
-            class={[classes.root, classes[bar.key], dragging.value && classes.active]}
+            class={[
+              classes.root,
+              classes[bar.key],
+              dragging.value && classes.active,
+            ]}
             onMousedown={methods.clickTrackHandler}
           >
-            <div ref={thumb} class={[classes.thumb]} onMousedown={methods.clickThumbHandler} />
+            <div
+              ref={thumb}
+              class={[classes.thumb]}
+              onMousedown={methods.clickThumbHandler}
+            />
           </div>
         )
       );

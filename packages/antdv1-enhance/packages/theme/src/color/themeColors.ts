@@ -17,7 +17,9 @@ export function getThemeColors<K extends string>(key: K, color: string) {
 export function getPaletteColor(color: PaletteColor | string): PaletteColor {
   const r = color instanceof Object ? color : ({} as PaletteColor);
   color =
-    (typeof color === "string" && tinycolor.names[color as keyof typeof tinycolor.names]) || color;
+    (typeof color === "string" &&
+      tinycolor.names[color as keyof typeof tinycolor.names]) ||
+    color;
   for (let i = 1; i <= 10; i++) {
     // @ts-ignore
     r[i] = r[i] || ((i === 6 ? color : colorPalette(color, i)) as string);

@@ -25,7 +25,7 @@ const styles = {
       // padding: "20px",
       // background: () => "white"
     },
-    extend
+    extend,
   ),
 };
 console.log(styles);

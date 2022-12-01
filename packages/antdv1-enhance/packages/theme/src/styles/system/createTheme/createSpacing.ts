@@ -16,12 +16,16 @@ export interface Spacing {
   (): string;
   (value: number): string;
   (topBottom: SpacingArgument, rightLeft: SpacingArgument): string;
-  (top: SpacingArgument, rightLeft: SpacingArgument, bottom: SpacingArgument): string;
+  (
+    top: SpacingArgument,
+    rightLeft: SpacingArgument,
+    bottom: SpacingArgument,
+  ): string;
   (
     top: SpacingArgument,
     right: SpacingArgument,
     bottom: SpacingArgument,
-    left: SpacingArgument
+    left: SpacingArgument,
   ): string;
 }
 /* tslint:enable:unified-signatures */
@@ -30,7 +34,7 @@ export function createUnaryUnit<Spacing extends SpacingOptions>(
   theme: { spacing: Spacing },
   themeKey?: string,
   defaultValue?: any,
-  propName?: string
+  propName?: string,
 ) {
   const themeSpacing = getPath(theme, themeKey) || defaultValue;
 
@@ -43,7 +47,7 @@ export function createUnaryUnit<Spacing extends SpacingOptions>(
       if (process.env.NODE_ENV !== "production") {
         if (typeof abs !== "number") {
           console.error(
-            `Material-UI: Expected ${propName} argument to be a number or a string, got ${abs}.`
+            `Material-UI: Expected ${propName} argument to be a number or a string, got ${abs}.`,
           );
         }
       }
@@ -63,15 +67,17 @@ export function createUnaryUnit<Spacing extends SpacingOptions>(
             [
               `Material-UI: The \`theme.${themeKey}\` array type cannot be combined with non integer values.` +
                 `You should either use an integer value that can be used as index, or define the \`theme.${themeKey}\` as a number.`,
-            ].join("\n")
+            ].join("\n"),
           );
         } else if (abs > themeSpacing.length - 1) {
           console.error(
             [
               `Material-UI: The value provided (${abs}) overflows.`,
               `The supported values are: ${JSON.stringify(themeSpacing)}.`,
-              `${abs} > ${themeSpacing.length - 1}, you need to add the missing values.`,
-            ].join("\n")
+              `${abs} > ${
+                themeSpacing.length - 1
+              }, you need to add the missing values.`,
+            ].join("\n"),
           );
         }
       }
@@ -89,7 +95,7 @@ export function createUnaryUnit<Spacing extends SpacingOptions>(
       [
         `Material-UI: The \`theme.${themeKey}\` value (${themeSpacing}) is invalid.`,
         "It should be a number, an array or a function.",
-      ].join("\n")
+      ].join("\n"),
     );
   }
 
@@ -125,7 +131,7 @@ export function createSpacing(spacingInput: SpacingOptions = 8): Spacing {
     if (process.env.NODE_ENV !== "production") {
       if (!(argsInput.length <= 4)) {
         console.error(
-          `Material-UI: Too many arguments provided, expected between 0 and 4, got ${argsInput.length}`
+          `Material-UI: Too many arguments provided, expected between 0 and 4, got ${argsInput.length}`,
         );
       }
     }

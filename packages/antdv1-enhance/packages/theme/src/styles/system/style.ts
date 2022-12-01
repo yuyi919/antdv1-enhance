@@ -1,9 +1,9 @@
 import { getPath, unstable_capitalize as capitalize } from "./utils";
 // import responsivePropType from "./responsivePropType";
-import { handleBreakpoints } from "./breakpoints";
-import { StyleFunction } from "./types";
-import { CSSObject, CSSProperties } from "./createStyled";
 import Types from "@yuyi919/shared-types";
+import { handleBreakpoints } from "./breakpoints";
+import { CSSObject, CSSProperties } from "./createStyled";
+import { StyleFunction } from "./types";
 
 export interface StyleOptions<PropKey> {
   cssProperty?: PropKey | keyof CSSProperties | false;
@@ -12,14 +12,16 @@ export interface StyleOptions<PropKey> {
    * dot access in `Theme`
    */
   themeKey?: string;
-  transform?: (cssValue: unknown) => number | string | CSSProperties | CSSObject;
+  transform?: (
+    cssValue: unknown,
+  ) => number | string | CSSProperties | CSSObject;
 }
 
 function getValue(
   themeMapping: any[] | ((key?: string | number) => any),
   transform?: (cssValue: any) => any,
   propValueFinal?: string,
-  userValue = propValueFinal
+  userValue = propValueFinal,
 ) {
   let value;
 
@@ -37,7 +39,7 @@ function getValue(
 }
 
 export function style<PropKey extends string, Theme extends object>(
-  options: StyleOptions<PropKey>
+  options: StyleOptions<PropKey>,
 ): StyleFunction<{ [K in PropKey]?: unknown } & { theme: Theme }> {
   const { prop, cssProperty = options.prop, themeKey, transform } = options;
 
@@ -57,8 +59,10 @@ export function style<PropKey extends string, Theme extends object>(
         value = getValue(
           themeMapping,
           transform,
-          `${prop}${propValueFinal === "default" ? "" : capitalize(propValueFinal)}`,
-          propValueFinal
+          `${prop}${
+            propValueFinal === "default" ? "" : capitalize(propValueFinal)
+          }`,
+          propValueFinal,
         );
       }
 

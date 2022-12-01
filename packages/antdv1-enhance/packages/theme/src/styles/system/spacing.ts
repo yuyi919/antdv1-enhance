@@ -1,9 +1,9 @@
-import { handleBreakpoints } from "./breakpoints";
-import { merge } from "./merge";
-import { memoize } from "./memoize";
-import { createUnarySpacing } from "./createTheme/createSpacing";
 import Types from "@yuyi919/shared-types";
+import { handleBreakpoints } from "./breakpoints";
 import { CSSProperties } from "./createStyled";
+import { createUnarySpacing } from "./createTheme/createSpacing";
+import { memoize } from "./memoize";
+import { merge } from "./merge";
 
 const directions = {
   t: "Top",
@@ -14,7 +14,10 @@ const directions = {
   y: ["Top", "Bottom"],
 } as const;
 export type DirectionsKeyword = keyof typeof directions;
-export type DirectionsValue = Exclude<Types.ValueOf<typeof directions>, readonly string[]>;
+export type DirectionsValue = Exclude<
+  Types.ValueOf<typeof directions>,
+  readonly string[]
+>;
 const properties = {
   m: "margin",
   p: "padding",
@@ -33,28 +36,32 @@ type Aliases = Types.ValueOf<typeof aliases>;
 // memoize() impact:
 // From 300,000 ops/sec
 // To 350,000 ops/sec
-const getCssProperties = memoize((prop: AliasesKey | Aliases | Types.DynamicString) => {
-  let r: Aliases;
-  // It's not a shorthand notation.
-  if (prop.length > 2) {
-    if (prop in aliases) {
-      r = aliases[prop as AliasesKey] as Aliases;
+const getCssProperties = memoize(
+  (prop: AliasesKey | Aliases | Types.DynamicString) => {
+    let r: Aliases;
+    // It's not a shorthand notation.
+    if (prop.length > 2) {
+      if (prop in aliases) {
+        r = aliases[prop as AliasesKey] as Aliases;
+      } else {
+        return [prop] as [keyof CSSProperties];
+      }
     } else {
-      return [prop] as [keyof CSSProperties];
+      r = prop as Aliases;
     }
-  } else {
-    r = prop as Aliases;
-  }
 
-  const [a, b] = r!.split("") as [PropertiesKeyword, DirectionsKeyword];
-  const property = properties[a];
-  const direction = directions[b] || "";
-  return Array.isArray(direction)
-    ? ((direction as unknown as DirectionsValue[]).map((dir) => property + dir) as
-        | [`${PropertiesValue}Left`, `${PropertiesValue}Right`]
-        | [`${PropertiesValue}Top`, `${PropertiesValue}Bottom`])
-    : ([property + direction] as [`${PropertiesValue}${DirectionsValue}`]);
-});
+    const [a, b] = r!.split("") as [PropertiesKeyword, DirectionsKeyword];
+    const property = properties[a];
+    const direction = directions[b] || "";
+    return Array.isArray(direction)
+      ? ((direction as unknown as DirectionsValue[]).map(
+          (dir) => property + dir,
+        ) as
+          | [`${PropertiesValue}Left`, `${PropertiesValue}Right`]
+          | [`${PropertiesValue}Top`, `${PropertiesValue}Bottom`])
+      : ([property + direction] as [`${PropertiesValue}${DirectionsValue}`]);
+  },
+);
 
 const marginKeys = [
   "m",
@@ -111,7 +118,10 @@ export function getValue(transformer: any, propValue?: string | null) {
   return `-${transformed}`;
 }
 
-export function getStyleFromPropValue(cssProperties: (keyof CSSProperties)[], transformer: any) {
+export function getStyleFromPropValue(
+  cssProperties: (keyof CSSProperties)[],
+  transformer: any,
+) {
   return (propValue: string) =>
     cssProperties.reduce((acc, cssProperty) => {
       acc[cssProperty] = getValue(transformer, propValue);
@@ -123,7 +133,7 @@ function resolveCssProperty(
   props: Types.Recordable,
   keys: string[],
   prop: string,
-  transformer: any
+  transformer: any,
 ) {
   // Using a hash computation over an array iteration could be faster, but with only 28 items,
   // it's doesn't worth the bundle size.

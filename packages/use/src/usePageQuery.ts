@@ -1,7 +1,7 @@
 /* eslint-disable no-throw-literal */
 /* eslint-disable no-redeclare */
-import { computed, nextTick, reactive, ref, watch } from "vue-demi";
 import { defaults } from "lodash";
+import { computed, nextTick, reactive, ref, watch } from "vue-demi";
 import { useLoader } from "./useLoader";
 
 export interface CommonPageData<T = any> {
@@ -19,7 +19,7 @@ export type InternalPageConfig = {
 
 export type TReverseKV<
   Source extends Record<string, any>,
-  Keys extends keyof Source = keyof Source
+  Keys extends keyof Source = keyof Source,
 > = {
   [ValueKey in Source[Keys]]: Extract<
     { [Key in Keys]: [Source[Key], Key] }[Keys],
@@ -44,7 +44,7 @@ export function usePageQuery<
       total: PageTotalKey;
     }>]: number;
   },
-  T = any
+  T = any,
 >(args: {
   initialLoad?: boolean;
   pageConfigKeys?: {
@@ -60,7 +60,11 @@ export function usePageQuery<
   // const data = ref<CommonPageData<T> | undefined>();
   // const loading = ref<boolean>(false);
   function commonToInternal(sourceParam: CommonPageData<T>) {
-    const { pageSize = "pageSize", current = "current", total = "total" } = pageConfigKeys;
+    const {
+      pageSize = "pageSize",
+      current = "current",
+      total = "total",
+    } = pageConfigKeys;
     return {
       pageSize: sourceParam[pageSize],
       current: sourceParam[current],
@@ -68,7 +72,11 @@ export function usePageQuery<
     };
   }
   function internalToCommon(sourceParam: InternalPageConfig): QueryPageConfig {
-    const { pageSize = "pageSize", current = "current", total = "total" } = pageConfigKeys;
+    const {
+      pageSize = "pageSize",
+      current = "current",
+      total = "total",
+    } = pageConfigKeys;
     return {
       [pageSize]: sourceParam.pageSize,
       [current]: sourceParam.current,
@@ -79,7 +87,7 @@ export function usePageQuery<
     defaults(commonToInternal(args.pageConfig || {}), {
       current: 1,
       pageSize: 5,
-    })
+    }),
   );
   function onPageConfigChange(page: InternalPageConfig) {
     pageConfig.current = page.current;
@@ -93,7 +101,7 @@ export function usePageQuery<
       console.log("query:params", queryParams);
       return args.getData(queryParams);
     }
-    return ({ list: [], ...queryParams } as unknown) as CommonPageData<T>;
+    return { list: [], ...queryParams } as unknown as CommonPageData<T>;
   });
 
   const handleQuery = async (query?: string) => {
@@ -119,9 +127,11 @@ export function usePageQuery<
   }
   watch(
     () =>
-      startLoad.value ? `query:${pageConfig.current},${pageConfig.pageSize}` : "query:initial",
+      startLoad.value
+        ? `query:${pageConfig.current},${pageConfig.pageSize}`
+        : "query:initial",
     (key) => handleQuery(key),
-    { immediate: true }
+    { immediate: true },
   );
 
   return {

@@ -1,6 +1,6 @@
+import { blue, deepOrange, indigo, purple } from "../../colors";
+import { createPalette, dark, light, Palette } from "../createPalette";
 import { darken, lighten } from "../system";
-import { deepOrange, blue, purple, indigo } from "../../colors";
-import { Palette, createPalette, dark, light } from "../createPalette";
 
 describe("createPalette()", () => {
   it("should create a palette with a rich color object", () => {
@@ -159,23 +159,27 @@ describe("createPalette()", () => {
         [
           "Material-UI: The color (primary) provided to augmentColor(color) is invalid.",
           "The color object needs to have a `main` property or a `500` property.",
-        ].join("\n")
+        ].join("\n"),
       );
       // toThrowMinified
       //@ts-expect-error
-      expect(() => createPalette({ primary: { main: { foo: "bar" } } })).toThrowError(
+      expect(() =>
+        createPalette({ primary: { main: { foo: "bar" } } }),
+      ).toThrowError(
         [
           "Material-UI: The color (primary) provided to augmentColor(color) is invalid.",
           '`color.main` should be a string, but `{"foo":"bar"}` was provided instead.',
-        ].join("\n")
+        ].join("\n"),
       );
       // toThrowMinified
       //@ts-expect-error
-      expect(() => createPalette({ primary: { main: void 0 as unknown } })).toThrowError(
+      expect(() =>
+        createPalette({ primary: { main: void 0 as unknown } }),
+      ).toThrowError(
         [
           "Material-UI: The color (primary) provided to augmentColor(color) is invalid.",
           "`color.main` should be a string, but `undefined` was provided instead.",
-        ].join("\n")
+        ].join("\n"),
       );
     });
 
@@ -189,7 +193,9 @@ describe("createPalette()", () => {
 
       expect(() => {
         getContrastText("#fefefe");
-      }).toErrorDev("falls below the WCAG recommended absolute minimum contrast ratio of 3:1");
+      }).toErrorDev(
+        "falls below the WCAG recommended absolute minimum contrast ratio of 3:1",
+      );
     });
   });
 });

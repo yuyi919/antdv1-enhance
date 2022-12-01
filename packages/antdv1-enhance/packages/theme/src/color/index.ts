@@ -1,6 +1,6 @@
 // export * from './compact'
 
-export { Colors } from "./colors";
-export { ceil, fade, hsv, darken, lighten } from "./less";
-export * from "./themeColors";
 export { colorPalette } from "./colorPalette";
+export { Colors } from "./colors";
+export { ceil, darken, fade, hsv, lighten } from "./less";
+export * from "./themeColors";

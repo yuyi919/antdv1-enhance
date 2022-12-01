@@ -1,12 +1,22 @@
 import { computed, ComputedRef, shallowReactive } from "vue-demi";
-import { matchMediaQuery, MediaQuery, useMediaQueryWith } from "./useMediaQuery";
+import {
+  matchMediaQuery,
+  MediaQuery,
+  useMediaQueryWith,
+} from "./useMediaQuery";
 import { ConfigurableWindow } from "./_configurable";
 import { increaseWithUnit } from "./_util";
 
-export type BreakpointsConfig<K extends string = string> = Record<K, number | string>;
+export type BreakpointsConfig<K extends string = string> = Record<
+  K,
+  number | string
+>;
 
 export class Breakpoints<K extends string> {
-  constructor(private breakpoints: BreakpointsConfig<K>, public options?: ConfigurableWindow) {}
+  constructor(
+    private breakpoints: BreakpointsConfig<K>,
+    public options?: ConfigurableWindow,
+  ) {}
 
   private getValue(k: K, delta?: number) {
     let v = this.breakpoints[k];
@@ -19,11 +29,17 @@ export class Breakpoints<K extends string> {
     return new MediaQuery(`(min-width: ${this.getValue(k)})`, this.options);
   };
   smaller = (k: K) => {
-    return new MediaQuery(`(max-width: ${this.getValue(k, -0.1)})`, this.options);
+    return new MediaQuery(
+      `(max-width: ${this.getValue(k, -0.1)})`,
+      this.options,
+    );
   };
   between = (a: K, b: K) => {
     return new MediaQuery(
-      `(min-width: ${this.getValue(a)}) and (max-width: ${this.getValue(b, -0.1)})`
+      `(min-width: ${this.getValue(a)}) and (max-width: ${this.getValue(
+        b,
+        -0.1,
+      )})`,
     );
   };
 
@@ -37,7 +53,10 @@ export class Breakpoints<K extends string> {
 
   isInBetween = (a: K, b: K) => {
     return matchMediaQuery(
-      `(min-width: ${this.getValue(a)}) and (max-width: ${this.getValue(b, -0.1)})`
+      `(min-width: ${this.getValue(a)}) and (max-width: ${this.getValue(
+        b,
+        -0.1,
+      )})`,
     );
   };
 }
@@ -77,10 +96,10 @@ export type ExportComputed<Store, Resolver extends StoreResolver<Store>> = {
     : never;
 };
 
-export function exportReactiveFromWrapper<Store, Resolver extends StoreResolver<Store>>(
-  store: Store,
-  resolver: Resolver
-): ExportComputed<Store, Resolver> {
+export function exportReactiveFromWrapper<
+  Store,
+  Resolver extends StoreResolver<Store>,
+>(store: Store, resolver: Resolver): ExportComputed<Store, Resolver> {
   const result = {} as Record<string, any>;
   for (const key in resolver) {
     if (key in store) {
@@ -91,7 +110,10 @@ export function exportReactiveFromWrapper<Store, Resolver extends StoreResolver<
           result[key] = source;
         } else {
           result[key] = (...args: any[]) => {
-            return (resolveHandle as (value: any, args: any[]) => any)(source(...args), args);
+            return (resolveHandle as (value: any, args: any[]) => any)(
+              source(...args),
+              args,
+            );
           };
         }
       } else if (typeof resolveHandle === "function") {
@@ -114,7 +136,7 @@ export function exportReactiveFromWrapper<Store, Resolver extends StoreResolver<
  */
 export function useBreakpoints<K extends string>(
   breakpoints: BreakpointsConfig<K>,
-  options?: ConfigurableWindow
+  options?: ConfigurableWindow,
 ) {
   const store = shallowReactive(new Breakpoints<K>(breakpoints, options));
   return exportReactiveFromWrapper(store, {

@@ -13,7 +13,10 @@ export type ModalConfirm<T = ModalOptions> = {
    */
   destroy(): void;
 };
-export const Modal: Record<DialogType, (options: ModalOptions) => ModalConfirm<ModalOptions>> = {
+export const Modal: Record<
+  DialogType,
+  (options: ModalOptions) => ModalConfirm<ModalOptions>
+> = {
   info: null,
   success: null,
   error: null,
@@ -21,7 +24,13 @@ export const Modal: Record<DialogType, (options: ModalOptions) => ModalConfirm<M
   confirm: null,
   loading: null,
 } as any;
-export type DialogType = "info" | "success" | "error" | "warning" | "confirm" | "loading";
+export type DialogType =
+  | "info"
+  | "success"
+  | "error"
+  | "warning"
+  | "confirm"
+  | "loading";
 
 export const Message: Record<
   DialogType,
@@ -42,7 +51,10 @@ export function registerCoreModal(modal: typeof Modal) {
     Modal[key as DialogType] = modal[key as DialogType];
   }
 }
-export function registerModalCaller<K extends keyof typeof Modal>(type: K, modal: typeof Modal[K]) {
+export function registerModalCaller<K extends keyof typeof Modal>(
+  type: K,
+  modal: typeof Modal[K],
+) {
   return (Modal[type] = modal);
 }
 

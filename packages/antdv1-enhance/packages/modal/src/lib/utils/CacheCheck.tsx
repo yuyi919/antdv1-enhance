@@ -1,5 +1,5 @@
-import { onMounted, defineComponent } from "vue-demi";
 import { useComponentEl } from "@yuyi919/vue-use";
+import { defineComponent, onMounted } from "vue-demi";
 
 export const LocalStorage = {
   set(key: string, value: { checked?: boolean; value?: boolean }) {
@@ -24,9 +24,13 @@ export const CacheCheck = defineComponent({
   setup(props) {
     const elRef = useComponentEl();
     onMounted(() => {
-      const parent: HTMLDivElement = elRef.value?.parentElement as HTMLDivElement;
+      const parent: HTMLDivElement = elRef.value
+        ?.parentElement as HTMLDivElement;
       if (parent) {
-        parent.parentElement?.parentElement?.insertBefore(elRef.value, parent.parentElement);
+        parent.parentElement?.parentElement?.insertBefore(
+          elRef.value,
+          parent.parentElement,
+        );
       }
     });
     function handleChange(this: Vue, e: any) {

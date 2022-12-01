@@ -1,4 +1,8 @@
-import { DomUtils, extractProps, initDefaultProps } from "@yuyi919/antdv1-plus-helper";
+import {
+  DomUtils,
+  extractProps,
+  initDefaultProps,
+} from "@yuyi919/antdv1-plus-helper";
 import { NativeScrollbarMixins } from "@yuyi919/antdv1-plus-shared";
 import { createUseClasses, styled } from "@yuyi919/antdv1-plus-theme";
 import { createContext } from "@yuyi919/vue-use";
@@ -31,11 +35,18 @@ const getClickPosition = (e: MouseEvent) => {
 };
 
 // 只有点击事件支持从鼠标位置动画展开
-if (typeof window !== "undefined" && window.document && window.document.documentElement) {
+if (
+  typeof window !== "undefined" &&
+  window.document &&
+  window.document.documentElement
+) {
   DomUtils.on(document.documentElement, "click", getClickPosition, true);
 }
 
-export const MousePositionContext = createContext("mousePosition", () => mousePosition);
+export const MousePositionContext = createContext(
+  "mousePosition",
+  () => mousePosition,
+);
 const [classes, useClasses] = createUseClasses("dialog", {});
 const useStyles = styled.makeUse`
   &${classes.root} {
@@ -141,10 +152,12 @@ export const Dialog = defineComponent({
     const [portalProps, portal] = usePortalWrapper(
       reactive({
         wrapClassName: wrapClassNameRef,
-        getContainer: computed(() => props.getContainer || (() => document.body)),
+        getContainer: computed(
+          () => props.getContainer || (() => document.body),
+        ),
         forceRender: toRef(props, "forceRender"),
         visible: toRef(props, "visible"),
-      })
+      }),
     );
 
     // // @ts-ignore
@@ -160,7 +173,7 @@ export const Dialog = defineComponent({
             props.scrollBehavior === "inside" && "scrollBehavior--inside",
           ]
             .filter(Boolean)
-            .join(" ")
+            .join(" "),
         ),
         get mousePosition() {
           return mousePosition()!;
@@ -179,7 +192,7 @@ export const Dialog = defineComponent({
             context.emit("close", e);
           },
         },
-      }
+      },
     );
     portal.linkWatch();
     dialog.linkWatch();

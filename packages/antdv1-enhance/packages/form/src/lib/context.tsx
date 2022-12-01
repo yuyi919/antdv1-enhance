@@ -1,13 +1,14 @@
-import { computed, ComputedRef } from "vue-demi";
 import { createContext } from "@yuyi919/vue-use";
+import { computed, ComputedRef } from "vue-demi";
 import { FormLayoutProps } from "./FormLayoutProps";
 
-export const FormLayoutDeepContext =
-  createContext<ComputedRef<FormLayoutProps | undefined>>("FormLayoutDeepContext");
+export const FormLayoutDeepContext = createContext<
+  ComputedRef<FormLayoutProps | undefined>
+>("FormLayoutDeepContext");
 
-export const FormLayoutShallowContext = createContext<ComputedRef<FormLayoutProps | undefined>>(
-  "FormLayoutShallowContext"
-);
+export const FormLayoutShallowContext = createContext<
+  ComputedRef<FormLayoutProps | undefined>
+>("FormLayoutShallowContext");
 
 export const useFormDeepLayout = () => FormLayoutDeepContext.inject();
 
@@ -21,6 +22,6 @@ export const useFormLayout = () => {
       ({
         ...(deep?.value || {}),
         ...(shallow?.value || {}),
-      } as FormLayoutProps)
+      } as FormLayoutProps),
   );
 };

@@ -11,7 +11,9 @@ describe("generateUtilityClass", () => {
     expect(generateUtilityClass("MuiTest", "disabled")).toBe("Mui-disabled");
     expect(generateUtilityClass("MuiTest", "error")).toBe("Mui-error");
     expect(generateUtilityClass("MuiTest", "focused")).toBe("Mui-focused");
-    expect(generateUtilityClass("MuiTest", "focusVisible")).toBe("Mui-focusVisible");
+    expect(generateUtilityClass("MuiTest", "focusVisible")).toBe(
+      "Mui-focusVisible",
+    );
     expect(generateUtilityClass("MuiTest", "required")).toBe("Mui-required");
     expect(generateUtilityClass("MuiTest", "expanded")).toBe("Mui-expanded");
     expect(generateUtilityClass("MuiTest", "selected")).toBe("Mui-selected");

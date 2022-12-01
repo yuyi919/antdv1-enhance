@@ -2,16 +2,24 @@ import { extractUnsafeProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { useInherit } from "@yuyi919/vue-use";
 import { computed, defineComponent } from "vue-demi";
 import { cls, usePrefixCls } from "../__builtins__";
-import { FormLayoutDeepContext, FormLayoutShallowContext, useFormDeepLayout } from "./context";
+import {
+  FormLayoutDeepContext,
+  FormLayoutShallowContext,
+  useFormDeepLayout,
+} from "./context";
 import { FormLayoutItem } from "./FormItem";
 import { FormLayoutProps } from "./FormLayoutProps";
 // console.log(Definitions.extractProps(IFormLayoutProps), Definitions.extractProps(LayoutProps));
-const [FormLayoutPropsConfig, normlize] = extractUnsafeProps(FormLayoutProps, (props) => {
-  return {
-    ...props,
-    labelAlign: props.labelAlign ?? (props.layout === "vertical" ? "left" : "right"),
-  };
-});
+const [FormLayoutPropsConfig, normlize] = extractUnsafeProps(
+  FormLayoutProps,
+  (props) => {
+    return {
+      ...props,
+      labelAlign:
+        props.labelAlign ?? (props.layout === "vertical" ? "left" : "right"),
+    };
+  },
+);
 export const FormLayout = Object.assign(
   defineComponent({
     props: FormLayoutPropsConfig,
@@ -35,7 +43,7 @@ export const FormLayout = Object.assign(
             }
           }
           return newDeepLayout;
-        })
+        }),
       );
       FormLayoutShallowContext.provide(
         computed(() => {
@@ -44,11 +52,13 @@ export const FormLayout = Object.assign(
           });
           // console.log(normalizedProps);
           return normalizedProps.shallow ? normalizedProps : void 0;
-        })
+        }),
       );
       return () => {
         const formPrefixCls = usePrefixCls("form");
-        const layoutPrefixCls = usePrefixCls("formily-layout", { prefixCls: props.prefixCls });
+        const layoutPrefixCls = usePrefixCls("formily-layout", {
+          prefixCls: props.prefixCls,
+        });
         const layoutClassName = cls(layoutPrefixCls, {
           [`${layoutPrefixCls}-${props.layout}`]: true,
           [`${formPrefixCls}-${props.layout}`]: true,
@@ -61,7 +71,7 @@ export const FormLayout = Object.assign(
   }) as VueComponent2<FormLayoutProps>,
   {
     Item: FormLayoutItem,
-  }
+  },
 );
 
 // FormLayout.defaultProps = {

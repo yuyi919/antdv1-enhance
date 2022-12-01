@@ -1,9 +1,11 @@
-import * as CSS from "csstype";
 import { Types } from "@yuyi919/shared-types";
+import * as CSS from "csstype";
 import { Breakpoints, Spacing } from "./system";
 
 export type NormalCssProperties = CSS.Properties<number | string>;
-export type Fontface = CSS.AtRule.FontFace & { fallbacks?: CSS.AtRule.FontFace[] };
+export type Fontface = CSS.AtRule.FontFace & {
+  fallbacks?: CSS.AtRule.FontFace[];
+};
 
 /**
  * Allows the user to augment the properties available
@@ -32,13 +34,14 @@ export interface IMixins {
 export interface IMixinsOptions extends Partial<IMixins> {
   // ... use interface declaration merging to add custom mixin options
 }
-export type MixinsOptions<T extends Types.Recordable = Types.Recordable> = IMixinsOptions & T;
+export type MixinsOptions<T extends Types.Recordable = Types.Recordable> =
+  IMixinsOptions & T;
 export type Mixins<T extends Types.Recordable = Types.Recordable> = IMixins & T;
 
 export function createMixins<T extends Types.Recordable>(
   breakpoints: Breakpoints,
   spacing: Spacing,
-  mixins: MixinsOptions<T>
+  mixins: MixinsOptions<T>,
 ): Mixins<T> {
   return {
     toolbar: {

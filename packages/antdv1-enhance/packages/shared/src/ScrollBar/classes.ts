@@ -1,4 +1,9 @@
-import { autoSizer, createUseClasses, fade, styled } from "@yuyi919/antdv1-plus-theme";
+import {
+  autoSizer,
+  createUseClasses,
+  fade,
+  styled,
+} from "@yuyi919/antdv1-plus-theme";
 import { IScrollBarProps } from "./ScrollBarProps";
 import { BAR_MAP } from "./util";
 
@@ -12,14 +17,14 @@ const [classes, useClasses] = createUseClasses("scroll-container", {
   wrapNoPadding: ["wrap", "no-padding"],
   native: "native",
   [BAR_MAP.vertical.key]: ["wrap", "has-" + BAR_MAP.vertical.key],
-  [BAR_MAP.horizontal.key]: ["wrap", "has-" + BAR_MAP.horizontal.key]
+  [BAR_MAP.horizontal.key]: ["wrap", "has-" + BAR_MAP.horizontal.key],
 } as const);
 
 const [barClasses, useBarClasses] = createUseClasses("scrollbar", {
   [BAR_MAP.vertical.key]: BAR_MAP.vertical.key,
   [BAR_MAP.horizontal.key]: BAR_MAP.horizontal.key,
   active: "active",
-  thumb: "thumb"
+  thumb: "thumb",
 } as const);
 
 const nativeScrollbarThumbSizeMixins = (size: number) => {
@@ -35,7 +40,10 @@ const nativeScrollbarThumbSizeMixins = (size: number) => {
     }
   `;
 };
-export const NativeScrollbarMixins = (scrollbarSize: string = "10px", scrollbarColor: string) => {
+export const NativeScrollbarMixins = (
+  scrollbarSize: string = "10px",
+  scrollbarColor: string,
+) => {
   const $scrollbarSize = autoSizer(scrollbarSize);
   const $scrollbarColor$10 = fade(scrollbarColor, "10%");
   const $scrollbarColor$20 = fade(scrollbarColor, "20%");
@@ -110,7 +118,10 @@ export const useClass = styled.makeUse`
 
       ${(props) =>
         props.native &&
-        NativeScrollbarMixins(autoSizer(props.thumbSize! + 2)!, "rgb(206, 206, 206)")}
+        NativeScrollbarMixins(
+          autoSizer(props.thumbSize! + 2)!,
+          "rgb(206, 206, 206)",
+        )}
 
       &${classes.wrapHidden} {
         scrollbar-width: none;
@@ -178,7 +189,9 @@ export const useClass = styled.makeUse`
         background-color: rgba(144, 147, 153, 0.3);
         transition: background-color 300ms ease-in-out, height 50ms ease-in-out,
           width 50ms ease-in-out
-            ${(props) => (props.delay && `, transform ${props.delay}0ms ease-in-out`) || ""};
+            ${(props) =>
+              (props.delay && `, transform ${props.delay}0ms ease-in-out`) ||
+              ""};
       }
 
       &${barClasses.active}, &:hover {

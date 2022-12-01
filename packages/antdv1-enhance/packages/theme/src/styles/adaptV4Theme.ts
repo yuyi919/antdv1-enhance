@@ -1,20 +1,20 @@
-import {
-  BreakpointsOptions,
-  ShapeOptions,
-  SpacingOptions,
-  createBreakpoints,
-  createSpacing
-} from "./system";
 import { MixinsOptions } from "./createMixins";
 import { Palette, PaletteOptions } from "./createPalette";
-import { TypographyOptions } from "./createTypography";
-import { ShadowsOption } from "./shadows";
-import { TransitionsOptions } from "./createTransitions";
-import { ZIndexOptions } from "./zIndex";
-import { ComponentsOverrides } from "./overrides";
-import { ComponentsVariants } from "./variants";
-import { ComponentsProps } from "./props";
 import { Theme } from "./createTheme";
+import { TransitionsOptions } from "./createTransitions";
+import { TypographyOptions } from "./createTypography";
+import { ComponentsOverrides } from "./overrides";
+import { ComponentsProps } from "./props";
+import { ShadowsOption } from "./shadows";
+import {
+  BreakpointsOptions,
+  createBreakpoints,
+  createSpacing,
+  ShapeOptions,
+  SpacingOptions,
+} from "./system";
+import { ComponentsVariants } from "./variants";
+import { ZIndexOptions } from "./zIndex";
 
 export type Direction = "ltr" | "rtl";
 
@@ -46,8 +46,8 @@ export function adaptV4Theme(inputTheme?: DeprecatedThemeOptions): Theme {
     console.warn(
       [
         "Material-UI: adaptV4Theme() is deprecated.",
-        "Follow the upgrade guide on https://material-ui.com/r/migration-v4#theme."
-      ].join("\n")
+        "Follow the upgrade guide on https://material-ui.com/r/migration-v4#theme.",
+      ].join("\n"),
     );
   }
 
@@ -62,7 +62,7 @@ export function adaptV4Theme(inputTheme?: DeprecatedThemeOptions): Theme {
   } = inputTheme || ({} as any);
   const theme = {
     ...other,
-    components: {}
+    components: {},
   };
 
   // default props
@@ -107,11 +107,11 @@ export function adaptV4Theme(inputTheme?: DeprecatedThemeOptions): Theme {
         [breakpoints.up("sm")]: {
           paddingLeft: spacing(3),
           paddingRight: spacing(3),
-          ...styles[breakpoints.up("sm") as any]
-        }
+          ...styles[breakpoints.up("sm") as any],
+        },
       };
     },
-    ...mixins
+    ...mixins,
   };
 
   const { type: typeInput, mode: modeInput, ...paletteRest } = palette;
@@ -121,11 +121,14 @@ export function adaptV4Theme(inputTheme?: DeprecatedThemeOptions): Theme {
   theme.palette = {
     // theme.palette.text.hint
     text: {
-      hint: finalMode === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.38)"
+      hint:
+        finalMode === "dark"
+          ? "rgba(255, 255, 255, 0.5)"
+          : "rgba(0, 0, 0, 0.38)",
     },
     mode: finalMode,
     type: finalMode,
-    ...paletteRest
+    ...paletteRest,
   };
 
   return theme;

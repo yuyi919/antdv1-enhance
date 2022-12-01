@@ -19,5 +19,5 @@ export type TemplateArgs<TProps, Theme> = [
     | number
     | undefined
     | null
-  )[]
+  )[],
 ];

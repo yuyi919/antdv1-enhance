@@ -1,5 +1,5 @@
 import Types from "@yuyi919/shared-types";
-import { GenerateId, StyleSheet, StyleSheetFactoryOptions } from "jss";
+import { StyleSheet, StyleSheetFactoryOptions } from "jss";
 import { isRef } from "vue-demi";
 import { Styles } from "./styles";
 import { Context as JssContextValue, DynamicRules } from "./types";
@@ -15,7 +15,8 @@ import {
 
 export interface DefaultTheme {}
 
-export interface CreateUseStylesHookOptions extends Omit<StyleSheetFactoryOptions, "index"> {
+export interface CreateUseStylesHookOptions
+  extends Omit<StyleSheetFactoryOptions, "index"> {
   name?: string;
 }
 
@@ -32,16 +33,18 @@ export declare abstract class StyleHooks<Theme, Data, ClassKey extends string> {
 export function createUseStylesHooks<
   Theme = DefaultTheme,
   ClassKey extends string = string,
-  InheritData = any
+  InheritData = any,
 >(
   styles: Styles<Theme, Types.IObj, ClassKey>,
   options: CreateUseStylesHookOptions = {},
-  keyMap?: Record<string, string>
+  keyMap?: Record<string, string>,
 ) {
   const { name, ...sheetOptions } = options;
   // const sheetOptions = options
   const index = increment();
-  return <Data extends InheritData>(initialData: Data): StyleHooks<Theme, Data, ClassKey> => {
+  return <Data extends InheritData>(
+    initialData: Data,
+  ): StyleHooks<Theme, Data, ClassKey> => {
     let sheet: StyleSheet,
       dynamicRules: DynamicRules | null,
       context: JssContextValue,
@@ -60,7 +63,11 @@ export function createUseStylesHooks<
       }
     }
 
-    function init(theme: Theme, context: JssContextValue, nextData: Data = data) {
+    function init(
+      theme: Theme,
+      context: JssContextValue,
+      nextData: Data = data,
+    ) {
       const nextSheet = createStyleSheet({
         context,
         styles,
@@ -91,12 +98,20 @@ export function createUseStylesHooks<
     }
     function update(nextData: Data) {
       if (nextData !== data && sheet && dynamicRules) {
-        updateDynamicRules(isRef(nextData) ? nextData.value : nextData, sheet, dynamicRules);
+        updateDynamicRules(
+          isRef(nextData) ? nextData.value : nextData,
+          sheet,
+          dynamicRules,
+        );
         data = nextData;
       }
     }
     function getClasses() {
-      return (sheet && dynamicRules ? getSheetClasses(sheet, dynamicRules!, keyMap) : {}) as {
+      return (
+        sheet && dynamicRules
+          ? getSheetClasses(sheet, dynamicRules!, keyMap)
+          : {}
+      ) as {
         [K in ClassKey]: string;
       };
     }

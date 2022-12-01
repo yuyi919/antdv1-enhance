@@ -27,7 +27,7 @@ export type BarMapValue = typeof BAR_MAP[keyof typeof BAR_MAP];
 export function renderThumbStyle(
   move: number,
   size: number,
-  bar: typeof BAR_MAP["vertical" | "horizontal"]
+  bar: typeof BAR_MAP["vertical" | "horizontal"],
 ) {
   const translate = `translate${bar.axis}(${move}px)`;
   const style: any = {};

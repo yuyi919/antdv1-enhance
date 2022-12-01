@@ -27,7 +27,7 @@ export class DialogProps {
     PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number,
-    }).loose
+    }).loose,
   )
   mousePosition?: { x?: number; y?: number };
 

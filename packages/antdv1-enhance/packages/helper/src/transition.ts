@@ -1,13 +1,22 @@
 import { CSSProperties } from "@yuyi919/shared-types";
 import type { Ref } from "vue-demi";
-import { h, defineComponent, getCurrentInstance, nextTick, onUpdated } from "vue-demi";
+import {
+  defineComponent,
+  getCurrentInstance,
+  h,
+  nextTick,
+  onUpdated,
+} from "vue-demi";
+import type {
+  TransitionGroupProps,
+  TransitionProps,
+} from "../tool/builtin-components";
 import { noop, VueComponent2 } from "./index";
-import type { TransitionGroupProps, TransitionProps } from "../tool/builtin-components";
 // import animate from "./css-animation";
 // import "./css-animation.less";
 export const getTransitionProps = (
   transitionName: string,
-  opt: Partial<BaseTransitionProps<Element>> = {}
+  opt: Partial<BaseTransitionProps<Element>> = {},
 ) => {
   if (process.env.NODE_ENV === "test") {
     return opt;
@@ -69,7 +78,7 @@ export const getTransitionProps = (
 
 export const getTransitionGroupProps = (
   transitionName: string,
-  opt: Partial<BaseTransitionProps<Element>> = {}
+  opt: Partial<BaseTransitionProps<Element>> = {},
 ) => {
   const transitionProps = transitionName
     ? {
@@ -89,7 +98,8 @@ export const getTransitionGroupProps = (
 };
 
 let Transition = "transition" as unknown as VueComponent2<TransitionProps>;
-let TransitionGroup = "transition-group" as unknown as VueComponent2<TransitionGroupProps>;
+let TransitionGroup =
+  "transition-group" as unknown as VueComponent2<TransitionGroupProps>;
 
 if (process.env.NODE_ENV === "test") {
   Transition = defineComponent({
@@ -141,17 +151,28 @@ export declare type MotionEvent = (TransitionEvent | AnimationEvent) & {
   deadline?: boolean;
 };
 
-export declare type MotionEventHandler = (element: Element, done?: () => void) => CSSProperties;
+export declare type MotionEventHandler = (
+  element: Element,
+  done?: () => void,
+) => CSSProperties;
 
-export declare type MotionEndEventHandler = (element: Element, done?: () => void) => boolean | void;
+export declare type MotionEndEventHandler = (
+  element: Element,
+  done?: () => void,
+) => boolean | void;
 
 // ================== Collapse Motion ==================
-const getCollapsedHeight: MotionEventHandler = () => ({ height: 0, opacity: 0 });
+const getCollapsedHeight: MotionEventHandler = () => ({
+  height: 0,
+  opacity: 0,
+});
 const getRealHeight: MotionEventHandler = (node) => ({
   height: `${node.scrollHeight}px`,
   opacity: 1,
 });
-const getCurrentHeight: MotionEventHandler = (node: any) => ({ height: `${node.offsetHeight}px` });
+const getCurrentHeight: MotionEventHandler = (node: any) => ({
+  height: `${node.offsetHeight}px`,
+});
 // const skipOpacityTransition: MotionEndEventHandler = (_, event) =>
 //   (event as TransitionEvent).propertyName === 'height';
 
@@ -186,7 +207,10 @@ export interface CSSMotionProps extends Partial<BaseTransitionProps<Element>> {
   css?: boolean;
 }
 
-const collapseMotion = (style: Ref<CSSProperties>, className: Ref<string>): CSSMotionProps => {
+const collapseMotion = (
+  style: Ref<CSSProperties>,
+  className: Ref<string>,
+): CSSMotionProps => {
   return {
     name: "ant-motion-collapse",
     appear: true,

@@ -18,7 +18,8 @@ export const ModalDialogDemo = defineComponent({
               <Select
                 vModel={{
                   value: config.type,
-                  callback: (value: "confirm" | "alert") => (config.type = value),
+                  callback: (value: "confirm" | "alert") =>
+                    (config.type = value),
                 }}
               >
                 <Select.Option value="confirm">confirm</Select.Option>
@@ -43,41 +44,47 @@ export const ModalDialogDemo = defineComponent({
             </FormLayout.Item>
           </FormLayout>
           <br />
-          {["info", "success", "warn", "error", "confirm", <span>自定义</span>, void 0].map(
-            (icon) => {
-              return (
-                <Button
-                  onClick={async (e) => {
-                    if (config.type === "confirm") {
-                      console.log(
-                        await manager.confirm({
-                          title: "标题",
-                          content: "内容",
-                          icon,
-                          dangerous: config.dangerous,
-                          iconType: typeof icon === "string" ? icon : void 0,
-                          maskClosable: config.maskClosable,
-                        })
-                      );
-                    } else {
-                      console.log(
-                        await manager.alert({
-                          title: "标题",
-                          content: "内容",
-                          icon,
-                          dangerous: config.dangerous,
-                          iconType: typeof icon === "string" ? icon : void 0,
-                          maskClosable: config.maskClosable,
-                        })
-                      );
-                    }
-                  }}
-                >
-                  {icon || "默认图标"}
-                </Button>
-              );
-            }
-          )}
+          {[
+            "info",
+            "success",
+            "warn",
+            "error",
+            "confirm",
+            <span>自定义</span>,
+            void 0,
+          ].map((icon) => {
+            return (
+              <Button
+                onClick={async (e) => {
+                  if (config.type === "confirm") {
+                    console.log(
+                      await manager.confirm({
+                        title: "标题",
+                        content: "内容",
+                        icon,
+                        dangerous: config.dangerous,
+                        iconType: typeof icon === "string" ? icon : void 0,
+                        maskClosable: config.maskClosable,
+                      }),
+                    );
+                  } else {
+                    console.log(
+                      await manager.alert({
+                        title: "标题",
+                        content: "内容",
+                        icon,
+                        dangerous: config.dangerous,
+                        iconType: typeof icon === "string" ? icon : void 0,
+                        maskClosable: config.maskClosable,
+                      }),
+                    );
+                  }
+                }}
+              >
+                {icon || "默认图标"}
+              </Button>
+            );
+          })}
         </Demo>
       );
     };

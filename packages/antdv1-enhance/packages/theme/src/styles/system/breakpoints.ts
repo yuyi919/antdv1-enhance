@@ -19,20 +19,22 @@ const defaultBreakpoints: Pick<Breakpoints, "keys" | "up"> = {
   // Sorted ASC by size. That's important.
   // It can't be configured as it's used statically for propTypes.
   keys: ["xs", "sm", "md", "lg", "xl"],
-  up: (key) => `@media (min-width:${key in values ? values[key as Breakpoint] : key}px)`,
+  up: (key) =>
+    `@media (min-width:${key in values ? values[key as Breakpoint] : key}px)`,
 };
 
 export function handleBreakpoints<Props extends Record<string, any>>(
   props: Props,
   propValue: Record<string, string>,
-  styleFromPropValue: (value: string, breakpoint?: string) => Types.Recordable
+  styleFromPropValue: (value: string, breakpoint?: string) => Types.Recordable,
 ) {
   const theme = props.theme || {};
 
   if (Array.isArray(propValue)) {
     const themeBreakpoints = theme.breakpoints || defaultBreakpoints;
     return propValue.reduce((acc, item, index) => {
-      acc[themeBreakpoints.up(themeBreakpoints.keys[index])] = styleFromPropValue(propValue[index]);
+      acc[themeBreakpoints.up(themeBreakpoints.keys[index])] =
+        styleFromPropValue(propValue[index]);
       return acc;
     }, {} as Record<string, any>);
   }
@@ -41,7 +43,10 @@ export function handleBreakpoints<Props extends Record<string, any>>(
     const themeBreakpoints = theme.breakpoints || defaultBreakpoints;
     return Object.keys(propValue).reduce((acc, breakpoint) => {
       // key is breakpoint
-      if (Object.keys(themeBreakpoints.values || values).indexOf(breakpoint) !== -1) {
+      if (
+        Object.keys(themeBreakpoints.values || values).indexOf(breakpoint) !==
+        -1
+      ) {
         const mediaKey = themeBreakpoints.up(breakpoint);
         acc[mediaKey] = styleFromPropValue(propValue[breakpoint], breakpoint);
       } else {
@@ -57,13 +62,12 @@ export function handleBreakpoints<Props extends Record<string, any>>(
 }
 
 export function breakpoints<Props extends Types.Recordable & { theme: any }>(
-  styleFunction: StyleFunction<Props>
+  styleFunction: StyleFunction<Props>,
 ) {
   const newStyleFunction = (
     props: {
       [K in Breakpoint]?: Omit<Props, "theme">;
-    } &
-      Props
+    } & Props,
   ) => {
     const theme = props.theme || {};
     const base = styleFunction(props);
@@ -78,7 +82,8 @@ export function breakpoints<Props extends Types.Recordable & { theme: any }>(
       return acc;
     }, {} as Record<string, any>);
 
-    return merge(base, extended) as Record<string, Omit<Props, "theme">> & Omit<Props, "theme">;
+    return merge(base, extended) as Record<string, Omit<Props, "theme">> &
+      Omit<Props, "theme">;
   };
 
   // newStyleFunction.propTypes =
@@ -94,12 +99,21 @@ export function breakpoints<Props extends Types.Recordable & { theme: any }>(
   //     : {};
 
   //@ts-ignore
-  newStyleFunction.filterProps = ["xs", "sm", "md", "lg", "xl", ...styleFunction?.filterProps];
+  newStyleFunction.filterProps = [
+    "xs",
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    ...styleFunction?.filterProps,
+  ];
 
   return newStyleFunction;
 }
 
-export function createEmptyBreakpointObject(breakpointsInput: Breakpoints = {} as Breakpoints) {
+export function createEmptyBreakpointObject(
+  breakpointsInput: Breakpoints = {} as Breakpoints,
+) {
   const breakpointsInOrder = breakpointsInput?.keys?.reduce((acc, key) => {
     const breakpointStyleKey = breakpointsInput.up(key);
     acc[breakpointStyleKey] = {};
@@ -110,7 +124,7 @@ export function createEmptyBreakpointObject(breakpointsInput: Breakpoints = {} a
 
 export function removeUnusedBreakpoints(
   breakpointKeys: Breakpoint[],
-  style: Record<string, CSSProperties>
+  style: Record<string, CSSProperties>,
 ) {
   return breakpointKeys.reduce((acc, key) => {
     const breakpointOutput = acc[key];
@@ -129,9 +143,12 @@ export function mergeBreakpointsInOrder(
   const emptyBreakpoints = createEmptyBreakpointObject(breakpointsInput);
   const mergedOutput = [emptyBreakpoints, ...styles].reduce(
     (prev, next) => deepmerge(prev, next),
-    {} as Record<string, CSSProperties>
+    {} as Record<string, CSSProperties>,
   );
-  return removeUnusedBreakpoints(Object.keys(emptyBreakpoints) as Breakpoint[], mergedOutput);
+  return removeUnusedBreakpoints(
+    Object.keys(emptyBreakpoints) as Breakpoint[],
+    mergedOutput,
+  );
 }
 
 export default breakpoints;

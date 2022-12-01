@@ -53,7 +53,9 @@ declare module "jss" {
 //
 // It's inspired by
 // https://github.com/cssinjs/jss/blob/4e6a05dd3f7b6572fdd3ab216861d9e446c20331/src/utils/createGenerateClassName.js
-export function createGenerateClassName(options?: GenerateClassNameOptions): GenerateId {
+export function createGenerateClassName(
+  options?: GenerateClassNameOptions,
+): GenerateId {
   options = options || {};
   const { global, productionPrefix = "jss", seed = "" } = options;
   const seedPrefix = seed === "" ? "" : `${seed}-`;
@@ -69,7 +71,7 @@ export function createGenerateClassName(options?: GenerateClassNameOptions): Gen
               [
                 "Material-UI: You might have a memory leak.",
                 "The ruleCounter is not supposed to grow that much.",
-              ].join("")
+              ].join(""),
             );
           }
         }

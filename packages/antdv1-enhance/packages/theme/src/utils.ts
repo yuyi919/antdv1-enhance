@@ -9,7 +9,10 @@ import { keyframes } from "vue-styled-components";
  * @param suffix 后缀名，默认为'px'
  * @remark 将数字转换为px,字符串则保留不动
  */
-export function autoSizer(size?: number | string, suffix = "px"): string | undefined {
+export function autoSizer(
+  size?: number | string,
+  suffix = "px",
+): string | undefined {
   if (isNumber(size as number)) {
     return size + suffix;
   }
@@ -23,7 +26,9 @@ export function autoSizer(size?: number | string, suffix = "px"): string | undef
  * @param size
  */
 export function isPxSize(size?: number | string): size is number | string {
-  return isNumber(size as number) || /^([0-9])(\.([0-9]))px$/.test(size as string);
+  return (
+    isNumber(size as number) || /^([0-9])(\.([0-9]))px$/.test(size as string)
+  );
 }
 
 export type KeyframePoint<P extends number = number> =
@@ -42,21 +47,24 @@ export function style2Str(style: CSSProperties) {
  * @param points
  */
 export function defineKeyframes(
-  points: [KeyframePoint, KeyframePoint, ...KeyframePoint[]]
+  points: [KeyframePoint, KeyframePoint, ...KeyframePoint[]],
 ): string {
   return keyframes(
     points
       .map((target, index, list) => {
         const [per, style] =
-          target instanceof Array ? target : [(index / (list.length - 1)) * 100, target];
+          target instanceof Array
+            ? target
+            : [(index / (list.length - 1)) * 100, target];
         return `${per}% {${style2Str(style)}}`;
       })
-      .join("\n")
+      .join("\n"),
   );
 }
 
-export const classnames: (...args: (string | string[] | Record<string, any>)[]) => string =
-  _classnames;
+export const classnames: (
+  ...args: (string | string[] | Record<string, any>)[]
+) => string = _classnames;
 
 export const stubObjectStatic = () => ({});
 export { keyframes };

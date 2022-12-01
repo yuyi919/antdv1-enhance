@@ -6,8 +6,14 @@ function getDynamicStylesWith(styles) {
   return getDynamicStyles(i);
 }
 function merges(...args) {
-  function customizer(value: any, srcValue: any, key: string, object: any, source: any) {
-    console.log(value, srcValue, key, object, source)
+  function customizer(
+    value: any,
+    srcValue: any,
+    key: string,
+    object: any,
+    source: any,
+  ) {
+    console.log(value, srcValue, key, object, source);
     if (srcValue === void 0) {
       return value;
     }
@@ -19,15 +25,20 @@ function getDynamicExtends(extend: any): any {
     ? extend.reduce(
         // @ts-ignore
         (r, i) => merge(r, getDynamicStylesWith(i)),
-        {}
+        {},
       )
     : extend;
 }
 
-export function appendExtends({ extend: sourceExtend, ...styles }: any, extend: any) {
+export function appendExtends(
+  { extend: sourceExtend, ...styles }: any,
+  extend: any,
+) {
   const dynamicExtends = getDynamicExtends(extend);
   return {
-    extend: sourceExtend ? castArray(sourceExtend).concat(castArray(extend)) : extend,
+    extend: sourceExtend
+      ? castArray(sourceExtend).concat(castArray(extend))
+      : extend,
     ...defaultsDeep(styles, dynamicExtends),
   };
 }

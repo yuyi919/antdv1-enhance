@@ -17,7 +17,7 @@ describe("breakpoints", () => {
           color: "blue",
         },
         theme: {},
-      })
+      }),
     ).toStrictEqual({
       color: "red",
       "@media (min-width:600px)": {

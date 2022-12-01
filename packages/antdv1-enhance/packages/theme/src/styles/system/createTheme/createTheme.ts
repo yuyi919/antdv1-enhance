@@ -1,6 +1,10 @@
 import { Types } from "@yuyi919/shared-types";
 import { deepmerge } from "../utils";
-import { Breakpoints, BreakpointsOptions, createBreakpoints } from "./createBreakpoints";
+import {
+  Breakpoints,
+  BreakpointsOptions,
+  createBreakpoints,
+} from "./createBreakpoints";
 import { createSpacing, Spacing, SpacingOptions } from "./createSpacing";
 import { Shape, shape, ShapeOptions } from "./shape";
 
@@ -33,7 +37,10 @@ export interface BaseTheme {
  * @param args Deep merge the arguments with the about to be returned theme.
  * @returns A complete, ready to use theme object.
  */
-export function createBaseTheme(options?: BaseThemeOptions, ...args: object[]): BaseTheme {
+export function createBaseTheme(
+  options?: BaseThemeOptions,
+  ...args: object[]
+): BaseTheme {
   const {
     breakpoints: breakpointsInput = {},
     palette: paletteInput = {},
@@ -53,10 +60,13 @@ export function createBaseTheme(options?: BaseThemeOptions, ...args: object[]): 
       spacing,
       shape: { ...shape, ...shapeInput },
     },
-    other
+    other,
   ) as BaseTheme;
 
-  muiTheme = args.reduce((acc: BaseTheme, argument) => deepmerge(acc, argument), muiTheme);
+  muiTheme = args.reduce(
+    (acc: BaseTheme, argument) => deepmerge(acc, argument),
+    muiTheme,
+  );
 
   return muiTheme;
 }

@@ -14,8 +14,8 @@ describe("createGenerateClassName", () => {
             theme: {},
             classNamePrefix: "p",
           },
-        }
-      )
+        },
+      ),
     ).toBe("p-key-1");
   });
 
@@ -30,8 +30,8 @@ describe("createGenerateClassName", () => {
           options: {
             classNamePrefix: "p",
           },
-        }
-      )
+        },
+      ),
     ).toBe("p-key-1");
     expect(
       generateClassName(
@@ -42,8 +42,8 @@ describe("createGenerateClassName", () => {
           options: {
             classNamePrefix: "p",
           },
-        }
-      )
+        },
+      ),
     ).toBe("p-key-2");
   });
 
@@ -54,8 +54,8 @@ describe("createGenerateClassName", () => {
         { key: "root" },
         {
           options: {},
-        }
-      )
+        },
+      ),
     ).toBe("root-1");
   });
 
@@ -69,8 +69,8 @@ describe("createGenerateClassName", () => {
             name: "CButton",
             theme: {},
           },
-        }
-      )
+        },
+      ),
     ).toBe("CButton-root");
     expect(
       generateClassName(
@@ -82,8 +82,8 @@ describe("createGenerateClassName", () => {
               [nested]: true,
             },
           },
-        }
-      )
+        },
+      ),
     ).toBe("CButton-root-1");
     expect(
       generateClassName(
@@ -95,8 +95,8 @@ describe("createGenerateClassName", () => {
               [nested]: true,
             },
           },
-        }
-      )
+        },
+      ),
     ).toBe("CButton-root-2");
     expect(
       generateClassName(
@@ -106,8 +106,8 @@ describe("createGenerateClassName", () => {
             name: "CButton",
             theme: {},
           },
-        }
-      )
+        },
+      ),
     ).toBe("g-disabled");
   });
 
@@ -135,8 +135,8 @@ describe("createGenerateClassName", () => {
           { key: "root" },
           {
             options: {},
-          }
-        )
+          },
+        ),
       ).toBe("jss1");
     });
 
@@ -149,8 +149,8 @@ describe("createGenerateClassName", () => {
           { key: "root" },
           {
             options: {},
-          }
-        )
+          },
+        ),
       ).toBe("dark-jss1");
     });
   });

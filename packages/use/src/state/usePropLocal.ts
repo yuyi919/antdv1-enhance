@@ -1,6 +1,6 @@
-import { isWrap, strictThen, unwrap, WrapValue } from "../shared";
-import { computed, reactive, ref, Ref, set, watch } from "vue-demi";
 import { debounce, isEqual } from "lodash";
+import { computed, reactive, ref, Ref, set, watch } from "vue-demi";
+import { isWrap, strictThen, unwrap, WrapValue } from "../shared";
 
 interface LinkOptions<T, P = T> {
   flush?: "pre" | "post" | "sync";
@@ -38,7 +38,7 @@ interface LinkOptions<T, P = T> {
 export function usePropLocal<T, P = T>(
   prop: WrapValue<P>,
   callback?: (update: P, prev?: P) => any,
-  option?: LinkOptions<T, P>
+  option?: LinkOptions<T, P>,
 ) {
   const { pipe: pipeOption, delay, immediate, ...watchOption } = option || {};
   if (callback && typeof delay === "number" && delay >= 0) {
@@ -79,13 +79,16 @@ export function usePropLocal<T, P = T>(
       prop as () => P,
       (receive: P) => {
         strictThen(P2T(receive), (propValue) => {
-          if (!isEqualV(localVal.value, propValue) && !isBlockedProp(propValue)) {
+          if (
+            !isEqualV(localVal.value, propValue) &&
+            !isBlockedProp(propValue)
+          ) {
             // console.log("update on prop", JSON.stringify(propValue));
             localVal.value = propValue as T;
           }
         });
       },
-      { ...watchOption, immediate }
+      { ...watchOption, immediate },
     );
     stop2 = watch(
       localVal,
@@ -96,12 +99,15 @@ export function usePropLocal<T, P = T>(
           const prevValue = T2P(prev);
           const propValue = unwrap(prop);
           // console.log({ local, prev, value, prevValue, propValue });
-          if (!isEqualV(value, prevValue) || !isEqualV(value as any, propValue as any)) {
+          if (
+            !isEqualV(value, prevValue) ||
+            !isEqualV(value as any, propValue as any)
+          ) {
             callback(value, prevValue);
           }
         }
       },
-      watchOption
+      watchOption,
     );
   }
   return [computed(() => localVal.value), action] as const;
@@ -128,7 +134,7 @@ export function usePropLocal<T, P = T>(
 export function useVModel<T = any, P = T>(
   prop: WrapValue<P>,
   callback?: (update: P, prev?: P) => any,
-  option?: LinkOptions<T, P>
+  option?: LinkOptions<T, P>,
 ) {
   const [localVal, action] = usePropLocal<T, P>(prop, callback, option);
   return [

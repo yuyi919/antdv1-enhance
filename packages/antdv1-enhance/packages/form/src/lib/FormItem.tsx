@@ -1,26 +1,43 @@
-import { Types } from "@yuyi919/shared-types";
+import { VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { getGridSpanStyle, useGridSpan } from "@yuyi919/antdv1-plus-shared";
-import { useEffect, useElementRect, useInherit, useNamedRef, useState } from "@yuyi919/vue-use";
+import { Types } from "@yuyi919/shared-types";
+import {
+  useEffect,
+  useElementRect,
+  useInherit,
+  useNamedRef,
+  useState,
+} from "@yuyi919/vue-use";
 import { Icon, Popover, Tooltip } from "ant-design-vue";
-import { ComputedRef, computed, defineComponent } from "vue-demi";
+import { computed, ComputedRef, defineComponent } from "vue-demi";
 import { cls, usePrefixCls } from "../__builtins__";
 import { FormLayoutShallowContext, useFormLayout } from "./context";
-import { FormItemPropConfig, FormItemProps, useFormLayoutItemProps } from "./FormItemProps";
-import { VueComponent2 } from "@yuyi919/antdv1-plus-helper";
+import {
+  FormItemPropConfig,
+  FormItemProps,
+  useFormLayoutItemProps,
+} from "./FormItemProps";
 
-export function useFormItemLayout(props: FormItemProps): ComputedRef<FormItemProps> {
+export function useFormItemLayout(
+  props: FormItemProps,
+): ComputedRef<FormItemProps> {
   const layoutRef = useFormLayout();
   return computed(() => {
     const { value: layoutProps } = layoutRef;
     const autoProps = useFormLayoutItemProps(props, (key, value, option) => {
-      return key in layoutProps ? value ?? layoutProps[key as keyof typeof layoutProps] : value;
+      return key in layoutProps
+        ? value ?? layoutProps[key as keyof typeof layoutProps]
+        : value;
     }) as FormItemProps;
     // console.log("autoProps gridSpan", autoProps.gridSpan, autoProps, {...autoProps});
     return autoProps;
   });
 }
 
-function useOverflow<Container extends HTMLElement, Content extends HTMLElement>() {
+function useOverflow<
+  Container extends HTMLElement,
+  Content extends HTMLElement,
+>() {
   const containerRef = useNamedRef<Container>("containerRef");
   const contentRef = useNamedRef<Content>("contentRef");
   const [containerSize] = useElementRect(containerRef.ref());
@@ -38,7 +55,10 @@ function useOverflow<Container extends HTMLElement, Content extends HTMLElement>
   };
 }
 
-function useOverflow2<Container extends HTMLElement, Content extends HTMLElement>() {
+function useOverflow2<
+  Container extends HTMLElement,
+  Content extends HTMLElement,
+>() {
   const [overflow, setOverflow] = useState(false);
   const containerRef = useNamedRef<Container>("containerRef");
   const contentRef = useNamedRef<Content>("contentRef");
@@ -93,7 +113,11 @@ export const FormItemLabel: VueComponent2<FormItemProps> = defineComponent({
 
       if ((tooltipLayout === "text" && tooltip) || overflow.value) {
         return (
-          <Tooltip placement="top" align={{ offset: [0, 10] }} title={getOverflowTooltip()}>
+          <Tooltip
+            placement="top"
+            align={{ offset: [0, 10] }}
+            title={getOverflowTooltip()}
+          >
             {labelChildren}
           </Tooltip>
         );
@@ -116,13 +140,22 @@ export const FormItemLabel: VueComponent2<FormItemProps> = defineComponent({
 
     return () => {
       if (!props.label) return null;
-      const { label, tooltip, labelCol, labelStyle, colon, tooltipLayout, prefixCls, enableCol } =
-        props;
+      const {
+        label,
+        tooltip,
+        labelCol,
+        labelStyle,
+        colon,
+        tooltipLayout,
+        prefixCls,
+        enableCol,
+      } = props;
       return (
         <div
           class={cls({
             [`${prefixCls}-label`]: true,
-            [`${prefixCls}-label-tooltip`]: (tooltip && tooltipLayout === "text") || overflow.value,
+            [`${prefixCls}-label-tooltip`]:
+              (tooltip && tooltipLayout === "text") || overflow.value,
             [`${prefixCls}-item-col-${labelCol}`]: enableCol && !!labelCol,
           })}
           style={labelStyle}
@@ -140,7 +173,9 @@ export const FormItemLabel: VueComponent2<FormItemProps> = defineComponent({
 export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
   props: FormItemPropConfig,
   setup(props, context) {
-    const popoverContainerRef = useNamedRef<HTMLDivElement>("popoverContainerRef");
+    const popoverContainerRef = useNamedRef<HTMLDivElement>(
+      "popoverContainerRef",
+    );
     const [getInherit] = useInherit(context);
     const [activeRef, setActive] = useState(false);
     const formLayoutRef = useFormItemLayout(props);
@@ -187,7 +222,8 @@ export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
       const prefixCls = usePrefixCls("formily-item", props);
       // console.log(formLayout);
       const feedbackIcon =
-        formLayout.feedbackIcon ?? ICON_MAP[feedbackStatus as keyof typeof ICON_MAP];
+        formLayout.feedbackIcon ??
+        ICON_MAP[feedbackStatus as keyof typeof ICON_MAP];
       const formatChildren =
         feedbackLayout === "popover" ? (
           <Popover
@@ -221,20 +257,21 @@ export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
         // gridStyles.gridColumnStart = `span ${gridSpan}`;
       }
 
-      const FeedbackText = feedbackLayout !== "popover" && feedbackLayout !== "none" && (
-        <transition name={`${prefixCls}-help`}>
-          {!!feedbackText && (
-            <div
-              class={cls({
-                [`${prefixCls}-${feedbackStatus}-help`]: !!feedbackStatus,
-                [`${prefixCls}-help`]: true,
-              })}
-            >
-              {feedbackTextRender.value}
-            </div>
-          )}
-        </transition>
-      );
+      const FeedbackText = feedbackLayout !== "popover" &&
+        feedbackLayout !== "none" && (
+          <transition name={`${prefixCls}-help`}>
+            {!!feedbackText && (
+              <div
+                class={cls({
+                  [`${prefixCls}-${feedbackStatus}-help`]: !!feedbackStatus,
+                  [`${prefixCls}-help`]: true,
+                })}
+              >
+                {feedbackTextRender.value}
+              </div>
+            )}
+          </transition>
+        );
       // console.log(gridStyles);
       return (
         <div
@@ -246,7 +283,8 @@ export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
             [`${prefixCls}-${feedbackStatus}`]: !!feedbackStatus,
             [`${prefixCls}-feedback-has-text`]: !!feedbackText,
             [`${prefixCls}-size-${size}`]: !!size,
-            [`${prefixCls}-feedback-layout-${feedbackLayout}`]: !!feedbackLayout,
+            [`${prefixCls}-feedback-layout-${feedbackLayout}`]:
+              !!feedbackLayout,
             [`${prefixCls}-fullness`]: fullness || inset || !!feedbackIcon,
             [`${prefixCls}-inset`]: inset,
             [`${prefixCls}-active`]: active,
@@ -270,21 +308,29 @@ export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
             },
           }}
         >
-          <FormItemLabel {...{ props: { ...formLayoutRef.value, prefixCls } }} />
+          <FormItemLabel
+            {...{ props: { ...formLayoutRef.value, prefixCls } }}
+          />
           <div
             class={cls({
               [`${prefixCls}-control`]: true,
-              [`${prefixCls}-item-col-${wrapperCol}`]: enableCol && !!wrapperCol,
+              [`${prefixCls}-item-col-${wrapperCol}`]:
+                enableCol && !!wrapperCol,
             })}
           >
             <div class={cls(`${prefixCls}-control-content`)}>
-              {addonBefore && <div class={cls(`${prefixCls}-addon-before`)}>{addonBefore}</div>}
+              {addonBefore && (
+                <div class={cls(`${prefixCls}-addon-before`)}>
+                  {addonBefore}
+                </div>
+              )}
               <div
                 key="control-content-component"
                 style={wrapperStyle}
                 class={cls({
                   [`${prefixCls}-control-content-component`]: true,
-                  [`${prefixCls}-control-content-component-has-feedback-icon`]: !!feedbackIcon,
+                  [`${prefixCls}-control-content-component-has-feedback-icon`]:
+                    !!feedbackIcon,
                 })}
               >
                 {/* {h(FormLayoutShallowContext.Provider, { props: { value: void 0 }}, [formatChildren])} */}
@@ -295,10 +341,14 @@ export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
                   </FormLayoutShallowContext.Provider>
                 }
                 {feedbackIcon && (
-                  <div class={cls(`${prefixCls}-feedback-icon`)}>{feedbackIcon}</div>
+                  <div class={cls(`${prefixCls}-feedback-icon`)}>
+                    {feedbackIcon}
+                  </div>
                 )}
               </div>
-              {addonAfter && <div class={cls(`${prefixCls}-addon-after`)}>{addonAfter}</div>}
+              {addonAfter && (
+                <div class={cls(`${prefixCls}-addon-after`)}>{addonAfter}</div>
+              )}
             </div>
             {FeedbackText}
             {extra && <div class={cls(`${prefixCls}-extra`)}>{extra}</div>}

@@ -1,13 +1,13 @@
 /* eslint-disable guard-for-in */
 // @flow
-import warning from "tiny-warning";
-import { getDynamicStyles, StyleSheetFactoryOptions } from "jss";
+import Types from "@yuyi919/shared-types";
 import type { StyleSheet } from "jss";
+import { getDynamicStyles, StyleSheetFactoryOptions } from "jss";
+import warning from "tiny-warning";
+import defaultJss from "../jss";
 import type { Context, DynamicRules, StyleItems } from "../types";
 import { getManager } from "./managers";
-import defaultJss from "../jss";
 import { addMeta, getMeta } from "./sheetsMeta";
-import Types from "@yuyi919/shared-types";
 
 interface Options<Theme> {
   context: Context;
@@ -29,7 +29,7 @@ const getStyles = <Theme>(options: Options<Theme>) => {
     styles.length !== 0,
     `[JSS] <${
       options.name || "Hook"
-    } />'s styles function doesn't rely on the "theme" argument. We recommend declaring styles as an object instead.`
+    } />'s styles function doesn't rely on the "theme" argument. We recommend declaring styles as an object instead.`,
   );
   const themedStyle = styles(options.theme);
   // console.log("themedStyle", themedStyle)
@@ -59,7 +59,7 @@ function getSheetOptions<Theme>(options: Options<Theme>, link: boolean) {
     meta,
     classNamePrefix,
     link,
-    generateId: options.sheetOptions.generateId || options.context.generateId
+    generateId: options.sheetOptions.generateId || options.context.generateId,
   });
   return {
     ...options.sheetOptions,
@@ -68,11 +68,13 @@ function getSheetOptions<Theme>(options: Options<Theme>, link: boolean) {
     meta,
     classNamePrefix,
     link,
-    generateId: options.sheetOptions.generateId || options.context.generateId
+    generateId: options.sheetOptions.generateId || options.context.generateId,
   };
 }
 
-export const createStyleSheet = <Theme extends Types.IObj>(options: Options<Theme>) => {
+export const createStyleSheet = <Theme extends Types.IObj>(
+  options: Options<Theme>,
+) => {
   if (options.context.disableStylesGeneration) {
     return undefined;
   }
@@ -87,11 +89,14 @@ export const createStyleSheet = <Theme extends Types.IObj>(options: Options<Them
   const jss = options.context.jss || defaultJss;
   const styles = getStyles(options);
   const dynamicStyles = getDynamicStyles(styles);
-  const sheet = jss.createStyleSheet(styles, getSheetOptions(options, dynamicStyles !== null));
+  const sheet = jss.createStyleSheet(
+    styles,
+    getSheetOptions(options, dynamicStyles !== null),
+  );
 
   addMeta(sheet, {
     dynamicStyles,
-    styles
+    styles,
   });
 
   manager.add(options.theme, sheet);
@@ -107,7 +112,11 @@ export const removeDynamicRules = (sheet: StyleSheet, rules: DynamicRules) => {
   }
 };
 
-export const updateDynamicRules = (data: any, sheet: StyleSheet, rules: DynamicRules) => {
+export const updateDynamicRules = (
+  data: any,
+  sheet: StyleSheet,
+  rules: DynamicRules,
+) => {
   // Loop over each dynamic rule and update it
   // We can't just update the whole sheet as this has all of the rules for every component instance
   for (const key in rules) {
@@ -119,7 +128,7 @@ export const updateDynamicRules = (data: any, sheet: StyleSheet, rules: DynamicR
 export const addDynamicRules = (
   // StyleSheet does not contain rules
   sheet: any,
-  data: any
+  data: any,
 ): DynamicRules | null => {
   const meta = getMeta(sheet);
   if (!meta) {

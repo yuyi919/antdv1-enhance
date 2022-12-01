@@ -1,4 +1,6 @@
-export function memoize<Args extends string, R extends any>(fn: (args: Args) => R) {
+export function memoize<Args extends string, R extends any>(
+  fn: (args: Args) => R,
+) {
   const cache: Record<string, any> = {};
 
   return ((arg) => {

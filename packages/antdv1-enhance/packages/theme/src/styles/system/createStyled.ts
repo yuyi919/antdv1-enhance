@@ -8,7 +8,9 @@ export interface SerializedStyles {
 
 export type CSSProperties = CSS.PropertiesFallback<number | string>;
 export type CSSPropertiesWithMultiValues = {
-  [K in keyof CSSProperties]: CSSProperties[K] | Array<Extract<CSSProperties[K], string>>;
+  [K in keyof CSSProperties]:
+    | CSSProperties[K]
+    | Array<Extract<CSSProperties[K], string>>;
 };
 export type CSSPseudos = { [K in CSS.Pseudos]?: unknown | CSSObject };
 
@@ -23,7 +25,10 @@ export interface CSSOthersObjectForCSSObject {
   [propertiesName: string]: CSSInterpolation;
 }
 
-export interface CSSObject extends CSSPropertiesWithMultiValues, CSSPseudos, CSSOthersObject {}
+export interface CSSObject
+  extends CSSPropertiesWithMultiValues,
+    CSSPseudos,
+    CSSOthersObject {}
 
 export interface ComponentSelector {
   __emotion_styles: any;
@@ -55,7 +60,8 @@ export interface FunctionInterpolation<Props> {
   (props: Props): Interpolation<Props>;
 }
 
-export interface ArrayInterpolation<Props> extends Array<Interpolation<Props>> {}
+export interface ArrayInterpolation<Props>
+  extends Array<Interpolation<Props>> {}
 
 export type Interpolation<Props> =
   | InterpolationPrimitive

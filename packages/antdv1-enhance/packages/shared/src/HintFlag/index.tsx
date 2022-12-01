@@ -1,35 +1,36 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { defineComponent, reactive } from "vue-demi";
+import { extractProps } from "@yuyi919/antdv1-plus-helper";
 import { createUseStyles } from "@yuyi919/vue-jss";
 import { useNamedRef } from "@yuyi919/vue-use";
-import { extractProps } from "@yuyi919/antdv1-plus-helper";
 import { Popover } from "ant-design-vue";
+import { defineComponent, reactive } from "vue-demi";
 import { HintFlagProps } from "./props";
 
 const useStyles = createUseStyles({
   root: {
     "& span": {
-      verticalAlign: "top"
+      verticalAlign: "top",
     },
     "@global span": {
-      verticalAlign: "top"
+      verticalAlign: "top",
     },
     "& $labelContainer": {
       verticalAlign: "top",
       display: "inline-block",
       width: "100%",
       "&:not(.disabled)": {
-        width: "calc(100% - 20px)"
-      }
-    }
+        width: "calc(100% - 20px)",
+      },
+    },
   },
-  labelContainer: {}
+  labelContainer: {},
 });
 export function convertTextMuitiple(text: string) {
   return (
-    typeof text === "string" && text.split("\n").map((i, index) => [index > 0 ? <br /> : false, i])
+    typeof text === "string" &&
+    text.split("\n").map((i, index) => [index > 0 ? <br /> : false, i])
   );
 }
 export const HintFlag = defineComponent({
@@ -39,7 +40,7 @@ export const HintFlag = defineComponent({
     const state = reactive({
       get hintStr() {
         return convertTextMuitiple(props.hint || props.item?.hint!);
-      }
+      },
     });
     const classesRef = useStyles(props);
     const popoverRef = useNamedRef<Popover>("popover");
@@ -47,7 +48,13 @@ export const HintFlag = defineComponent({
       renderLabelAndHint: () => {
         const { icon, disabled } = props;
         return (
-          <span class={[classesRef.value.root, classesRef.value.labelContainer, { disabled }]}>
+          <span
+            class={[
+              classesRef.value.root,
+              classesRef.value.labelContainer,
+              { disabled },
+            ]}
+          >
             {/* <TextRollMatcher>
               {this.$slots.default}&nbsp;
               {hint &&
@@ -65,16 +72,25 @@ export const HintFlag = defineComponent({
         return (
           <span class={classesRef.value.root}>
             {context.slots.default?.()}&nbsp;
-            {!disabled && methods.renderHint({ icon: icon(), hint: state.hintStr })}
+            {!disabled &&
+              methods.renderHint({ icon: icon(), hint: state.hintStr })}
           </span>
         );
       },
       toggle(show: boolean) {
         const p = popoverRef.value;
-        console.log(p)
+        console.log(p);
         p?.$refs.tooltip && ((p.$refs.tooltip as any).sVisible = show);
       },
-      renderHint: ({ icon, hint, slot }: { icon: any; hint: any; slot?: string }) => {
+      renderHint: ({
+        icon,
+        hint,
+        slot,
+      }: {
+        icon: any;
+        hint: any;
+        slot?: string;
+      }) => {
         const title = (
           <span>
             {icon}&nbsp;{props.title}
@@ -88,12 +104,14 @@ export const HintFlag = defineComponent({
             getPopupContainer={() => document.body}
             title={title}
             autoAdjustOverflow
-            content={<div style="max-width: 400px;min-width: 50px;">{hint}</div>}
+            content={
+              <div style="max-width: 400px;min-width: 50px;">{hint}</div>
+            }
           >
             <span>{icon}</span>
           </Popover>
         );
-      }
+      },
     };
     return {
       display() {
@@ -103,13 +121,16 @@ export const HintFlag = defineComponent({
         methods.toggle(false);
       },
       renderer() {
-        return (props.useRoll && methods.renderLabelAndHint()) || methods.renderNative();
-      }
+        return (
+          (props.useRoll && methods.renderLabelAndHint()) ||
+          methods.renderNative()
+        );
+      },
     };
   },
   render() {
     return (this as any).renderer();
-  }
+  },
 });
 
 export interface HintFlag extends InstanceType<typeof HintFlag> {}

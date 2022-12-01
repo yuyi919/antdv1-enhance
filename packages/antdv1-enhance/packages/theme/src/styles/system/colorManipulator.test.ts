@@ -1,15 +1,15 @@
 import {
-  recomposeColor,
-  hexToRgb,
-  rgbToHex,
-  hslToRgb,
+  alpha,
   darken,
   decomposeColor,
   emphasize,
-  alpha,
   getContrastRatio,
   getLuminance,
+  hexToRgb,
+  hslToRgb,
   lighten,
+  recomposeColor,
+  rgbToHex,
 } from "./colorManipulator";
 
 describe("utils/colorManipulator", () => {
@@ -19,7 +19,7 @@ describe("utils/colorManipulator", () => {
         recomposeColor({
           type: "rgb",
           values: [255, 255, 255],
-        })
+        }),
       ).toBe("rgb(255, 255, 255)");
     });
 
@@ -28,7 +28,7 @@ describe("utils/colorManipulator", () => {
         recomposeColor({
           type: "rgba",
           values: [255, 255, 255, 0.5],
-        })
+        }),
       ).toBe("rgba(255, 255, 255, 0.5)");
     });
 
@@ -38,7 +38,7 @@ describe("utils/colorManipulator", () => {
           type: "color",
           colorSpace: "display-p3",
           values: [0.5, 0.3, 0.2],
-        })
+        }),
       ).toBe("color(display-p3 0.5 0.3 0.2)");
     });
 
@@ -47,7 +47,7 @@ describe("utils/colorManipulator", () => {
         recomposeColor({
           type: "hsl",
           values: [100, 50, 25],
-        })
+        }),
       ).toBe("hsl(100, 50%, 25%)");
     });
 
@@ -56,7 +56,7 @@ describe("utils/colorManipulator", () => {
         recomposeColor({
           type: "hsla",
           values: [100, 50, 25, 0.5],
-        })
+        }),
       ).toBe("hsla(100, 50%, 25%, 0.5)");
     });
   });
@@ -95,11 +95,15 @@ describe("utils/colorManipulator", () => {
     });
 
     it("converts an hsla color to an rgba color` ", () => {
-      expect(hslToRgb("hsla(281, 60%, 57%, 0.5)")).toBe("rgba(169, 80, 211, 0.5)");
+      expect(hslToRgb("hsla(281, 60%, 57%, 0.5)")).toBe(
+        "rgba(169, 80, 211, 0.5)",
+      );
     });
 
     it("allow to convert values only", () => {
-      expect(hslToRgb(decomposeColor("hsl(281, 60%, 57%)"))).toBe("rgb(169, 80, 211)");
+      expect(hslToRgb(decomposeColor("hsl(281, 60%, 57%)"))).toBe(
+        "rgb(169, 80, 211)",
+      );
     });
   });
 
@@ -129,14 +133,18 @@ describe("utils/colorManipulator", () => {
     });
 
     it("converts CSS4 color with color space display-3", () => {
-      const { type, values, colorSpace } = decomposeColor("color(display-p3 0 1 0)");
+      const { type, values, colorSpace } = decomposeColor(
+        "color(display-p3 0 1 0)",
+      );
       expect(type).toBe("color");
       expect(colorSpace).toBe("display-p3");
       expect(values).toEqual([0, 1, 0]);
     });
 
     it("converts an alpha CSS4 color with color space display-3", () => {
-      const { type, values, colorSpace } = decomposeColor("color(display-p3 0 1 0 /0.4)");
+      const { type, values, colorSpace } = decomposeColor(
+        "color(display-p3 0 1 0 /0.4)",
+      );
       expect(type).toBe("color");
       expect(colorSpace).toBe("display-p3");
       expect(values).toEqual([0, 1, 0, 0.4]);
@@ -177,11 +185,15 @@ describe("utils/colorManipulator", () => {
     });
 
     it("returns a ratio for dark-grey : light-grey", () => {
-      expect(getContrastRatio("#707070", "#E5E5E5")).toMatchInlineSnapshot(`3.9339622641509435`); //.to.be.approximately(3.93, 0.01);
+      expect(getContrastRatio("#707070", "#E5E5E5")).toMatchInlineSnapshot(
+        `3.9339622641509435`,
+      ); //.to.be.approximately(3.93, 0.01);
     });
 
     it("returns a ratio for black : light-grey", () => {
-      expect(getContrastRatio("#000", "#888")).toMatchInlineSnapshot(`5.919999999999999`); //.to.be.approximately(5.92, 0.01);
+      expect(getContrastRatio("#000", "#888")).toMatchInlineSnapshot(
+        `5.919999999999999`,
+      ); //.to.be.approximately(5.92, 0.01);
     });
   });
 
@@ -233,7 +245,9 @@ describe("utils/colorManipulator", () => {
     });
 
     it("darkens a light rgb color with the coefficient provided", () => {
-      expect(emphasize("rgb(250, 240, 230)", 0.3)).toBe(darken("rgb(250, 240, 230)", 0.3));
+      expect(emphasize("rgb(250, 240, 230)", 0.3)).toBe(
+        darken("rgb(250, 240, 230)", 0.3),
+      );
     });
 
     it("lightens a dark rgb color with the coefficient 0.15 by default", () => {
@@ -241,18 +255,20 @@ describe("utils/colorManipulator", () => {
     });
 
     it("darkens a light rgb color with the coefficient 0.15 by default", () => {
-      expect(emphasize("rgb(250, 240, 230)")).toBe(darken("rgb(250, 240, 230)", 0.15));
+      expect(emphasize("rgb(250, 240, 230)")).toBe(
+        darken("rgb(250, 240, 230)", 0.15),
+      );
     });
 
     it("lightens a dark CSS4 color with the coefficient 0.15 by default", () => {
       expect(emphasize("color(display-p3 0.1 0.1 0.1)")).toBe(
-        lighten("color(display-p3 0.1 0.1 0.1)", 0.15)
+        lighten("color(display-p3 0.1 0.1 0.1)", 0.15),
       );
     });
 
     it("darkens a light CSS4 color with the coefficient 0.15 by default", () => {
       expect(emphasize("color(display-p3 1 1 0.1)")).toBe(
-        darken("color(display-p3 1 1 0.1)", 0.15)
+        darken("color(display-p3 1 1 0.1)", 0.15),
       );
     });
   });
@@ -263,7 +279,9 @@ describe("utils/colorManipulator", () => {
     });
 
     it("updates an CSS4 color with the alpha value provided", () => {
-      expect(alpha("color(display-p3 1 2 3)", 0.4)).toBe("color(display-p3 1 2 3 /0.4)");
+      expect(alpha("color(display-p3 1 2 3)", 0.4)).toBe(
+        "color(display-p3 1 2 3 /0.4)",
+      );
     });
 
     it("updates an rgba color with the alpha value provided", () => {
@@ -275,7 +293,9 @@ describe("utils/colorManipulator", () => {
     });
 
     it("updates an hsla color with the alpha value provided", () => {
-      expect(alpha("hsla(0, 100%, 50%, 0.2)", 0.5)).toBe("hsla(0, 100%, 50%, 0.5)");
+      expect(alpha("hsla(0, 100%, 50%, 0.2)", 0.5)).toBe(
+        "hsla(0, 100%, 50%, 0.5)",
+      );
     });
 
     it("throw on invalid colors", () => {
@@ -293,13 +313,17 @@ describe("utils/colorManipulator", () => {
     it("doesn't overshoot if an above-range coefficient is supplied", () => {
       expect(() => {
         expect(darken("rgb(0, 127, 255)", 1.5)).toBe("rgb(0, 0, 0)");
-      }).toErrorDev("Material-UI: The value provided 1.5 is out of range [0, 1].");
+      }).toErrorDev(
+        "Material-UI: The value provided 1.5 is out of range [0, 1].",
+      );
     });
 
     it("doesn't overshoot if a below-range coefficient is supplied", () => {
       expect(() => {
         expect(darken("rgb(0, 127, 255)", -0.1)).toBe("rgb(0, 127, 255)");
-      }).toErrorDev("Material-UI: The value provided -0.1 is out of range [0, 1].");
+      }).toErrorDev(
+        "Material-UI: The value provided -0.1 is out of range [0, 1].",
+      );
     });
 
     it("darkens rgb white to black when coefficient is 1", () => {
@@ -339,11 +363,15 @@ describe("utils/colorManipulator", () => {
     });
 
     it("darkens CSS4 color red by 50% when coefficient is 0.5", () => {
-      expect(darken("color(display-p3 1 0 0)", 0.5)).toBe("color(display-p3 0.5 0 0)");
+      expect(darken("color(display-p3 1 0 0)", 0.5)).toBe(
+        "color(display-p3 0.5 0 0)",
+      );
     });
 
     it("doesn't modify CSS4 color when coefficient is 0", () => {
-      expect(darken("color(display-p3 1 0 0)", 0)).toBe("color(display-p3 1 0 0)");
+      expect(darken("color(display-p3 1 0 0)", 0)).toBe(
+        "color(display-p3 1 0 0)",
+      );
     });
   });
 
@@ -355,13 +383,17 @@ describe("utils/colorManipulator", () => {
     it("doesn't overshoot if an above-range coefficient is supplied", () => {
       expect(() => {
         expect(lighten("rgb(0, 127, 255)", 1.5)).toBe("rgb(255, 255, 255)");
-      }).toErrorDev("Material-UI: The value provided 1.5 is out of range [0, 1].");
+      }).toErrorDev(
+        "Material-UI: The value provided 1.5 is out of range [0, 1].",
+      );
     });
 
     it("doesn't overshoot if a below-range coefficient is supplied", () => {
       expect(() => {
         expect(lighten("rgb(0, 127, 255)", -0.1)).toBe("rgb(0, 127, 255)");
-      }).toErrorDev("Material-UI: The value provided -0.1 is out of range [0, 1].");
+      }).toErrorDev(
+        "Material-UI: The value provided -0.1 is out of range [0, 1].",
+      );
     });
 
     it("lightens rgb black to white when coefficient is 1", () => {
@@ -369,7 +401,9 @@ describe("utils/colorManipulator", () => {
     });
 
     it("retains the alpha value in an rgba color", () => {
-      expect(lighten("rgb(255, 255, 255, 0.5)", 0.1)).toBe("rgb(255, 255, 255, 0.5)");
+      expect(lighten("rgb(255, 255, 255, 0.5)", 0.1)).toBe(
+        "rgb(255, 255, 255, 0.5)",
+      );
     });
 
     it("lightens rgb black by 10% when coefficient is 0.1", () => {
@@ -401,11 +435,15 @@ describe("utils/colorManipulator", () => {
     });
 
     it("lightens CSS4 color red by 50% when coefficient is 0.5", () => {
-      expect(lighten("color(display-p3 1 0 0)", 0.5)).toBe("color(display-p3 1 0.5 0.5)");
+      expect(lighten("color(display-p3 1 0 0)", 0.5)).toBe(
+        "color(display-p3 1 0.5 0.5)",
+      );
     });
 
     it("doesn't modify CSS4 color when coefficient is 0", () => {
-      expect(lighten("color(display-p3 1 0 0)", 0)).toBe("color(display-p3 1 0 0)");
+      expect(lighten("color(display-p3 1 0 0)", 0)).toBe(
+        "color(display-p3 1 0 0)",
+      );
     });
   });
 });

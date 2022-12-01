@@ -32,7 +32,9 @@ export const getManager = (context: Context, managerId: number) => {
   return manager;
 };
 
-export const manageSheet = <Theme extends Types.IObj>(options: Options<Theme>) => {
+export const manageSheet = <Theme extends Types.IObj>(
+  options: Options<Theme>,
+) => {
   const { sheet, context, index, theme } = options;
   if (!sheet) {
     return;
@@ -45,7 +47,9 @@ export const manageSheet = <Theme extends Types.IObj>(options: Options<Theme>) =
   }
 };
 
-export const unmanageSheet = <Theme extends Types.IObj>(options: Options<Theme>) => {
+export const unmanageSheet = <Theme extends Types.IObj>(
+  options: Options<Theme>,
+) => {
   if (!options.sheet) {
     return;
   }

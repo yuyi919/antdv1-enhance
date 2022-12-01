@@ -9,7 +9,8 @@ interface SheetMeta {
 
 const sheetsMeta = new WeakMap<StyleSheet, SheetMeta>();
 
-export const getMeta = (sheet: StyleSheet): SheetMeta | void => sheetsMeta.get(sheet);
+export const getMeta = (sheet: StyleSheet): SheetMeta | void =>
+  sheetsMeta.get(sheet);
 
 export const addMeta = (sheet: StyleSheet, meta: SheetMeta) => {
   sheetsMeta.set(sheet, meta);

@@ -1,10 +1,10 @@
 /* eslint-disable no-useless-constructor */
-import { ITheme } from "./types";
+import { fade } from "../color";
 import { component, useComponent } from "../exports/component";
 import { usePalette } from "../exports/palette";
 import { usePaletteColors } from "../exports/palette.colors";
 import { Theme } from "../styled";
-import { fade } from "../color";
+import { ITheme } from "./types";
 
 export class ThemeUtils {
   constructor(public theme: ITheme) {}
@@ -15,7 +15,7 @@ export class ThemeUtils {
   static getPalette = usePalette;
   static defaultTo<T, Prop>(
     value: (props: Prop, theme?: Theme) => T,
-    getter: (props: { theme?: Theme }, theme?: Theme) => T
+    getter: (props: { theme?: Theme }, theme?: Theme) => T,
   ): (props: Prop & { theme?: Theme }, theme?: Theme) => T {
     return (props) => value(props) ?? getter(props);
   }

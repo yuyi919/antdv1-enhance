@@ -30,7 +30,7 @@ export const easing: Easing = {
   // Objects leave the screen at full velocity. They do not decelerate when off-screen.
   easeIn: "cubic-bezier(0.4, 0, 1, 1)",
   // The sharp curve is used by objects that may return to the screen at any time.
-  sharp: "cubic-bezier(0.4, 0, 0.6, 1)"
+  sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
 };
 
 // Follow https://material.io/guidelines/motion/duration-easing.html#duration-easing-common-durations
@@ -46,7 +46,7 @@ export const duration: Duration = {
   // recommended when something is entering screen
   enteringScreen: 225,
   // recommended when something is leaving screen
-  leavingScreen: 195
+  leavingScreen: 195,
 };
 
 export interface TransitionsOptions {
@@ -54,7 +54,11 @@ export interface TransitionsOptions {
   duration?: Partial<Duration>;
   create?: (
     props: string | string[],
-    options?: Partial<{ duration: number | string; easing: string; delay: number | string }>
+    options?: Partial<{
+      duration: number | string;
+      easing: string;
+      delay: number | string;
+    }>,
   ) => string;
   /**
    * @internal
@@ -88,7 +92,11 @@ function getAutoHeightDuration(height?: number): number {
  */
 export declare function create(
   props: string | string[],
-  options?: Partial<{ duration: number | string; easing: string; delay: number | string }>
+  options?: Partial<{
+    duration: number | string;
+    easing: string;
+    delay: number | string;
+  }>,
 ): string;
 /**
  * @internal
@@ -97,7 +105,11 @@ export declare function create(
  */
 export declare function createJs(
   props: string | string[],
-  options?: Partial<{ duration: number | string; easing: string; delay: number | string }>
+  options?: Partial<{
+    duration: number | string;
+    easing: string;
+    delay: number | string;
+  }>,
 ): string;
 
 export interface Transitions {
@@ -113,27 +125,35 @@ export interface TransitionsOptions {
   duration?: Partial<Duration>;
   create?: (
     props: string | string[],
-    options?: Partial<{ duration: number | string; easing: string; delay: number | string }>
+    options?: Partial<{
+      duration: number | string;
+      easing: string;
+      delay: number | string;
+    }>,
   ) => string;
   getAutoHeightDuration?: (height: number) => number;
   [key: string]: any;
 }
 export function createTransitions<O extends Types.Recordable>(
-  inputTransitions: O & TransitionsOptions
+  inputTransitions: O & TransitionsOptions,
 ): O & Transitions {
   const mergedEasing = {
     ...easing,
-    ...inputTransitions.easing
+    ...inputTransitions.easing,
   };
 
   const mergedDuration = {
     ...duration,
-    ...inputTransitions.duration
+    ...inputTransitions.duration,
   };
 
   const createJs = (
     props: string | string[] = ["all"],
-    options: Partial<{ duration: number | string; easing: string; delay: number | string }> = {}
+    options: Partial<{
+      duration: number | string;
+      easing: string;
+      delay: number | string;
+    }> = {},
   ) => {
     const {
       duration: durationOption = mergedDuration.standard,
@@ -149,12 +169,14 @@ export function createTransitions<O extends Types.Recordable>(
       const isNumber = (value: any) =>
         !isNaN(typeof value === "number" ? value : parseFloat(value));
       if (!isString(props) && !Array.isArray(props)) {
-        console.error('Material-UI: Argument "props" must be a string or Array.');
+        console.error(
+          'Material-UI: Argument "props" must be a string or Array.',
+        );
       }
 
       if (!isNumber(durationOption) && !isString(durationOption)) {
         console.error(
-          `Material-UI: Argument "duration" must be a number or a string but found ${durationOption}.`
+          `Material-UI: Argument "duration" must be a number or a string but found ${durationOption}.`,
         );
       }
 
@@ -163,11 +185,17 @@ export function createTransitions<O extends Types.Recordable>(
       }
 
       if (!isNumber(delay) && !isString(delay)) {
-        console.error('Material-UI: Argument "delay" must be a number or a string.');
+        console.error(
+          'Material-UI: Argument "delay" must be a number or a string.',
+        );
       }
 
       if (Object.keys(other).length !== 0) {
-        console.error(`Material-UI: Unrecognized argument(s) [${Object.keys(other).join(",")}].`);
+        console.error(
+          `Material-UI: Unrecognized argument(s) [${Object.keys(other).join(
+            ",",
+          )}].`,
+        );
       }
     }
 
@@ -175,14 +203,22 @@ export function createTransitions<O extends Types.Recordable>(
       .map(
         (animatedProp) =>
           `${animatedProp} ${
-            typeof durationOption === "string" ? durationOption : formatMs(durationOption)
-          } ${easingOption} ${typeof delay === "string" ? delay : formatMs(delay)}`
+            typeof durationOption === "string"
+              ? durationOption
+              : formatMs(durationOption)
+          } ${easingOption} ${
+            typeof delay === "string" ? delay : formatMs(delay)
+          }`,
       )
       .join(",");
   };
   const create = (
     props: string | string[] = ["all"],
-    options: Partial<{ duration: number | string; easing: string; delay: number | string }> = {}
+    options: Partial<{
+      duration: number | string;
+      easing: string;
+      delay: number | string;
+    }> = {},
   ) => {
     const {
       duration: durationOption = mergedDuration.standard,
@@ -198,12 +234,14 @@ export function createTransitions<O extends Types.Recordable>(
       const isNumber = (value: any) =>
         !isNaN(typeof value === "number" ? value : parseFloat(value));
       if (!isString(props) && !Array.isArray(props)) {
-        console.error('Material-UI: Argument "props" must be a string or Array.');
+        console.error(
+          'Material-UI: Argument "props" must be a string or Array.',
+        );
       }
 
       if (!isNumber(durationOption) && !isString(durationOption)) {
         console.error(
-          `Material-UI: Argument "duration" must be a number or a string but found ${durationOption}.`
+          `Material-UI: Argument "duration" must be a number or a string but found ${durationOption}.`,
         );
       }
 
@@ -212,11 +250,17 @@ export function createTransitions<O extends Types.Recordable>(
       }
 
       if (!isNumber(delay) && !isString(delay)) {
-        console.error('Material-UI: Argument "delay" must be a number or a string.');
+        console.error(
+          'Material-UI: Argument "delay" must be a number or a string.',
+        );
       }
 
       if (Object.keys(other).length !== 0) {
-        console.error(`Material-UI: Unrecognized argument(s) [${Object.keys(other).join(",")}].`);
+        console.error(
+          `Material-UI: Unrecognized argument(s) [${Object.keys(other).join(
+            ",",
+          )}].`,
+        );
       }
     }
 
@@ -224,8 +268,12 @@ export function createTransitions<O extends Types.Recordable>(
       .map(
         (animatedProp) =>
           `${animatedProp} ${
-            typeof durationOption === "string" ? durationOption : formatMs(durationOption)
-          } ${easingOption} ${typeof delay === "string" ? delay : formatMs(delay)}`
+            typeof durationOption === "string"
+              ? durationOption
+              : formatMs(durationOption)
+          } ${easingOption} ${
+            typeof delay === "string" ? delay : formatMs(delay)
+          }`,
       )
       .join(",");
   };
@@ -236,6 +284,6 @@ export function createTransitions<O extends Types.Recordable>(
     createJs,
     ...inputTransitions,
     easing: mergedEasing,
-    duration: mergedDuration
+    duration: mergedDuration,
   };
 }

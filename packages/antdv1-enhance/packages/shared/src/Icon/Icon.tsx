@@ -1,9 +1,15 @@
 /* eslint-disable no-use-before-define */
-import { defineComponent } from "vue-demi";
-import { useInherit } from "@yuyi919/vue-use";
-import { Component, extractProps, getPropsClass, Prop, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
+import {
+  Component,
+  extractProps,
+  getPropsClass,
+  Prop,
+  VueComponent2,
+} from "@yuyi919/antdv1-plus-helper";
 import Theme, { createUseClasses, styled } from "@yuyi919/antdv1-plus-theme";
+import { useInherit } from "@yuyi919/vue-use";
 import { Icon } from "ant-design-vue";
+import { defineComponent } from "vue-demi";
 
 const [classes, useClasses] = createUseClasses("icon", {});
 const useStyles = styled.makeUse`
@@ -29,7 +35,11 @@ export const ThemedIcon: VueComponent2<ThemedIconProps> = defineComponent({
       const { theme, ...other } = props;
       const { on, scopedSlots, children } = getInherit();
       return (
-        <Icon {...{ on, scopedSlots, props: other }} class={classes.root} theme="outlined">
+        <Icon
+          {...{ on, scopedSlots, props: other }}
+          class={classes.root}
+          theme="outlined"
+        >
           {children}
         </Icon>
       );

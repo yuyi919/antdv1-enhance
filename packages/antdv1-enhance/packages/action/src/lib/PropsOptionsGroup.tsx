@@ -1,7 +1,9 @@
 import { PropOptions as PropOptionsRequired } from "vue-demi";
 import { PropValidator } from "vue/types/options";
 
-export type PropsOption<T extends any> = PropOptionsRequired<T> | PropValidator<T>;
+export type PropsOption<T extends any> =
+  | PropOptionsRequired<T>
+  | PropValidator<T>;
 
 /**
  * @deprecated 请使用[TypedPropGroup]

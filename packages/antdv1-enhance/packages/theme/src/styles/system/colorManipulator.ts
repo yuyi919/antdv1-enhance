@@ -26,7 +26,9 @@ export interface ColorObject {
 function clamp(value: number, min: number = 0, max: number = 1): number {
   if (process.env.NODE_ENV !== "production") {
     if (value < min || value > max) {
-      console.error(`Material-UI: The value provided ${value} is out of range [${min}, ${max}].`);
+      console.error(
+        `Material-UI: The value provided ${value} is out of range [${min}, ${max}].`,
+      );
     }
   }
 
@@ -51,7 +53,9 @@ export function hexToRgb(color: string): string {
   return colors
     ? `rgb${colors.length === 4 ? "a" : ""}(${colors
         .map((n, index) => {
-          return index < 3 ? parseInt(n, 16) : Math.round((parseInt(n, 16) / 255) * 1000) / 1000;
+          return index < 3
+            ? parseInt(n, 16)
+            : Math.round((parseInt(n, 16) / 255) * 1000) / 1000;
         })
         .join(", ")})`
     : "";
@@ -74,7 +78,9 @@ export function rgbToHex(color: string): string {
   }
 
   const { values } = decomposeColor(color);
-  return `#${values.map((n, i) => intToHex(i === 3 ? Math.round(255 * n) : n)).join("")}`;
+  return `#${values
+    .map((n, i) => intToHex(i === 3 ? Math.round(255 * n) : n))
+    .join("")}`;
 }
 
 /**
@@ -84,23 +90,33 @@ export function rgbToHex(color: string): string {
  */
 export function hslToRgb(color: string | ColorObject): string {
   // Idempotent
-  color = (color && (color as ColorObject).type ? color : decomposeColor(color)) as ColorObject;
+  color = (
+    color && (color as ColorObject).type ? color : decomposeColor(color)
+  ) as ColorObject;
   const { values } = color;
   const h = values[0];
   const s = values[1] / 100;
   const l = values[2] / 100;
   const a = s * Math.min(l, 1 - l);
-  const f = (n: number, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+  const f = (n: number, k = (n + h / 30) % 12) =>
+    l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
 
   let type: ColorFormat = "rgb";
-  const rgb = [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
+  const rgb = [
+    Math.round(f(0) * 255),
+    Math.round(f(8) * 255),
+    Math.round(f(4) * 255),
+  ];
 
   if (color.type === "hsla") {
     type += "a";
     rgb.push(values[3]!);
   }
 
-  return recomposeColor({ type: type as ColorFormat, values: rgb as ColorObject["values"] });
+  return recomposeColor({
+    type: type as ColorFormat,
+    values: rgb as ColorObject["values"],
+  });
 }
 
 /**
@@ -127,13 +143,13 @@ export function decomposeColor(color: string | ColorObject): ColorObject {
     throw new MuiError(
       "Material-UI: Unsupported `%s` color.\n" +
         "The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color().",
-      color
+      color,
     );
   }
 
   let values: string | string[] | ColorObject["values"] = color.substring(
     marker + 1,
-    color.length - 1
+    color.length - 1,
   );
   let colorSpace: ColorObject["colorSpace"];
 
@@ -143,11 +159,15 @@ export function decomposeColor(color: string | ColorObject): ColorObject {
     if (values.length === 4 && values[3].charAt(0) === "/") {
       values[3] = values[3].substr(1);
     }
-    if (["srgb", "display-p3", "a98-rgb", "prophoto-rgb", "rec-2020"].indexOf(colorSpace!) === -1) {
+    if (
+      ["srgb", "display-p3", "a98-rgb", "prophoto-rgb", "rec-2020"].indexOf(
+        colorSpace!,
+      ) === -1
+    ) {
       throw new MuiError(
         "Material-UI: unsupported `%s` color space.\n" +
           "The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rgb, rec-2020.",
-        colorSpace
+        colorSpace,
       );
     }
   } else {
@@ -191,7 +211,10 @@ export function recomposeColor(color: ColorObject): string {
  * @param background - CSS color, i.e. one of: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
  * @returns A contrast ratio value in the range 0 - 21.
  */
-export function getContrastRatio(foreground: string, background: string): number {
+export function getContrastRatio(
+  foreground: string,
+  background: string,
+): number {
   const lumA = getLuminance(foreground);
   const lumB = getLuminance(background);
   return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
@@ -208,7 +231,10 @@ export function getContrastRatio(foreground: string, background: string): number
 export function getLuminance(color: string): number {
   color = decomposeColor(color);
 
-  let rgb = color.type === "hsl" ? decomposeColor(hslToRgb(color)).values : color.values;
+  let rgb =
+    color.type === "hsl"
+      ? decomposeColor(hslToRgb(color)).values
+      : color.values;
   rgb = rgb.map((val) => {
     if (color.type !== "color") {
       val /= 255; // normalized
@@ -217,7 +243,9 @@ export function getLuminance(color: string): number {
   });
 
   // Truncate at 3 digits
-  return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
+  return Number(
+    (0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3),
+  );
 }
 
 /**
@@ -228,7 +256,9 @@ export function getLuminance(color: string): number {
  * @returns A CSS color string. Hex input values are returned as rgb
  */
 export function emphasize(color: string, coefficient: number = 0.15): string {
-  return getLuminance(color) > 0.5 ? darken(color, coefficient) : lighten(color, coefficient);
+  return getLuminance(color) > 0.5
+    ? darken(color, coefficient)
+    : lighten(color, coefficient);
 }
 
 /**
@@ -266,7 +296,10 @@ export function darken(color: string, coefficient: number): string {
 
   if (color.type.indexOf("hsl") !== -1) {
     color.values[2] *= 1 - coefficient;
-  } else if (color.type.indexOf("rgb") !== -1 || color.type.indexOf("color") !== -1) {
+  } else if (
+    color.type.indexOf("rgb") !== -1 ||
+    color.type.indexOf("color") !== -1
+  ) {
     for (let i = 0; i < 3; i += 1) {
       color.values[i] *= 1 - coefficient;
     }

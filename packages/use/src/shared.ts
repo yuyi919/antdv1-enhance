@@ -24,7 +24,7 @@ export function getProps<V extends Record<string, any> = any>($props: V): V {
  */
 export function unwrap<T, GetterArgs extends any[]>(
   wrapper?: WrapValue<T, GetterArgs>,
-  args: GetterArgs = [] as GetterArgs
+  args: GetterArgs = [] as GetterArgs,
 ): T {
   return (
     wrapper instanceof Function
@@ -36,9 +36,12 @@ export function unwrap<T, GetterArgs extends any[]>(
 }
 
 export function isWrap<T>(
-  wrapper: WrapValue<T>
+  wrapper: WrapValue<T>,
 ): wrapper is WrapValue<T> extends T ? () => T : WrapValue<T> {
-  return wrapper instanceof Function || (wrapper instanceof Object && "value" in wrapper);
+  return (
+    wrapper instanceof Function ||
+    (wrapper instanceof Object && "value" in wrapper)
+  );
 }
 
 export function useWrap<T, Args extends any[]>(
@@ -47,7 +50,7 @@ export function useWrap<T, Args extends any[]>(
 ): ComputedRef<T> {
   return wrapper instanceof Function
     ? (computed(
-        wrapper.length > 0 ? () => wrapper(...args) : (wrapper as () => T)
+        wrapper.length > 0 ? () => wrapper(...args) : (wrapper as () => T),
       ) as ComputedRef<T>)
     : wrapper instanceof Object && "value" in wrapper
     ? (wrapper as ComputedRef<T>)
@@ -79,7 +82,7 @@ type UnwrapPromises<T extends any> = {
  */
 export function strictThen<T extends [any, ...any[]], R>(
   target: T,
-  when: (target: UnwrapPromises<T>) => R
+  when: (target: UnwrapPromises<T>) => R,
 ): UnwrapPromises<T> extends T ? R : Promise<R>;
 /**
  *
@@ -93,9 +96,12 @@ export function strictThen<T extends [any, ...any[]], R>(
  */
 export function strictThen<T extends Promise<any>, R>(
   target: T,
-  when: (target: UnwrapPromise<T>) => R
+  when: (target: UnwrapPromise<T>) => R,
 ): UnwrapPromise<T> extends T ? R : Promise<R>;
-export function strictThen<T, R>(target: T | Promise<T>, when: (target: T) => R): R;
+export function strictThen<T, R>(
+  target: T | Promise<T>,
+  when: (target: T) => R,
+): R;
 export function strictThen<T, R>(target: any, when: (target: T) => R) {
   if (target instanceof Array) {
     for (const o of target) {

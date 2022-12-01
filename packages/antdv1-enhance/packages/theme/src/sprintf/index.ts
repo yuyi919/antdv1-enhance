@@ -1,1 +1,1 @@
-export { sprintf } from "./format"
+export { sprintf } from "./format";

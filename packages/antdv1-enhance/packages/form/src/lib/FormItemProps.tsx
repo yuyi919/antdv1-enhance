@@ -1,7 +1,11 @@
-import { CSSProperties, RequiredTo, Types } from "@yuyi919/shared-types";
-import { Component, extractUnsafeProps, Prop } from "@yuyi919/antdv1-plus-helper";
+import {
+  Component,
+  extractUnsafeProps,
+  Prop,
+} from "@yuyi919/antdv1-plus-helper";
 import { isNum } from "@yuyi919/antdv1-plus-shared";
 import { autoSizer } from "@yuyi919/antdv1-plus-theme";
+import { CSSProperties, RequiredTo, Types } from "@yuyi919/shared-types";
 import { Icon } from "ant-design-vue";
 import { LayoutItemProps } from "./Layout";
 
@@ -55,7 +59,12 @@ export class FormItemProps extends LayoutItemProps {
    * 组件容器样式
    */
   @Prop(String)
-  feedbackStatus?: "error" | "warning" | "success" | "pending" | Types.DynamicString;
+  feedbackStatus?:
+    | "error"
+    | "warning"
+    | "success"
+    | "pending"
+    | Types.DynamicString;
   /**
    * 组件容器样式
    */
@@ -90,14 +99,19 @@ export const [FormItemPropConfig, useFormLayoutItemProps] = extractUnsafeProps(
       ));
 
     // 是否启用了栅格
-    const enableCol = props.enableCol !== false ? isNum(labelCol) || isNum(wrapperCol) : false;
+    const enableCol =
+      props.enableCol !== false ? isNum(labelCol) || isNum(wrapperCol) : false;
     if (labelWidth) {
-      labelStyle.width = labelWidth === "auto" ? undefined : autoSizer(labelWidth);
-      labelStyle.maxWidth = labelWidth === "auto" ? undefined : autoSizer(labelWidth);
+      labelStyle.width =
+        labelWidth === "auto" ? undefined : autoSizer(labelWidth);
+      labelStyle.maxWidth =
+        labelWidth === "auto" ? undefined : autoSizer(labelWidth);
     }
     if (wrapperWidth) {
-      wrapperStyle.width = wrapperWidth === "auto" ? undefined : autoSizer(wrapperWidth);
-      wrapperStyle.maxWidth = wrapperWidth === "auto" ? undefined : autoSizer(wrapperWidth);
+      wrapperStyle.width =
+        wrapperWidth === "auto" ? undefined : autoSizer(wrapperWidth);
+      wrapperStyle.maxWidth =
+        wrapperWidth === "auto" ? undefined : autoSizer(wrapperWidth);
     }
     return {
       ...props,
@@ -105,6 +119,9 @@ export const [FormItemPropConfig, useFormLayoutItemProps] = extractUnsafeProps(
       wrapperStyle,
       labelStyle,
       enableCol,
-    } as RequiredTo<FormItemProps, "feedbackIcon" | "wrapperStyle" | "enableCol" | "labelStyle">;
-  }
+    } as RequiredTo<
+      FormItemProps,
+      "feedbackIcon" | "wrapperStyle" | "enableCol" | "labelStyle"
+    >;
+  },
 );

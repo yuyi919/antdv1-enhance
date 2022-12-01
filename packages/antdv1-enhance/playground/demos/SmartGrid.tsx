@@ -1,13 +1,11 @@
 import { defineComponent } from "vue-demi";
-import { SmartGrid, GridColumn } from "../../src";
+import { GridColumn, SmartGrid } from "../../src";
 import Demo from "../demo.vue";
 
 const Cell: any = defineComponent({
   setup(_, context) {
     return () => {
-      return (
-        <a-input />
-      );
+      return <a-input />;
     };
   },
 });

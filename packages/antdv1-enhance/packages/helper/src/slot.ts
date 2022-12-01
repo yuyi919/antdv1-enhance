@@ -11,17 +11,27 @@ export function getSlot(
   name: string = "default",
   ...names: string[]
 ) {
-  const { $slots, $scopedSlots, slots = () => $slots, scopedSlots = $scopedSlots } = source;
+  const {
+    $slots,
+    $scopedSlots,
+    slots = () => $slots,
+    scopedSlots = $scopedSlots,
+  } = source;
   const scopedSlotName = names.concat([name]).find((name) => scopedSlots[name]);
   // @ts-ignore
   const scopedSlot = scopedSlots[scopedSlotName];
   if (scopedSlot instanceof Function) {
-    return (scopedSlot as any)(...((props instanceof Array && props) || [props]));
+    return (scopedSlot as any)(
+      ...((props instanceof Array && props) || [props]),
+    );
   }
   return slots()[name];
 }
 
-export function useSlot(name: string = "default", defaultTo?: (...props: any[]) => any) {
+export function useSlot(
+  name: string = "default",
+  defaultTo?: (...props: any[]) => any,
+) {
   const self = getCurrentInstance()!.proxy;
   return (...props: any[]) => {
     const {
@@ -32,7 +42,9 @@ export function useSlot(name: string = "default", defaultTo?: (...props: any[]) 
     // @ts-ignore
     const scopedSlot = scopedSlots[name];
     const render =
-      scopedSlot instanceof Function ? (scopedSlot as any).apply(self, props) : self.$slots[name];
+      scopedSlot instanceof Function
+        ? (scopedSlot as any).apply(self, props)
+        : self.$slots[name];
     if (render === void 0) {
       return defaultTo && defaultTo.apply(self, props);
     }

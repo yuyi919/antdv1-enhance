@@ -4,7 +4,9 @@
  *
  * @internal
  */
-export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
+export type DistributiveOmit<T, K extends keyof any> = T extends any
+  ? Omit<T, K>
+  : never;
 
 /**
  * Generate a set of string literal types with the given default record `T` and
@@ -15,9 +17,10 @@ export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K
  *
  * @internal
  */
-export type OverridableStringUnion<T extends string | number, U = {}> = GenerateStringUnion<
-  Overwrite<Record<T, true>, U>
->;
+export type OverridableStringUnion<
+  T extends string | number,
+  U = {},
+> = GenerateStringUnion<Overwrite<Record<T, true>, U>>;
 
 /**
  * Like `T & U`, but using the value types from `U` where their properties overlap.
@@ -37,9 +40,8 @@ export type GenerateStringUnion<T> = Extract<
   string
 >;
 
-export type PropsFor<SomeStyleFunction> = SomeStyleFunction extends StyleFunction<infer Props>
-  ? Props
-  : never;
+export type PropsFor<SomeStyleFunction> =
+  SomeStyleFunction extends StyleFunction<infer Props> ? Props : never;
 export type StyleFunction<Props> = (props: Props) => any;
 export type SimpleStyleFunction<PropKey extends keyof any> = StyleFunction<
   Partial<Record<PropKey, any>>

@@ -1,4 +1,4 @@
-import { create, Classes, SheetsRegistry, createGenerateId } from "jss";
+import { Classes, create, createGenerateId, SheetsRegistry } from "jss";
 import preset from "jss-preset-default";
 const jss = create(preset());
 

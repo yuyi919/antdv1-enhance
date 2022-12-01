@@ -1,3 +1,7 @@
 export * from "./confirm";
-export { registerCoreModal, registerCoreMessage, registerModalCaller } from "./core";
+export {
+  registerCoreMessage,
+  registerCoreModal,
+  registerModalCaller,
+} from "./core";
 export * from "./useMessageWithFetch";

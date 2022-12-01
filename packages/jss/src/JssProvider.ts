@@ -1,5 +1,11 @@
 // import {shallowEqualObjects} from 'shallow-equal'
-import { createGenerateId, CreateGenerateIdOptions, GenerateId, Jss, SheetsRegistry } from "jss";
+import {
+  createGenerateId,
+  CreateGenerateIdOptions,
+  GenerateId,
+  Jss,
+  SheetsRegistry,
+} from "jss";
 import {
   computed,
 
@@ -85,14 +91,14 @@ const JssProvider = defineComponent({
         } else {
           generateId.value = createGenerateId();
         }
-      }
+      },
     );
 
     watch(
       () => props.registry,
       () => {
         manager.value = {};
-      }
+      },
     );
 
     provide(JssContext, context);
@@ -123,9 +129,17 @@ function createContextInstance(
     registry?: SheetsRegistry;
     id?: unknown;
   },
-  manager: any
+  manager: any,
 ) {
-  const { classNamePrefix, jss, generateId, disableStylesGeneration, media, id, registry } = props;
+  const {
+    classNamePrefix,
+    jss,
+    generateId,
+    disableStylesGeneration,
+    media,
+    id,
+    registry,
+  } = props;
 
   const context: JssContent = {
     manager,
@@ -143,7 +157,8 @@ function createContextInstance(
 
   if (classNamePrefix) {
     context.classNamePrefix =
-      (context.classNamePrefix ? context.classNamePrefix : "") + classNamePrefix;
+      (context.classNamePrefix ? context.classNamePrefix : "") +
+      classNamePrefix;
   }
 
   if (media !== undefined) {

@@ -1,7 +1,15 @@
 import "./preset";
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { Button, ConfigProvider, Drawer, Icon, Input, Radio, Skeleton } from "ant-design-vue";
+import {
+  Button,
+  ConfigProvider,
+  Drawer,
+  Icon,
+  Input,
+  Radio,
+  Skeleton,
+} from "ant-design-vue";
 // @ts-ignore
 import zhCN from "ant-design-vue/es/locale/zh_CN";
 import { createApp } from "vue-demi";

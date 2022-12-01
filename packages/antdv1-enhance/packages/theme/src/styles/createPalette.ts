@@ -1,18 +1,17 @@
 import { Color, PaletteMode } from "..";
-import { deepmergeCls, deepmerge } from "./system/utils";
+import { deepmerge, deepmergeCls } from "./system/utils";
 // import MuiError from "@material-ui/utils/macros/MuiError.macro";
-import { getContrastRatio } from "./system";
-import { darken, lighten } from "./system";
+import { hasOwnKey } from "@yuyi919/shared-types";
+import blue from "../colors/blue";
 import common from "../colors/common";
+import green from "../colors/green";
 import grey from "../colors/grey";
+import lightBlue from "../colors/lightBlue";
+import orange from "../colors/orange";
 import purple from "../colors/purple";
 import red from "../colors/red";
-import orange from "../colors/orange";
-import blue from "../colors/blue";
-import lightBlue from "../colors/lightBlue";
-import green from "../colors/green";
-import { hasOwnKey } from "@yuyi919/shared-types";
 import { MuiError } from "../MuiError";
+import { darken, getContrastRatio, lighten } from "./system";
 // use standalone interface over typeof colors/commons
 // to enable module augmentation
 export interface CommonColors {
@@ -87,7 +86,9 @@ export interface PaletteAugmentColorOptions {
   darkShade?: number | string;
   name?: number | string;
 }
-export type PartialTypeObject = { [P in keyof TypeObject]?: Partial<TypeObject[P]> };
+export type PartialTypeObject = {
+  [P in keyof TypeObject]?: Partial<TypeObject[P]>;
+};
 
 export const light: TypeObject = {
   // The colors used to style the text.
@@ -97,7 +98,7 @@ export const light: TypeObject = {
     // Secondary text.
     secondary: "rgba(0, 0, 0, 0.6)",
     // Disabled text have even lower visual prominence.
-    disabled: "rgba(0, 0, 0, 0.38)"
+    disabled: "rgba(0, 0, 0, 0.38)",
   },
   // The color used to divide different elements.
   divider: "rgba(0, 0, 0, 0.12)",
@@ -105,7 +106,7 @@ export const light: TypeObject = {
   // Consistency between these values is important.
   background: {
     paper: common.white,
-    default: common.white
+    default: common.white,
   },
   // The colors used to style the action elements.
   action: {
@@ -124,8 +125,8 @@ export const light: TypeObject = {
     disabledOpacity: 0.38,
     focus: "rgba(0, 0, 0, 0.12)",
     focusOpacity: 0.12,
-    activatedOpacity: 0.12
-  }
+    activatedOpacity: 0.12,
+  },
 };
 
 export const dark: TypeObject = {
@@ -133,12 +134,12 @@ export const dark: TypeObject = {
     primary: common.white,
     secondary: "rgba(255, 255, 255, 0.7)",
     disabled: "rgba(255, 255, 255, 0.5)",
-    icon: "rgba(255, 255, 255, 0.5)"
+    icon: "rgba(255, 255, 255, 0.5)",
   },
   divider: "rgba(255, 255, 255, 0.12)",
   background: {
     paper: "#121212",
-    default: "#121212"
+    default: "#121212",
   },
   action: {
     active: common.white,
@@ -151,8 +152,8 @@ export const dark: TypeObject = {
     disabledOpacity: 0.38,
     focus: "rgba(255, 255, 255, 0.12)",
     focusOpacity: 0.12,
-    activatedOpacity: 0.24
-  }
+    activatedOpacity: 0.24,
+  },
 };
 const modes = { dark, light };
 
@@ -160,12 +161,13 @@ function addLightOrDark(
   intent: SimplePaletteColorOptions,
   direction: PaletteMode,
   shade: string | number,
-  tonalOffset: PaletteTonalOffset
+  tonalOffset: PaletteTonalOffset,
 ) {
   const tonalOffsetLight =
     (tonalOffset as PaletteTonalOffsetObject).light || (tonalOffset as number);
   const tonalOffsetDark =
-    (tonalOffset as PaletteTonalOffsetObject).dark || (tonalOffset as number) * 1.5;
+    (tonalOffset as PaletteTonalOffsetObject).dark ||
+    (tonalOffset as number) * 1.5;
 
   if (!intent[direction]) {
     if (hasOwnKey(intent, shade + "") as boolean) {
@@ -183,13 +185,13 @@ function getDefaultPrimary(mode = "light"): PaletteColorOptions {
     return {
       main: blue[200],
       light: blue[50],
-      dark: blue[400]
+      dark: blue[400],
     };
   }
   return {
     main: blue[700],
     light: blue[400],
-    dark: blue[800]
+    dark: blue[800],
   };
 }
 
@@ -198,13 +200,13 @@ function getDefaultSecondary(mode = "light"): PaletteColorOptions {
     return {
       main: purple[200],
       light: purple[50],
-      dark: purple[400]
+      dark: purple[400],
     };
   }
   return {
     main: purple[500],
     light: purple[300],
-    dark: purple[700]
+    dark: purple[700],
   };
 }
 
@@ -213,13 +215,13 @@ function getDefaultError(mode = "light"): PaletteColorOptions {
     return {
       main: red[500],
       light: red[300],
-      dark: red[700]
+      dark: red[700],
     };
   }
   return {
     main: red[700],
     light: red[400],
-    dark: red[800]
+    dark: red[800],
   };
 }
 
@@ -228,13 +230,13 @@ function getDefaultInfo(mode = "light"): PaletteColorOptions {
     return {
       main: lightBlue[400],
       light: lightBlue[300],
-      dark: lightBlue[700]
+      dark: lightBlue[700],
     };
   }
   return {
     main: lightBlue[700],
     light: lightBlue[500],
-    dark: lightBlue[900]
+    dark: lightBlue[900],
   };
 }
 
@@ -243,13 +245,13 @@ function getDefaultSuccess(mode = "light"): PaletteColorOptions {
     return {
       main: green[400],
       light: green[300],
-      dark: green[700]
+      dark: green[700],
     };
   }
   return {
     main: green[800],
     light: green[500],
-    dark: green[900]
+    dark: green[900],
   };
 }
 
@@ -258,32 +260,38 @@ function getDefaultWarning(mode = "light"): PaletteColorOptions {
     return {
       main: orange[400],
       light: orange[300],
-      dark: orange[700]
+      dark: orange[700],
     };
   }
   return {
     main: "#ED6C02", // closest to orange[800] that pass 3:1.
     light: orange[500],
-    dark: orange[900]
+    dark: orange[900],
   };
 }
 
-const isSimple = (color: PaletteColorOptions): color is SimplePaletteColorOptions => {
+const isSimple = (
+  color: PaletteColorOptions,
+): color is SimplePaletteColorOptions => {
   return !(color as SimplePaletteColorOptions).main;
 };
 
 const inOptions = (
   color: SimplePaletteColorOptions,
-  shade?: number | string
+  shade?: number | string,
 ): shade is keyof SimplePaletteColorOptions => {
-  return !!(color as SimplePaletteColorOptions)[shade as keyof SimplePaletteColorOptions];
+  return !!(color as SimplePaletteColorOptions)[
+    shade as keyof SimplePaletteColorOptions
+  ];
 };
 
 const __Dev__ = process.env.NODE_ENV !== "production";
 function checkMode(mode: string) {
   if (__Dev__) {
     if (!(mode in modes)) {
-      console.error(`Material-UI: The palette mode \`${mode}\` is not supported.`);
+      console.error(
+        `Material-UI: The palette mode \`${mode}\` is not supported.`,
+      );
     }
   }
 }
@@ -312,18 +320,30 @@ export class Palette {
   mode: PaletteMode = this._options.mode || "light";
   contrastThreshold: number = this._options.contrastThreshold ?? 3;
   tonalOffset: PaletteTonalOffset = this._options.tonalOffset ?? 0.2;
-  primary: PaletteColor = this.augmentColor({ color: this._primary, name: "primary" });
+  primary: PaletteColor = this.augmentColor({
+    color: this._primary,
+    name: "primary",
+  });
   secondary: PaletteColor = this.augmentColor({
     color: this._secondary,
     name: "secondary",
     mainShade: "A400",
     lightShade: "A200",
-    darkShade: "A700"
+    darkShade: "A700",
   });
-  error: PaletteColor = this.augmentColor({ color: this._error, name: "error" });
-  warning: PaletteColor = this.augmentColor({ color: this._warning, name: "warning" });
+  error: PaletteColor = this.augmentColor({
+    color: this._error,
+    name: "error",
+  });
+  warning: PaletteColor = this.augmentColor({
+    color: this._warning,
+    name: "warning",
+  });
   info: PaletteColor = this.augmentColor({ color: this._info, name: "info" });
-  success: PaletteColor = this.augmentColor({ color: this._success, name: "success" });
+  success: PaletteColor = this.augmentColor({
+    color: this._success,
+    name: "success",
+  });
   grey: Color = grey;
   text: TypeText = Palette.getDefaultModeText(this.mode); // modes[this.mode].text;
   divider: TypeDivider = Palette.getDefaultDivider(this.mode); // modes[this.mode].divider;
@@ -336,7 +356,7 @@ export class Palette {
       mainShade = 500,
       lightShade = 300,
       darkShade = 700,
-      color: { ...color }
+      color: { ...color },
     } = options;
     if (isSimple(color) && inOptions(color, mainShade)) {
       color.main = color[mainShade]!;
@@ -347,7 +367,7 @@ export class Palette {
         "Material-UI: The color%s provided to augmentColor(color) is invalid.\n" +
           "The color object needs to have a `main` property or a `%s` property.",
         name ? ` (${name})` : "",
-        mainShade
+        mainShade,
       );
     }
 
@@ -368,7 +388,7 @@ export class Palette {
           "  primary: { main: green[500] },\n" +
           "} });",
         name ? ` (${name})` : "",
-        JSON.stringify(color.main)
+        JSON.stringify(color.main),
       );
     }
 
@@ -394,8 +414,8 @@ export class Palette {
           [
             `Material-UI: The contrast ratio of ${contrast}:1 for ${contrastText} on ${background}`,
             "falls below the WCAG recommended absolute minimum contrast ratio of 3:1.",
-            "https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast"
-          ].join("\n")
+            "https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast",
+          ].join("\n"),
         );
       }
     }
@@ -468,7 +488,12 @@ export function createPalette(options: PaletteOptions) {
  * @internal
  */
 export function unsafe_createPalette(options: PaletteOptions): Palette {
-  const { mode = "light", contrastThreshold = 3, tonalOffset = 0.2, ...other } = options;
+  const {
+    mode = "light",
+    contrastThreshold = 3,
+    tonalOffset = 0.2,
+    ...other
+  } = options;
 
   const primary = options.primary || getDefaultPrimary(mode);
   const secondary = options.secondary || getDefaultSecondary(mode);
@@ -493,8 +518,8 @@ export function unsafe_createPalette(options: PaletteOptions): Palette {
           [
             `Material-UI: The contrast ratio of ${contrast}:1 for ${contrastText} on ${background}`,
             "falls below the WCAG recommended absolute minimum contrast ratio of 3:1.",
-            "https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast"
-          ].join("\n")
+            "https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast",
+          ].join("\n"),
         );
       }
     }
@@ -507,7 +532,7 @@ export function unsafe_createPalette(options: PaletteOptions): Palette {
     name,
     mainShade = 500,
     lightShade = 300,
-    darkShade = 700
+    darkShade = 700,
   }: PaletteAugmentColorOptions) => {
     color = { ...color };
     if (isSimple(color) && inOptions(color, mainShade)) {
@@ -519,7 +544,7 @@ export function unsafe_createPalette(options: PaletteOptions): Palette {
         "Material-UI: The color%s provided to augmentColor(color) is invalid.\n" +
           "The color object needs to have a `main` property or a `%s` property.",
         name ? ` (${name})` : "",
-        mainShade
+        mainShade,
       );
     }
 
@@ -540,7 +565,7 @@ export function unsafe_createPalette(options: PaletteOptions): Palette {
           "  primary: { main: green[500] },\n" +
           "} });",
         name ? ` (${name})` : "",
-        JSON.stringify(color.main)
+        JSON.stringify(color.main),
       );
     }
 
@@ -555,7 +580,9 @@ export function unsafe_createPalette(options: PaletteOptions): Palette {
 
   if (__Dev__) {
     if (!modes[mode]) {
-      console.error(`Material-UI: The palette mode \`${mode}\` is not supported.`);
+      console.error(
+        `Material-UI: The palette mode \`${mode}\` is not supported.`,
+      );
     }
   }
 
@@ -573,7 +600,7 @@ export function unsafe_createPalette(options: PaletteOptions): Palette {
         name: "secondary",
         mainShade: "A400",
         lightShade: "A200",
-        darkShade: "A700"
+        darkShade: "A700",
       }),
       // The colors used to represent interface elements that the user should be made aware of.
       error: augmentColor({ color: error, name: "error" }),
@@ -597,9 +624,9 @@ export function unsafe_createPalette(options: PaletteOptions): Palette {
       // E.g., shift from Red 500 to Red 300 or Red 700.
       tonalOffset,
       // The light and dark mode object.
-      ...modes[mode]
+      ...modes[mode],
     },
-    other
+    other,
   ) as Palette;
   return paletteOutput;
 }

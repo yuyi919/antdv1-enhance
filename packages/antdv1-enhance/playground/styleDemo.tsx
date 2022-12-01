@@ -1,5 +1,5 @@
-import { defineComponent } from "vue-demi";
 import { createUseStyles } from "@yuyi919/vue-jss";
+import { defineComponent } from "vue-demi";
 
 const useStyles = createUseStyles({
   parent: {

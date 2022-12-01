@@ -51,7 +51,12 @@ export function isNumber(val: unknown): val is number {
 }
 
 export function isPromise<T = any>(val: unknown): val is Promise<T> {
-  return is(val, "Promise") && isObject(val) && isFunction(val.then) && isFunction(val.catch);
+  return (
+    is(val, "Promise") &&
+    isObject(val) &&
+    isFunction(val.then) &&
+    isFunction(val.catch)
+  );
 }
 
 export function isString(val: unknown): val is string {
@@ -90,13 +95,15 @@ export function isImageDom(o: Element) {
   return o && ["IMAGE", "IMG"].includes(o.tagName);
 }
 
-export function isTextarea(element: Element | null): element is HTMLTextAreaElement {
+export function isTextarea(
+  element: Element | null,
+): element is HTMLTextAreaElement {
   return element !== null && element.tagName.toLowerCase() === "textarea";
 }
 
 export function isMobile(): boolean {
   return !!navigator.userAgent.match(
-    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+    /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i,
   );
 }
 

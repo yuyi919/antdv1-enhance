@@ -1,1 +1,1 @@
-export * from './generateUtilityClass';
+export * from "./generateUtilityClass";

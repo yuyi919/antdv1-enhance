@@ -12,7 +12,9 @@ function prefix(name: string, mods: string): string {
   return join(name, mods, MODS);
 }
 
-export function createBEM(name: string): (el?: string, mods?: string) => string {
+export function createBEM(
+  name: string,
+): (el?: string, mods?: string) => string {
   if (createBEM.cache[name]) return createBEM.cache[name];
   function getBem(el: string = "", mods?: string): string {
     const keyword = mods ? el + "|" + mods : el;

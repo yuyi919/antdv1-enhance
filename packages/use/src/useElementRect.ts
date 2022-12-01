@@ -1,10 +1,10 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-expressions */
-import { reactive, Ref, ref, watch, onBeforeUnmount } from "vue-demi";
+import { onBeforeUnmount, reactive, Ref, ref, watch } from "vue-demi";
 import { addResizeListener, removeResizeListener } from "./resizeHandler";
 
 export function useElementRect<El extends HTMLElement>(
-  elRef: Ref<El | null> = ref<El | null>(null) as Ref<El>
+  elRef: Ref<El | null> = ref<El | null>(null) as Ref<El>,
 ) {
   const rect = reactive<RectConfig>({
     top: 0,
@@ -33,7 +33,7 @@ export function useElementRect<El extends HTMLElement>(
         }
       }
     },
-    { immediate: true }
+    { immediate: true },
   );
   onBeforeUnmount(() => {
     elRef.value && removeResizeListener(elRef.value, update);
@@ -42,7 +42,8 @@ export function useElementRect<El extends HTMLElement>(
 }
 
 export function getElementRect(el: HTMLElement) {
-  const { top, bottom, left, right, height, width, y, x } = el.getClientRects()[0] || {};
+  const { top, bottom, left, right, height, width, y, x } =
+    el.getClientRects()[0] || {};
   return { top, bottom, left, right, height, width, y, x };
 }
 export type RectConfig = ReturnType<typeof getElementRect>;

@@ -3,7 +3,11 @@ import { castArray } from "lodash";
 // function defaultCastToArray(key: string) {
 //   return key;
 // }
-export type IObject2Array<T> = (target: any, targetKey?: string, arr?: T[]) => T | T[];
+export type IObject2Array<T> = (
+  target: any,
+  targetKey?: string,
+  arr?: T[],
+) => T | T[];
 
 /**
  * 常用组装props
@@ -37,7 +41,7 @@ export type IObject2Array<T> = (target: any, targetKey?: string, arr?: T[]) => T
 export function convertArrayProps<T, Target>(
   obj: Object | T | T[],
   obj2Array?: IObject2Array<Target>,
-  deepLimit = 0
+  deepLimit = 0,
 ): Target[] {
   const input = [obj];
   const r: Target[] = [];
@@ -57,7 +61,9 @@ export function convertArrayProps<T, Target>(
     } else if (target instanceof Object) {
       if (!allowContinue) {
         r.push(
-          ...((obj2Array ? castArray(obj2Array(target)) : defaultObject2Array(target)) as Target[])
+          ...((obj2Array
+            ? castArray(obj2Array(target))
+            : defaultObject2Array(target)) as Target[]),
         );
       } else if (target instanceof Array) {
         nextLevelSize.push(target.length);
@@ -75,12 +81,17 @@ export function convertArrayProps<T, Target>(
 }
 // @ts-ignore
 // window.convertArrayProps = convertArrayProps
-function defaultObject2Array<T>(obj: Record<string, any>, obj2Array?: IObject2Array<T>): T[] {
+function defaultObject2Array<T>(
+  obj: Record<string, any>,
+  obj2Array?: IObject2Array<T>,
+): T[] {
   return Object.keys(obj).reduce((arr: any[], key) => {
     if (obj2Array) {
       // key的value值为true则返回这个key, !value则为返回false
       const r =
-        obj[key] === true ? obj2Array(key) : (obj[key] && obj2Array(obj[key], key, arr)) || false;
+        obj[key] === true
+          ? obj2Array(key)
+          : (obj[key] && obj2Array(obj[key], key, arr)) || false;
       if (r !== false) {
         arr.push(...castArray(r));
       }
@@ -102,7 +113,7 @@ function defaultObject2Array<T>(obj: Record<string, any>, obj2Array?: IObject2Ar
  */
 export function trueOrArrayProps<T, Input = any>(
   target: T[] | boolean | Object,
-  defaultValue: any
+  defaultValue: any,
 ): any {
   return target === true
     ? defaultValue

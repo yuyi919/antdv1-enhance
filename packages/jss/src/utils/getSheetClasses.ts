@@ -1,11 +1,11 @@
-import type { StyleSheet, Classes } from "jss";
+import type { Classes, StyleSheet } from "jss";
 import type { DynamicRules } from "../types";
 import { getMeta } from "./sheetsMeta";
 
 const getSheetClasses = (
   sheet: StyleSheet,
   dynamicRules: DynamicRules,
-  keyMap?: Record<string, string>
+  keyMap?: Record<string, string>,
 ) => {
   if (!dynamicRules) {
     return sheet.classes;

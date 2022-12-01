@@ -1,5 +1,5 @@
 import { createTheme } from "..";
-import { createTransitions, easing, duration } from "../createTransitions";
+import { createTransitions, duration, easing } from "../createTransitions";
 
 describe("createTransitions", () => {
   const transitons = createTransitions({ a: 1 });
@@ -14,7 +14,9 @@ describe("createTransitions", () => {
         },
       },
     });
-    expect(theme.transitions.create("color")).toBe(`color 432ms ${easing.easeInOut} 0ms`);
+    expect(theme.transitions.create("color")).toBe(
+      `color 432ms ${easing.easeInOut} 0ms`,
+    );
   });
 
   describe("create() function", () => {
@@ -22,44 +24,44 @@ describe("createTransitions", () => {
       it("should warn when first argument is of bad type", () => {
         // @ts-expect-error
         expect(() => create(5554)).toErrorDev(
-          'Material-UI: Argument "props" must be a string or Array'
+          'Material-UI: Argument "props" must be a string or Array',
         );
         // @ts-expect-error
         expect(() => create({})).toErrorDev(
-          'Material-UI: Argument "props" must be a string or Array'
+          'Material-UI: Argument "props" must be a string or Array',
         );
       });
 
       it('should warn when bad "duration" option type', () => {
         expect(() => create("font", { duration: void 0 })).toErrorDev(
-          'Material-UI: Argument "duration" must be a number or a string but found null'
+          'Material-UI: Argument "duration" must be a number or a string but found null',
         );
         expect(() => create("font", { duration: {} as any })).toErrorDev(
-          'Material-UI: Argument "duration" must be a number or a string but found [object Object]'
+          'Material-UI: Argument "duration" must be a number or a string but found [object Object]',
         );
       });
 
       it('should warn when bad "easing" option type', () => {
         expect(() => create("transform", { easing: 123 as any })).toErrorDev(
-          'Material-UI: Argument "easing" must be a string'
+          'Material-UI: Argument "easing" must be a string',
         );
         expect(() => create("transform", { easing: {} as any })).toErrorDev(
-          'Material-UI: Argument "easing" must be a string'
+          'Material-UI: Argument "easing" must be a string',
         );
       });
 
       it('should warn when bad "delay" option type', () => {
         expect(() => create("size", { delay: void 0 })).toErrorDev(
-          'Material-UI: Argument "delay" must be a number or a string'
+          'Material-UI: Argument "delay" must be a number or a string',
         );
         expect(() => create("size", { delay: {} as any })).toErrorDev(
-          'Material-UI: Argument "delay" must be a number or a string'
+          'Material-UI: Argument "delay" must be a number or a string',
         );
       });
 
       it("should warn when passed unrecognized option", () => {
         expect(() => create("size", { fffds: "value" } as any)).toErrorDev(
-          "Material-UI: Unrecognized argument(s) [fffds]"
+          "Material-UI: Unrecognized argument(s) [fffds]",
         );
       });
     });
@@ -67,12 +69,16 @@ describe("createTransitions", () => {
     it("should create default transition without arguments", () => {
       //@ts-expect-error
       const transition = create();
-      expect(transition).toBe(`all ${duration.standard}ms ${easing.easeInOut} 0ms`);
+      expect(transition).toBe(
+        `all ${duration.standard}ms ${easing.easeInOut} 0ms`,
+      );
     });
 
     it("should take string props as a first argument", () => {
       const transition = create("color");
-      expect(transition).toBe(`color ${duration.standard}ms ${easing.easeInOut} 0ms`);
+      expect(transition).toBe(
+        `color ${duration.standard}ms ${easing.easeInOut} 0ms`,
+      );
     });
 
     it("should also take array of props as first argument", () => {
@@ -101,22 +107,30 @@ describe("createTransitions", () => {
 
     it('should optionally accept string "easing" option in second argument', () => {
       const transition = create("transform", { easing: easing.sharp });
-      expect(transition).toBe(`transform ${duration.standard}ms ${easing.sharp} 0ms`);
+      expect(transition).toBe(
+        `transform ${duration.standard}ms ${easing.sharp} 0ms`,
+      );
     });
 
     it('should optionally accept number "delay" option in second argument', () => {
       const transition = create("size", { delay: 150 });
-      expect(transition).toBe(`size ${duration.standard}ms ${easing.easeInOut} 150ms`);
+      expect(transition).toBe(
+        `size ${duration.standard}ms ${easing.easeInOut} 150ms`,
+      );
     });
 
     it('should optionally accept string "delay" option in second argument', () => {
       const transition = create("size", { delay: "150ms" });
-      expect(transition).toBe(`size ${duration.standard}ms ${easing.easeInOut} 150ms`);
+      expect(transition).toBe(
+        `size ${duration.standard}ms ${easing.easeInOut} 150ms`,
+      );
     });
 
     it('should round decimal digits of "delay" prop to whole numbers', () => {
       const transition = create("size", { delay: 1.547 });
-      expect(transition).toBe(`size ${duration.standard}ms ${easing.easeInOut} 2ms`);
+      expect(transition).toBe(
+        `size ${duration.standard}ms ${easing.easeInOut} 2ms`,
+      );
     });
 
     it("should return zero when not passed arguments", () => {

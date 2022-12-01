@@ -1,18 +1,38 @@
 const isServer = typeof window === "undefined";
 /* istanbul ignore next */
 export const on: {
-  (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions): void;
-  (element: HTMLElement | Document, event: string, handler: (e: any) => void, options?: boolean | AddEventListenerOptions): void;
+  (
+    element: HTMLElement | Document,
+    event: string,
+    handler: EventListener,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  (
+    element: HTMLElement | Document,
+    event: string,
+    handler: (e: any) => void,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
 } = (() => {
   //@ts-ignore
   if (!isServer && document.addEventListener) {
-    return function (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions) {
+    return function (
+      element: HTMLElement | Document,
+      event: string,
+      handler: EventListener,
+      options?: boolean | AddEventListenerOptions,
+    ) {
       if (element && event && handler) {
         element.addEventListener(event, handler, options ?? false);
       }
     };
   } else {
-    return function (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions) {
+    return function (
+      element: HTMLElement | Document,
+      event: string,
+      handler: EventListener,
+      options?: boolean | AddEventListenerOptions,
+    ) {
       if (element && event && handler) {
         (element as any).attachEvent("on" + event, handler, options);
       }
@@ -22,18 +42,38 @@ export const on: {
 
 /* istanbul ignore next */
 export const off: {
-  (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions): void;
-  (element: HTMLElement | Document, event: string, handler: (e: any) => void, options?: boolean | AddEventListenerOptions): void;
+  (
+    element: HTMLElement | Document,
+    event: string,
+    handler: EventListener,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  (
+    element: HTMLElement | Document,
+    event: string,
+    handler: (e: any) => void,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
 } = (() => {
   //@ts-ignore
   if (!isServer && document.removeEventListener) {
-    return function (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions) {
+    return function (
+      element: HTMLElement | Document,
+      event: string,
+      handler: EventListener,
+      options?: boolean | AddEventListenerOptions,
+    ) {
       if (element && event) {
         element.removeEventListener(event, handler, options ?? false);
       }
     };
   } else {
-    return function (element: HTMLElement | Document, event: string, handler: EventListener, options?: boolean | AddEventListenerOptions) {
+    return function (
+      element: HTMLElement | Document,
+      event: string,
+      handler: EventListener,
+      options?: boolean | AddEventListenerOptions,
+    ) {
       if (element && event) {
         (element as any).detachEvent("on" + event, handler, options);
       }
@@ -41,10 +81,22 @@ export const off: {
   }
 })();
 
-export function once(el: HTMLElement | Document, event: string, fn: EventListener): void;
-export function once(el: HTMLElement | Document, event: string, fn: (e: any) => void): void;
+export function once(
+  el: HTMLElement | Document,
+  event: string,
+  fn: EventListener,
+): void;
+export function once(
+  el: HTMLElement | Document,
+  event: string,
+  fn: (e: any) => void,
+): void;
 /* istanbul ignore next */
-export function once(el: HTMLElement | Document, event: string, fn: EventListener) {
+export function once(
+  el: HTMLElement | Document,
+  event: string,
+  fn: EventListener,
+) {
   function listener(this: any, e: Event) {
     if (fn) {
       fn.call(this, e);
@@ -121,7 +173,8 @@ export function getScrollBarSize(fresh?: boolean) {
 
 export function switchScrollingEffect(close?: boolean) {
   const bodyIsOverflowing =
-    document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight) &&
+    document.body.scrollHeight >
+      (window.innerHeight || document.documentElement.clientHeight) &&
     window.innerWidth > document.body.offsetWidth;
   if (!bodyIsOverflowing) {
     return;

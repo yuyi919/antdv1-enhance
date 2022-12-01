@@ -1,20 +1,20 @@
 import { useBreakpoints } from "@yuyi919/vue-use";
 import {
+  Calendar,
+  Cascader,
+  Checkbox,
   DatePicker,
   Icon,
-  InputNumber,
-  Select,
   Input,
-  Checkbox,
-  TimePicker,
-  Calendar,
-  TreeSelect,
+  InputNumber,
   Radio,
-  Cascader,
+  Select,
   Switch,
+  TimePicker,
+  TreeSelect,
 } from "ant-design-vue";
 import { defineComponent, ref, watch } from "vue-demi";
-import { FormLayout, SmartGrid, GridColumn } from "../../src";
+import { FormLayout, SmartGrid } from "../../src";
 import Demo from "../demo.vue";
 
 const CheckCircleFilled = defineComponent({
@@ -36,7 +36,10 @@ const Components: any = {
   Checkbox,
   DatePicker,
   "DatePicker.RangePicker": DatePicker.RangePicker,
-  "DatePicker.YearPicker": { mixins: [DatePicker], props: { mode: { default: "year" } } },
+  "DatePicker.YearPicker": {
+    mixins: [DatePicker],
+    props: { mode: { default: "year" } },
+  },
   "DatePicker.MonthPicker": DatePicker.MonthPicker,
   TimePicker,
   Calendar,
@@ -74,7 +77,11 @@ const SchemaField = {
           <Tag
             mergeJsxProps={[
               {
-                props: { label: props.title, helper: props.description, asterisk: props.required },
+                props: {
+                  label: props.title,
+                  helper: props.description,
+                  asterisk: props.required,
+                },
               },
               { props: props.xDecoratorProps },
             ]}
@@ -108,7 +115,11 @@ const SchemaField = {
         if (!Tag) {
           return content;
         }
-        return <Tag mergeJsxProps={[{ props: props.xDecoratorProps }]}>{content}</Tag>;
+        return (
+          <Tag mergeJsxProps={[{ props: props.xDecoratorProps }]}>
+            {content}
+          </Tag>
+        );
       };
     },
   }),
@@ -124,9 +135,13 @@ export const FormDemo = defineComponent({
       xl: 1200,
       xxl: 1600,
     }).between("sm", "lg");
-    watch(matches, matched => {
-      console.log("matched", matched)
-    }, { immediate: true });
+    watch(
+      matches,
+      (matched) => {
+        console.log("matched", matched);
+      },
+      { immediate: true },
+    );
     const pending = ref(true);
     return () => {
       return (
@@ -162,7 +177,7 @@ export const FormDemo = defineComponent({
                 x-decorator-props={{
                   inset: true,
                   feedbackStatus: "warning",
-                  feedbackText: "warning text"
+                  feedbackText: "warning text",
                 }}
               />
               <SchemaField.String
@@ -217,7 +232,10 @@ export const FormDemo = defineComponent({
               />
             </FormLayout>
           </Demo>
-          <Demo title="常用属性案例" desc="可通过feedbackIcon传入指定反馈的按钮">
+          <Demo
+            title="常用属性案例"
+            desc="可通过feedbackIcon传入指定反馈的按钮"
+          >
             <FormLayout>
               <SchemaField.Void
                 x-component="Title"
@@ -238,8 +256,15 @@ export const FormDemo = defineComponent({
                   labelWidth: 300,
                 }}
               />
-              <SchemaField.Void x-component="Title" x-component-props={{ text: "冒号" }} />
-              <SchemaField.String title="默认" x-decorator="FormItem" x-component="Input" />
+              <SchemaField.Void
+                x-component="Title"
+                x-component-props={{ text: "冒号" }}
+              />
+              <SchemaField.String
+                title="默认"
+                x-decorator="FormItem"
+                x-component="Input"
+              />
               <SchemaField.String
                 title="无冒号(colon=false)"
                 x-decorator="FormItem"
@@ -249,7 +274,10 @@ export const FormDemo = defineComponent({
                 }}
               />
 
-              <SchemaField.Void x-component="Title" x-component-props={{ text: "固定宽度设置" }} />
+              <SchemaField.Void
+                x-component="Title"
+                x-component-props={{ text: "固定宽度设置" }}
+              />
               <SchemaField.String
                 title="固定label宽度(labelWidth)"
                 x-decorator="FormItem"
@@ -329,7 +357,10 @@ export const FormDemo = defineComponent({
                 }}
               />
 
-              <SchemaField.Void x-component="Title" x-component-props={{ text: "对齐方式设置" }} />
+              <SchemaField.Void
+                x-component="Title"
+                x-component-props={{ text: "对齐方式设置" }}
+              />
               <SchemaField.String
                 title="label左对齐(labelAlign=left)"
                 x-decorator="FormItem"
@@ -370,7 +401,10 @@ export const FormDemo = defineComponent({
                 }}
               />
 
-              <SchemaField.Void x-component="Title" x-component-props={{ text: "是否撑满" }} />
+              <SchemaField.Void
+                x-component="Title"
+                x-component-props={{ text: "是否撑满" }}
+              />
 
               <SchemaField.String
                 title="默认不撑满(fullness=false)"
@@ -386,7 +420,10 @@ export const FormDemo = defineComponent({
                 }}
               />
 
-              <SchemaField.Void x-component="Title" x-component-props={{ text: "辅助信息" }} />
+              <SchemaField.Void
+                x-component="Title"
+                x-component-props={{ text: "辅助信息" }}
+              />
 
               <SchemaField.String
                 title="必填星号"
@@ -455,11 +492,23 @@ export const FormDemo = defineComponent({
               />
             </FormLayout>
           </Demo>
-          <Demo title="切换pending状态" desc="可通过feedbackIcon传入指定反馈的按钮">
-            <Checkbox vModel={{ value: pending.value, callback: (e) => (pending.value = e) }}>
+          <Demo
+            title="切换pending状态"
+            desc="可通过feedbackIcon传入指定反馈的按钮"
+          >
+            <Checkbox
+              vModel={{
+                value: pending.value,
+                callback: (e) => (pending.value = e),
+              }}
+            >
               切换pending状态
             </Checkbox>
-            <FormLayout layout="horizontal" labelAlign="right" feedbackLayout="loose">
+            <FormLayout
+              layout="horizontal"
+              labelAlign="right"
+              feedbackLayout="loose"
+            >
               <SchemaField.String
                 title="加载状态(feedbackStatus=pending)"
                 x-decorator="FormItem"
@@ -476,8 +525,15 @@ export const FormDemo = defineComponent({
               />
             </FormLayout>
           </Demo>
-          <Demo title="组件适配情况" desc="可通过feedbackIcon传入指定反馈的按钮">
-            <FormLayout layout="horizontal" labelAlign="right" feedbackLayout="loose">
+          <Demo
+            title="组件适配情况"
+            desc="可通过feedbackIcon传入指定反馈的按钮"
+          >
+            <FormLayout
+              layout="horizontal"
+              labelAlign="right"
+              feedbackLayout="loose"
+            >
               <SmartGrid maxColumns={1}>
                 <SchemaField.String
                   title="错误状态(feedbackStatus=error)"
@@ -518,7 +574,9 @@ export const FormDemo = defineComponent({
                   description="description"
                   x-decorator-props={{
                     feedbackStatus: "pending",
-                    feedbackIcon: <LoadingOutlined style={{ color: "#1890ff" }} />,
+                    feedbackIcon: (
+                      <LoadingOutlined style={{ color: "#1890ff" }} />
+                    ),
                   }}
                 />
 

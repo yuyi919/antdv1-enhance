@@ -1,17 +1,14 @@
 export * from "./createUseStyles";
 export * from "./createUseStylesHook";
-
-// TODO:
-export { default as JssProvider } from "./JssProvider";
-
-export * from "./jss";
-
-export * from "./theming";
 export * from "./Factory";
 export * from "./hooks";
+export * from "./jss";
+// TODO:
+export { default as JssProvider } from "./JssProvider";
 export * from "./styles";
-export * from "./types";
 export * from "./theming";
+export * from "./types";
+
 // import { default as jss } from "./jss";
 // import stt from "./helper/merge"
 // // JSS Setup

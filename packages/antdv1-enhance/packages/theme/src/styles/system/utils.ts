@@ -8,13 +8,17 @@ import { MuiError } from "../../MuiError";
 // We only handle the first word.
 export function unstable_capitalize(string?: string) {
   if (typeof string !== "string") {
-    throw new MuiError("Material-UI: `capitalize(string)` expects a string argument.");
+    throw new MuiError(
+      "Material-UI: `capitalize(string)` expects a string argument.",
+    );
   }
 
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function isPlainObject(item?: unknown): item is Record<keyof any, unknown> {
+export function isPlainObject(
+  item?: unknown,
+): item is Record<keyof any, unknown> {
   return (
     item !== null &&
     typeof item === "object" &&
@@ -30,7 +34,7 @@ export interface DeepmergeOptions {
 export function deepmerge<T>(
   target: T,
   source: unknown,
-  options: DeepmergeOptions = { clone: true }
+  options: DeepmergeOptions = { clone: true },
 ): T {
   const output = options.clone ? { ...target } : target;
 
@@ -41,9 +45,17 @@ export function deepmerge<T>(
         return;
       }
 
-      if (isPlainObject(source[key]) && key in target && isPlainObject(target[key])) {
+      if (
+        isPlainObject(source[key]) &&
+        key in target &&
+        isPlainObject(target[key])
+      ) {
         // Since `output` is a clone of `target` and we have narrowed `target` in this block we can cast to the same type.
-        (output as Record<keyof any, unknown>)[key] = deepmerge(target[key], source[key], options);
+        (output as Record<keyof any, unknown>)[key] = deepmerge(
+          target[key],
+          source[key],
+          options,
+        );
       } else {
         (output as Record<keyof any, unknown>)[key] = source[key];
       }
@@ -57,12 +69,16 @@ export interface DeepmergeClsOptions {
   clone?: boolean;
   root?: boolean;
 }
-export function deepmergeCls<T extends Record<string, any>, R extends Record<string, any>>(
+export function deepmergeCls<
+  T extends Record<string, any>,
+  R extends Record<string, any>,
+>(
   target: T,
   source: R,
-  options: DeepmergeClsOptions = { clone: true, root: true }
+  options: DeepmergeClsOptions = { clone: true, root: true },
 ): T & R {
-  const output = isPlainObject(target) && options.clone ? { ...target } : target;
+  const output =
+    isPlainObject(target) && options.clone ? { ...target } : target;
 
   if (target && source instanceof Object) {
     source as Record<string, any>;
@@ -71,12 +87,20 @@ export function deepmergeCls<T extends Record<string, any>, R extends Record<str
       if (key === "__proto__") {
         return;
       }
-      if (source[key] instanceof Object && key in target && target[key] instanceof Object) {
+      if (
+        source[key] instanceof Object &&
+        key in target &&
+        target[key] instanceof Object
+      ) {
         // Since `output` is a clone of `target` and we have narrowed `target` in this block we can cast to the same type.
-        (output as Record<keyof any, unknown>)[key] = deepmergeCls(target[key], source[key], {
-          ...options,
-          root: false
-        });
+        (output as Record<keyof any, unknown>)[key] = deepmergeCls(
+          target[key],
+          source[key],
+          {
+            ...options,
+            root: false,
+          },
+        );
       } else {
         (output as Record<keyof any, unknown>)[key] = source[key];
       }
@@ -90,5 +114,7 @@ export function getPath(obj: any, path?: string) {
     return null;
   }
 
-  return path.split(".").reduce((acc, item) => (acc && acc[item] ? acc[item] : null), obj);
+  return path
+    .split(".")
+    .reduce((acc, item) => (acc && acc[item] ? acc[item] : null), obj);
 }

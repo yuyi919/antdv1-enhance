@@ -1,14 +1,18 @@
-import { convertArr2Map } from "@yuyi919/shared-utils";
-import type { IKeyValueMap } from "@yuyi919/shared-types";
 import { HookFactory, useHookFactory } from "@yuyi919/antdv1-plus-helper";
-import { watch, SetupContext } from "vue-demi";
+import type { IKeyValueMap } from "@yuyi919/shared-types";
+import { convertArr2Map } from "@yuyi919/shared-utils";
+import { SetupContext, watch } from "vue-demi";
 import { SpinningProps } from "./props";
 
 export class SpinningHook extends HookFactory<SpinningProps> {
   constructor(context: SetupContext, props: SpinningProps) {
     super(context, props);
-    watch(() => this.localSpinning!, this.onSpinningUpdated.bind(this), { immediate: true });
-    watch(() => this.props.spinning!, this.setSpinning.bind(this), { immediate: true });
+    watch(() => this.localSpinning!, this.onSpinningUpdated.bind(this), {
+      immediate: true,
+    });
+    watch(() => this.props.spinning!, this.setSpinning.bind(this), {
+      immediate: true,
+    });
   }
 
   public localSpinning = false;
@@ -43,7 +47,7 @@ export class ActionSpinningHook extends SpinningHook {
     watch(
       () => this.actionSpinning,
       (spinning) => this.toggleSpinning(spinning),
-      { immediate: true }
+      { immediate: true },
     );
   }
   public $install() {}
@@ -59,10 +63,15 @@ export class ActionSpinningHook extends SpinningHook {
   /** 不会进入spinning识别的code */
   public spinningWhiteList?: string[];
   public get spinningWhiteMap(): IKeyValueMap<boolean> {
-    return (this.spinningWhiteList && convertArr2Map(this.spinningWhiteList)) || {};
+    return (
+      (this.spinningWhiteList && convertArr2Map(this.spinningWhiteList)) || {}
+    );
   }
   public isActionSpinning(actionName: string, strict = false) {
-    return this.spinningActionMap[actionName] || (!strict && this.spinningActionMap[actionName]);
+    return (
+      this.spinningActionMap[actionName] ||
+      (!strict && this.spinningActionMap[actionName])
+    );
   }
   public get spinningAction(): string[] {
     const r: string[] = [];

@@ -8,13 +8,15 @@ export interface BreakpointOverrides {
 }
 
 export type BreakpointCore = "xs" | "sm" | "md" | "lg" | "xl";
-export type Breakpoint = OverridableStringUnion<BreakpointCore, BreakpointOverrides>;
+export type Breakpoint = OverridableStringUnion<
+  BreakpointCore,
+  BreakpointOverrides
+>;
 export const keys: Breakpoint[] = ["xs", "sm", "md", "lg", "xl"];
 
 export type BreakPointRecord = {
   [key in BreakpointCore]: number;
-} &
-  { [key in Exclude<Breakpoint, BreakpointCore>]?: number };
+} & { [key in Exclude<Breakpoint, BreakpointCore>]?: number };
 
 export interface Breakpoints {
   /**
@@ -44,7 +46,9 @@ export type BreakpointsOptions = Partial<
   values?: Partial<BreakPointRecord>;
 };
 
-export function setupBreakpoints(values?: Partial<BreakPointRecord>): BreakPointRecord {
+export function setupBreakpoints(
+  values?: Partial<BreakPointRecord>,
+): BreakPointRecord {
   if (!values) return defaultBreakPoint;
   const result = { ...values } as BreakPointRecord;
   for (const key in values) {
@@ -67,14 +71,18 @@ export function createBreakpoints(options: BreakpointsOptions): Breakpoints {
 
   function up(key: Breakpoint | number) {
     const value = (
-      typeof values[key as Breakpoint] === "number" ? values[key as Breakpoint] : key
+      typeof values[key as Breakpoint] === "number"
+        ? values[key as Breakpoint]
+        : key
     ) as number;
     return `@media (min-width:${value}${unit})`;
   }
 
   function down(key: Breakpoint | number) {
     const value = (
-      typeof values[key as Breakpoint] === "number" ? values[key as Breakpoint] : key
+      typeof values[key as Breakpoint] === "number"
+        ? values[key as Breakpoint]
+        : key
     ) as number;
     return `@media (max-width:${value - step / 100}${unit})`;
   }
@@ -84,10 +92,13 @@ export function createBreakpoints(options: BreakpointsOptions): Breakpoints {
 
     return (
       `@media (min-width:${
-        typeof values[start as Breakpoint] === "number" ? values[start as Breakpoint] : start
+        typeof values[start as Breakpoint] === "number"
+          ? values[start as Breakpoint]
+          : start
       }${unit}) and ` +
       `(max-width:${
-        ((endIndex !== -1 && typeof values[keys[endIndex] as Breakpoint] === "number"
+        ((endIndex !== -1 &&
+        typeof values[keys[endIndex] as Breakpoint] === "number"
           ? values[keys[endIndex] as Breakpoint]
           : end) as number) -
         step / 100

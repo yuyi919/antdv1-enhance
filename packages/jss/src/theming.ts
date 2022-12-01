@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import warning from "tiny-warning";
-import { computed, defineComponent, inject, PropType, provide, Ref, ref } from "vue-demi";
+import {
+  computed,
+  defineComponent,
+  inject,
+  PropType,
+  provide,
+  Ref,
+  ref,
+} from "vue-demi";
 import isObject from "./utils/is-object";
 type ThemeFunction<Theme> = (outerTheme: Theme) => Theme;
 
@@ -16,7 +24,7 @@ export interface Theming<Theme> {
 
 export function createTheming<Theme>(
   contextKey: Symbol | string,
-  defaultTheme: Theme
+  defaultTheme: Theme,
 ): Theming<Theme> {
   const ThemeProvider = defineComponent({
     props: {
@@ -38,14 +46,17 @@ export function createTheming<Theme>(
 
           warning(
             isObject(theme),
-            "[ThemeProvider] Please return an object from your theme function"
+            "[ThemeProvider] Please return an object from your theme function",
           );
         } else {
           theme =
             outerTheme && outerTheme!.value
               ? { ...(outerTheme!.value as any), ...(pt as any) }
               : pt;
-          warning(isObject(theme), "[ThemeProvider] Please make your theme prop a plain object");
+          warning(
+            isObject(theme),
+            "[ThemeProvider] Please make your theme prop a plain object",
+          );
         }
 
         return theme;
@@ -58,8 +69,11 @@ export function createTheming<Theme>(
   });
 
   const useTheme = (): Ref<Theme> => {
-    const theme: Ref<Theme> = inject(contextKey, ref(defaultTheme) as Ref<Theme>);
-    console.log("useTheme", theme)
+    const theme: Ref<Theme> = inject(
+      contextKey,
+      ref(defaultTheme) as Ref<Theme>,
+    );
+    console.log("useTheme", theme);
     return theme;
   };
 
@@ -72,5 +86,5 @@ export function createTheming<Theme>(
 
 export const { ThemeProvider, useTheme } = createTheming<any>(
   "__vue_jss_provide_key__",
-  defaultTheme
+  defaultTheme,
 );

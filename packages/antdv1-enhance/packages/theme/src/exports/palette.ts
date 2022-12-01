@@ -2,23 +2,23 @@
  * @package Palette
  */
 /* eslint-disable no-redeclare */
-import { Getter } from "./interface";
-import type { ThemeProps, Theme } from "../styled/provider";
 import {
-  primaryColor as _primaryColor,
-  infoColor as _infoColor,
-  successColor as _successColor,
-  processingColor as _processingColor,
+  black as _black,
   errorColor as _errorColor,
   highlightColor as _highlightColor,
-  warningColor as _warningColor,
+  infoColor as _infoColor,
   normalColor as _normalColor,
-  white as _white,
-  black as _black,
-  secondColor as _secondColor,
   primary as _primary,
+  primaryColor as _primaryColor,
+  processingColor as _processingColor,
   second as _second,
+  secondColor as _secondColor,
+  successColor as _successColor,
+  warningColor as _warningColor,
+  white as _white,
 } from "../../exports/palette.module.less";
+import type { Theme } from "../styled/provider";
+import { Getter } from "./interface";
 
 export interface IPalette {
   /**
@@ -122,16 +122,22 @@ export const secondColor: IPalette["secondColor"] = _secondColor;
 /**
  * @name @primary
  */
-export const primary: IPalette["primary"] = _primary.split(",").map((v) => v.trim());
+export const primary: IPalette["primary"] = _primary
+  .split(",")
+  .map((v) => v.trim());
 /**
  * @name @second
  */
-export const second: IPalette["second"] = _second.split(",").map((v) => v.trim());
+export const second: IPalette["second"] = _second
+  .split(",")
+  .map((v) => v.trim());
 
 /**
  * @name 取得变量primary-color
  */
-export function usePalette(name: "primaryColor"): Getter<IPalette["primaryColor"]>;
+export function usePalette(
+  name: "primaryColor",
+): Getter<IPalette["primaryColor"]>;
 /**
  * @name 取得变量info-color
  */
@@ -139,11 +145,15 @@ export function usePalette(name: "infoColor"): Getter<IPalette["infoColor"]>;
 /**
  * @name 取得变量success-color
  */
-export function usePalette(name: "successColor"): Getter<IPalette["successColor"]>;
+export function usePalette(
+  name: "successColor",
+): Getter<IPalette["successColor"]>;
 /**
  * @name 取得变量processing-color
  */
-export function usePalette(name: "processingColor"): Getter<IPalette["processingColor"]>;
+export function usePalette(
+  name: "processingColor",
+): Getter<IPalette["processingColor"]>;
 /**
  * @name 取得变量error-color
  */
@@ -151,15 +161,21 @@ export function usePalette(name: "errorColor"): Getter<IPalette["errorColor"]>;
 /**
  * @name 取得变量highlight-color
  */
-export function usePalette(name: "highlightColor"): Getter<IPalette["highlightColor"]>;
+export function usePalette(
+  name: "highlightColor",
+): Getter<IPalette["highlightColor"]>;
 /**
  * @name 取得变量warning-color
  */
-export function usePalette(name: "warningColor"): Getter<IPalette["warningColor"]>;
+export function usePalette(
+  name: "warningColor",
+): Getter<IPalette["warningColor"]>;
 /**
  * @name 取得变量normal-color
  */
-export function usePalette(name: "normalColor"): Getter<IPalette["normalColor"]>;
+export function usePalette(
+  name: "normalColor",
+): Getter<IPalette["normalColor"]>;
 /**
  * @name 取得变量white
  */
@@ -171,7 +187,9 @@ export function usePalette(name: "black"): Getter<IPalette["black"]>;
 /**
  * @name 取得变量second-color
  */
-export function usePalette(name: "secondColor"): Getter<IPalette["secondColor"]>;
+export function usePalette(
+  name: "secondColor",
+): Getter<IPalette["secondColor"]>;
 /**
  * @name 取得变量primary
  */
@@ -180,31 +198,45 @@ export function usePalette(name: "primary"): Getter<IPalette["primary"]>;
  * @name 取得变量second
  */
 export function usePalette(name: "second"): Getter<IPalette["second"]>;
-export function usePalette<K extends keyof IPalette>(name: K): Getter<IPalette[K]>;
+export function usePalette<K extends keyof IPalette>(
+  name: K,
+): Getter<IPalette[K]>;
 export function usePalette(name: string) {
-  return (paletteGetter[name as keyof typeof paletteGetter] || (() => void 0)) as any;
+  return (paletteGetter[name as keyof typeof paletteGetter] ||
+    (() => void 0)) as any;
 }
 export const paletteGetter = Object.freeze({
   primaryColor(props: any, theme?: Theme) {
-    return (theme || props.theme)?.palette?.primaryColor || palette.primaryColor;
+    return (
+      (theme || props.theme)?.palette?.primaryColor || palette.primaryColor
+    );
   },
   infoColor(props: any, theme?: Theme) {
     return (theme || props.theme)?.palette?.infoColor || palette.infoColor;
   },
   successColor(props: any, theme?: Theme) {
-    return (theme || props.theme)?.palette?.successColor || palette.successColor;
+    return (
+      (theme || props.theme)?.palette?.successColor || palette.successColor
+    );
   },
   processingColor(props: any, theme?: Theme) {
-    return (theme || props.theme)?.palette?.processingColor || palette.processingColor;
+    return (
+      (theme || props.theme)?.palette?.processingColor ||
+      palette.processingColor
+    );
   },
   errorColor(props: any, theme?: Theme) {
     return (theme || props.theme)?.palette?.errorColor || palette.errorColor;
   },
   highlightColor(props: any, theme?: Theme) {
-    return (theme || props.theme)?.palette?.highlightColor || palette.highlightColor;
+    return (
+      (theme || props.theme)?.palette?.highlightColor || palette.highlightColor
+    );
   },
   warningColor(props: any, theme?: Theme) {
-    return (theme || props.theme)?.palette?.warningColor || palette.warningColor;
+    return (
+      (theme || props.theme)?.palette?.warningColor || palette.warningColor
+    );
   },
   normalColor(props: any, theme?: Theme) {
     return (theme || props.theme)?.palette?.normalColor || palette.normalColor;

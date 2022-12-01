@@ -1,11 +1,15 @@
-import { Types } from "@yuyi919/shared-types";
+import {
+  ActionGroupProps,
+  ActionType,
+  ICallableActionConfig,
+} from "@yuyi919/antdv1-plus-action";
 import { Component, Prop, PropsMixins } from "@yuyi919/antdv1-plus-helper";
-import { IColProps } from "ant-design-vue";
-import { ActionType, ICallableActionConfig, ActionGroupProps } from "@yuyi919/antdv1-plus-action";
 import { ButtonProps } from "@yuyi919/antdv1-plus-shared";
+import {} from "@yuyi919/antdv1-type-enhance";
+import { Types } from "@yuyi919/shared-types";
+import { IColProps } from "ant-design-vue";
 import { NormalizeModalProps } from "./NormalizeModalProps";
 import { ClassesProps } from "./styles";
-import {} from "@yuyi919/antdv1-type-enhance"
 
 @Component({})
 export class ModalProps extends PropsMixins(NormalizeModalProps, ClassesProps) {

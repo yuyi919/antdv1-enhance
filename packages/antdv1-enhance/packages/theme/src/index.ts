@@ -23,11 +23,15 @@ export const {
   createUseStylesHook,
   useBlock,
   useElement,
-  useTheme
+  useTheme,
 } = createHooksApi(MATERIAL_DEFAULT_THEME);
 const motionCommon = (duration: string) =>
   defineStyles({ animationDelay: duration, animationFillMode: "both" });
-const makeMotion = (className: string, keyframeName: string, duration: string) =>
+const makeMotion = (
+  className: string,
+  keyframeName: string,
+  duration: string,
+) =>
   defineClasses({
     [`@keyframes ${keyframeName}In`]: {
       "0%": `
@@ -37,7 +41,7 @@ const makeMotion = (className: string, keyframeName: string, duration: string) =
       "100%": `
         transform: scale(1);
         opacity: 1;
-      `
+      `,
     },
     [`@keyframes ${keyframeName}Out`]: {
       "0%": `
@@ -47,16 +51,16 @@ const makeMotion = (className: string, keyframeName: string, duration: string) =
       "100%": `
           transform: scale(1);
           opacity: 1;
-        `
+        `,
     },
     "@global": defineClasses({
       [`.${className}-enter, .${className}-appear`]: {
         ...motionCommon(duration),
-        animationPlayState: "paused"
+        animationPlayState: "paused",
       },
       [`.${className}-leave`]: {
         ...motionCommon(duration),
-        animationPlayState: "paused"
+        animationPlayState: "paused",
       },
       [`.${className}-enter.${className}-enter-active, .${className}-appear.${className}-appear-active`]:
         `
@@ -67,11 +71,15 @@ const makeMotion = (className: string, keyframeName: string, duration: string) =
         animation-name: $${keyframeName}Out;
         animation-play-state: running;
         pointer-events: none;
-      ` as any
-    })
+      ` as any,
+    }),
   });
 export const useTransitions = createUseStyles((theme) => {
-  const mixins = makeMotion("move", "test", theme.transitions.duration.standard + "ms");
+  const mixins = makeMotion(
+    "move",
+    "test",
+    theme.transitions.duration.standard + "ms",
+  );
   console.log(mixins);
   return mixins;
 });

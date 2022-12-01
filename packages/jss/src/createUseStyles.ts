@@ -1,12 +1,20 @@
 import Types from "@yuyi919/shared-types";
-import { Classes } from "./jss";
-import { ComputedRef, isRef, onBeforeUnmount, Ref, shallowRef, watch, watchEffect } from "vue-demi";
 import {
-  createUseStylesHooks,
+  ComputedRef,
+  isRef,
+  onBeforeUnmount,
+  Ref,
+  shallowRef,
+  watch,
+  watchEffect,
+} from "vue-demi";
+import {
   CreateUseStylesHookOptions,
+  createUseStylesHooks,
   DefaultTheme,
   StyleHooks,
 } from "./createUseStylesHook";
+import { Classes } from "./jss";
 import { injectJssContext } from "./JssContext";
 // import type { Styles } from '@material-ui/styles'
 import { Styles } from "./styles";
@@ -19,13 +27,17 @@ import { Theming, useTheme as useDefaultTheme } from "./theming";
 //   useTheme: UseThemeFactory<Theme>
 // }
 
-export interface CreateUseStylesOptions<Theme = DefaultTheme> extends CreateUseStylesHookOptions {
+export interface CreateUseStylesOptions<Theme = DefaultTheme>
+  extends CreateUseStylesHookOptions {
   theming?: Theming<Theme>;
 }
 
-export function createUseStylesWithHook<Theme = DefaultTheme, ClassKey extends string = string>(
+export function createUseStylesWithHook<
+  Theme = DefaultTheme,
+  ClassKey extends string = string,
+>(
   useHooks: <Data>(initialData: Data) => StyleHooks<Theme, Data, ClassKey>,
-  theming?: Theming<Theme>
+  theming?: Theming<Theme>,
 ): (data?: unknown) => ComputedRef<Classes<ClassKey>> {
   const useTheme = theming ? theming.useTheme : useDefaultTheme;
   return function useStyles(data?: any) {
@@ -39,7 +51,7 @@ export function createUseStylesWithHook<Theme = DefaultTheme, ClassKey extends s
         hooks.init(theme, context, isRef(data) ? data.value : data);
         classes.value = hooks.getClasses();
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     watchEffect(() => {
@@ -53,9 +65,12 @@ export function createUseStylesWithHook<Theme = DefaultTheme, ClassKey extends s
     return classes as unknown as ComputedRef<Classes<ClassKey>>;
   };
 }
-export function createUseStyles<Theme = DefaultTheme, C extends string = string>(
+export function createUseStyles<
+  Theme = DefaultTheme,
+  C extends string = string,
+>(
   styles: Styles<Theme, Types.IObj, C>,
-  options: CreateUseStylesOptions<Theme> = {}
+  options: CreateUseStylesOptions<Theme> = {},
 ): (data?: unknown) => ComputedRef<Classes<C>> {
   // const { index = getSheetIndex(), theming, name, ...sheetOptions } = options;
   const { theming } = options;

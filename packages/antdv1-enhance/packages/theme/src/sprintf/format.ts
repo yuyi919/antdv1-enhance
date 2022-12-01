@@ -83,7 +83,8 @@ export function tokenize(fmt: string) {
         case 113:
         case 90:
         case 119:
-          if (fmtlen !== "") throw "bad length " + fmtlen + String.fromCharCode(c);
+          if (fmtlen !== "")
+            throw "bad length " + fmtlen + String.fromCharCode(c);
           fmtlen = String.fromCharCode(c);
           break;
 
@@ -141,7 +142,9 @@ export function tokenize(fmt: string) {
           break;
         default:
           throw new Error(
-            "Invalid format string starting with |" + fmt.substring(start, i + 1) + "|"
+            "Invalid format string starting with |" +
+              fmt.substring(start, i + 1) +
+              "|",
           );
       }
   }
@@ -150,7 +153,7 @@ export function tokenize(fmt: string) {
   return out;
 }
 
-const u_inspect: (o: any) => string = JSON.stringify // (o) => inspect(o, { depth: Infinity, breakLength: 0 });
+const u_inspect: (o: any) => string = JSON.stringify; // (o) => inspect(o, { depth: Infinity, breakLength: 0 });
 type ParsedFmt = any;
 type ParsedEntry = any;
 function doit(tokens: ParsedFmt[], args: any[]): string {
@@ -224,7 +227,10 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
         O = String(arg);
         if (prec >= 0) O = O.substr(0, prec);
         if (width > O.length || -width > O.length) {
-          if ((flags.indexOf("-") == -1 || width < 0) && flags.indexOf("0") != -1) {
+          if (
+            (flags.indexOf("-") == -1 || width < 0) &&
+            flags.indexOf("0") != -1
+          ) {
             pad = width - O.length >= 0 ? "0".repeat(width - O.length) : "";
             O = pad + O;
           } else {
@@ -256,7 +262,10 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
             O = String(arg).charAt(0);
         }
         if (width > O.length || -width > O.length) {
-          if ((flags.indexOf("-") == -1 || width < 0) && flags.indexOf("0") != -1) {
+          if (
+            (flags.indexOf("-") == -1 || width < 0) &&
+            flags.indexOf("0") != -1
+          ) {
             pad = width - O.length >= 0 ? "0".repeat(width - O.length) : "";
             O = pad + O;
           } else {
@@ -389,7 +398,10 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
         if (c == /*Y*/ 89) O = O.toUpperCase();
         if (prec >= 0) O = O.substr(0, prec);
         if (width > O.length || -width > O.length) {
-          if ((flags.indexOf("-") == -1 || width < 0) && flags.indexOf("0") != -1) {
+          if (
+            (flags.indexOf("-") == -1 || width < 0) &&
+            flags.indexOf("0") != -1
+          ) {
             pad = width - O.length >= 0 ? "0".repeat(width - O.length) : "";
             O = pad + O;
           } else {
@@ -499,19 +511,26 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
         if (radix == 16 || radix == -16) {
           O = (Vnum >>> 0).toString(16);
           Vnum = Math.floor((Vnum - (Vnum >>> 0)) / Math.pow(2, 32));
-          O = (Vnum >>> 0).toString(16) + (8 - O.length >= 0 ? "0".repeat(8 - O.length) : "") + O;
+          O =
+            (Vnum >>> 0).toString(16) +
+            (8 - O.length >= 0 ? "0".repeat(8 - O.length) : "") +
+            O;
           O = (16 - O.length >= 0 ? "f".repeat(16 - O.length) : "") + O;
           if (radix == 16) O = O.toUpperCase();
         } else if (radix == 8) {
           O = (Vnum >>> 0).toString(8);
           O = (10 - O.length >= 0 ? "0".repeat(10 - O.length) : "") + O;
-          Vnum = Math.floor((Vnum - ((Vnum >>> 0) & 0x3fffffff)) / Math.pow(2, 30));
+          Vnum = Math.floor(
+            (Vnum - ((Vnum >>> 0) & 0x3fffffff)) / Math.pow(2, 30),
+          );
           O = (Vnum >>> 0).toString(8) + O.substr(O.length - 10);
           O = O.substr(O.length - 20);
           O = "1" + (21 - O.length >= 0 ? "7".repeat(21 - O.length) : "") + O;
         } else {
           Vnum = -Vnum % 1e16;
-          const d1: Array<number> = [1, 8, 4, 4, 6, 7, 4, 4, 0, 7, 3, 7, 0, 9, 5, 5, 1, 6, 1, 6];
+          const d1: Array<number> = [
+            1, 8, 4, 4, 6, 7, 4, 4, 0, 7, 3, 7, 0, 9, 5, 5, 1, 6, 1, 6,
+          ];
           let di: number = d1.length - 1;
           while (Vnum > 0) {
             if ((d1[di] -= Vnum % 10) < 0) {
@@ -538,7 +557,9 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
           else
             O =
               O.substr(0, 1) +
-              (prec + 1 - O.length >= 0 ? "0".repeat(prec + 1 - O.length) : "") +
+              (prec + 1 - O.length >= 0
+                ? "0".repeat(prec + 1 - O.length)
+                : "") +
               O.substr(1);
         }
 
@@ -571,12 +592,18 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
           if (flags.indexOf("-") > -1) {
             O = O + (width - O.length >= 0 ? " ".repeat(width - O.length) : "");
           } else if (flags.indexOf("0") > -1 && prec < 0 && O.length > 0) {
-            if (prec > O.length) O = (prec - O.length >= 0 ? "0".repeat(prec - O.length) : "") + O;
-            pad = width - O.length >= 0 ? (prec > 0 ? " " : "0").repeat(width - O.length) : "";
+            if (prec > O.length)
+              O = (prec - O.length >= 0 ? "0".repeat(prec - O.length) : "") + O;
+            pad =
+              width - O.length >= 0
+                ? (prec > 0 ? " " : "0").repeat(width - O.length)
+                : "";
             if (O.charCodeAt(0) < 48) {
-              if (O.charAt(2).toLowerCase() == "x") O = O.substr(0, 3) + pad + O.substring(3);
+              if (O.charAt(2).toLowerCase() == "x")
+                O = O.substr(0, 3) + pad + O.substring(3);
               else O = O.substr(0, 1) + pad + O.substring(1);
-            } else if (O.charAt(1).toLowerCase() == "x") O = O.substr(0, 2) + pad + O.substring(2);
+            } else if (O.charAt(1).toLowerCase() == "x")
+              O = O.substr(0, 2) + pad + O.substring(2);
             else O = pad + O;
           } else {
             O = (width - O.length >= 0 ? " ".repeat(width - O.length) : "") + O;
@@ -625,7 +652,8 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
               O = Vnum.toFixed(prec);
               if (isnum == 1) {
                 if (prec === 0 && alt && O.indexOf(".") == -1) O += ".";
-              } else if (!alt) O = O.replace(/(\.\d*[1-9])0*$/, "$1").replace(/\.0*$/, "");
+              } else if (!alt)
+                O = O.replace(/(\.\d*[1-9])0*$/, "$1").replace(/\.0*$/, "");
               else if (O.indexOf(".") == -1) O += ".";
               break;
             }
@@ -642,8 +670,10 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
           case 12:
             O = Vnum.toExponential(prec);
             E = O.indexOf("e");
-            if (O.length - E === 3) O = O.substr(0, E + 2) + "0" + O.substr(E + 2);
-            if (alt && O.indexOf(".") == -1) O = O.substr(0, E) + "." + O.substr(E);
+            if (O.length - E === 3)
+              O = O.substr(0, E + 2) + "0" + O.substr(E + 2);
+            if (alt && O.indexOf(".") == -1)
+              O = O.substr(0, E) + "." + O.substr(E);
             else if (!alt && isnum == 12)
               O = O.replace(/\.0*e/, "e").replace(/\.(\d*[1-9])0*e/, ".$1e");
             break;
@@ -652,7 +682,11 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
           case 4: {
             if (Vnum === 0) {
               O =
-                "0x0" + (alt || prec > 0 ? "." + (prec >= 0 ? "0".repeat(prec) : "") : "") + "p+0";
+                "0x0" +
+                (alt || prec > 0
+                  ? "." + (prec >= 0 ? "0".repeat(prec) : "")
+                  : "") +
+                "p+0";
               break;
             }
             O = Vnum.toString(16);
@@ -726,12 +760,19 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
                   if (O.charCodeAt(0) < 48)
                     O =
                       O.charAt(0) +
-                      (prec + 2 - O.length >= 0 ? "0".repeat(prec + 2 - O.length) : "") +
+                      (prec + 2 - O.length >= 0
+                        ? "0".repeat(prec + 2 - O.length)
+                        : "") +
                       O.substr(1);
-                  else O += prec + 2 - O.length >= 0 ? "0".repeat(prec + 2 - O.length) : "";
+                  else
+                    O +=
+                      prec + 2 - O.length >= 0
+                        ? "0".repeat(prec + 2 - O.length)
+                        : "";
                 }
               } else if (prec === 0) O = O.charAt(0) + (alt ? "." : "");
-            } else if (prec > 0) O = O + "." + (prec >= 0 ? "0".repeat(prec) : "");
+            } else if (prec > 0)
+              O = O + "." + (prec >= 0 ? "0".repeat(prec) : "");
             else if (alt) O = O + ".";
             O = "0x" + O + "p" + (E >= 0 ? "+" + E : E);
             break;
@@ -752,9 +793,11 @@ function doit(tokens: ParsedFmt[], args: any[]): string {
         } else if (flags.indexOf("0") > -1 && O.length > 0 && isf) {
           pad = width - O.length >= 0 ? "0".repeat(width - O.length) : "";
           if (O.charCodeAt(0) < 48) {
-            if (O.charAt(2).toLowerCase() == "x") O = O.substr(0, 3) + pad + O.substring(3);
+            if (O.charAt(2).toLowerCase() == "x")
+              O = O.substr(0, 3) + pad + O.substring(3);
             else O = O.substr(0, 1) + pad + O.substring(1);
-          } else if (O.charAt(1).toLowerCase() == "x") O = O.substr(0, 2) + pad + O.substring(2);
+          } else if (O.charAt(1).toLowerCase() == "x")
+            O = O.substr(0, 2) + pad + O.substring(2);
           else O = pad + O;
         } else {
           O = (width - O.length >= 0 ? " ".repeat(width - O.length) : "") + O;

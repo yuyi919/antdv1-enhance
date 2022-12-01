@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Types from "@yuyi919/shared-types";
 import * as CSS from "csstype";
-import { CreateCSSProperties, PropsFunc, BaseCSSProperties } from "./styles";
+import { BaseCSSProperties, PropsFunc } from "./styles";
 // import { createUseStylesHooks } from "./createUseStylesHook";
 // import { createThemeHelper } from "./helper";
 // import { define } from "./helper/merge";
@@ -15,16 +15,18 @@ export {};
 type JSSNormalCssProperties = CSS.Properties<number | string>;
 // type JSSFontface = CSS.AtRule.FontFace & { fallbacks?: CSS.AtRule.FontFace[] };
 
-type BaseCreateStyleValue<Props extends keyof BaseCSSProperties> = BaseCSSProperties[Props];
+type BaseCreateStyleValue<Props extends keyof BaseCSSProperties> =
+  BaseCSSProperties[Props];
 export type BaseCreateStyle<Props extends Types.IObj> = {
   [P in keyof BaseCSSProperties]:
     | BaseCreateStyleValue<P>
     | PropsFunc<Props, BaseCreateStyleValue<P>>;
 };
 
-export type CreateStyle<Theme extends Types.IObj, Props extends Types.IObj = Types.IObj> =
-  | BaseCreateStyle<Props>
-  | ((theme?: Theme) => BaseCreateStyle<Props>);
+export type CreateStyle<
+  Theme extends Types.IObj,
+  Props extends Types.IObj = Types.IObj,
+> = BaseCreateStyle<Props> | ((theme?: Theme) => BaseCreateStyle<Props>);
 
 // export interface CreateCSSProperties<Props extends Types.IObj = Types.IObj>
 //   extends BaseCreateStyle<Props> {
@@ -202,33 +204,34 @@ export interface ITheme {
 //   .end();
 
 export const theme = { borderRadius: 5, color: void 0 };
-const { useBlock, createStylesHook, useElement, useTheme } = createHooksApi<ITheme>(theme);
+const { useBlock, createStylesHook, useElement, useTheme } =
+  createHooksApi<ITheme>(theme);
 
 function useButton() {
   const theme = useTheme();
   const button = useBlock("button")
     .append<{ size: number }>({
       color: theme.color,
-      fontSize: 12
+      fontSize: 12,
     })
     .defaults({
       color: "red",
-      background: "url(image1.png) url(image2.png) !important"
+      background: "url(image1.png) url(image2.png) !important",
     });
 
   const buttonText = useElement(button, "text").append({
     color: "white",
-    fontSize: 12
+    fontSize: 12,
   });
   return {
     button,
-    buttonText
+    buttonText,
   };
 }
 
 export const createStyleHooks = createStylesHook(useButton, {
   name: "Button",
-  generateId: createGenerateClassName({ seed: "ant", global: true })
+  generateId: createGenerateClassName({ seed: "ant", global: true }),
   // (rule, sheet) => {
   //   console.log(rule, sheet);
   //   return ((sheet && sheet.options.classNamePrefix) || "") + rule.key.replace("\\", "");

@@ -12,7 +12,7 @@ export const StaticProps = {
 };
 
 export function createConfirmButton(initialConfirm: any) {
-  return ({
+  return {
     functional: true,
     render(
       _,
@@ -55,7 +55,7 @@ export function createConfirmButton(initialConfirm: any) {
         </Popconfirm>
       );
     },
-  });
+  };
 }
 
 export function createConfirmButtonComponent(initialConfirm: any) {

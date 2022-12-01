@@ -1,6 +1,6 @@
-import { component, useComponent } from "../exports/component";
-import { palette, usePalette } from "../exports/palette";
-import { paletteColors, usePaletteColors } from "../exports/palette.colors";
+import { component } from "../exports/component";
+import { palette } from "../exports/palette";
+import { paletteColors } from "../exports/palette.colors";
 import { ITheme, ThemePalette } from "./types";
 import { ThemeUtils } from "./utils";
 

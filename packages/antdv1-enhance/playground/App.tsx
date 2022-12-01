@@ -3,17 +3,19 @@
 import "ant-design-vue/es/style.js";
 // import "ant-design-vue/es/vc-dialog/assets/index.less";
 import "@yuyi919/antdv1-plus-theme/index.less";
-import { reactive, defineComponent, getCurrentInstance, onMounted, ref, watch } from "vue-demi";
+import {
+  defineComponent,
+  getCurrentInstance,
+  onMounted,
+  reactive,
+  ref,
+  watch,
+} from "vue-demi";
 import { Button, Modal } from "../src";
-import { HintFlag } from "../src";
 import Demo from "./demo.vue";
-import { GridDemo } from "./demos/SmartGrid";
-import { ModalDialogDemo } from "./demos/ModalDialog";
 import { FormDemo } from "./demos/Form";
-import { Drawer } from "ant-design-vue";
-import { Modal as CommonModal } from "@yuyi919/antdv1-plus-modal"
 // import "../shared/src/env.d";
-import { useTransitions, MATERIAL_DEFAULT_THEME } from "@yuyi919/antdv1-plus-theme";
+import { MATERIAL_DEFAULT_THEME } from "@yuyi919/antdv1-plus-theme";
 console.log(MATERIAL_DEFAULT_THEME);
 
 export let manager: Modal.ModalManager;
@@ -24,7 +26,13 @@ export default defineComponent({
     const store = reactive({
       closeIcon: (
         <span class={`${"ant-modal"}-close-x`}>
-          {<a-icon type="close" theme="outlined" class={`${"ant-modal"}-close-icon`} />}
+          {
+            <a-icon
+              type="close"
+              theme="outlined"
+              class={`${"ant-modal"}-close-icon`}
+            />
+          }
         </span>
       ),
       prefixCls: "ant-modal",
@@ -37,21 +45,21 @@ export default defineComponent({
       scrollBehavior: "outside",
       maskProps: {
         attrs: {
-          "data-key": 1
-        }
+          "data-key": 1,
+        },
       },
       afterClose() {
         // dialog.beforeUnmount();
         console.log("afterClose");
-      }
+      },
     });
     const dialogData = {
       on: {
         close() {
           console.log("close");
           store.visible = false;
-        }
-      }
+        },
+      },
     };
     onMounted(() => {
       // Modal.Dialog
@@ -67,10 +75,22 @@ export default defineComponent({
     });
     // dialog.linkWatch();
     const radioOptions = [
-      { label: "default", value: { centered: false, scrollBehavior: "outside" } },
-      { label: "default+inset", value: { centered: false, scrollBehavior: "inside" } },
-      { label: "centered", value: { centered: true, scrollBehavior: "outside" } },
-      { label: "centered+inset", value: { centered: true, scrollBehavior: "inside" } }
+      {
+        label: "default",
+        value: { centered: false, scrollBehavior: "outside" },
+      },
+      {
+        label: "default+inset",
+        value: { centered: false, scrollBehavior: "inside" },
+      },
+      {
+        label: "centered",
+        value: { centered: true, scrollBehavior: "outside" },
+      },
+      {
+        label: "centered+inset",
+        value: { centered: true, scrollBehavior: "inside" },
+      },
     ];
     const radio = ref<string>();
     watch(radio, (data) => {
@@ -89,7 +109,10 @@ export default defineComponent({
             {/* <CommonModal placement="left" visible={store.visible} onClose={dialogData.on.close}></CommonModal> */}
             <Modal.Dialog props={store} {...dialogData}>
               <a-radio-group
-                vModel={{ value: radio.value, callback: (v: any) => (radio.value = v) }}
+                vModel={{
+                  value: radio.value,
+                  callback: (v: any) => (radio.value = v),
+                }}
               >
                 {radioOptions.map((o) => (
                   <a-radio value={o.label}>{o.label}</a-radio>
@@ -111,8 +134,13 @@ export default defineComponent({
               hint="test"
               onClick={async (e) => {
                 const result = await manager.callModal(
-                  { title: "测试", placement: "left", confirmSubmit: true, confirmCancel: true },
-                  "aaaaaaaaa"
+                  {
+                    title: "测试",
+                    placement: "left",
+                    confirmSubmit: true,
+                    confirmCancel: true,
+                  },
+                  "aaaaaaaaa",
                 );
                 console.log("result", result); //.log("clicl", e);
               }}
@@ -120,26 +148,34 @@ export default defineComponent({
               点击确认
             </Button>
             <Demo title="测试" desc="测试">
-              {(["left", "right", "default", "center", "top", "bottom", null] as const).map(
-                (placement) => (
-                  <Button
-                    onClick={() =>
-                      manager.callModal(
-                        {
-                          title: "测试",
-                          placement,
-                          confirmSubmit: true,
-                          confirmCancel: true,
-                          confirmClose: true
-                        },
-                        () => import("./readme.txt?raw")
-                      )
-                    }
-                  >
-                    {placement || "None"}
-                  </Button>
-                )
-              )}
+              {(
+                [
+                  "left",
+                  "right",
+                  "default",
+                  "center",
+                  "top",
+                  "bottom",
+                  null,
+                ] as const
+              ).map((placement) => (
+                <Button
+                  onClick={() =>
+                    manager.callModal(
+                      {
+                        title: "测试",
+                        placement,
+                        confirmSubmit: true,
+                        confirmCancel: true,
+                        confirmClose: true,
+                      },
+                      () => import("./readme.txt?raw"),
+                    )
+                  }
+                >
+                  {placement || "None"}
+                </Button>
+              ))}
             </Demo>
             <FormDemo />
             {/* <ModalDialogDemo />
@@ -148,5 +184,5 @@ export default defineComponent({
         </>
       );
     };
-  }
+  },
 }) as any;

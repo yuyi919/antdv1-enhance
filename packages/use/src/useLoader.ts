@@ -2,19 +2,19 @@
 /* eslint-disable prefer-spread */
 /* eslint-disable no-throw-literal */
 /* eslint-disable no-redeclare */
-import { reactive, Ref, ref } from "vue-demi";
 import { Types } from "@yuyi919/shared-types";
+import { reactive, Ref, ref } from "vue-demi";
 
 // const emptyPromise = new Promise(() => {});
 
 export function useLoader<
   Query extends (...args: any[]) => Promise<any>,
   Args extends Types.Function.ExtractArgs<Query>,
-  Result extends Types.PromiseValue<ReturnType<Query>>
+  Result extends Types.PromiseValue<ReturnType<Query>>,
 >(
   loader: (...args: Args) => Promise<Result>,
   initialValues?: Result,
-  defaultLoading?: boolean
+  defaultLoading?: boolean,
 ): {
   data: Ref<Result>;
   load(...args: Args): Promise<Result>;
@@ -24,13 +24,17 @@ export function useLoader<
 export function useLoader<T>(
   loader: () => Promise<T>,
   initialValues?: T,
-  defaultLoading?: boolean
+  defaultLoading?: boolean,
 ): {
   data: Ref<T>;
   load(): Promise<T>;
   loading: Ref<boolean>;
 };
-export function useLoader<T>(loader: () => Promise<T>, initialValues?: T, defaultLoading = false) {
+export function useLoader<T>(
+  loader: () => Promise<T>,
+  initialValues?: T,
+  defaultLoading = false,
+) {
   const loading = ref(defaultLoading);
   const loadStatus = ref<"done" | "wait" | "error">();
   const data = ref<T | undefined>(initialValues);
@@ -52,7 +56,7 @@ export function useLoader<T>(loader: () => Promise<T>, initialValues?: T, defaul
         loadStatus.value = "error";
         throw error;
       }
-      return data.value
+      return data.value;
     } finally {
       loading.value = false;
     }
@@ -61,14 +65,14 @@ export function useLoader<T>(loader: () => Promise<T>, initialValues?: T, defaul
     loading,
     load,
     loadStatus,
-    data
+    data,
   };
 }
 
 export function useLoaderInstance<T>(
   loader: () => Promise<T>,
   initialValues?: T,
-  defaultLoading?: boolean
+  defaultLoading?: boolean,
 ): {
   loading: boolean;
   load(): Promise<T>;
@@ -77,11 +81,11 @@ export function useLoaderInstance<T>(
 export function useLoaderInstance<
   Query extends (...args: any[]) => Promise<any>,
   Args extends Types.Function.ExtractArgs<Query>,
-  Result extends Types.PromiseValue<ReturnType<Query>>
+  Result extends Types.PromiseValue<ReturnType<Query>>,
 >(
   loader: Query,
   initialValues?: Result,
-  defaultLoading?: boolean
+  defaultLoading?: boolean,
 ): {
   loading: boolean;
   load(...args: Args): Promise<Result>;
@@ -90,7 +94,7 @@ export function useLoaderInstance<
 export function useLoaderInstance<
   Query extends (...args: any[]) => Promise<any>,
   Args extends Types.Function.ExtractArgs<Query>,
-  Result extends Types.PromiseValue<ReturnType<Query>>
+  Result extends Types.PromiseValue<ReturnType<Query>>,
 >(loader: Query, initialValues?: Result, defaultLoading?: boolean) {
   return reactive(useLoader(loader, initialValues, defaultLoading)) as {
     loading: boolean;

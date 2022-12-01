@@ -1,17 +1,20 @@
-import { createProtalModal, IPortalModalOptions } from "./portal";
 import Vue from "vue";
 import { IModalAction } from "./context";
+import { createProtalModal, IPortalModalOptions } from "./portal";
 
+export * from "./confirm";
+export * from "./context";
+export * from "./dialog";
+export * from "./Manager";
 export * from "./modal";
 export * from "./portal";
 export * from "./props";
-export * from "./context";
-export * from "./Manager";
-export * from "./confirm";
-export * from "./dialog";
 
 export default function install(vue: typeof Vue) {
-  vue.prototype.$customModal = function $customModal(this: Vue, config: IPortalModalOptions) {
+  vue.prototype.$customModal = function $customModal(
+    this: Vue,
+    config: IPortalModalOptions,
+  ) {
     return createProtalModal(config, this);
   };
 }

@@ -152,7 +152,13 @@ tinycolor.prototype = {
   },
   toRgbString: function () {
     return this._a == 1
-      ? "rgb(" + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ")"
+      ? "rgb(" +
+          mathRound(this._r) +
+          ", " +
+          mathRound(this._g) +
+          ", " +
+          mathRound(this._b) +
+          ")"
       : "rgba(" +
           mathRound(this._r) +
           ", " +
@@ -381,17 +387,29 @@ function inputToRGB(color) {
   }
 
   if (typeof color == "object") {
-    if (isValidCSSUnit(color.r) && isValidCSSUnit(color.g) && isValidCSSUnit(color.b)) {
+    if (
+      isValidCSSUnit(color.r) &&
+      isValidCSSUnit(color.g) &&
+      isValidCSSUnit(color.b)
+    ) {
       rgb = rgbToRgb(color.r, color.g, color.b);
       ok = true;
       format = String(color.r).substr(-1) === "%" ? "prgb" : "rgb";
-    } else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.v)) {
+    } else if (
+      isValidCSSUnit(color.h) &&
+      isValidCSSUnit(color.s) &&
+      isValidCSSUnit(color.v)
+    ) {
       s = convertToPercentage(color.s);
       v = convertToPercentage(color.v);
       rgb = hsvToRgb(color.h, s, v);
       ok = true;
       format = "hsv";
-    } else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.l)) {
+    } else if (
+      isValidCSSUnit(color.h) &&
+      isValidCSSUnit(color.s) &&
+      isValidCSSUnit(color.l)
+    ) {
       s = convertToPercentage(color.s);
       l = convertToPercentage(color.l);
       rgb = hslToRgb(color.h, s, l);
@@ -609,7 +627,9 @@ function rgbaToHex(r, g, b, a, allow4Char) {
     hex[2].charAt(0) == hex[2].charAt(1) &&
     hex[3].charAt(0) == hex[3].charAt(1)
   ) {
-    return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0) + hex[3].charAt(0);
+    return (
+      hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0) + hex[3].charAt(0)
+    );
   }
 
   return hex.join("");
@@ -1148,7 +1168,13 @@ let matchers = (function () {
   // Parentheses and commas are optional, but not required.
   // Whitespace can take the place of commas or opening paren
   let PERMISSIVE_MATCH3 =
-    "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
+    "[\\s|\\(]+(" +
+    CSS_UNIT +
+    ")[,|\\s]+(" +
+    CSS_UNIT +
+    ")[,|\\s]+(" +
+    CSS_UNIT +
+    ")\\s*\\)?";
   let PERMISSIVE_MATCH4 =
     "[\\s|\\(]+(" +
     CSS_UNIT +

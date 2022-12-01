@@ -5,7 +5,7 @@ function copyBuffer<T extends any = any>(cur: T): T {
   return new (cur as any).constructor(
     (cur as ArrayBufferView).buffer.slice(0),
     (cur as ArrayBufferView).byteOffset,
-    (cur as any).length
+    (cur as any).length,
   );
 }
 
@@ -39,22 +39,30 @@ export function cloneArray<T extends any[]>(target: T, fn?: CloneHandle<T>): T {
 export function cloneMapOrSet<T extends Map<any, any> | Set<any>>(
   target: T,
   iteratee?: CloneHandle<
-    T extends Map<infer K, infer V> ? [K, V] : T extends Set<infer V> ? V : never
-  >
+    T extends Map<infer K, infer V>
+      ? [K, V]
+      : T extends Set<infer V>
+      ? V
+      : never
+  >,
 ): T {
   return new (target as any).constructor(
-    iteratee ? cloneArray(Array.from(target), iteratee) : Array.from(target)
+    iteratee ? cloneArray(Array.from(target), iteratee) : Array.from(target),
   ) as T;
 }
 
-export function cloneDeepWith<T extends any = any>(target: T, iteratee: CloneHandle<any>): T {
+export function cloneDeepWith<T extends any = any>(
+  target: T,
+  iteratee: CloneHandle<any>,
+): T {
   if (target === null || typeof target !== "object") return target;
   if ((target as any).constructor?.clone instanceof Function)
     return (target.constructor as any).clone(target);
   if (target instanceof Date) return new Date(target) as T;
   const cloneDeep = (target: any) => cloneDeepWith(iteratee(target), iteratee);
   if (target instanceof Array) return cloneArray(target, cloneDeep) as T;
-  if (target instanceof Map || target instanceof Set) return cloneMapOrSet(target, cloneDeep);
+  if (target instanceof Map || target instanceof Set)
+    return cloneMapOrSet(target, cloneDeep);
   if (ArrayBuffer.isView(target)) return copyBuffer(target);
   const result = {} as Record<Extract<keyof T, string>, any>;
   for (const key in target)
@@ -64,7 +72,7 @@ export function cloneDeepWith<T extends any = any>(target: T, iteratee: CloneHan
 }
 export function cloneDeep<T extends any = any>(
   target: T,
-  iteratee: CloneHandle<any> = plainIteratee
+  iteratee: CloneHandle<any> = plainIteratee,
 ): T {
   return cloneDeepWith(target, iteratee) as T;
 }
@@ -74,7 +82,8 @@ export function cloneDeepProto<T extends any = any>(target: T): T {
   if ((target as any).constructor?.clone instanceof Function)
     return (target.constructor as any).clone(target);
   if (target instanceof Date) return new Date(target) as T;
-  if (target instanceof Map || target instanceof Set) return cloneMapOrSet(target, cloneDeepProto);
+  if (target instanceof Map || target instanceof Set)
+    return cloneMapOrSet(target, cloneDeepProto);
   if (target instanceof Array) return cloneArray(target, cloneDeepProto) as T;
   if (ArrayBuffer.isView(target)) return copyBuffer(target);
   const result = {} as Record<Extract<keyof T, string>, any>;
@@ -120,8 +129,10 @@ function rfdcCircles(opts: Options) {
     if (typeof o !== "object" || o === null) return o;
     if (o instanceof Date) return new Date(o) as T;
     if (Array.isArray(o)) return cloneArrayCircles(o, cloneCircles);
-    if (o instanceof Map) return new Map(cloneArrayCircles(Array.from(o), cloneCircles)) as T;
-    if (o instanceof Set) return new Set(cloneArrayCircles(Array.from(o), cloneCircles)) as T;
+    if (o instanceof Map)
+      return new Map(cloneArrayCircles(Array.from(o), cloneCircles)) as T;
+    if (o instanceof Set)
+      return new Set(cloneArrayCircles(Array.from(o), cloneCircles)) as T;
     const result = {} as Record<Extract<keyof T, string>, any>;
     refs.push(o);
     refsNew.push(result);
@@ -156,8 +167,10 @@ function rfdcCircles(opts: Options) {
     if (typeof o !== "object" || o === null) return o;
     if (o instanceof Date) return new Date(o) as T;
     if (Array.isArray(o)) return cloneArrayCircles(o, cloneProtoCircles);
-    if (o instanceof Map) return new Map(cloneArrayCircles(Array.from(o), cloneProtoCircles)) as T;
-    if (o instanceof Set) return new Set(cloneArrayCircles(Array.from(o), cloneProtoCircles)) as T;
+    if (o instanceof Map)
+      return new Map(cloneArrayCircles(Array.from(o), cloneProtoCircles)) as T;
+    if (o instanceof Set)
+      return new Set(cloneArrayCircles(Array.from(o), cloneProtoCircles)) as T;
     const result = {} as Record<Extract<keyof T, string>, any>;
     refs.push(o);
     refsNew.push(result);
@@ -168,9 +181,13 @@ function rfdcCircles(opts: Options) {
       } else if (cur instanceof Date) {
         result[k] = new Date(cur);
       } else if (cur instanceof Map) {
-        result[k] = new Map(cloneArrayCircles(Array.from(cur), cloneProtoCircles));
+        result[k] = new Map(
+          cloneArrayCircles(Array.from(cur), cloneProtoCircles),
+        );
       } else if (cur instanceof Set) {
-        result[k] = new Set(cloneArrayCircles(Array.from(cur), cloneProtoCircles));
+        result[k] = new Set(
+          cloneArrayCircles(Array.from(cur), cloneProtoCircles),
+        );
       } else if (ArrayBuffer.isView(cur)) {
         result[k] = copyBuffer(cur);
       } else {

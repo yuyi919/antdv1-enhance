@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 import type {
-  Jss,
-  SheetsRegistry,
-  SheetsManager,
-  Rule,
   CreateGenerateIdOptions,
-  GenerateId
+  GenerateId,
+  Jss,
+  Rule,
+  SheetsManager,
+  SheetsRegistry,
 } from "jss";
 // import type {Node} from 'react'
 // import type {Theming} from 'theming'
@@ -45,6 +45,8 @@ export type DynamicStyle<Theme> = (style: { theme: Theme }) => StaticStyle;
 
 export type StaticStyles = { [key: string]: StaticStyle };
 
-export type ThemedStyles<Theme> = (theme: Theme) => StaticStyle | DynamicStyle<Theme>;
+export type ThemedStyles<Theme> = (
+  theme: Theme,
+) => StaticStyle | DynamicStyle<Theme>;
 
 export type StyleItems<Theme> = StaticStyles | ThemedStyles<Theme>;

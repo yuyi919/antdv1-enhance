@@ -1,6 +1,6 @@
-import { deepmerge } from "./system/utils";
 import * as CSS from "csstype";
 import { Palette } from "./createPalette";
+import { deepmerge } from "./system/utils";
 
 export type Variant =
   | "h1"
@@ -29,7 +29,9 @@ export interface FontStyle
   }> {}
 
 export type NormalCssProperties = CSS.Properties<number | string>;
-export type Fontface = CSS.AtRule.FontFace & { fallbacks?: CSS.AtRule.FontFace[] };
+export type Fontface = CSS.AtRule.FontFace & {
+  fallbacks?: CSS.AtRule.FontFace[];
+};
 
 /**
  * Allows the user to augment the properties available
@@ -64,10 +66,15 @@ export interface TypographyUtils {
   pxToRem: (px: number) => string;
 }
 
-export interface Typography extends Record<Variant, TypographyStyle>, FontStyle, TypographyUtils {}
+export interface Typography
+  extends Record<Variant, TypographyStyle>,
+    FontStyle,
+    TypographyUtils {}
 
 export interface TypographyOptions
-  extends Partial<Record<Variant, TypographyStyleOptions> & FontStyleOptions & TypographyUtils> {}
+  extends Partial<
+    Record<Variant, TypographyStyleOptions> & FontStyleOptions & TypographyUtils
+  > {}
 
 function round(value: number) {
   return Math.round(value * 1e5) / 1e5;
@@ -84,7 +91,7 @@ const defaultFontFamily = '"Roboto", "Helvetica", "Arial", sans-serif';
  */
 export function createTypography(
   palette: Palette,
-  typography: TypographyOptions | ((palette: Palette) => TypographyOptions)
+  typography: TypographyOptions | ((palette: Palette) => TypographyOptions),
 ): Typography {
   const {
     fontFamily = defaultFontFamily,
@@ -114,13 +121,14 @@ export function createTypography(
   }
 
   const coef = fontSize / 14;
-  const pxToRem = pxToRem2 || ((size: number) => `${(size / htmlFontSize) * coef}rem`);
+  const pxToRem =
+    pxToRem2 || ((size: number) => `${(size / htmlFontSize) * coef}rem`);
   const buildVariant = (
     fontWeight: string | number,
     size: number,
     lineHeight: number,
     letterSpacing: number,
-    casing?: Partial<CSSProperties>
+    casing?: Partial<CSSProperties>,
   ) => ({
     fontFamily,
     fontWeight,
@@ -167,6 +175,6 @@ export function createTypography(
     other,
     {
       clone: false, // No need to clone deep
-    }
+    },
   ) as Typography;
 }

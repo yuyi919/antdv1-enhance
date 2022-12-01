@@ -10,7 +10,7 @@
 export function withAsyncOr<T>(
   target: T | Promise<T>,
   when?: (resolving: boolean) => void,
-  or?: () => void
+  or?: () => void,
 ): Promise<T> {
   if (target instanceof Promise) {
     return (

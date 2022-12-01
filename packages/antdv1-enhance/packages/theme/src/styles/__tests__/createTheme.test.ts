@@ -10,7 +10,10 @@ describe("createTheme", () => {
 
   it("should have the custom palette", () => {
     const theme = createTheme({
-      palette: { primary: { main: deepOrange[500] }, secondary: { main: green.A400 } },
+      palette: {
+        primary: { main: deepOrange[500] },
+        secondary: { main: green.A400 },
+      },
     });
     expect(theme.palette.primary.main).toBe(deepOrange[500]);
     expect(theme.palette.secondary.main).toBe(green.A400);
@@ -25,7 +28,7 @@ describe("createTheme", () => {
     it("should provide the default array", () => {
       const theme = createTheme();
       expect(theme.shadows[2]).toBe(
-        "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)"
+        "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
       );
     });
 
@@ -93,26 +96,37 @@ describe("createTheme", () => {
 
       expect(() => {
         theme = createTheme({
-          components: { Button: { styleOverrides: { disabled: { color: "blue" } } } },
+          components: {
+            Button: { styleOverrides: { disabled: { color: "blue" } } },
+          },
         });
       }).not.toErrorDev();
       // @ts-expect-error
-      expect(Object.keys(theme.components!.Button!.styleOverrides!.disabled).length).toBe(1);
+      expect(
+        Object.keys(theme.components!.Button!.styleOverrides!.disabled).length,
+      ).toBe(1);
 
       expect(() => {
         theme = createTheme({
-          components: { MuiButton: { styleOverrides: { root: { color: "blue" } } } },
+          components: {
+            MuiButton: { styleOverrides: { root: { color: "blue" } } },
+          },
         });
       }).not.toErrorDev();
 
       expect(() => {
         theme = createTheme({
-          components: { MuiButton: { styleOverrides: { disabled: { color: "blue" } } } },
+          components: {
+            MuiButton: { styleOverrides: { disabled: { color: "blue" } } },
+          },
         });
       }).toErrorDev(
-        "Material-UI: The `MuiButton` component increases the CSS specificity of the `disabled` internal state."
+        "Material-UI: The `MuiButton` component increases the CSS specificity of the `disabled` internal state.",
       );
-      expect(Object.keys(theme.components!.MuiButton!.styleOverrides!.disabled).length).toBe(0);
+      expect(
+        Object.keys(theme.components!.MuiButton!.styleOverrides!.disabled)
+          .length,
+      ).toBe(0);
 
       expect(theme.components).toMatchSnapshot();
     });
@@ -125,7 +139,10 @@ describe("createTheme", () => {
   });
 
   it("deep merges multiple arguments", () => {
-    const theme = createTheme({ custom: { foo: "I am foo" } }, { custom: { bar: "I am bar" } });
+    const theme = createTheme(
+      { custom: { foo: "I am foo" } },
+      { custom: { bar: "I am bar" } },
+    );
     expect(theme.custom.foo).toBe("I am foo");
     expect(theme.custom.bar).toBe("I am bar");
   });

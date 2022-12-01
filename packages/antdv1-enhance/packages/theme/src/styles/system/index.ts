@@ -31,9 +31,12 @@
 // export { default as shadows } from './shadows';
 // export { default as sizing } from './sizing';
 // export * from './sizing';
-export * from "./spacing";
-export { style } from "./style";
-export { getPath } from "./utils";
+// export { default as useThemeProps, getThemeProps } from './useThemeProps';
+// export { default as useTheme } from './useTheme';
+// export { default as useThemeWithoutDefault } from './useThemeWithoutDefault';
+// export * from './colorManipulator';
+// export { default as ThemeProvider } from './ThemeProvider';
+export * from "./colorManipulator";
 // export { default as typography } from './typography';
 // export * from './typography';
 // export {
@@ -44,13 +47,10 @@ export { getPath } from "./utils";
 // export { default as Box } from "./Box";
 // export { default as createBox } from './createBox';
 // export { default as createStyled } from './createStyled';
-export * from './createStyled';
+export * from "./createStyled";
 // export { default as styled } from './styled';
 export * from "./createTheme";
-// export { default as useThemeProps, getThemeProps } from './useThemeProps';
-// export { default as useTheme } from './useTheme';
-// export { default as useThemeWithoutDefault } from './useThemeWithoutDefault';
-// export * from './colorManipulator';
-// export { default as ThemeProvider } from './ThemeProvider';
-export * from "./colorManipulator"
-export * from "./generateUtilityClass"
+export * from "./generateUtilityClass";
+export * from "./spacing";
+export { style } from "./style";
+export { getPath } from "./utils";

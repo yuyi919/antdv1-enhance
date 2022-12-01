@@ -44,7 +44,7 @@ describe("createSpacing", () => {
     spacing = createSpacing();
     expect(spacing(1, "auto")).toEqual("8px auto");
     spacing = createSpacing((factor: number | string) =>
-      typeof factor === "string" ? factor : `${0.25 * factor}rem`
+      typeof factor === "string" ? factor : `${0.25 * factor}rem`,
     );
     expect(spacing(1, "auto", 2, 3)).toEqual("0.25rem auto 0.5rem 0.75rem");
   });
@@ -56,7 +56,9 @@ describe("createSpacing", () => {
           // @ts-expect-error
           unit: 4,
         });
-      }).toErrorDev("Material-UI: The `theme.spacing` value ([object Object]) is invalid");
+      }).toErrorDev(
+        "Material-UI: The `theme.spacing` value ([object Object]) is invalid",
+      );
     });
   });
 });

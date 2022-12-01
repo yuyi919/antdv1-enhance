@@ -1,4 +1,10 @@
-import { computed, ComputedRef, isReactive, onBeforeUnmount, reactive } from "vue-demi";
+import {
+  computed,
+  ComputedRef,
+  isReactive,
+  onBeforeUnmount,
+  reactive,
+} from "vue-demi";
 import { ConfigurableWindow, defaultWindow } from "./_configurable";
 
 export class MediaQuery {
@@ -10,7 +16,8 @@ export class MediaQuery {
     const mediaQuery = window.matchMedia(query);
     this.matches = mediaQuery.matches;
     this.mediaQuery = mediaQuery;
-    if ("addEventListener" in mediaQuery) mediaQuery.addEventListener("change", this.handler);
+    if ("addEventListener" in mediaQuery)
+      mediaQuery.addEventListener("change", this.handler);
     else (mediaQuery as MediaQueryList).addListener(this.handler);
   }
 
@@ -32,7 +39,10 @@ export class MediaQuery {
  * @param query -
  * @param store - MediaQueryWrapper
  */
-export function useMediaQuery(query: string, store?: MediaQuery): ComputedRef<boolean>;
+export function useMediaQuery(
+  query: string,
+  store?: MediaQuery,
+): ComputedRef<boolean>;
 /**
  * Reactive Media Query.
  *
@@ -40,9 +50,17 @@ export function useMediaQuery(query: string, store?: MediaQuery): ComputedRef<bo
  * @param query -
  * @param options -
  */
-export function useMediaQuery(query: string, options?: ConfigurableWindow): ComputedRef<boolean>;
-export function useMediaQuery(query: string, options?: MediaQuery | ConfigurableWindow) {
-  const store = reactive(options instanceof MediaQuery ? options : new MediaQuery(query, options));
+export function useMediaQuery(
+  query: string,
+  options?: ConfigurableWindow,
+): ComputedRef<boolean>;
+export function useMediaQuery(
+  query: string,
+  options?: MediaQuery | ConfigurableWindow,
+) {
+  const store = reactive(
+    options instanceof MediaQuery ? options : new MediaQuery(query, options),
+  );
   onBeforeUnmount(() => store.dispose());
   return computed(() => store.matches);
 }
@@ -53,7 +71,10 @@ export function useMediaQueryWith(store: MediaQuery): ComputedRef<boolean> {
   return computed(() => store.matches);
 }
 
-export function matchMediaQuery(query: string, options?: ConfigurableWindow): boolean {
+export function matchMediaQuery(
+  query: string,
+  options?: ConfigurableWindow,
+): boolean {
   const { window = defaultWindow } = options || {};
   if (!window) return false;
   return window.matchMedia(query).matches;

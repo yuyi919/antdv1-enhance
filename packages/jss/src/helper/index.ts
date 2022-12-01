@@ -6,21 +6,24 @@ import { CreateCSSProperties, Styles } from "../styles";
 const noop = Object.freeze({});
 export function createThemeHelper<Theme>() {
   const methods = {
-    definedUseStyles<Props extends Record<string, unknown>, ClassKey extends string = string>(
-      styles: Styles<Theme, Props, ClassKey>
-    ) {
+    definedUseStyles<
+      Props extends Record<string, unknown>,
+      ClassKey extends string = string,
+    >(styles: Styles<Theme, Props, ClassKey>) {
       return styles;
     },
 
     defineMixins<Props extends Record<string, unknown>>(
       styles:
         | CreateCSSProperties<Props>
-        | ((props: Props, theme?: Theme) => CreateCSSProperties<Props>)
+        | ((props: Props, theme?: Theme) => CreateCSSProperties<Props>),
     ) {
       return styles;
     },
     defineStaticMixins<Props extends Record<string, unknown>>(
-      styles: CreateCSSProperties<Props> | ((theme?: Theme) => CreateCSSProperties<Props>)
+      styles:
+        | CreateCSSProperties<Props>
+        | ((theme?: Theme) => CreateCSSProperties<Props>),
     ) {
       return styles;
     },
@@ -29,26 +32,32 @@ export function createThemeHelper<Theme>() {
         | CreateCSSProperties<Props>
         | ((props: Props, theme?: Theme) => CreateCSSProperties<Props>),
       props: Props,
-      theme?: Theme
+      theme?: Theme,
     ) {
       return (
         styles instanceof Function ? styles(props, theme) : styles
       ) as CreateCSSProperties<Props>;
     },
     inheritDefineStaticMixins<Props extends Record<string, unknown>>(
-      styles: CreateCSSProperties<Props> | ((theme?: Theme) => CreateCSSProperties<Props>),
-      theme?: Theme
+      styles:
+        | CreateCSSProperties<Props>
+        | ((theme?: Theme) => CreateCSSProperties<Props>),
+      theme?: Theme,
     ) {
-      return (styles instanceof Function ? styles(theme) : styles) as CreateCSSProperties<Props>;
+      return (
+        styles instanceof Function ? styles(theme) : styles
+      ) as CreateCSSProperties<Props>;
     },
 
     defineStyles<Props extends Record<string, unknown>>(
-      styles: CreateCSSProperties<Props>
+      styles: CreateCSSProperties<Props>,
     ): CreateCSSProperties<Props> {
       return styles;
     },
 
-    templateToCssProperties<Props extends Record<string, unknown>>(styles: string) {
+    templateToCssProperties<Props extends Record<string, unknown>>(
+      styles: string,
+    ) {
       return styles as unknown as CreateCSSProperties<Props>;
     },
 
@@ -63,16 +72,23 @@ export function createThemeHelper<Theme>() {
 
   function defineCustomMixins<
     Props extends Record<string, unknown>,
-    Styles extends (...args: any[]) => CreateCSSProperties<Props>
+    Styles extends (...args: any[]) => CreateCSSProperties<Props>,
   >(styles: Styles): typeof styles;
 
   function defineCustomMixins<Props extends Record<string, unknown>>(
-    styles: CreateCSSProperties<Props>
+    styles: CreateCSSProperties<Props>,
   ): CreateCSSProperties<Props>;
-  function defineCustomMixins<Props extends Record<string, unknown>, Args extends any[]>(
-    styles: CreateCSSProperties<Props> | ((...args: Args) => CreateCSSProperties<Props>)
+  function defineCustomMixins<
+    Props extends Record<string, unknown>,
+    Args extends any[],
+  >(
+    styles:
+      | CreateCSSProperties<Props>
+      | ((...args: Args) => CreateCSSProperties<Props>),
   ) {
-    return styles as CreateCSSProperties<Props> | ((...args: Args) => CreateCSSProperties<Props>);
+    return styles as
+      | CreateCSSProperties<Props>
+      | ((...args: Args) => CreateCSSProperties<Props>);
   }
 
   function defineDeepClasses<
@@ -87,7 +103,7 @@ export function createThemeHelper<Theme>() {
     },
     ClassKeyMap extends {
       [K in ClassNames]: `$${Prefix}-${K}`;
-    }
+    },
   >(input: Input, prefix: Prefix) {
     const styles = {} as Result;
     const deepStyles = {} as Output;
@@ -108,11 +124,13 @@ export function createThemeHelper<Theme>() {
     ClassNames extends Extract<keyof Input, string>,
     Prefix extends string,
     Output extends {
-      [K in `${Prefix}-${ClassNames}`]: Input[K extends `&$${Prefix}-${infer K}` ? K : never];
+      [K in `${Prefix}-${ClassNames}`]: Input[K extends `&$${Prefix}-${infer K}`
+        ? K
+        : never];
     },
     ClassKeyMap extends {
       [K in ClassNames]: `$${Prefix}-${K}`;
-    }
+    },
   >(input: Input, prefix: Prefix) {
     const styles = {} as Output;
     const keys = {} as ClassKeyMap;
@@ -130,7 +148,7 @@ export function createThemeHelper<Theme>() {
     Prefix extends string,
     Result extends {
       [K in `${Prefix}-${ClassName}`]: any;
-    }
+    },
   >(className: ClassName[], prefix: Prefix) {
     const r = {} as any;
     for (const key of className) {

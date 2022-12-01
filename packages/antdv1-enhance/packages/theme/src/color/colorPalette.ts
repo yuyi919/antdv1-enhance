@@ -1,5 +1,5 @@
-import { tinycolor } from "./tinyColor";
 import { memoize } from "lodash";
+import { tinycolor } from "./tinyColor";
 const hueStep = 2;
 const saturationStep = 16;
 const saturationStep2 = 5;
@@ -22,7 +22,11 @@ const getHue = function (hsv: { h: number }, i: number, isLight: boolean) {
   }
   return Math.round(hue);
 };
-const getSaturation = function (hsv: { s: number }, i: number, isLight: boolean) {
+const getSaturation = function (
+  hsv: { s: number },
+  i: number,
+  isLight: boolean,
+) {
   let saturation;
   if (isLight) {
     saturation = Math.round(hsv.s * 100) - saturationStep * i;
@@ -53,12 +57,14 @@ export const colorPalette = memoize(
   (color: string, index: number): string => {
     const isLight = index <= 6;
     const hsv = tinycolor(color).toHsv();
-    const i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1;
+    const i = isLight
+      ? lightColorCount + 1 - index
+      : index - lightColorCount - 1;
     return tinycolor({
       h: getHue(hsv, i, isLight),
       s: getSaturation(hsv, i, isLight),
       v: getValue(hsv, i, isLight),
     }).toHexString();
   },
-  (color, index) => color + "_" + index
+  (color, index) => color + "_" + index,
 );
