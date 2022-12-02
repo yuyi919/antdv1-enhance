@@ -30,6 +30,7 @@
     "vue-types": "~4.1.0"
   },
   "devDependencies": {
+    "@rushstack/heft": "^0.44.2",
     "@types/jest": "~27.0.1",
     "@types/node": "~16.7.2",
     "@yuyi919/shared-types": "0.0.11",
