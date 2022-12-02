@@ -1,5 +1,11 @@
 # Change Log - @yuyi919/vue-jsx-factory
 
+## 0.0.8
+
+### Patch Changes
+
+- patch
+
 This log was last generated on Wed, 29 Jun 2022 08:58:23 GMT and should not be manually modified.
 
 ## 0.0.7

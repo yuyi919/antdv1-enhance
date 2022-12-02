@@ -1,6 +1,6 @@
 {
   "name": "@yuyi919/antdv1-plus-modal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "",
   "author": "",
@@ -19,12 +19,12 @@
     "dev": "tsup --watch --onSuccess \"pnpm build\""
   },
   "dependencies": {
-    "@yuyi919/antdv1-plus-action": "workspace:0.0.1",
-    "@yuyi919/antdv1-plus-helper": "workspace:0.0.1",
-    "@yuyi919/antdv1-plus-shared": "workspace:0.0.1",
-    "@yuyi919/antdv1-plus-theme": "workspace:0.0.1",
-    "@yuyi919/vue-use": "workspace:0.0.9",
-    "@yuyi919/vue2.7-helper": "workspace:^0.0.9",
+    "@yuyi919/antdv1-plus-action": "workspace:0.0.2",
+    "@yuyi919/antdv1-plus-helper": "workspace:0.0.2",
+    "@yuyi919/antdv1-plus-shared": "workspace:0.0.2",
+    "@yuyi919/antdv1-plus-theme": "workspace:0.0.2",
+    "@yuyi919/vue-use": "workspace:0.0.10",
+    "@yuyi919/vue2.7-helper": "workspace:^0.0.10",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "tslib": "~2.3.1"
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@types/jest": "~27.0.1",
     "@types/node": "~16.7.2",
-    "@yuyi919/antdv1-type-enhance": "workspace:^0.0.1",
+    "@yuyi919/antdv1-type-enhance": "workspace:^0.0.2",
     "@yuyi919/shared-types": "0.0.11",
     "@yuyi919/shared-utils": "0.0.43",
     "@yuyi919/vue-jsx-factory": "workspace:*",
