@@ -1,5 +1,11 @@
 # Change Log - @yuyi919/vue-use
 
+## 0.0.11
+
+### Patch Changes
+
+- publish
+
 ## 0.0.10
 
 ### Patch Changes

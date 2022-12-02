@@ -1,5 +1,11 @@
 # Change Log - @yuyi919/vue-jsx-factory
 
+## 0.0.9
+
+### Patch Changes
+
+- publish
+
 ## 0.0.8
 
 ### Patch Changes

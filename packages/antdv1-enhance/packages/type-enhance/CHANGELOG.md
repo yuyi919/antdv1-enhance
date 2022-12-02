@@ -1,5 +1,15 @@
 # @yuyi919/antdv1-type-enhance
 
+## 0.0.3
+
+### Patch Changes
+
+- publish
+
+- Updated dependencies []:
+  - @yuyi919/vue-shared-decorators@0.0.11
+  - @yuyi919/vue2.7-helper@0.0.11
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@yuyi919/antdv1-plus-helper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "author": "",
   "main": "dist/index.js",
@@ -18,8 +18,8 @@
     "dev": "tsup --watch --onSuccess \"tsc --build\""
   },
   "dependencies": {
-    "@yuyi919/vue-shared-decorators": "workspace:0.0.10",
-    "@yuyi919/vue2.7-helper": "workspace:^0.0.10",
+    "@yuyi919/vue-shared-decorators": "workspace:0.0.11",
+    "@yuyi919/vue2.7-helper": "workspace:^0.0.11",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "tslib": "~2.3.1",
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@types/jest": "~27.0.1",
     "@types/node": "~16.7.2",
-    "@yuyi919/antdv1-type-enhance": "workspace:^0.0.2",
+    "@yuyi919/antdv1-type-enhance": "workspace:^0.0.3",
     "@yuyi919/shared-types": "0.0.11",
     "@yuyi919/shared-utils": "^0.0.43",
     "ant-design-vue": "^1.7.8",

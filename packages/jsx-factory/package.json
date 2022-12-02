@@ -1,6 +1,6 @@
 {
   "name": "@yuyi919/vue-jsx-factory",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "author": "",
   "main": "jsx-runtime/index.js",

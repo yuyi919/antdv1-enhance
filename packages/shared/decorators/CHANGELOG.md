@@ -1,5 +1,14 @@
 # Change Log - @yuyi919/vue-shared-decorators
 
+## 0.0.11
+
+### Patch Changes
+
+- publish
+
+- Updated dependencies []:
+  - @yuyi919/vue2.7-helper@0.0.11
+
 ## 0.0.10
 
 ### Patch Changes

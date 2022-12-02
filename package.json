@@ -17,7 +17,7 @@
     "lint": "turbo run lint",
     "prepare": "husky install",
     "publish": "changeset publish",
-    "release": "turbo run build --filter @advscript/* && changeset publish",
+    "release": "turbo run build && changeset publish",
     "test": "turbo run test",
     "version": "changeset version"
   },
