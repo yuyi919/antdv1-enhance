@@ -8,7 +8,7 @@
     "build:dts": "turbo run build:dts",
     "build:notype": "turbo run build:notype",
     "change": "changeset",
-    "clean": "rimraf packages/**/.{turbo,rush} **/temp **/.rush-logs && turbo run clean",
+    "clean": "rimraf packages/**/.{turbo,rush} **/temp **/.rush-logs **/tsup.config.bundled_*.cjs && turbo run clean",
     "clean:force": "pnpm clean && rimraf ./node_modules/.cache",
     "dev": "turbo run dev --parallel",
     "dev:config": "turbo run dev --filter *config --parallel",
@@ -17,7 +17,7 @@
     "lint": "turbo run lint",
     "prepare": "husky install",
     "publish": "changeset publish",
-    "release": "turbo run build && changeset publish",
+    "release": "pnpm run build && changeset publish",
     "test": "turbo run test",
     "version": "changeset version"
   },

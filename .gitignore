@@ -41,4 +41,4 @@ vite.config.js*
 temp
 **/temp
 
-tsup.config.*.*
+tsup.config.bundled_*.*
