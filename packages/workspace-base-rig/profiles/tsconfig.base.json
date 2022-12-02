@@ -20,6 +20,7 @@
     "lib": ["dom", "es2020", "esnext", "es6"],
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "skipDefaultLibCheck": true
   }
 }
