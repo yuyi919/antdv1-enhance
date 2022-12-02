@@ -52,9 +52,9 @@ function getInject<C>(
   return {
     computed: {
       ...computed,
-      generatedClassName() {
-        // @ts-ignore
+      generatedClassName(this: any) {
         return this.generateAndInjectStyles({
+          // @ts-ignore
           ...getPropsFromContext(this),
           theme: this.theme,
         });

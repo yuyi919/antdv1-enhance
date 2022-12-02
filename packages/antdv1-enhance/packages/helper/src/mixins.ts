@@ -41,6 +41,7 @@ export function isVueComponent(Component: any): Component is VueConstructor {
       Component.component ||
       Component.components instanceof Object ||
       Component.extends ||
-      Component.mixins instanceof Array)
+      Component.mixins instanceof Array ||
+      isVueComponent(Component.options))
   );
 }

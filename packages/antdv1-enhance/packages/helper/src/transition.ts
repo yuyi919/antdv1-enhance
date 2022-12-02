@@ -1,4 +1,3 @@
-import { CSSProperties } from "@yuyi919/shared-types";
 import type { Ref } from "vue-demi";
 import {
   defineComponent,
@@ -7,6 +6,7 @@ import {
   nextTick,
   onUpdated,
 } from "vue-demi";
+import { CSSProperties } from "vue/types/jsx";
 import type {
   TransitionGroupProps,
   TransitionProps,

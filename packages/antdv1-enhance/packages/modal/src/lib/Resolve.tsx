@@ -8,6 +8,15 @@ import {
   SetupContext,
   VueConstructor,
 } from "vue-demi";
+import { HasDefined } from "vue/types/common";
+import {
+  ComponentOptionsMixin,
+  ComponentOptionsWithProps,
+  ComponentPropsOptions,
+  ComputedOptions,
+  MethodOptions,
+} from "vue/types/v3-component-options";
+import { EmitsOptions } from "vue/types/v3-setup-context";
 import {
   ICommonModalProps,
   LoaderModalComponent,
@@ -78,23 +87,45 @@ export function defineSubmitModalComponent<
  * @param options
  */
 export function defineLoaderModalComponent<
-  LoadData,
-  Props extends ICommonModalProps<LoadData>,
-  AppendProps extends Record<string, any>,
-  Setup extends (props: Props & AppendProps, context: SetupContext) => {},
-  RawBindings extends ReturnType<Setup>,
->(options: {
-  mixins?: any[];
-  extends?: any;
-  props?: AppendProps;
-  components?: {
-    [key: string]: VueConstructor;
-  };
-  setup: Setup;
-}) {
+  Props,
+  RawBindings = {},
+  D = {},
+  C extends ComputedOptions = {},
+  M extends MethodOptions = {},
+  Mixin extends ComponentOptionsMixin = ComponentOptionsMixin,
+  Extends extends ComponentOptionsMixin = ComponentOptionsMixin,
+  Emits extends EmitsOptions = {},
+  EmitsNames extends string = string,
+  PropsOptions extends ComponentPropsOptions = ComponentPropsOptions,
+>(
+  options: HasDefined<Props> extends true
+    ? { functional?: never } & ComponentOptionsWithProps<
+        PropsOptions,
+        RawBindings,
+        D,
+        C,
+        M,
+        Mixin,
+        Extends,
+        Emits,
+        EmitsNames,
+        Props
+      >
+    : { functional?: never } & ComponentOptionsWithProps<
+        PropsOptions,
+        RawBindings,
+        D,
+        C,
+        M,
+        Mixin,
+        Extends,
+        Emits,
+        EmitsNames
+      >,
+) {
   const Component = defineComponent({
     components: {
-      ...(options.components || {}),
+      ...options.components,
     },
     // extends: options.extends,
     // mixins: options.mixins,
@@ -113,25 +144,24 @@ export function defineLoaderModalComponent<
         type: null,
         required: true,
       } as PropOptions<Props["forceUpdate"]>,
-      ...(options.props || {}),
+      ...options.props,
     },
+    setup: options.setup,
   });
-  console.log(Component);
   return Object.assign(Component, {
     render<Self extends Vue & Props & AppendProps & RawBindings>(
       renderer: (this: Self, handle: Self, h: CreateElement) => any,
     ) {
       return defineComponent({
         extends: Component,
-        setup(props: Props & AppendProps, context) {
-          const ctx = options.setup(props as Props & AppendProps, context);
-          console.log("setup", ctx);
-          return ctx;
-        },
         render() {
           return renderer.call(this, this, h);
         },
       }) as LoaderModalComponent<LoadData, RawBindings>;
     },
-  });
+  }) as LoaderModalComponent<LoadData, RawBindings> & {
+    render(
+      renderer: (this: Self, handle: Self, h: CreateElement) => any,
+    ): LoaderModalComponent<LoadData, RawBindings>;
+  };
 }

@@ -22,7 +22,10 @@ import { IModalAction, InnerModalContext } from "./context";
 import { createProtalModal, IPortalModalOptions } from "./portal";
 
 export type RendererOrCallback<T extends VueConstructor = VueConstructor> =
-  Types.OrDynamicImportCallback<T | VNodeChildren | JSX.Element>;
+  Types.OrDynamicImportCallback<
+    T | VueComponent2<{}> | VNodeChildren | JSX.Element
+  >;
+
 async function loadComponent<T extends VueConstructor>(
   target?: RendererOrCallback<T>,
 ): Promise<T> {
@@ -33,7 +36,7 @@ async function loadComponent<T extends VueConstructor>(
   if (target instanceof Promise) {
     return loadComponent(await target);
   }
-  if (typeof target === "function") {
+  if (target instanceof Function) {
     const loadResult = await target();
     return loadComponent(
       isEsModuleWithDefaultExport<T>(loadResult)
@@ -62,7 +65,7 @@ async function loadComponent<T extends VueConstructor>(
       },
     },
     render() {
-      return <div>{target instanceof Function ? target() : target}</div>;
+      return <div>{castComputed(target)}</div>;
     },
   } as unknown as T;
 }

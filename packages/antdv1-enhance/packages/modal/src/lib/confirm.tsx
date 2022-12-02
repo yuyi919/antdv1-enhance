@@ -130,7 +130,6 @@ const classNames: Record<string, string> = {
   error: "error",
   confirm: "confirm",
 };
-
 const ConfirmModal = defineLoaderModalComponent({
   props: {
     content: null,

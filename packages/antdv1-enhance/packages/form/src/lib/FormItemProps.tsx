@@ -5,11 +5,24 @@ import {
 } from "@yuyi919/antdv1-plus-helper";
 import { isNum } from "@yuyi919/antdv1-plus-shared";
 import { autoSizer } from "@yuyi919/antdv1-plus-theme";
-import { CSSProperties, RequiredTo, Types } from "@yuyi919/shared-types";
+import { is, RequiredTo, Types } from "@yuyi919/shared-types";
 import { Icon } from "ant-design-vue";
+import { CSSProperties } from "vue/types/jsx";
 import { LayoutItemProps } from "./Layout";
 
 type Renderer = any;
+function clone(target: any) {
+  if (is.primitive(target)) {
+    return target;
+  }
+  if (is.arr<any>(target)) {
+    return [...target];
+  }
+  if (is.obj(target)) {
+    return { ...target };
+  }
+  return { ...target };
+}
 
 @Component()
 export class FormItemProps extends LayoutItemProps {

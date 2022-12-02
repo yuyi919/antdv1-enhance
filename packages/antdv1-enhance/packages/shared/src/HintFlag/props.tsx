@@ -28,11 +28,11 @@ export class HintFlagProps extends AntPopoverProps {
   //   this.trigger
   // }
 
-  /**
-   * 使用滚动
-   */
-  @Prop({ type: Boolean, default: false })
-  public useRoll?: boolean;
+  // /**
+  //  * 使用滚动
+  //  */
+  // @Prop({ type: Boolean, default: false })
+  // public useRoll?: boolean;
 
   /**
    * 兼容用
@@ -50,7 +50,7 @@ export class HintFlagProps extends AntPopoverProps {
       return <ThemedIcon type="question-circle-o" />;
     },
   })
-  public icon?: any;
+  public icon?: () => any;
 
   /**
    * 展示为按钮

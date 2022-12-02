@@ -9,7 +9,8 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "lib",
+    "esm",
+    "types",
     "README.md"
   ],
   "scripts": {

@@ -11,7 +11,7 @@ export default defineBundlessConfig(
     "src/**/__test__/**",
   ],
   {
-    ...defineComponentConfig(tsupConfig),
+    ...defineComponentConfig(tsupConfig, ["dist", "esm"]),
     treeshake: "smallest",
   },
 );

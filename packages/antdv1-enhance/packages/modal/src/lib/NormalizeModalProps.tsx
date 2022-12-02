@@ -1,5 +1,5 @@
 import { Component, Prop, PropsMixins } from "@yuyi919/antdv1-plus-helper";
-import { CSSProperties } from "@yuyi919/shared-types";
+import { CSSProperties } from "vue/types/jsx";
 import { ClassesProps } from "./styles";
 
 export type NormalizeModalPlacement =
@@ -50,7 +50,7 @@ export class NormalizeModalProps extends PropsMixins(ClassesProps) {
    * 遮罩样式
    */
   @Prop([String, Object])
-  maskStyle?: string | Partial<CSSProperties>;
+  maskStyle?: string | CSSProperties;
 
   /**
    * 设置z-index

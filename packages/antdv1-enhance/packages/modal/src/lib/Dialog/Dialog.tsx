@@ -186,7 +186,7 @@ export const Dialog = defineComponent({
         }),
       }),
       {
-        slots: context.slots as any,
+        scopedSlots: context.slots as any,
         on: {
           close(e) {
             context.emit("close", e);

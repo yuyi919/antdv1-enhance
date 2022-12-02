@@ -1,10 +1,7 @@
 import Types from "@yuyi919/shared-types";
 import { PropType } from "vue-demi";
 
-export type TypedPropGroup<
-  T extends Types.Recordable,
-  D extends Partial<T> = {},
-> = {
+export type TypedPropGroup<T, D extends Partial<T> = {}> = {
   [K in keyof T]-?: {} extends Pick<T, K>
     ? Record<K, unknown> extends Pick<D, K>
       ? {

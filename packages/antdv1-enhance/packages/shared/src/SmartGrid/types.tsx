@@ -1,11 +1,11 @@
-import { Types } from "@yuyi919/shared-types";
+import { CSSProperties } from "vue/types/jsx";
 
 export interface ILayout {
   elm: HTMLDivElement;
   className: string;
   layoutParams: ILayoutParams;
   layoutProps: INormalizedLayout;
-  styles: Types.CSSProperties;
+  styles: CSSProperties;
 }
 export interface INormalizedLayout {
   intervals: [number, number][];

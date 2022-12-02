@@ -1,5 +1,4 @@
 /* eslint-disable no-redeclare */
-import { CSSProperties } from "@yuyi919/shared-types";
 import {
   ISelectEvents,
   ISelectProps,
@@ -7,13 +6,17 @@ import {
   ISelectScopedSlots,
   Select as AntSelect,
 } from "ant-design-vue";
+import { CSSProperties } from "vue/types/jsx";
 import { getPropsClass, TypeTsxProps, VCProps } from "../../helper";
 import "./Option";
 
 declare module "ant-design-vue/types/ant-design-vue.d" {
   export interface ISelectProps
-    extends VCProps<Omit<AntSelect, "blur" | "focus">, false> {
-    dropdownStyle?: CSSProperties;
+    extends VCProps<
+      Omit<AntSelect, "blur" | "focus" | "dropdownStyle">,
+      false
+    > {
+    dropdownStyle?: string | CSSProperties;
   }
   export interface ISelectEvents {
     change(value: any, option: any): void;

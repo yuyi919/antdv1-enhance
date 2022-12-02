@@ -1,6 +1,5 @@
 import { VueComponent2 } from "@yuyi919/antdv1-plus-helper";
 import { getGridSpanStyle, useGridSpan } from "@yuyi919/antdv1-plus-shared";
-import { Types } from "@yuyi919/shared-types";
 import {
   useEffect,
   useElementRect,
@@ -10,6 +9,7 @@ import {
 } from "@yuyi919/vue-use";
 import { Icon, Popover, Tooltip } from "ant-design-vue";
 import { computed, ComputedRef, defineComponent } from "vue-demi";
+import { CSSProperties } from "vue/types/jsx";
 import { cls, usePrefixCls } from "../__builtins__";
 import { FormLayoutShallowContext, useFormLayout } from "./context";
 import {
@@ -249,7 +249,7 @@ export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
           children
         );
 
-      const gridStyles: Types.CSSProperties = {};
+      const gridStyles: CSSProperties = {};
 
       // console.log("gridSpan", formLayoutRef.value.gridSpan, gridSpan.value);
       if (gridSpan.value) {
@@ -295,22 +295,22 @@ export const FormLayoutItem: VueComponent2<FormItemProps> = defineComponent({
             [`${prefixCls}-control-wrap`]: wrapperWrap,
             [`${prefixCls}-bordered-none`]: bordered === false || inset,
           })}
-          on={{
-            "!focus": () => {
-              if (feedbackIcon || inset) {
-                setActive(true);
-              }
-            },
-            "!blur": () => {
-              if (active || feedbackIcon || inset) {
-                setActive(false);
-              }
+          {...{
+            on: {
+              "!focus": () => {
+                if (feedbackIcon || inset) {
+                  setActive(true);
+                }
+              },
+              "!blur": () => {
+                if (active || feedbackIcon || inset) {
+                  setActive(false);
+                }
+              },
             },
           }}
         >
-          <FormItemLabel
-            {...{ props: { ...formLayoutRef.value, prefixCls } }}
-          />
+          <FormItemLabel {...{ ...formLayoutRef.value, prefixCls }} />
           <div
             class={cls({
               [`${prefixCls}-control`]: true,

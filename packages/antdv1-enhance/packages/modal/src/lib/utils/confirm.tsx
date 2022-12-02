@@ -100,9 +100,10 @@ export interface AsyncModalAction<Option, Result>
   emit: (result: Result) => void;
 }
 
-export function configureModalAdapter<
-  ModalOptions extends IModalOptionsAdapter = IModalOptionsAdapter,
-  ModalType extends string = string,
+function __configureModalAdapter<
+  ModalOptions extends IModalOptionsAdapter,
+  ModalType extends string,
+  ConfirmOptions extends ConfirmOptionAdapter<ModalOptions>,
 >(
   modal: {
     [K in "alert" | "confirm"]: AdapterCaller<
@@ -111,7 +112,40 @@ export function configureModalAdapter<
   } & {
     [K in ModalType]?: AdapterCaller<ModalOptions & IModalMethodsOptions>;
   },
-) {
+) {}
+
+type ConfiguredModel<
+  ModalOptions extends IModalOptionsAdapter,
+  ModalType extends string,
+> = {
+  [K in "alert" | "confirm"]: AdapterCaller<
+    ModalOptions & IModalMethodsOptions
+  >;
+} & {
+  [K in ModalType]?: AdapterCaller<ModalOptions & IModalMethodsOptions>;
+};
+type ConfiguredModalAdapter<
+  ModalOptions extends IModalOptionsAdapter,
+  ModalType extends string,
+> = {
+  modal: ConfiguredModel<ModalOptions, ModalType>;
+  confirm: (
+    config: ConfirmOptionAdapter<ModalOptions, string>,
+    confirmHandler?: AdapterCaller<ModalOptions & IModalMethodsOptions>,
+  ) => AsyncModalAction<ConfirmOptionAdapter<ModalOptions, string>, boolean>;
+  alert: (
+    config: AlertOptionsAdapter<ModalOptions, ModalType>,
+    timeout?: number,
+    confirmHandler?: AdapterCaller<ModalOptions & IModalMethodsOptions>,
+  ) => AsyncModalAction<AlertOptionsAdapter<ModalOptions, ModalType>, boolean>;
+};
+
+export function configureModalAdapter<
+  ModalOptions extends IModalOptionsAdapter = IModalOptionsAdapter,
+  ModalType extends string = string,
+>(
+  modal: ConfiguredModel<ModalOptions, ModalType>,
+): ConfiguredModalAdapter<ModalOptions, ModalType> {
   type ConfirmOptions = ConfirmOptionAdapter<ModalOptions>;
 
   type AlertOptions = AlertOptionsAdapter<ModalOptions, ModalType>;
@@ -119,7 +153,7 @@ export function configureModalAdapter<
   function _confirm(
     config: ConfirmOptions,
     confirmHandler: AdapterCaller<ModalOptions & IModalMethodsOptions>,
-  ) {
+  ): AsyncModalAction<ConfirmOptionAdapter<ModalOptions, string>, boolean> {
     const {
       dangerous,
       cancelError,
@@ -194,7 +228,7 @@ export function configureModalAdapter<
     confirmHandler: AdapterCaller<
       ModalOptions & IModalMethodsOptions
     > = modal.confirm!,
-  ) {
+  ): AsyncModalAction<ConfirmOptionAdapter<ModalOptions, string>, boolean> {
     let {
       dangerous,
       timeout = 0,
@@ -265,7 +299,7 @@ export function configureModalAdapter<
     confirmHandler = (config.iconType !== "confirm" &&
       modal[config.iconType as ModalType]) ||
       modal.alert,
-  ) {
+  ): AsyncModalAction<AlertOptionsAdapter<ModalOptions, ModalType>, boolean> {
     const options = {
       ...config,
       timeout,

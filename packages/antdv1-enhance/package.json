@@ -12,9 +12,7 @@
     "esm",
     "README.md"
   ],
-  "scripts": {
-    "build": "tsc --build"
-  },
+  "scripts": {},
   "dependencies": {
     "@ant-design/icons": "2.0.0",
     "@ant-design/icons-vue": "2.0.0",

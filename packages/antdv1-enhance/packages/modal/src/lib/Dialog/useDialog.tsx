@@ -1,4 +1,3 @@
-import { ActionGroup } from "@yuyi919/antdv1-plus-action";
 import {
   DomUtils,
   getSlot,
@@ -7,7 +6,6 @@ import {
   noop,
   Transition,
 } from "@yuyi919/antdv1-plus-helper";
-import { CSSProperties } from "@yuyi919/shared-types";
 import { createContext } from "@yuyi919/vue-use";
 import { TypeTsxProps } from "@yuyi919/vue2.7-helper";
 // @ts-ignore
@@ -23,6 +21,7 @@ import {
   toRefs,
   ToRefs,
 } from "vue-demi";
+import { CSSProperties } from "vue/types/jsx";
 import { Mask } from "./components/Mask";
 import { DialogProps } from "./DialogProps";
 import { LazyRenderBox } from "./LazyRenderBox";
@@ -413,15 +412,11 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
         dest.height = typeof height === "number" ? `${height}px` : height;
       }
 
-      let footer;
+      let footer: any;
       if (tempFooter) {
         footer = (
           <div key="footer" class={`${prefixCls}-footer`} ref={refs.footer}>
-            <ActionGroup
-              defaultSpinningProps={{ ghost: true }}
-              align="center"
-              actions={[{ type: "ok" }, { type: "cancel" }]}
-            />
+            {tempFooter}
           </div>
         );
       }
@@ -482,7 +477,7 @@ export function useDialog(props: DialogProps, options?: DialogOptions) {
               ref={refs.body}
               {...bodyProps}
             >
-              {options?.slots?.default?.(void 0) || core.getSlot()}
+              {options?.scopedSlots?.default?.(void 0) || core.getSlot()}
             </div>
             {footer}
           </div>

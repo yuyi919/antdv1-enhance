@@ -20,7 +20,15 @@ const [FormLayoutPropsConfig, normlize] = extractUnsafeProps(
     };
   },
 );
-export const FormLayout = Object.assign(
+export const FormLayout: VueComponent2<
+  FormLayoutProps,
+  {},
+  {},
+  {},
+  {
+    Item: typeof FormLayoutItem;
+  }
+> = Object.assign(
   defineComponent({
     props: FormLayoutPropsConfig,
     setup(props: FormLayoutProps, context) {
@@ -68,12 +76,11 @@ export const FormLayout = Object.assign(
         return <div class={layoutClassName}>{getInherit().children}</div>;
       };
     },
-  }) as VueComponent2<FormLayoutProps>,
+  }),
   {
     Item: FormLayoutItem,
   },
 );
-
 // FormLayout.defaultProps = {
 //   shallow: true,
 // };

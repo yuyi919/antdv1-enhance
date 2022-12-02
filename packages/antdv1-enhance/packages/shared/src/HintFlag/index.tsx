@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { extractProps } from "@yuyi919/antdv1-plus-helper";
-import { createUseStyles } from "@yuyi919/vue-jss";
+import { createUseStyles } from "@yuyi919/antdv1-plus-theme";
 import { useNamedRef } from "@yuyi919/vue-use";
 import { Popover } from "ant-design-vue";
 import { defineComponent, reactive } from "vue-demi";
 import { HintFlagProps } from "./props";
 
-const useStyles = createUseStyles({
+const useStyles = createUseStyles((theme) => ({
   root: {
     "& span": {
       verticalAlign: "top",
@@ -26,7 +26,7 @@ const useStyles = createUseStyles({
     },
   },
   labelContainer: {},
-});
+}));
 export function convertTextMuitiple(text: string) {
   return (
     typeof text === "string" &&
@@ -45,35 +45,33 @@ export const HintFlag = defineComponent({
     const classesRef = useStyles(props);
     const popoverRef = useNamedRef<Popover>("popover");
     const methods = {
-      renderLabelAndHint: () => {
-        const { icon, disabled } = props;
-        return (
-          <span
-            class={[
-              classesRef.value.root,
-              classesRef.value.labelContainer,
-              { disabled },
-            ]}
-          >
-            {/* <TextRollMatcher>
-              {this.$slots.default}&nbsp;
-              {hint &&
-                !disabled && [
-                  this.renderHint({ icon, hint }),
-                  <span slot="rolling">{this.$slots.default}</span>,
-                  this.renderHint({ icon, hint, slot: "right-icon-rolling" }),
-                ]}
-            </TextRollMatcher> */}
-          </span>
-        );
-      },
+      // renderLabelAndHint: () => {
+      //   const { disabled } = props;
+      //   return (
+      //     <span
+      //       class={[
+      //         classesRef.value.root,
+      //         classesRef.value.labelContainer,
+      //         { disabled },
+      //       ]}
+      //     >
+      //       {/* <TextRollMatcher>
+      //         {this.$slots.default}&nbsp;
+      //         {hint &&
+      //           !disabled && [
+      //             this.renderHint({ icon, hint }),
+      //             <span slot="rolling">{this.$slots.default}</span>,
+      //             this.renderHint({ icon, hint, slot: "right-icon-rolling" }),
+      //           ]}
+      //       </TextRollMatcher> */}
+      //     </span>
+      //   );
+      // },
       renderNative: () => {
-        const { icon, disabled } = props;
         return (
           <span class={classesRef.value.root}>
             {context.slots.default?.()}&nbsp;
-            {!disabled &&
-              methods.renderHint({ icon: icon(), hint: state.hintStr })}
+            {!props.disabled && methods.renderHint()}
           </span>
         );
       },
@@ -82,15 +80,9 @@ export const HintFlag = defineComponent({
         console.log(p);
         p?.$refs.tooltip && ((p.$refs.tooltip as any).sVisible = show);
       },
-      renderHint: ({
-        icon,
-        hint,
-        slot,
-      }: {
-        icon: any;
-        hint: any;
-        slot?: string;
-      }) => {
+      renderHint: () => {
+        const icon = props.icon?.();
+        const { hintStr: hint } = state;
         const title = (
           <span>
             {icon}&nbsp;{props.title}
@@ -100,7 +92,6 @@ export const HintFlag = defineComponent({
           <Popover
             ref={popoverRef}
             trigger={props.trigger}
-            slot={slot}
             getPopupContainer={() => document.body}
             title={title}
             autoAdjustOverflow
@@ -122,7 +113,7 @@ export const HintFlag = defineComponent({
       },
       renderer() {
         return (
-          (props.useRoll && methods.renderLabelAndHint()) ||
+          // (props.useRoll && methods.renderLabelAndHint()) ||
           methods.renderNative()
         );
       },

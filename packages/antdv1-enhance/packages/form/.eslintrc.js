@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["custom"]
+  extends: ["custom"],
   parserOptions: { tsconfigRootDir: __dirname },
   overrides: [
     {

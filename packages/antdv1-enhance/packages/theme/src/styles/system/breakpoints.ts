@@ -98,7 +98,6 @@ export function breakpoints<Props extends Types.Recordable & { theme: any }>(
   //       }
   //     : {};
 
-  //@ts-ignore
   newStyleFunction.filterProps = [
     "xs",
     "sm",

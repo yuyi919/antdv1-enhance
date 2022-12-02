@@ -5,7 +5,6 @@
 
 import { DomUtils, extractProps } from "@yuyi919/antdv1-plus-helper";
 import { autoSizer } from "@yuyi919/antdv1-plus-theme";
-import { CSSProperties } from "@yuyi919/shared-types";
 import { castArray } from "@yuyi919/shared-utils";
 import {
   addResizeListener,
@@ -275,7 +274,7 @@ export const Scrollbar = defineComponent({
       const gutter: number = DomUtils.scrollbarWidth();
       if (gutter) {
         const gutterWith = `-${gutter}px`;
-        const gutterStyle: CSSProperties = {
+        const gutterStyle: StyleValue = {
           marginRight: state.height > 0 ? gutterWith : "0",
           // width: state.sizeHeight > 0 ? `calc(100% - ${gutter}px)` : "100%",
           marginBottom: state.width > 0 ? gutterWith : "0",

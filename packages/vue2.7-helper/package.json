@@ -10,6 +10,7 @@
   "files": [
     "dist",
     "esm",
+    "types",
     "README.md"
   ],
   "scripts": {

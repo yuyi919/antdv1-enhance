@@ -1,5 +1,5 @@
 import { DomUtils } from "@yuyi919/antdv1-plus-helper";
-import { CSSProperties } from "@yuyi919/shared-types";
+import { CSSProperties } from "vue/types/jsx";
 // @ts-ignore
 import Portal from "ant-design-vue/es/_util/Portal";
 // import Portal from './Portal';
@@ -24,7 +24,7 @@ function setStyle(
 
   for (const key in style) {
     const k = key as keyof CSSProperties;
-    oldStyle[k] = (element.style as CSSProperties)[k];
+    oldStyle[k] = (element.style as unknown as CSSProperties)[k];
     // (element.style as any)[k] = (style as CSSProperties)[k];
   }
   Object.assign(element.style, style);

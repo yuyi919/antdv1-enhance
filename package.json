@@ -26,7 +26,7 @@
       "prettier --write --no-error-on-unmatched-pattern"
     ],
     "**/src/**/*.{ts,tsx}": [
-      "prettier --write"
+      "prettier --write --no-error-on-unmatched-pattern"
     ]
   },
   "devDependencies": {

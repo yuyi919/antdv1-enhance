@@ -1,4 +1,5 @@
 /* eslint-disable no-redeclare */
+import { ConstructorType } from "@yuyi919/shared-types";
 import { Spin, Table as AntTable } from "ant-design-vue";
 import { PaginationConfig as AntPaginationConfig } from "ant-design-vue/types/table/table";
 import { getPropsClass, VCProps, VueComponent2 } from "../../helper";
@@ -48,7 +49,7 @@ export const Table = AntTable as VueComponent2<
 export interface Table extends InstanceType<typeof Table> {}
 
 export const TableProps = getPropsClass(
-  AntTable as unknown as VueComponent2<ITableProps>,
+  AntTable as unknown as ConstructorType<Vue & ITableProps>,
   {},
 );
 
