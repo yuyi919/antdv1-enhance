@@ -24,6 +24,14 @@ runs:
         node-version: ${{ inputs.node-version }}
         registry-url: ${{ inputs.registry-url }}
         cache: "pnpm"
+    - name: Cache node_modules
+      uses: actions/cache@v3
+      id: cache-node-modules
+      if: ${{ inputs.run-install == 'true' }}
+      with:
+        path: |
+          node_modules
+        key: modules-${{ hashFiles('pnpm-lock.yaml') }}
     - run: pnpm install --frozen-lockfile
       shell: bash
       if: ${{ inputs.run-install == 'true' }}
