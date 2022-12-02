@@ -39,3 +39,6 @@ yarn-error.log*
 vite.config.js*
 
 temp
+**/temp
+
+tsup.config.*.js
