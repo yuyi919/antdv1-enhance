@@ -1,7 +1,6 @@
 {
   "name": "@yuyi919/antdv1-plus-form",
   "version": "0.0.2",
-  "private": true,
   "description": "",
   "author": "",
   "main": "dist/index.js",

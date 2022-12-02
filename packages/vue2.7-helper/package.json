@@ -1,7 +1,6 @@
 {
   "name": "@yuyi919/vue2.7-helper",
   "version": "0.0.10",
-  "private": true,
   "description": "",
   "author": "",
   "main": "dist/index.js",
