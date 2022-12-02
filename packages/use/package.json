@@ -1,7 +1,6 @@
 {
   "name": "@yuyi919/vue-use",
   "version": "0.0.10",
-  "private": true,
   "description": "",
   "author": "",
   "main": "dist/index.js",
