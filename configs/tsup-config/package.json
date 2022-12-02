@@ -3,12 +3,13 @@
   "version": "0.0.2",
   "private": true,
   "main": "dist/index.js",
-  "module": "src/index.ts",
-  "types": "src/index.ts",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "files": [],
   "scripts": {
-    "build:pre": "tsc --build",
-    "clean": "tsc --build --clean",
+    "build": "tsc --build",
+    "build:notype": "tsup",
+    "clean": "rimraf ./dist",
     "dev": "tsc --build --watch"
   },
   "dependencies": {

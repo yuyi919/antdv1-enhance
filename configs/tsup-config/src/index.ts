@@ -1,7 +1,6 @@
 import EsbuildPluginAlias from "esbuild-plugin-alias";
 import { copy } from "esbuild-plugin-copy";
 import { lessLoader } from "esbuild-plugin-less";
-
 import { defineConfig, Options } from "tsup";
 
 export const tsupConfig: Options = defineConfig({
@@ -36,7 +35,7 @@ export const tsupConfig: Options = defineConfig({
     //   javascriptEnabled: true
     // }),
     EsbuildPluginAlias({
-      lodash: require.resolve("../../../node_modules/lodash-es"),
+      lodash: require.resolve("lodash-es"),
       // "@yuyi919/shared-types": require.resolve(
       //   "@yuyi919/shared-types/src/index.ts",
       //   {

@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@types/heft-jest": "1.0.2",
-    "@types/node": "~16.7.2"
+    "@types/node": "~16.7.2",
+    "tsup-config": "workspace:^0.0.2"
   }
 }

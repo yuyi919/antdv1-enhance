@@ -19,7 +19,7 @@ importers:
       rimraf: ^3.0.2
       tsconfig: workspace:*
       tsup: ^6.5.0
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       turbo: ^1.6.3
       typescript: ^4.5.2
       vite: ^3.1.7
@@ -52,6 +52,7 @@ importers:
       eslint-config-prettier: ^8.3.0
       eslint-config-turbo: latest
       eslint-plugin-react: 7.31.8
+      tsup-config: workspace:^0.0.2
       typescript: ^4.7.4
     dependencies:
       eslint: 7.32.0
@@ -59,6 +60,7 @@ importers:
       eslint-config-turbo: 0.0.7_eslint@7.32.0
       eslint-plugin-react: 7.31.8_eslint@7.32.0
     devDependencies:
+      tsup-config: link:../tsup-config
       typescript: 4.9.3
 
   configs/tsconfig:
@@ -100,6 +102,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
+      tsup-config: workspace:^0.0.2
       typescript: 4.5.5
       vite-plugin-imp: ^2.0.7
       vite-tsconfig-paths: ^3.6.0
@@ -129,6 +132,7 @@ importers:
       ant-design-vue: 1.7.5_vue@2.7.14
       jest: 27.1.1
       less: 3.12.2
+      tsup-config: link:../../configs/tsup-config
       typescript: 4.5.5
       vite-plugin-imp: 2.3.1
       vite-tsconfig-paths: 3.6.0
@@ -153,7 +157,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ^2.7.14
       vue-demi: ~0.13.11
@@ -201,7 +205,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ^2.7.14
       vue-demi: ~0.13.11
@@ -245,7 +249,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ^2.7.14
       vue-demi: ~0.13.11
@@ -291,7 +295,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ^2.7.14
       vue-demi: ~0.13.11
@@ -340,7 +344,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ^2.7.14
       vue-demi: ~0.13.11
@@ -382,7 +386,7 @@ importers:
       ant-design-vue: ^1.7.8
       jest: ~27.1.0
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ^2.7.14
       vue-template-compiler: ^2.7.14
@@ -424,7 +428,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ^2.7.14
       vue-demi: ~0.13.11
@@ -469,6 +473,7 @@ importers:
       dts-bundle-generator: ^7.1.0
       lint-staged: ^13.0.3
       lodash: ^4.17.21
+      tsup-config: workspace:^0.0.2
       typescript: ^4.5.2
       vue: ^2.7.14
       vue-template-compiler: ^2.7.14
@@ -483,6 +488,7 @@ importers:
       dts-bundle-generator: 7.1.0
       lint-staged: 13.0.3
       lodash: 4.17.21
+      tsup-config: link:../../../../configs/tsup-config
       typescript: 4.9.3
       vue: 2.7.14
       vue-template-compiler: 2.7.14
@@ -501,6 +507,7 @@ importers:
       lodash-es: 4.17.21
       tiny-warning: ^1.0.3
       tslib: ~2.3.1
+      tsup-config: workspace:^0.0.2
       typescript: 4.5.5
       vue: ~2.7.14
       vue-demi: ~0.13.11
@@ -518,6 +525,7 @@ importers:
       '@yuyi919/shared-utils': 0.0.43
       jest: 27.1.1
       tiny-warning: 1.0.3
+      tsup-config: link:../../configs/tsup-config
       typescript: 4.5.5
       vue: 2.7.14
       vue-demi: 0.13.11_vue@2.7.14
@@ -533,6 +541,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
+      tsup-config: workspace:^0.0.2
       typescript: 4.5.5
       vue: ~2.7.14
       vue-demi: ~0.13.11
@@ -549,6 +558,7 @@ importers:
       '@yuyi919/shared-types': 0.0.11
       '@yuyi919/shared-utils': 0.0.43
       jest: 27.1.1
+      tsup-config: link:../../configs/tsup-config
       typescript: 4.5.5
       vue: 2.7.14
       vue-demi: 0.13.11_vue@2.7.14
@@ -565,7 +575,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
-      tsup-config: workspace:*
+      tsup-config: workspace:0.0.2
       typescript: 4.5.5
       vue: ~2.7.14
       vue-demi: ~0.13.11
@@ -600,6 +610,7 @@ importers:
       resize-observer-polyfill: ^1.5.1
       rxjs: ~6.6.3
       tslib: ~2.3.1
+      tsup-config: workspace:^0.0.2
       typescript: 4.5.5
       vue: ~2.7.14
       vue-demi: ~0.13.11
@@ -615,6 +626,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       resize-observer-polyfill: 1.5.1
+      tsup-config: link:../../configs/tsup-config
       typescript: 4.5.5
       vue: 2.7.14
       vue-demi: 0.13.11_vue@2.7.14
@@ -628,6 +640,7 @@ importers:
       lodash: 4.17.21
       lodash-es: 4.17.21
       tslib: ~2.3.1
+      tsup-config: workspace:^0.0.2
       typescript: 4.5.5
       vue: ~2.7.14
       vue-demi: ~0.13.11
@@ -640,6 +653,7 @@ importers:
       '@yuyi919/shared-utils': 0.0.43
       lodash: 4.17.21
       lodash-es: 4.17.21
+      tsup-config: link:../../configs/tsup-config
       typescript: 4.5.5
       vue: 2.7.14
       vue-demi: 0.13.11_vue@2.7.14
@@ -653,6 +667,7 @@ importers:
       '@rushstack/heft-jest-plugin': 0.1.21
       '@types/heft-jest': 1.0.2
       '@types/node': ~16.7.2
+      tsup-config: workspace:^0.0.2
       typescript: ~4.6.2
     dependencies:
       '@microsoft/api-extractor': 7.28.7
@@ -664,6 +679,7 @@ importers:
     devDependencies:
       '@types/heft-jest': 1.0.2
       '@types/node': 16.7.13
+      tsup-config: link:../../configs/tsup-config
 
 packages:
 

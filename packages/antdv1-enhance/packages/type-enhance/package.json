@@ -31,6 +31,7 @@
     "dts-bundle-generator": "^7.1.0",
     "lint-staged": "^13.0.3",
     "lodash": "^4.17.21",
+    "tsup-config": "workspace:^0.0.2",
     "typescript": "^4.5.2",
     "vue": "^2.7.14",
     "vue-template-compiler": "^2.7.14"
