@@ -1,5 +1,12 @@
 # @yuyi919/vue-antv-plus2
 
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @yuyi919/antdv1-plus-modal@0.0.4
+
 ## 0.0.12
 
 ### Patch Changes
