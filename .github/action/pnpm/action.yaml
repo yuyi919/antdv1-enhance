@@ -27,6 +27,7 @@ runs:
     - name: Cache node_modules
       uses: actions/cache@v3
       id: cache-node-modules
+      if: ${{ inputs.run-install == 'true' }}
       with:
         path: |
           node_modules
@@ -36,4 +37,4 @@ runs:
         key: modules-${{ hashFiles('pnpm-lock.yaml') }}
     - run: pnpm install --frozen-lockfile
       shell: bash
-      if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' && inputs.run-install == 'true' }}
+      if: ${{ inputs.run-install == 'true' }}
