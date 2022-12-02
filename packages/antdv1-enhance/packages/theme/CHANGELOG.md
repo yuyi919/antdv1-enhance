@@ -1,5 +1,14 @@
 # @yuyi919/antdv1-plus-theme
 
+## 0.0.4
+
+### Patch Changes
+
+- patch
+
+- Updated dependencies []:
+  - @yuyi919/vue-jsx-factory@0.0.10
+
 ## 0.0.3
 
 ### Patch Changes

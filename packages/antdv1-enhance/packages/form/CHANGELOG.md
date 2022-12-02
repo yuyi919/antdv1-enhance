@@ -1,5 +1,13 @@
 # @yuyi919/antdv1-plus-form
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @yuyi919/antdv1-plus-theme@0.0.4
+  - @yuyi919/antdv1-plus-shared@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

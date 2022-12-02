@@ -1,5 +1,17 @@
 # @yuyi919/vue-antv-plus2
 
+## 0.0.14
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @yuyi919/antdv1-plus-modal@0.0.5
+  - @yuyi919/antdv1-plus-theme@0.0.4
+  - @yuyi919/vue-jsx-factory@0.0.10
+  - @yuyi919/antdv1-plus-action@0.0.4
+  - @yuyi919/antdv1-plus-form@0.0.4
+  - @yuyi919/antdv1-plus-shared@0.0.4
+
 ## 0.0.13
 
 ### Patch Changes

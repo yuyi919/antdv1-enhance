@@ -1,6 +1,6 @@
 {
   "name": "@yuyi919/antdv1-plus-shared",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "author": "",
   "main": "dist/index.js",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.3",
-    "@yuyi919/antdv1-plus-theme": "workspace:0.0.3",
+    "@yuyi919/antdv1-plus-theme": "workspace:0.0.4",
     "@yuyi919/vue-jss": "workspace:0.0.5",
     "@yuyi919/vue-shared-decorators": "workspace:0.0.11",
     "@yuyi919/vue-use": "workspace:0.0.11",

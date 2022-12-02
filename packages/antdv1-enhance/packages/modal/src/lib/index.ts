@@ -9,6 +9,7 @@ export * from "./Manager";
 export * from "./modal";
 export * from "./portal";
 export * from "./props";
+export * from "./utils";
 
 export default function install(vue: typeof Vue) {
   vue.prototype.$customModal = function $customModal(

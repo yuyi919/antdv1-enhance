@@ -94,25 +94,12 @@ export type AlertOptionsAdapter<
 > & {
   iconType?: ModalType | Types.DynamicString;
 };
+
 export interface AsyncModalAction<Option, Result>
   extends Promise<Result>,
     IModalConfirmAdapter<Option> {
   emit: (result: Result) => void;
 }
-
-function __configureModalAdapter<
-  ModalOptions extends IModalOptionsAdapter,
-  ModalType extends string,
-  ConfirmOptions extends ConfirmOptionAdapter<ModalOptions>,
->(
-  modal: {
-    [K in "alert" | "confirm"]: AdapterCaller<
-      ModalOptions & IModalMethodsOptions
-    >;
-  } & {
-    [K in ModalType]?: AdapterCaller<ModalOptions & IModalMethodsOptions>;
-  },
-) {}
 
 type ConfiguredModel<
   ModalOptions extends IModalOptionsAdapter,

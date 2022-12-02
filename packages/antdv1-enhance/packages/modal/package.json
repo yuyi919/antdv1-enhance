@@ -1,6 +1,6 @@
 {
   "name": "@yuyi919/antdv1-plus-modal",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "author": "",
   "main": "dist/index.js",
@@ -19,10 +19,10 @@
     "dev": "tsup --watch --onSuccess \"pnpm build\""
   },
   "dependencies": {
-    "@yuyi919/antdv1-plus-action": "workspace:0.0.3",
+    "@yuyi919/antdv1-plus-action": "workspace:0.0.4",
     "@yuyi919/antdv1-plus-helper": "workspace:0.0.3",
-    "@yuyi919/antdv1-plus-shared": "workspace:0.0.3",
-    "@yuyi919/antdv1-plus-theme": "workspace:0.0.3",
+    "@yuyi919/antdv1-plus-shared": "workspace:0.0.4",
+    "@yuyi919/antdv1-plus-theme": "workspace:0.0.4",
     "@yuyi919/vue-use": "workspace:0.0.11",
     "@yuyi919/vue2.7-helper": "workspace:^0.0.11",
     "lodash": "4.17.21",

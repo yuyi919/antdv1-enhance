@@ -13,6 +13,11 @@ export type ModalConfirm<T = ModalOptions> = {
    */
   destroy(): void;
 };
+
+export type MessageTheme = "info" | "success" | "error" | "warning";
+export type MessageType = MessageTheme | "loading";
+export type DialogType = MessageTheme | "confirm";
+
 export const Modal: Record<
   DialogType,
   (options: ModalOptions) => ModalConfirm<ModalOptions>
@@ -24,16 +29,9 @@ export const Modal: Record<
   confirm: null,
   loading: null,
 } as any;
-export type DialogType =
-  | "info"
-  | "success"
-  | "error"
-  | "warning"
-  | "confirm"
-  | "loading";
 
 export const Message: Record<
-  DialogType,
+  MessageType,
   (content: any, duration?: number, onClose?: () => void) => Promise<any>
 > & {
   destroy: () => void;

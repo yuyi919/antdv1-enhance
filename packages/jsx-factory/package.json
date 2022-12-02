@@ -1,8 +1,18 @@
 {
   "name": "@yuyi919/vue-jsx-factory",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "author": "",
+  "exports": {
+    ".": {
+      "require": "./jsx-runtime/index.js",
+      "import": "./jsx-runtime-es/index.js"
+    },
+    "./jsx-runtime": {
+      "require": "./jsx-runtime/index.js",
+      "import": "./jsx-runtime-es/index.js"
+    }
+  },
   "main": "jsx-runtime/index.js",
   "module": "jsx-runtime-es/index.js",
   "types": "jsx-runtime/index.d.ts",

@@ -1,5 +1,16 @@
 # @yuyi919/antdv1-plus-modal
 
+## 0.0.5
+
+### Patch Changes
+
+- patch
+
+- Updated dependencies []:
+  - @yuyi919/antdv1-plus-theme@0.0.4
+  - @yuyi919/antdv1-plus-action@0.0.4
+  - @yuyi919/antdv1-plus-shared@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

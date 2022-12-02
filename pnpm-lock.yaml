@@ -88,7 +88,7 @@ importers:
       '@yuyi919/antdv1-plus-action': workspace:0.0.3
       '@yuyi919/antdv1-plus-form': workspace:0.0.3
       '@yuyi919/antdv1-plus-helper': workspace:0.0.3
-      '@yuyi919/antdv1-plus-modal': workspace:0.0.3
+      '@yuyi919/antdv1-plus-modal': workspace:0.0.4
       '@yuyi919/antdv1-plus-shared': workspace:0.0.3
       '@yuyi919/antdv1-plus-table': workspace:0.0.3
       '@yuyi919/antdv1-plus-theme': workspace:0.0.3
