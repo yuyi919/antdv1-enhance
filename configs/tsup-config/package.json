@@ -8,6 +8,7 @@
   "files": [],
   "scripts": {
     "build:pre": "tsc --build",
+    "clean": "tsc --build --clean",
     "dev": "tsc --build --watch"
   },
   "dependencies": {

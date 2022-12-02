@@ -16,6 +16,7 @@
     "build": "tsc --build --force",
     "build:dev": "tsc --build",
     "build:watch": "tsc --build --watch",
+    "clean": "rimraf ./{dist,lib,esm,types}",
     "dev": "tsc --build --watch"
   },
   "dependencies": {

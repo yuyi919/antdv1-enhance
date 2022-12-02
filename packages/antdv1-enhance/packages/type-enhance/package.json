@@ -16,6 +16,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:notype": "tsup",
+    "clean": "rimraf ./{dist,esm,types}",
     "dev": "tsup --watch --onSuccess \"pnpm build\""
   },
   "dependencies": {

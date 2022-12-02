@@ -19,13 +19,7 @@
     "README"
   ],
   "scripts": {
-    "_phase:build": "heft build",
-    "build": "heft build",
-    "build:dev": "heft build",
-    "build:watch": "heft build --watch",
-    "dev": "heft build --watch",
-    "test": "heft test",
-    "test:watch": "heft test --watch"
+    "clean": "rimraf ./temp"
   },
   "dependencies": {
     "@microsoft/api-extractor": "~7.28.2",

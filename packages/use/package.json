@@ -16,6 +16,7 @@
     "build:dev": "tsc --build",
     "build:notype": "tsup",
     "build:watch": "tsc --build --watch",
+    "clean": "rimraf ./{dist,lib,esm,types}",
     "dev": "tsc --build --watch"
   },
   "dependencies": {
