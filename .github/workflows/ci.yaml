@@ -49,6 +49,7 @@ jobs:
       - name: Setup Workspace
         uses: ./.github/action/pnpm
         with:
+          registry-url: https://registry.npmjs.org/
           run-install: true
       - name: Create Release
         id: changesets
