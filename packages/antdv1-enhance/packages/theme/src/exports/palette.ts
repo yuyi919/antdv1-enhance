@@ -2,6 +2,8 @@
  * @package Palette
  */
 /* eslint-disable no-redeclare */
+import type { ITheme } from "@yuyi919/vue2-make-styled";
+import { Getter } from "./interface";
 import {
   black as _black,
   errorColor as _errorColor,
@@ -16,9 +18,7 @@ import {
   successColor as _successColor,
   warningColor as _warningColor,
   white as _white,
-} from "../../exports/palette.module.less";
-import type { Theme } from "../styled/provider";
-import { Getter } from "./interface";
+} from "./palette.module.less";
 
 export interface IPalette {
   /**
@@ -206,54 +206,54 @@ export function usePalette(name: string) {
     (() => void 0)) as any;
 }
 export const paletteGetter = Object.freeze({
-  primaryColor(props: any, theme?: Theme) {
+  primaryColor(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.primaryColor || palette.primaryColor
     );
   },
-  infoColor(props: any, theme?: Theme) {
+  infoColor(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.infoColor || palette.infoColor;
   },
-  successColor(props: any, theme?: Theme) {
+  successColor(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.successColor || palette.successColor
     );
   },
-  processingColor(props: any, theme?: Theme) {
+  processingColor(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.processingColor ||
       palette.processingColor
     );
   },
-  errorColor(props: any, theme?: Theme) {
+  errorColor(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.errorColor || palette.errorColor;
   },
-  highlightColor(props: any, theme?: Theme) {
+  highlightColor(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.highlightColor || palette.highlightColor
     );
   },
-  warningColor(props: any, theme?: Theme) {
+  warningColor(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.warningColor || palette.warningColor
     );
   },
-  normalColor(props: any, theme?: Theme) {
+  normalColor(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.normalColor || palette.normalColor;
   },
-  white(props: any, theme?: Theme) {
+  white(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.white || palette.white;
   },
-  black(props: any, theme?: Theme) {
+  black(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.black || palette.black;
   },
-  secondColor(props: any, theme?: Theme) {
+  secondColor(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.secondColor || palette.secondColor;
   },
-  primary(props: any, theme?: Theme) {
+  primary(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.primary || palette.primary;
   },
-  second(props: any, theme?: Theme) {
+  second(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.second || palette.second;
   },
 });

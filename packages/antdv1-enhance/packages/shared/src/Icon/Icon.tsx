@@ -16,7 +16,7 @@ const useStyles = styled.makeUse`
   &${classes.root} {
     color: ${(props: ThemedIconProps, theme) =>
       Theme.getPalette(`${props.color}Color` as any)(props, theme) ||
-      Theme.getPalette("primaryColor")(props.color, theme)} !important;
+      Theme.getPalette("primaryColor")(props.color, theme)};
   }
 `;
 

@@ -1,5 +1,8 @@
 export * from "./ExcludeVueTypes";
+export * from "./ExtractPropTypes";
 export * from "./helper";
+export * from "./TsxOnEvents";
+export * from "./TypedPropGroup";
 
 export type ResolveSubModule<
   T extends new () => any,

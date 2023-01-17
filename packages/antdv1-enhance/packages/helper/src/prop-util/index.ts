@@ -1,8 +1,5 @@
 import { Types } from "@yuyi919/shared-types";
-import {
-  TPropProvider,
-  UNSAFE_STORE_PROPS_KEY,
-} from "@yuyi919/vue-shared-decorators";
+import { UNSAFE_STORE_PROPS_KEY } from "@yuyi919/vue-shared-decorators";
 import { TypedPropGroup } from "@yuyi919/vue2.7-helper";
 import Vue from "vue";
 import {
@@ -69,33 +66,32 @@ export abstract class PropProvider<T> {
   public static [UNSAFE_STORE_PROPS_KEY]: TypedPropGroup<any>;
 }
 
-export function PropsMixins<A>(ctorA: TPropProvider<A>): TPropProvider<A>;
+export type PropClass<T> = new () => T;
+export function PropsMixins<A>(ctorA: PropClass<A>): PropClass<A>;
 export function PropsMixins<A, B>(
-  ctorA: TPropProvider<A>,
-  ctorB: TPropProvider<B>,
-): TPropProvider<A & B>;
+  ctorA: PropClass<A>,
+  ctorB: PropClass<B>,
+): PropClass<A & B>;
 export function PropsMixins<A, B, C>(
-  ctorA: TPropProvider<A>,
-  ctorB: TPropProvider<B>,
-  ctorC: TPropProvider<C>,
-): TPropProvider<A & B & C>;
+  ctorA: PropClass<A>,
+  ctorB: PropClass<B>,
+  ctorC: PropClass<C>,
+): PropClass<A & B & C>;
 export function PropsMixins<A, B, C, D>(
-  ctorA: TPropProvider<A>,
-  ctorB: TPropProvider<B>,
-  ctorC: TPropProvider<C>,
-  ctorD: TPropProvider<D>,
-): TPropProvider<A & B & C & D>;
+  ctorA: PropClass<A>,
+  ctorB: PropClass<B>,
+  ctorC: PropClass<C>,
+  ctorD: PropClass<D>,
+): PropClass<A & B & C & D>;
 export function PropsMixins<A, B, C, D, E>(
-  ctorA: TPropProvider<A>,
-  ctorB: TPropProvider<B>,
-  ctorC: TPropProvider<C>,
-  ctorD: TPropProvider<D>,
-  ctorE: TPropProvider<E>,
-): TPropProvider<A & B & C & D & E>;
-export function PropsMixins<T>(
-  ...ctors: TPropProvider<any>[]
-): TPropProvider<T>;
-export function PropsMixins(...ctors: TPropProvider<any>[]) {
+  ctorA: PropClass<A>,
+  ctorB: PropClass<B>,
+  ctorC: PropClass<C>,
+  ctorD: PropClass<D>,
+  ctorE: PropClass<E>,
+): PropClass<A & B & C & D & E>;
+export function PropsMixins<T>(...ctors: PropClass<any>[]): PropClass<T>;
+export function PropsMixins(...ctors: PropClass<any>[]) {
   //@ts-ignore
-  return Vue.extend({ mixins: ctors }) as TPropProvider<T>;
+  return Vue.extend({ mixins: ctors }) as PropClass<T>;
 }

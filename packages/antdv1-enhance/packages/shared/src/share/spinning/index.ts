@@ -44,13 +44,15 @@ export class SpinningHook extends HookFactory<SpinningProps> {
 export class ActionSpinningHook extends SpinningHook {
   constructor(context: SetupContext, props: SpinningProps) {
     super(context, props);
+  }
+
+  public $install() {
     watch(
       () => this.actionSpinning,
       (spinning) => this.toggleSpinning(spinning),
       { immediate: true },
     );
   }
-  public $install() {}
 
   // @Watch("actionSpinning", { immediate: true })
   // protected onActionSpinningChanged = (spinning: boolean) => {
@@ -80,6 +82,7 @@ export class ActionSpinningHook extends SpinningHook {
     }
     return r;
   }
+
   public get actionSpinning() {
     return this.spinningAction.length > this.actionSpinningThreshold;
   }

@@ -13,7 +13,14 @@ export interface ITypedPropOptions<T, Required extends boolean> {
 
 export const UNSAFE_STORE_PROPS_KEY = "@props";
 const UNSAFE_WALKER = () => null;
-export function extractProps<T, D = {}>(
+export function extractProps<
+  T extends Types.Consturctor<any>,
+  D extends Partial<InstanceType<T>> = {},
+>(target: T, defaultProps: D): TypedPropGroup<InstanceType<T>, D>;
+export function extractProps<T>(
+  target: Types.Consturctor<T>,
+): TypedPropGroup<T, {}>;
+export function extractProps<T, D extends Partial<T> = {}>(
   target: Types.Consturctor<T>,
   defaultProps?: D,
 ): TypedPropGroup<T, D> {

@@ -92,11 +92,12 @@ type b = import("vue").ExtractPropTypes<{
 export type TypedPropsMap<T extends Types.Recordable> = {
   [K in keyof T]-?: {} extends Pick<T, K>
     ? {
-        type: PropType<T[K]>;
+        type: PropType<Exclude<T[K], undefined>>;
         required: false;
+        default: Exclude<T[K], undefined>;
       }
     : {
-        type: PropType<T[K]>;
+        type: PropType<Exclude<T[K], undefined>>;
         required: true;
       };
 };

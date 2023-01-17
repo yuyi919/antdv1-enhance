@@ -5,11 +5,15 @@ import {
   isVueComponent,
   VueComponent2,
 } from "@yuyi919/antdv1-plus-helper";
-import Types, { isEsModuleWithDefaultExport } from "@yuyi919/shared-types";
+import Types, {
+  isEsModuleWithDefaultExport,
+  OrAwaitableCallback,
+} from "@yuyi919/shared-types";
 import { castComputed, castObject, expect$ } from "@yuyi919/shared-utils";
 import { cloneDeep, defaults, defaultsDeep, merge } from "lodash";
 import Vue from "vue";
 import {
+  Component,
   defineComponent,
   getCurrentInstance,
   h,
@@ -20,13 +24,12 @@ import {
 import type { ConfirmOptions } from "./confirm";
 import { IModalAction, InnerModalContext } from "./context";
 import { createProtalModal, IPortalModalOptions } from "./portal";
+type P = OrAwaitableCallback<Promise<1>>;
+export type RendererOrCallback<
+  T extends VueConstructor | Component = VueConstructor | Component,
+> = Types.EitherMakeEitherDynamicImport<T | VNodeChildren | JSX.Element>;
 
-export type RendererOrCallback<T extends VueConstructor = VueConstructor> =
-  Types.OrDynamicImportCallback<
-    T | VueComponent2<{}> | VNodeChildren | JSX.Element
-  >;
-
-async function loadComponent<T extends VueConstructor>(
+async function loadComponent<T extends VueConstructor | Component>(
   target?: RendererOrCallback<T>,
 ): Promise<T> {
   // 如果是vue组件，直接返回
@@ -82,7 +85,7 @@ function getContentLoader<P extends ICommonModalProps<any>>(
       if (Render) {
         const setup = getFromVueComponent(Render, "setup");
         Render = defineComponent({
-          extends: Render,
+          extends: Render as VueConstructor,
           setup(props, ctx) {
             const ctxs = setup?.(props, ctx);
             const innerModal = InnerModalContext.inject();
@@ -97,18 +100,15 @@ function getContentLoader<P extends ICommonModalProps<any>>(
         }) as any;
         resolve(
           Render &&
-            (() => (
-              <Render
-                {...{
-                  props: props,
-                  attrs: other,
-                  on: {
-                    close: handleOnClose!,
-                    update: forceUpdate!,
-                  },
-                }}
-              />
-            )),
+            (() =>
+              h(Render, {
+                props: props,
+                attrs: other,
+                on: {
+                  close: handleOnClose!,
+                  update: forceUpdate!,
+                },
+              })),
         );
       }
     });

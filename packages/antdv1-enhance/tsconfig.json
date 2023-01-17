@@ -8,9 +8,37 @@
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "rootDirs": ["./src", "./playground"],
+    "types": ["vite/client", "node"],
     "baseUrl": ".",
     "moduleResolution": "node",
     "paths": {
+      "@yuyi919/antdv1-plus-action": [
+        "./node_modules/@yuyi919/antdv1-plus-action/src/index.ts"
+      ],
+      "@yuyi919/antdv1-plus-form": [
+        "./node_modules/@yuyi919/antdv1-plus-form/src/index.ts"
+      ],
+      "@yuyi919/antdv1-plus-helper": [
+        "./node_modules/@yuyi919/antdv1-plus-helper/src/index.ts"
+      ],
+      "@yuyi919/antdv1-plus-modal": [
+        "./node_modules/@yuyi919/antdv1-plus-modal/src/index.ts"
+      ],
+      "@yuyi919/antdv1-plus-shared": [
+        "./node_modules/@yuyi919/antdv1-plus-shared/src/index.ts"
+      ],
+      "@yuyi919/antdv1-plus-table": [
+        "./node_modules/@yuyi919/antdv1-plus-table/src/index.ts"
+      ],
+      "~@yuyi919/antdv1-plus-theme/index.less": [
+        "./node_modules/@yuyi919/antdv1-plus-theme/index.less"
+      ],
+      "@yuyi919/antdv1-plus-theme/index.less": [
+        "./node_modules/@yuyi919/antdv1-plus-theme/index.less"
+      ],
+      "@yuyi919/antdv1-plus-theme": [
+        "./node_modules/@yuyi919/antdv1-plus-theme/src/index.ts"
+      ],
       "@yuyi919/vue-antv-plus2": ["./src/index.ts"],
       "@yuyi919/vue-jss": ["./node_modules/@yuyi919/vue-jss/src/index.ts"],
       "@yuyi919/vue-use": ["./node_modules/@yuyi919/vue-use/src/index.ts"]

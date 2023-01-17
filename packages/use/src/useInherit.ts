@@ -110,6 +110,24 @@ export function useInherit<K extends string = string>(
  *  }
  * })
  */
+export function useInheritEvents<
+  Events extends Record<string, any>,
+  Keys extends keyof Events,
+>(
+  context: SetupContext<Events>,
+  usedEvent?: Keys[],
+): readonly [
+  getInheritEvent: () => {
+    [key: string]: (...args: any[]) => void;
+  },
+  requiredEventHandle: {
+    [K in Keys]: (...args: Parameters<Events[K]>) => void;
+  },
+];
+export function useInheritEvents<K extends string = string>(
+  context: SetupContext,
+  usedEvent?: K[],
+): InheritEventHooks<K>;
 export function useInheritEvents<K extends string = string>(
   context: SetupContext,
   usedEvent?: K[],

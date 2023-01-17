@@ -1,18 +1,21 @@
-import { extractProps, TypedPropGroup } from "@yuyi919/antdv1-plus-helper";
-import { AntPopconfirmProps } from "@yuyi919/antdv1-type-enhance";
-import { expect$, sleep, stubFunction } from "@yuyi919/shared-utils";
+import { extractProps, VueComponent2 } from "@yuyi919/antdv1-plus-helper";
+import { as, isStr, isThenable, Recordable } from "@yuyi919/shared-types";
+import { isBool, stubFunction } from "@yuyi919/shared-utils";
 import { Popconfirm } from "ant-design-vue";
-import { defineComponent } from "vue-demi";
-import AutoOperationBar from "./component";
-import { IConfirmButtonProps } from "./interface";
+import { computed, defineComponent, ref } from "vue-demi";
+import { useEventSourceHandle } from "../use";
+import { ActionGroup } from "./ActionGroup";
+import { ConfirmButtonProps } from "./interface";
 
 export const StaticProps = {
   okButtonProps: { style: "display: none" },
   cancelButtonProps: { style: "display: none" },
 };
 
-export function createConfirmButton(initialConfirm: any) {
-  return {
+export function createConfirmButton2(
+  initialConfirm: any,
+): VueComponent2<ConfirmButtonProps> {
+  return defineComponent({
     functional: true,
     render(
       _,
@@ -24,16 +27,14 @@ export function createConfirmButton(initialConfirm: any) {
           confirm = initialConfirm,
           okText = "确认",
           cancelText = "取消",
-        } = {} as IConfirmButtonProps,
+          contentSpinning = false,
+        } = {} as ConfirmButtonProps,
         data,
         children,
         listeners = {},
       }: any,
     ) {
-      const isDisabled = expect$.is.bool.filter(
-        disabled,
-        confirm === undefined,
-      );
+      const isDisabled = [disabled, confirm === undefined].find(isBool);
       // console.log(data, listeners, isDisabled);
       listeners.click = listeners.click || stubFunction;
       return (
@@ -41,7 +42,13 @@ export function createConfirmButton(initialConfirm: any) {
           {...data}
           arrowPointAtCenter
           getPopupContainer={() => document.body}
-          title={<a-spin spinning={loading}>{confirm}</a-spin>}
+          title={
+            contentSpinning ? (
+              <a-spin spinning={loading}>{confirm}</a-spin>
+            ) : (
+              confirm
+            )
+          }
           onConfirm={listeners.click}
           okText={okText}
           props={{
@@ -55,86 +62,134 @@ export function createConfirmButton(initialConfirm: any) {
         </Popconfirm>
       );
     },
-  };
+  }) as VueComponent2<ConfirmButtonProps>;
 }
 
-export function createConfirmButtonComponent(initialConfirm: any) {
-  return defineComponent({
-    functional: true,
-    props: extractProps(AntPopconfirmProps) as TypedPropGroup<
-      InstanceType<typeof AntPopconfirmProps>
-    >,
-    render(
-      h,
-      {
-        props: {
-          getContainer = null,
-          disabled = undefined,
-          confirm = initialConfirm,
-          okText = "确认",
-          cancelText = "取消",
-        } = {} as any,
-        data,
-        children,
-        listeners = {} as any,
-      },
-    ) {
-      // console.log(data, listeners);
-      return (
-        <Popconfirm
-          {...data}
-          {...{ props: StaticProps }}
-          getPopupContainer={getContainer}
-          disabled={expect$.is.bool.filter(disabled, confirm === undefined)}
-          title={
-            <AutoOperationBar
+export function createConfirmButton(initialConfirm: any): ConfirmComponent {
+  return as(
+    defineComponent({
+      props: extractProps(ConfirmButtonProps),
+      emits: ["click", "cancel", "cancelConfirm"],
+      setup(props, context) {
+        const popconfirmRef = ref<{
+          setVisible(visible: boolean): void;
+        } | null>(null);
+        const visible = ref<boolean | undefined>();
+        const onConfirm = () => {
+          // console.log(context.listeners.click, props.handleOnClick?.());
+          return useEventSourceHandle("click", context)?.();
+        };
+
+        // console.log("setup confirm", initialConfirm);
+        let canceled = false;
+        let cancelRafId: any;
+        const actionHandlers = {
+          ok: async () => {
+            try {
+              cancelAnimationFrame(cancelRafId);
+              popconfirmRef.value?.setVisible(true);
+              visible.value = true;
+              const proc = onConfirm();
+              await proc;
+              visible.value = undefined;
+              if (!canceled && props.closeOnSuccess) {
+                isThenable(proc) &&
+                  console.log("closeOnSuccess", popconfirmRef.value);
+                cancelAnimationFrame(cancelRafId);
+                cancelRafId = requestAnimationFrame(() => {
+                  popconfirmRef.value?.setVisible(false);
+                });
+              }
+              canceled = false;
+            } catch (error) {
+              if (visible.value === true) {
+                visible.value = undefined;
+              }
+              cancelAnimationFrame(cancelRafId);
+              popconfirmRef.value?.setVisible(true);
+              throw error;
+            }
+          },
+          cancel: async (e) => {
+            console.error("cancel", e);
+            if (visible.value === true) {
+              visible.value = undefined;
+            }
+            popconfirmRef.value?.setVisible(false);
+            context.emit("cancel");
+          },
+          cancel$: (e) => {
+            console.error("cancel$", e);
+            context.emit("cancelConfirm");
+            canceled = true;
+          },
+        };
+        const content = computed(() => {
+          const { okText = "确认", cancelText = "取消" } = props;
+          return [
+            props.contentSpinning ? (
+              <a-spin spinning={props.loading}>
+                {props.confirm || initialConfirm}
+              </a-spin>
+            ) : (
+              props.confirm || initialConfirm
+            ),
+            <ActionGroup
               primary="ok"
               defaultProps={{ size: "small" }}
-              defaultActionHandler={{
-                ok: async (...args: any[]) => {
-                  console.log(args);
-                  await sleep(10000);
-                },
+              defaultActionHandler={actionHandlers}
+              style={{
+                marginBottom: "-12px",
+                marginTop: "12px",
+                marginLeft: "-22px",
               }}
-              style={{ marginBottom: "-12px", marginTop: "12px" }}
+              align="center"
               actions={{
                 cancel: cancelText,
                 ok: okText,
               }}
+            />,
+          ];
+        });
+        return () => {
+          const {
+            getContainer = null,
+            disabled = undefined,
+            confirm = initialConfirm,
+          } = props;
+          return (
+            <Popconfirm
+              visible={visible.value}
+              ref={popconfirmRef}
+              {...{ props: StaticProps }}
+              getPopupContainer={getContainer!}
+              disabled={[disabled, confirm === undefined].find(isBool)}
+              title={content.value}
             >
-              <template slot="content">{confirm}</template>
-            </AutoOperationBar>
-          }
-          onConfirm={listeners.click || (() => {})}
-        >
-          {children}
-        </Popconfirm>
-      );
-    },
-  });
+              {context.slots.default?.()}
+            </Popconfirm>
+          );
+        };
+      },
+    }),
+  );
 }
 
-export const ConfirmDeleteButton = createConfirmButton("确认要删除？");
-export const ConfirmAddButton = createConfirmButton("确认要新增？");
-export const ConfirmEditButton = createConfirmButton("确认要修改？");
-export const ConfirmCancelButton = createConfirmButton("确认取消操作？");
+export type ConfirmComponent = VueComponent2<
+  ConfirmButtonProps,
+  { click: any; cancel: void },
+  {},
+  {
+    setVisible(visible: boolean): void;
+  }
+>;
+export interface IConfirmComponent extends InstanceType<ConfirmComponent> {}
 
-export const CommonConfirmButton = {
-  delete: ConfirmDeleteButton,
-  add: ConfirmAddButton,
-  edit: ConfirmEditButton,
-  cancel: ConfirmCancelButton,
-};
+export const CommonConfirm = createConfirmButton("确认要进行此操作？");
 
-export function getConfirmContainerComponent<
-  K extends keyof typeof CommonConfirmButton,
->(config: K): typeof CommonConfirmButton[K];
-export function getConfirmContainerComponent(
-  config: any,
-): ReturnType<typeof createConfirmButton>;
-export function getConfirmContainerComponent(config: any) {
-  return (
-    CommonConfirmButton[config as keyof typeof CommonConfirmButton] ||
-    createConfirmButton(config)
-  );
+const _CommonConfirmButtons: Recordable<ConfirmComponent> = {};
+export function generateConfirmComponent(config: any): ConfirmComponent {
+  return _CommonConfirmButtons[config] || isStr(config)
+    ? (_CommonConfirmButtons[config] = createConfirmButton(config))
+    : createConfirmButton(config);
 }

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import "./antv";
 import { VNodeData, VNode } from "vue-demi";
 import { ComponentRenderProxy } from "vue-demi";
 import { base, builtin } from "@yuyi919/antdv1-plus-helper";

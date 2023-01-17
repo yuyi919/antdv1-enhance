@@ -1,8 +1,4 @@
-import {
-  ActionGroup,
-  ActionType,
-  IActionConfig,
-} from "@yuyi919/antdv1-plus-action";
+import { ActionGroup, IActionConfig } from "@yuyi919/antdv1-plus-action";
 import { extractProps, useSlot } from "@yuyi919/antdv1-plus-helper";
 import { useInherit, useNamedRef } from "@yuyi919/vue-use";
 import { IColProps } from "ant-design-vue";
@@ -43,7 +39,7 @@ export const Modal = defineComponent({
         ...other
       } = props.okButtonProps || {};
       return {
-        type: "submit",
+        type: "ok",
         action: inheritEvent.ok,
         title,
         props: {
@@ -52,14 +48,14 @@ export const Modal = defineComponent({
         },
         ...other,
         //@ts-ignore
-      } as IActionConfig<"submit">;
+      } as IActionConfig<"ok">;
     });
     const cancelAction = computed(() => {
       const { title = props.cancelText, ...other } =
         props.cancelButtonProps || {};
       return {
         action: inheritEvent.cancel,
-        type: ActionType.取消,
+        type: "cancels",
         title,
         ...other,
       };

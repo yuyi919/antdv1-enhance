@@ -1,5 +1,6 @@
 import { Component, Prop } from "@yuyi919/antdv1-plus-helper";
 import { AntPopoverProps } from "@yuyi919/antdv1-type-enhance";
+import { VNodeData } from "vue";
 import { ThemedIcon } from "../Icon";
 
 @Component({})
@@ -46,11 +47,11 @@ export class HintFlagProps extends AntPopoverProps {
    */
   @Prop({
     type: Function,
-    default() {
-      return <ThemedIcon type="question-circle-o" />;
+    default(data: any) {
+      return <ThemedIcon type="question-circle-o" {...data} />;
     },
   })
-  public icon?: () => any;
+  public icon?: (data: VNodeData) => any;
 
   /**
    * 展示为按钮

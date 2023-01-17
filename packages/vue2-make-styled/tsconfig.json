@@ -1,0 +1,11 @@
+{
+  "extends": "@yuyi919/workspace-base-rig/profiles/esbuild/tsconfig-base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "dist",
+    "declarationDir": "types",
+    "strict": true,
+    "keyofStringsOnly": true
+  },
+  "include": ["src"]
+}

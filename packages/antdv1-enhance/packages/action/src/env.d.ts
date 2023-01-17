@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import "./antv";
+import "@yuyi919/antdv1-type-enhance"
 import { VNodeData, VNode } from "vue-demi";
-import { ComponentRenderProxy } from "vue-demi";
 import { base, builtin } from "@yuyi919/antdv1-plus-helper";
 import type { ExtendIntrinsicAttributes } from "@yuyi919/vue-jsx-factory";
+import "vue/types/v3-component-options"
+import "vue/types/jsx"
+import "@yuyi919/antdv1-type-enhance"
 
 declare global {
   namespace JSX {

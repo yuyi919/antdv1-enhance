@@ -1,6 +1,6 @@
 export * from "./createUseStyles";
 export * from "./createUseStylesHook";
-export * from "./Factory";
+// export * from "./Factory";
 export * from "./hooks";
 export * from "./jss";
 // TODO:

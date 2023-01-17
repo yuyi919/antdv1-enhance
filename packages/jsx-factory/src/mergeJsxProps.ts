@@ -7,16 +7,15 @@ export interface VNodeData extends VNodeData2 {
   [key: string]: any;
 }
 export function mergeJsxProps(...data: VNodeData[]): VNodeData {
-  return data.reduce(function (c, a) {
+  return data.reduce((c, a) => {
     for (var b in a)
       if (!c[b]) c[b] = a[b];
-      else if (-1 !== normalMerge.indexOf(b))
-        c[b] = Object.assign({}, c[b], a[b]);
-      else if (-1 !== toArrayMerge.indexOf(b)) {
+      else if (normalMerge.includes(b)) c[b] = Object.assign({}, c[b], a[b]);
+      else if (toArrayMerge.includes(b)) {
         var d = c[b] instanceof Array ? c[b] : [c[b]],
           e = a[b] instanceof Array ? a[b] : [a[b]];
         c[b] = d.concat(e);
-      } else if (-1 !== functionalMerge.indexOf(b)) {
+      } else if (functionalMerge.includes(b)) {
         for (var f in a[b])
           if (c[b][f]) {
             var g = c[b][f] instanceof Array ? c[b][f] : [c[b][f]],

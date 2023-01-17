@@ -23,8 +23,6 @@ export default defineConfig(() => {
         "@ant-design/icons/lib/dist": "@ant-design/icons/lib/index.es.js",
         "vue-demi": utils.pathResolve("./node_modules/vue-demi", true),
         "~ant-design-vue": utils.pathResolve("./node_modules/ant-design-vue"),
-        "@yuyi919/vue-jsx-factory/jsx-runtime":
-          "@yuyi919/vue-jsx-factory/jsx-runtime-es",
       },
     },
     root: utils.pathResolve("./playground"),
@@ -66,11 +64,6 @@ export default defineConfig(() => {
       include: ["tslib", "lodash-es", "vue", "ant-design-vue/es/style.js"],
     },
     css: {
-      modules: {
-        scopeBehaviour: "global",
-        exportGlobals: true,
-        localsConvention: "camelCaseOnly",
-      },
       preprocessorOptions: {
         less: {
           modifyVars: {

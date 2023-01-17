@@ -4,10 +4,6 @@ import Types from "@yuyi919/shared-types";
 import * as CSS from "csstype";
 import { BaseCSSProperties, PropsFunc } from "./styles";
 // import { createUseStylesHooks } from "./createUseStylesHook";
-// import { createThemeHelper } from "./helper";
-// import { define } from "./helper/merge";
-import { createHooksApi } from "./hooks";
-import { createGenerateClassName } from "./utils/createGenerateClassName";
 // Disable automatic export
 export {};
 
@@ -159,10 +155,10 @@ export type CreateStyle<
 //   }
 // }
 
-export interface ITheme {
-  color: string;
-  borderRadius: number;
-}
+// export interface ITheme {
+//   color: string;
+//   borderRadius: number;
+// }
 // function defineNew<Theme, Props extends Types.IObj>(init?: any) {
 //   return {
 //     extend: init ? [init] : ([] as CreateStyle<Theme, Props>[]),
@@ -203,50 +199,50 @@ export interface ITheme {
 //   })
 //   .end();
 
-export const theme = { borderRadius: 5, color: void 0 };
-const { useBlock, createStylesHook, useElement, useTheme } =
-  createHooksApi<ITheme>(theme);
+// export const theme = { borderRadius: 5, color: void 0 };
+// const { useBlock, createStylesHook, useElement, useTheme } =
+//   createHooksApi<ITheme>(theme);
 
-function useButton() {
-  const theme = useTheme();
-  const button = useBlock("button")
-    .append<{ size: number }>({
-      color: theme.color,
-      fontSize: 12,
-    })
-    .defaults({
-      color: "red",
-      background: "url(image1.png) url(image2.png) !important",
-    });
+// function useButton() {
+//   const theme = useTheme();
+//   const button = useBlock("button")
+//     .append<{ size: number }>({
+//       color: theme.color,
+//       fontSize: 12,
+//     })
+//     .defaults({
+//       color: "red",
+//       background: "url(image1.png) url(image2.png) !important",
+//     });
 
-  const buttonText = useElement(button, "text").append({
-    color: "white",
-    fontSize: 12,
-  });
-  return {
-    button,
-    buttonText,
-  };
-}
+//   const buttonText = useElement(button, "text").append({
+//     color: "white",
+//     fontSize: 12,
+//   });
+//   return {
+//     button,
+//     buttonText,
+//   };
+// }
 
-export const createStyleHooks = createStylesHook(useButton, {
-  name: "Button",
-  generateId: createGenerateClassName({ seed: "ant", global: true }),
-  // (rule, sheet) => {
-  //   console.log(rule, sheet);
-  //   return ((sheet && sheet.options.classNamePrefix) || "") + rule.key.replace("\\", "");
-  // }
-});
+// export const createStyleHooks = createStylesHook(useButton, {
+//   name: "Button",
+//   generateId: createGenerateClassName({ seed: "ant", global: true }),
+//   // (rule, sheet) => {
+//   //   console.log(rule, sheet);
+//   //   return ((sheet && sheet.options.classNamePrefix) || "") + rule.key.replace("\\", "");
+//   // }
+// });
 
-let size = 5;
-for (let i = 0; i < 3; i++) {
-  const hooks = createStyleHooks({ size });
-  hooks.init(theme, {});
-  hooks.update({ size: size++ });
-  // console.log(hooks.getClasses());
-  // console.log(sheet.keys, sheet.sheets, hooks.getClasses());
-  // console.log(hooks.sheet.toString());
-}
+// let size = 5;
+// for (let i = 0; i < 3; i++) {
+//   const hooks = createStyleHooks({ size });
+//   hooks.init(theme, {});
+//   hooks.update({ size: size++ });
+//   // console.log(hooks.getClasses());
+//   // console.log(sheet.keys, sheet.sheets, hooks.getClasses());
+//   // console.log(hooks.sheet.toString());
+// }
 // export const useSheet = createUseStyles((theme: ITheme) => ({
 //   button: {
 //     color: theme.color,

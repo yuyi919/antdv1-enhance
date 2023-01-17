@@ -2,12 +2,12 @@
  * @package Component
  */
 /* eslint-disable no-redeclare */
+import type { ITheme } from "@yuyi919/vue2-make-styled";
 import {
   borderColorBase as _borderColorBase,
   borderRadiusBase as _borderRadiusBase,
   prefixCls as _prefixCls,
-} from "../../exports/component.module.less";
-import type { Theme } from "../styled/provider";
+} from "./component.module.less";
 import { Getter } from "./interface";
 
 export interface IComponent {
@@ -65,16 +65,16 @@ export function useComponent(name: string) {
     (() => void 0)) as any;
 }
 export const componentGetter = Object.freeze({
-  prefixCls(props: any, theme?: Theme) {
+  prefixCls(props: any, theme?: ITheme) {
     return (theme || props.theme)?.component?.prefixCls || component.prefixCls;
   },
-  borderColorBase(props: any, theme?: Theme) {
+  borderColorBase(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.component?.borderColorBase ||
       component.borderColorBase
     );
   },
-  borderRadiusBase(props: any, theme?: Theme) {
+  borderRadiusBase(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.component?.borderRadiusBase ||
       component.borderRadiusBase

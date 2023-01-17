@@ -26,7 +26,7 @@ export class CodeFilter<K extends string> {
   }
 
   public get filtered() {
-    return this.filter(
+    return this._filter(
       unwrap(this.source),
       unwrap(this.include),
       unwrap(this.exclude),
@@ -40,10 +40,14 @@ export class CodeFilter<K extends string> {
     return this.filtered.length > 0 ? convertArr2Map(this.filtered) : {};
   }
 
+  public filter(name: K) {
+    return this.filtered.length > 0 && this.filtered.includes(name);
+  }
+
   /**
    * 根据display和hidden配置汇总出的displayKey数组
    */
-  public filter(source: K[], include?: K[], exclude?: K[]) {
+  public _filter(source: K[], include?: K[], exclude?: K[]) {
     // console.log(this)
     // 取静态display, 如果是数组则取 当前全部
     const display = include || source;

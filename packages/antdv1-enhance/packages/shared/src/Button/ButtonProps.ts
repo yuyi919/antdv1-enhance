@@ -8,10 +8,22 @@ import { Button, IButtonProps } from "ant-design-vue";
 @Component({})
 export class ButtonProps extends getPropsClass(Button, {}, "type") {
   /**
+   * 自定义按钮颜色
+   */
+  @Prop({ type: String })
+  color?: string;
+
+  /**
    * 仅适用link-button；字体颜色继承上级元素，停用下划线
    **/
   @Prop({ type: Boolean })
   colorInherit?: boolean;
+
+  /**
+   * 隐藏自己
+   */
+  @Prop(Boolean)
+  hidden?: boolean;
 
   /**
    * 提示信息

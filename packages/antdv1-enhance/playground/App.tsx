@@ -15,7 +15,14 @@ import { Button, Modal } from "../src";
 import Demo from "./demo.vue";
 import { FormDemo } from "./demos/Form";
 // import "../shared/src/env.d";
+import { Action, ActionGroup } from "@yuyi919/antdv1-plus-action";
 import { MATERIAL_DEFAULT_THEME } from "@yuyi919/antdv1-plus-theme";
+
+function sleep(num = 10000) {
+  console.log("sleep")
+  return new Promise((res) => setTimeout(res, num, true));
+}
+
 console.log(MATERIAL_DEFAULT_THEME);
 
 export let manager: Modal.ModalManager;
@@ -101,6 +108,7 @@ export default defineComponent({
         store.scrollBehavior = find.scrollBehavior;
       }
     });
+    const hidden = ref(false);
     return () => {
       return (
         <>
@@ -129,7 +137,6 @@ export default defineComponent({
             </Button>
             <Button
               type="second"
-              size="large"
               ghost
               hint="test"
               onClick={async (e) => {
@@ -147,6 +154,89 @@ export default defineComponent({
             >
               点击确认
             </Button>
+            <Button type="second" ghost hint="test">
+              点击确认
+            </Button>
+            <Button type="second" hint="test">
+              点击确认
+            </Button>
+            <Button type="link" color="red" size="small" hint="test">
+              color link
+            </Button>
+            <Button color="red" size="small" hint="test">
+              color link
+            </Button>
+            <Button color="red" size="small" ghost hint="test">
+              color link
+            </Button>
+            <ActionGroup
+              spinning
+              actions={[
+                {
+                  name: "query",
+                  props: { icon: "search" },
+                  action: () => sleep(),
+                  confirm: true,
+                },
+                {
+                  name: "add",
+                  props: { icon: "plus", color: "red" },
+                },
+              ]}
+              defaultProps={{ size: "small", type: "link" }}
+              align="left"
+              on={{
+                add: () => sleep()
+              }}
+            />
+            <ActionGroup
+              spinning
+              actions={[
+                {
+                  name: "query",
+                  props: { icon: "search" },
+                  action: () => sleep(),
+                  confirm: true,
+                  hidden: true,
+                },
+                {
+                  name: "add",
+                  props: { icon: "plus", hint: "新增" },
+                  action: () => sleep(),
+                },
+              ]}
+              primary="add"
+              align="left"
+              defaultProps={{ size: "small" }}
+              flex
+            />
+            <Action
+              color="red"
+              class="test"
+              confirm
+              size="small"
+              ghost
+              hint="test"
+              name="add"
+              handle={() => {
+                hidden.value = true;
+              }}
+              hidden={hidden.value}
+            >
+              color link
+            </Action>
+            <Action
+              color="red"
+              class="test"
+              confirm
+              size="small"
+              ghost
+              hint="test"
+              name="add"
+              handle={() => sleep()}
+            >
+              color link
+            </Action>
             <Demo title="测试" desc="测试">
               {(
                 [

@@ -7,15 +7,15 @@ export interface ThemePalette extends Readonly<IPalette> {
   colors: IPaletteColors;
 }
 export interface ComponentTheme {}
-export interface ITheme {
-  palette: ThemePalette;
-  component: Readonly<IComponent>;
-  components: ComponentTheme;
-  utils: ThemeUtils;
+
+declare module "@yuyi919/vue2-make-styled" {
+  interface ITheme {
+    palette: ThemePalette;
+    component: Readonly<IComponent>;
+    components: ComponentTheme;
+    utils: ThemeUtils;
+  }
 }
 
-declare module "../styled/provider" {
-  interface Theme extends ITheme {}
-}
-
+export type { ITheme } from "@yuyi919/vue2-make-styled";
 export type { IPalette, IPaletteColors };

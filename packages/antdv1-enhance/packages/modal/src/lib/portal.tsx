@@ -1,8 +1,4 @@
-import {
-  ActionType,
-  IActionConfig,
-  ICallableActionConfig,
-} from "@yuyi919/antdv1-plus-action";
+import { ICallableActionConfig } from "@yuyi919/antdv1-plus-action";
 import { ButtonProps } from "@yuyi919/antdv1-plus-shared";
 import { castComputed } from "@yuyi919/shared-utils";
 import { unwrap, useLoader } from "@yuyi919/vue-use";
@@ -46,11 +42,11 @@ export interface IPortalModalOptions
   /**
    * 确认按钮配置，参照ActionButton
    */
-  okButtonProps?: Omit<ICallableActionConfig<ActionType.提交>, "action">;
+  okButtonProps?: Omit<ICallableActionConfig<"ok">, "action">;
   /**
    * 取消按钮配置，参照ActionButton
    */
-  cancelButtonProps?: Omit<ICallableActionConfig<ActionType.取消>, "action">;
+  cancelButtonProps?: Omit<ICallableActionConfig<"cancel">, "action">;
   cycleOnly?: boolean;
   onOk?: (close?: () => void) => any;
   onCancel?: (close?: () => void) => any;
@@ -180,11 +176,11 @@ const ModalProtal = defineComponent({
         cancelButtonProps: {
           ...cancelButtonProps,
           action: events.cancel,
-        } as IActionConfig<ActionType.取消>,
+        },
         okButtonProps: {
           ...okButtonProps,
           action: events.ok,
-        } as IActionConfig<ActionType.提交>,
+        },
         title: title !== false && (title || ""),
         loading: render.loading.value,
       };

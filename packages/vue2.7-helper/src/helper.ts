@@ -3,7 +3,7 @@ import {
   ComponentComputedOptions,
   ComponentCustomProperties,
   ComponentMethodOptions,
-  ExtractPropTypes,
+  ExtractPropTypes as ExtractPropTypes2,
   VueConstructor,
 } from "vue-demi";
 import {
@@ -16,6 +16,7 @@ import {
 } from "vue/types/v3-component-public-instance";
 import { EmitsOptions } from "vue/types/v3-setup-context";
 import { ScopedSlotReturnValue } from "vue/types/vnode";
+import { ExtractPropTypes } from "./ExtractPropTypes";
 import { TsxOnEvents } from "./TsxOnEvents";
 import { TypedPropGroup, TypedPropsMap } from "./TypedPropGroup";
 
@@ -57,7 +58,7 @@ type InternalVueComponent2<
   ComponentMethodOptions
 > &
   ComponentOptionsBase<
-    EProps,
+    ExtractPropTypes2<DProps>,
     Public,
     {},
     {},
@@ -67,9 +68,7 @@ type InternalVueComponent2<
     E,
     string,
     {}
-  > & {
-    props: DProps;
-  };
+  >;
 
 export type VueComponent2<
   IProps,

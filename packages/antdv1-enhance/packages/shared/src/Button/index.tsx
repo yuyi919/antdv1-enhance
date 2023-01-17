@@ -17,15 +17,7 @@ export const Button: VueComponent2<ButtonProps, IButtonEvents> =
     setup(props, context) {
       const hintRef = useNamedRef<HintFlag>("hint");
       const [getInherit] = useInherit(context) as InheritHooks;
-      const nativeOn = {
-        mouseover: () => {
-          hintRef.value?.display();
-        },
-        mouseleave: () => {
-          hintRef.value?.hidden();
-        },
-      };
-      const themed = useThemedButton(props);
+      const [classes, themed] = useThemedButton(props);
       return () => {
         const { children, scopedSlots, on } = getInherit();
         const { hint, hintTitle, type, ...other } = props;
@@ -35,16 +27,23 @@ export const Button: VueComponent2<ButtonProps, IButtonEvents> =
               {
                 scopedSlots,
                 on,
-                nativeOn: hint ? nativeOn : {},
                 props: other,
+                attrs: {
+                  role: props.hidden ? "hidden" : context.attrs.role,
+                },
               },
               themed.value,
             ]}
           >
-            <span>
-              {children}
-              {hint && <HintFlag ref={hintRef} hint={hint} title={hintTitle} />}
-            </span>
+            {hint ? (
+              <span class={classes.content}>
+                {children}
+                &nbsp;
+                {<HintFlag ref={hintRef} hint={hint} title={hintTitle} />}
+              </span>
+            ) : (
+              <span class={classes.content}>{children}</span>
+            )}
           </AntButton>
         );
       };

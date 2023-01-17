@@ -9,6 +9,7 @@ export const STATIC_DEFAULT_THEME = createTheme();
 export function createTheme() {
   let _utils: ThemeUtils;
   return {
+    prefixCls: component.prefixCls,
     palette: Object.freeze({
       ...palette,
       colors: paletteColors,

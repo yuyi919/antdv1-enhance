@@ -2,6 +2,8 @@
  * @package PaletteColors
  */
 /* eslint-disable no-redeclare */
+import type { ITheme } from "@yuyi919/vue2-make-styled";
+import { Getter } from "./interface";
 import {
   blue as _blue,
   cyan as _cyan,
@@ -16,9 +18,7 @@ import {
   red as _red,
   volcano as _volcano,
   yellow as _yellow,
-} from "../../exports/palette.colors.module.less";
-import type { Theme } from "../styled/provider";
-import { Getter } from "./interface";
+} from "./palette.colors.module.less";
 
 export interface IPaletteColors {
   /**
@@ -226,58 +226,58 @@ export function usePaletteColors(name: string) {
     (() => void 0)) as any;
 }
 export const paletteColorsGetter = Object.freeze({
-  blue(props: any, theme?: Theme) {
+  blue(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.colors?.blue || paletteColors.blue;
   },
-  purple(props: any, theme?: Theme) {
+  purple(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.colors?.purple || paletteColors.purple
     );
   },
-  cyan(props: any, theme?: Theme) {
+  cyan(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.colors?.cyan || paletteColors.cyan;
   },
-  green(props: any, theme?: Theme) {
+  green(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.colors?.green || paletteColors.green
     );
   },
-  magenta(props: any, theme?: Theme) {
+  magenta(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.colors?.magenta || paletteColors.magenta
     );
   },
-  pink(props: any, theme?: Theme) {
+  pink(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.colors?.pink || paletteColors.pink;
   },
-  red(props: any, theme?: Theme) {
+  red(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.colors?.red || paletteColors.red;
   },
-  orange(props: any, theme?: Theme) {
+  orange(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.colors?.orange || paletteColors.orange
     );
   },
-  yellow(props: any, theme?: Theme) {
+  yellow(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.colors?.yellow || paletteColors.yellow
     );
   },
-  volcano(props: any, theme?: Theme) {
+  volcano(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.colors?.volcano || paletteColors.volcano
     );
   },
-  geekblue(props: any, theme?: Theme) {
+  geekblue(props: any, theme?: ITheme) {
     return (
       (theme || props.theme)?.palette?.colors?.geekblue ||
       paletteColors.geekblue
     );
   },
-  lime(props: any, theme?: Theme) {
+  lime(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.colors?.lime || paletteColors.lime;
   },
-  gold(props: any, theme?: Theme) {
+  gold(props: any, theme?: ITheme) {
     return (theme || props.theme)?.palette?.colors?.gold || paletteColors.gold;
   },
 });
